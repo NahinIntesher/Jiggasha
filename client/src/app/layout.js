@@ -1,12 +1,13 @@
-import { Metadata } from "next";
 import localFont from "next/font/local";
 import ThemeProviders from "@/components/ThemeProvider";
+import Navbar from "@/components/ui/Navbar";
+import Footer from "@/components/ui/Footer";
 import "./globals.css";
 
 const quicksand = localFont({
   src: "../../public/fonts/Quicksand-Regular.ttf",
   variable: "--font-quicksand",
-  weight: "400 900",
+  display: "swap",
 });
 
 export const metadata = {
@@ -19,9 +20,14 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/images/JiggashaLogo.png" type="image/png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body className={`${quicksand.className}`}>
-        <ThemeProviders>{children}</ThemeProviders>
+      <body className={`${quicksand.className} bg-gray-50 text-gray-900`}>
+        <ThemeProviders>
+          <Navbar />
+          <main className="min-h-screen">{children}</main>
+          <Footer />
+        </ThemeProviders>
       </body>
     </html>
   );

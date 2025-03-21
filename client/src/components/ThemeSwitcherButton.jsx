@@ -24,10 +24,10 @@ const ThemeSwitcher = () => {
   return (
     <button
       onClick={handleThemeChange}
-      className="fixed right-4 top-4 p-3 rounded-full bg-gray-300 dark:bg-gray-700"
+      className="p-3 rounded-full bg-gray-400"
     >
       {theme === "dark" ? (
-        <SunIcon size={24} className="text-yellow-300" />
+        <SunIcon size={24} className="text-yellow-200" />
       ) : (
         <MoonIcon size={24} className="text-white" />
       )}

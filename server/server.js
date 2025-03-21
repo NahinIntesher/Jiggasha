@@ -81,14 +81,10 @@ app.post("/login", (req, res) => {
           (err, response) => {
             if (err) return res.json({ Error: "Error comparing password" });
             if (response) {
-              const uid = results.rows[0].id;
-              const token = jwt.sign(
-                { id: uid, type: "user" },
-                `${process.env.JWT_SECRET}`,
-                {
-                  expiresIn: `${process.env.JWT_EXPIRES_IN}`,
-                }
-              );
+              const uid = results.rows[0].user_id;
+              const token = jwt.sign({ id: uid }, `${process.env.JWT_SECRET}`, {
+                expiresIn: `${process.env.JWT_EXPIRES_IN}`,
+              });
 
               const cookieOptions = {
                 expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
@@ -111,8 +107,13 @@ app.post("/login", (req, res) => {
       }
     }
   );
-  // res.send(`${req.query.username}, ${req.query.password}`);
 });
+
+app.post("/logout", (req, res) => {
+  res.clearCookie(process.env.COOKIE_NAME, { httpOnly: true, secure: process.env.NODE_ENV === 'development' });
+  res.status(200).json({ status: "Success" });
+});
+
 
 const port = process.env.SERVER_PORT;
 app.listen(port, () => {
