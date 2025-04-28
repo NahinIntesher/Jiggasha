@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
       </head>
       <body className={`${quicksand.className} bg-gray-50 text-gray-900`}>
         <ThemeProviders>
-          <Navbar />
+          {/* <Navbar /> */}
           <main className="min-h-screen">{children}</main>
           <Footer />
         </ThemeProviders>
