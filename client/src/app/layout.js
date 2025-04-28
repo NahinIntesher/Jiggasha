@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/images/JiggashaLogo.png" type="image/png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body className={`${quicksand.className} bg-gray-50 text-gray-900`}>
+      <body className={`${quicksand.className} bg-[#fffaf3] text-gray-900`}>
         <ThemeProviders>
           <Navbar />
           <main className="min-h-screen">{children}</main>

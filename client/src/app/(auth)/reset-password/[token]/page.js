@@ -2,32 +2,42 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Send } from "lucide-react";
+import { ArrowLeft, Lock } from "lucide-react";
+import { useParams } from "next/navigation";
 
-export default function ForgetPasswordPage() {
-  const [email, setEmail] = useState("");
+export default function ResetPasswordPage() {
+  const { token } = useParams();
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [status, setStatus] = useState({ type: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (e) => {
-    setEmail(e.target.value);
+  const handleChange = (setter) => (e) => {
+    setter(e.target.value);
     if (status.message) {
       setStatus({ type: "", message: "" });
     }
   };
 
-  const validateEmail = (email) => {
-    const regex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
-    return regex.test(email);
+  const validatePassword = (password) => {
+    return password.length >= 6;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateEmail(email)) {
+    if (!validatePassword(password)) {
       setStatus({
         type: "error",
-        message: "Please enter a valid email address.",
+        message: "Password must be at least 6 characters long.",
+      });
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setStatus({
+        type: "error",
+        message: "Passwords do not match.",
       });
       return;
     }
@@ -35,12 +45,12 @@ export default function ForgetPasswordPage() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("http://localhost:8000/forgot-password", {
+      const response = await fetch("http://localhost:8000/reset-password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ token, password }),
       });
 
       const result = await response.json();
@@ -48,18 +58,19 @@ export default function ForgetPasswordPage() {
       if (response.ok) {
         setStatus({
           type: "success",
-          message: "Password reset instructions have been sent to your email.",
+          message: "Your password has been reset successfully!",
         });
-        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
       } else {
         setStatus({
           type: "error",
           message:
-            result.Error || "Failed to send reset email. Please try again.",
+            result.Error || "Failed to reset password. Please try again.",
         });
       }
     } catch (error) {
-      console.error("Error during password reset request:", error);
+      console.error("Error during password reset:", error);
       setStatus({
         type: "error",
         message: "An error occurred. Please try again later.",
@@ -71,15 +82,11 @@ export default function ForgetPasswordPage() {
 
   return (
     <div className="flex items-center justify-center min-h-screen py-10 px-2 bg-[#fffaf3] font-popins text-black">
-      <div className="bg-white md:w-sm w-full max-w-md px-8 py-6 flex flex-col justify-center rounded-xl shadow-xl overflow-hidden border border-gray-300">
+      <div className="bg-white md:w-sm px-8 py-6 flex flex-col justify-center rounded-xl shadow-xl overflow-hidden border border-gray-300">
         {/* Header */}
         <div className="mb-6 text-center">
-          <h2 className="text-3xl font-bold text-black mb-4">
-            Forgot Password
-          </h2>
-          <p className="text-gray-600">
-            Enter your email to reset your password
-          </p>
+          <h2 className="text-3xl font-bold text-black mb-4">Reset Password</h2>
+          <p className="text-gray-600">Enter your new password below</p>
         </div>
 
         {/* Status Message */}
@@ -95,20 +102,39 @@ export default function ForgetPasswordPage() {
           </div>
         )}
 
-        {/* Form */}
         <form onSubmit={handleSubmit}>
-          {/* Email Input */}
-          <div className="mb-6">
-            <label htmlFor="email" className="block text-black text-sm mb-2">
-              Email Address
+          {/* New Password */}
+          <div className="mb-4">
+            <label htmlFor="password" className="block text-black text-sm mb-2">
+              New Password
             </label>
             <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Enter your registered email"
-              value={email}
-              onChange={handleChange}
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter new password"
+              value={password}
+              onChange={handleChange(setPassword)}
+              className="w-full py-3 px-4 border text-black border-gray-300 rounded-lg bg-gray-100 focus:ring-0 focus:outline-none focus:border-orange-400"
+              required
+            />
+          </div>
+
+          {/* Confirm Password */}
+          <div className="mb-6">
+            <label
+              htmlFor="confirmPassword"
+              className="block text-black text-sm mb-2"
+            >
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="Confirm new password"
+              value={confirmPassword}
+              onChange={handleChange(setConfirmPassword)}
               className="w-full py-3 px-4 border text-black border-gray-300 rounded-lg bg-gray-100 focus:ring-0 focus:outline-none focus:border-orange-400"
               required
             />
@@ -122,10 +148,10 @@ export default function ForgetPasswordPage() {
               className="w-full p-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition duration-300 flex justify-center items-center gap-2"
             >
               {isSubmitting ? (
-                "Sending..."
+                "Resetting..."
               ) : (
                 <>
-                  <Send size={18} /> Send Reset Link
+                  <Lock size={18} /> Reset Password
                 </>
               )}
             </button>
