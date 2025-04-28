@@ -70,7 +70,7 @@ export default function Navbar() {
       "আমাদের সেবা": "/our-services",
     };
 
-    const link = linkMap[item] || "#";
+    const link = linkMap[item] || "/";
     return link;
   };
 

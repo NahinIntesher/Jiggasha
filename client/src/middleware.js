@@ -10,7 +10,7 @@ const publicRoutes = [
   "/reset-password/[token]",
   "/about-us",
   "/contact-us",
-  "our-services",
+  "/our-services",
   "/",
 ];
 

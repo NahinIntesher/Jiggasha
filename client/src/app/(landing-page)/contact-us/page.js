@@ -1,72 +1,77 @@
 import React from "react";
+import { FaRunning, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
 
 export default function ContactUs() {
   return (
-    <div className="bg-white p-10 rounded-lg shadow-lg max-w-4xl mx-auto mt-12">
-      <h1 className="text-5xl font-extrabold text-center text-gray-900 mb-8">
-        Contact Us
-      </h1>
-      <div className="text-lg text-gray-600 leading-relaxed space-y-6">
-        <p>
-          We would love to hear from you! Whether you have questions, feedback,
-          or need support, our team is here to assist you. Please use the
-          contact details below to get in touch with us.
+    <div className=" py-16 px-6 md:px-20">
+      {/* Top Heading Section */}
+      <div className="text-center mb-16">
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+          Contact Us
+        </h1>
+        <p className="text-gray-500 max-w-2xl mx-auto">
+          Any questions or remarks? Just write us a message!
         </p>
-        <div className="space-y-4">
-          <h3 className="text-2xl font-semibold text-gray-800">Our Office</h3>
-          <p>
-            <strong>Address:</strong> 1234 Main Street, Suite 100, City, State,
-            ZIP Code
-          </p>
-          <p>
-            <strong>Phone:</strong> +1 (123) 456-7890
-          </p>
-          <p>
-            <strong>Email:</strong> support@jiggasha.com
-          </p>
-        </div>
+      </div>
 
-        <div>
-          <h3 className="text-2xl font-semibold text-gray-800">Social Media</h3>
-          <p>Connect with us through our social media channels:</p>
-          <ul className="space-x-4">
-            <li>
-              <a
-                href="https://twitter.com/jiggasha"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-800"
-              >
-                Twitter
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://facebook.com/jiggasha"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-800"
-              >
-                Facebook
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://linkedin.com/company/jiggasha"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-800"
-              >
-                LinkedIn
-              </a>
-            </li>
-          </ul>
+      {/* Form Section */}
+      <form className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 mb-20">
+        <input
+          type="email"
+          placeholder="Enter a valid email address"
+          className="p-4 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500"
+        />
+        <input
+          type="text"
+          placeholder="Enter your Name"
+          className="p-4 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500"
+        />
+        <div className="col-span-1 md:col-span-2 flex justify-center">
+          <button
+            type="submit"
+            className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-12 rounded-full transition"
+          >
+            SUBMIT
+          </button>
         </div>
+      </form>
 
-        <p>
-          Feel free to reach out to us anytime. Our team will get back to you as
-          soon as possible.
-        </p>
+      {/* Bottom Info Section */}
+      <div className=" py-12 ">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 px-6">
+          {/* Info 1 */}
+          <div className="text-center border rounded-xl p-10 border-gray-300 shadow-md">
+            <div className="flex justify-center mb-4">
+              <FaRunning className="text-5xl text-orange-500" />
+            </div>
+            <h3 className="text-xl font-bold text-gray-800 mb-2">About Us</h3>
+            <p className="text-gray-500">
+              Learn more about Jiggasha's mission and vision.
+            </p>
+          </div>
+
+          {/* Info 2 */}
+          <div className="text-center border rounded-xl p-10 border-gray-300 shadow-md">
+            <div className="flex justify-center mb-4">
+              <FaPhone className="text-5xl text-orange-500" />
+            </div>
+            <h3 className="text-xl font-bold text-gray-800 mb-2">Phone</h3>
+            <p className="text-gray-500">
+              +880 1234 567 890
+              <br />
+              +880 9876 543 210
+            </p>
+          </div>
+
+          {/* Info 3 */}
+          <div className="text-center border rounded-xl p-10 border-gray-300 shadow-md">
+            <div className="flex justify-center mb-4">
+              <FaMapMarkerAlt className="text-5xl text-orange-500" />
+            </div>
+            <h3 className="text-xl font-bold text-gray-800 mb-2">Our Office</h3>
+            <p className="text-gray-500">123 Main Street, Dhaka, Bangladesh</p>
+          </div>
+        </div>
       </div>
     </div>
   );

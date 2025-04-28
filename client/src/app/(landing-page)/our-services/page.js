@@ -1,92 +1,64 @@
 import React from "react";
+import { FaChalkboardTeacher, FaGamepad, FaUsers } from "react-icons/fa"; // Using react-icons
 
 export default function OurServices() {
   return (
-    <div className="bg-white p-10 rounded-lg shadow-lg max-w-4xl mx-auto mt-12">
-      <h1 className="text-5xl font-extrabold text-center text-gray-900 mb-8">
-        Our Services
-      </h1>
-      <div className="text-lg text-gray-600 leading-relaxed space-y-6">
-        <p>
-          At <span className="font-semibold text-orange-500">Jiggasha</span>, we
-          are committed to providing high-quality services designed to enhance
-          the learning and entertainment experience. We offer a variety of
-          features to help you achieve your goals, whether you're here to learn,
-          play, or connect with others.
+    <div className=" py-16 px-6 md:px-20">
+      {/* Top section like "WE'LL BE BACK SOON" */}
+      <div className="text-center mb-16">
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+          Our Services
+        </h1>
+        <p className="text-gray-500 max-w-2xl mx-auto">
+          At <span className="text-orange-500 font-semibold">Jiggasha</span>, we
+          provide high-quality services designed to make learning fun, engaging,
+          and competitive.
         </p>
+      </div>
 
-        <div className="space-y-6">
-          <div className="flex items-start space-x-4">
-            <div className="w-12 h-12 rounded-full bg-orange-500 text-white flex items-center justify-center">
-              <span className="text-xl font-bold">1</span>
-            </div>
-            <div>
-              <h3 className="text-2xl font-semibold text-gray-800">
-                Interactive Learning
-              </h3>
-              <p>
-                Explore our vast library of courses and learning materials. From
-                technical skills to creative development, our platform provides
-                a wide range of interactive content tailored to meet your needs.
-              </p>
-            </div>
+      {/* Services Section */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
+        {/* Service 1 */}
+        <div className="border border-gray-200 rounded-xl p-8 text-center shadow-md hover:shadow-lg transition">
+          <div className="flex justify-center mb-6">
+            <FaChalkboardTeacher className="text-5xl text-orange-500" />
           </div>
-
-          <div className="flex items-start space-x-4">
-            <div className="w-12 h-12 rounded-full bg-orange-500 text-white flex items-center justify-center">
-              <span className="text-xl font-bold">2</span>
-            </div>
-            <div>
-              <h3 className="text-2xl font-semibold text-gray-800">
-                Gamified Learning Experience
-              </h3>
-              <p>
-                Learn through play! Our gamified approach helps you track
-                progress, earn rewards, and stay motivated while mastering new
-                skills and knowledge.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-start space-x-4">
-            <div className="w-12 h-12 rounded-full bg-orange-500 text-white flex items-center justify-center">
-              <span className="text-xl font-bold">3</span>
-            </div>
-            <div>
-              <h3 className="text-2xl font-semibold text-gray-800">
-                Community Interaction
-              </h3>
-              <p>
-                Join our vibrant community of learners and experts. Share ideas,
-                collaborate on projects, and expand your network in a supportive
-                and engaging environment.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-start space-x-4">
-            <div className="w-12 h-12 rounded-full bg-orange-500 text-white flex items-center justify-center">
-              <span className="text-xl font-bold">4</span>
-            </div>
-            <div>
-              <h3 className="text-2xl font-semibold text-gray-800">
-                Leaderboards & Rewards
-              </h3>
-              <p>
-                Track your progress through our leaderboards and earn exciting
-                rewards as you advance through the platform. Compete, improve,
-                and grow while enjoying the journey.
-              </p>
-            </div>
-          </div>
+          <h3 className="text-2xl font-semibold text-gray-800 mb-4">
+            Interactive Learning
+          </h3>
+          <p className="text-gray-500">
+            Explore a wide range of interactive courses and learning materials
+            tailored to your growth.
+          </p>
         </div>
 
-        <p>
-          At <span className="font-semibold text-orange-500">Jiggasha</span>, we
-          continuously innovate to offer new and exciting services that enrich
-          the learning and entertainment experience. Join us and discover how we
-          can help you achieve your personal and professional goals.
-        </p>
+        {/* Service 2 */}
+        <div className="border border-gray-200 rounded-xl p-8 text-center shadow-md hover:shadow-lg transition">
+          <div className="flex justify-center mb-6">
+            <FaGamepad className="text-5xl text-orange-500" />
+          </div>
+          <h3 className="text-2xl font-semibold text-gray-800 mb-4">
+            Gamified Experience
+          </h3>
+          <p className="text-gray-500">
+            Track your progress, earn rewards, and enjoy learning through
+            exciting game-like challenges.
+          </p>
+        </div>
+
+        {/* Service 3 */}
+        <div className="border border-gray-200 rounded-xl p-8 text-center shadow-md hover:shadow-lg transition">
+          <div className="flex justify-center mb-6">
+            <FaUsers className="text-5xl text-orange-500" />
+          </div>
+          <h3 className="text-2xl font-semibold text-gray-800 mb-4">
+            Community Engagement
+          </h3>
+          <p className="text-gray-500">
+            Connect, collaborate, and grow with a vibrant community of learners
+            and mentors.
+          </p>
+        </div>
       </div>
     </div>
   );
