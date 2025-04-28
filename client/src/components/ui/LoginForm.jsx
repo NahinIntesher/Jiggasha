@@ -1,6 +1,6 @@
 "use client";
-import Image from "next/image";
-import React, { useState } from "react";
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react"; // Importing Eye icons from lucide-react
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
@@ -12,11 +12,7 @@ export default function LoginPage() {
     password: "",
   });
   const [errors, setErrors] = useState({});
-
-  const validateEmail = (email) => {
-    const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
-    return emailPattern.test(email);
-  };
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,13 +46,10 @@ export default function LoginPage() {
         mode: "cors",
         body: JSON.stringify(formData),
       });
-      console.log("Submitting login data:", formData.username);
 
       const result = await response.json();
-      console.log("Login response:", result);
 
       if (result.status === "Success") {
-        console.log("Login successful, redirecting...");
         router.replace("/home");
       } else {
         setErrors({ general: result.Error || "Invalid username or password" });
@@ -78,6 +71,7 @@ export default function LoginPage() {
         <h2 className="text-3xl font-bold text-black mb-4">Login</h2>
         <p className="text-gray-600">Sign in to your account</p>
       </div>
+
       {/* General Errors */}
       {errors.general && (
         <p className="text-red-500 text-center text-sm mb-1">
@@ -86,13 +80,13 @@ export default function LoginPage() {
       )}
 
       <form onSubmit={handleSubmit}>
-        {/* Email */}
+        {/* Username */}
         <div className="mb-2">
           <label htmlFor="username" className="block text-black text-sm">
             Username
           </label>
           <input
-            type="username"
+            type="text"
             id="username"
             name="username"
             placeholder="example145"
@@ -106,29 +100,42 @@ export default function LoginPage() {
           )}
         </div>
 
-        {/* Password */}
+        {/* Password - Fixed icon alignment */}
         <div className="mb-2">
           <label htmlFor="password" className="block text-black text-sm">
             Password
           </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="•••••••••••••"
-            value={formData.password}
-            onChange={handleChange}
-            className="w-full py-2 px-3 border text-black border-gray-300 rounded-lg bg-gray-100 mt-1 focus:ring-0 focus:outline-none focus:border-orange-400"
-            minLength="10"
-            maxLength="36"
-            required
-          />
+          <div className="relative mt-1">
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              name="password"
+              placeholder="•••••••••••••"
+              value={formData.password}
+              onChange={handleChange}
+              className="w-full py-2 px-3 border text-black border-gray-300 rounded-lg bg-gray-100 focus:ring-0 focus:outline-none focus:border-orange-400 pr-10"
+              minLength="10"
+              maxLength="36"
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute inset-y-0 right-0 flex items-center pr-3"
+            >
+              {showPassword ? (
+                <EyeOff className="text-gray-600 w-5 h-5" />
+              ) : (
+                <Eye className="text-gray-600 w-5 h-5" />
+              )}
+            </button>
+          </div>
           {errors.password && (
             <p className="text-red-500 mt-1 text-xs">{errors.password}</p>
           )}
         </div>
 
-        {/* Remember Me */}
+        {/* Remember Me and Forgot Password */}
         <div className="flex items-center justify-between mb-6 text-xs">
           <div className="flex items-start">
             <div className="flex items-center h-5">
@@ -146,7 +153,6 @@ export default function LoginPage() {
             </div>
           </div>
 
-          {/* Forgot Password */}
           <Link
             href="/forget-password"
             className="text-xs font-medium text-orange-600 hover:underline"

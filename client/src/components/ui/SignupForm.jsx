@@ -2,12 +2,13 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Eye, EyeOff } from "lucide-react"; // Added eye icons import
 
 export default function AdminRegistrationPage() {
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
-    username: "", // Added username field that was missing in state but used in form
+    username: "",
     role: "student",
     mobile: "",
     email: "",
@@ -18,6 +19,9 @@ export default function AdminRegistrationPage() {
     department: "",
   });
   const [errors, setErrors] = useState({});
+  // Toggle state for password visibility
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   // List of available departments for University level
   const availableDepartments = [
@@ -48,7 +52,6 @@ export default function AdminRegistrationPage() {
     "Marine Engineering",
     "Nursing",
   ];
-
   // Validation functions here
   const validateName = (name) => /^[a-zA-Z\s]{1,30}$/.test(name);
   const validateMobileNumber = (mobile) => {
@@ -64,17 +67,14 @@ export default function AdminRegistrationPage() {
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
     return regex.test(password);
   };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-
     // Clear error for this field when user starts typing again
     if (errors[name]) {
       setErrors({ ...errors, [name]: undefined });
     }
   };
-
   const handleClassLevelChange = (e) => {
     const { value } = e.target;
     setFormData({
@@ -83,17 +83,14 @@ export default function AdminRegistrationPage() {
       group: value === "9-12" ? formData.group : "", // Clear group if not 9-12
       department: value === "University" ? formData.department : "", // Clear department if not University
     });
-
     // Clear class level error when changed
     if (errors.classLevel) {
       setErrors({ ...errors, classLevel: undefined });
     }
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = {};
-
     // Validate fields
     if (!validateName(formData.name)) newErrors.name = "Invalid name.";
     if (!validateMobileNumber(formData.mobile))
@@ -104,14 +101,11 @@ export default function AdminRegistrationPage() {
       newErrors.password = "Password must meet requirements.";
     if (formData.password !== formData.confirmPassword)
       newErrors.confirmPassword = "Passwords do not match.";
-
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
-
     setErrors({});
-
     try {
       const response = await fetch("http://localhost:8000/signup", {
         method: "POST",
@@ -121,9 +115,7 @@ export default function AdminRegistrationPage() {
         body: JSON.stringify(formData),
         credentials: "include",
       });
-
       const result = await response.json();
-
       if (
         response.status === 400 &&
         result.Error === "Username already taken"
@@ -141,7 +133,6 @@ export default function AdminRegistrationPage() {
       setErrors({ general: "An error occurred, please try again later." });
     }
   };
-
   // Helper function to determine input field border style
   const getInputClassName = (fieldName) => {
     const baseClasses =
@@ -150,7 +141,6 @@ export default function AdminRegistrationPage() {
       ? `${baseClasses} border-red-500`
       : `${baseClasses} border-gray-300`;
   };
-
   return (
     <div className="bg-white md:w-sm px-8 py-6 flex flex-col justify-center rounded-xl shadow-xl md:min-w-3xl sm:min-w-xl overflow-hidden border border-gray-300">
       {/* Header */}
@@ -158,14 +148,12 @@ export default function AdminRegistrationPage() {
         <h2 className="text-3xl font-bold text-black mb-4">Signup</h2>
         <p className="text-gray-600">Create your account</p>
       </div>
-
       {/* General Errors */}
       {errors.general && (
         <p className="text-red-500 text-center text-sm mb-1">
           {errors.general}
         </p>
       )}
-
       <form onSubmit={handleSubmit}>
         {/* Name */}
         <div className="mb-2">
@@ -186,7 +174,6 @@ export default function AdminRegistrationPage() {
             <p className="text-red-500 mt-1 text-xs">{errors.name}</p>
           )}
         </div>
-
         {/* Username */}
         <div className="mb-2">
           <label htmlFor="username" className="block text-black text-sm">
@@ -206,7 +193,6 @@ export default function AdminRegistrationPage() {
             <p className="text-red-500 mt-1 text-xs">{errors.username}</p>
           )}
         </div>
-
         {/* Class Level */}
         <div className="mb-2">
           <label htmlFor="classLevel" className="block text-black text-sm">
@@ -229,7 +215,6 @@ export default function AdminRegistrationPage() {
             <p className="text-red-500 mt-1 text-xs">{errors.classLevel}</p>
           )}
         </div>
-
         {/* Group (Only for 9-12) */}
         {formData.classLevel === "9-12" && (
           <div className="mb-2">
@@ -251,7 +236,6 @@ export default function AdminRegistrationPage() {
             )}
           </div>
         )}
-
         {/* Department (Only for University) */}
         {formData.classLevel === "University" && (
           <div className="mb-2">
@@ -278,7 +262,6 @@ export default function AdminRegistrationPage() {
             )}
           </div>
         )}
-
         {/* Mobile */}
         <div className="mb-2">
           <label htmlFor="mobile" className="block text-black text-sm">
@@ -298,7 +281,6 @@ export default function AdminRegistrationPage() {
             <p className="text-red-500 mt-1 text-xs">{errors.mobile}</p>
           )}
         </div>
-
         {/* Email */}
         <div className="mb-2">
           <label htmlFor="email" className="block text-black text-sm">
@@ -318,51 +300,78 @@ export default function AdminRegistrationPage() {
             <p className="text-red-500 mt-1 text-xs">{errors.email}</p>
           )}
         </div>
-
-        {/* Password */}
+        {/* Password - with eye icon */}
         <div className="mb-2">
           <label htmlFor="password" className="block text-black text-sm">
             Password
           </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="•••••••••••••"
-            value={formData.password}
-            onChange={handleChange}
-            className={getInputClassName("password")}
-            minLength="10"
-            maxLength="36"
-            required
-          />
+          <div className="relative mt-1">
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              name="password"
+              placeholder="•••••••••••••"
+              value={formData.password}
+              onChange={handleChange}
+              className={`${getInputClassName("password")} pr-10`}
+              minLength="10"
+              maxLength="36"
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute inset-y-0 right-0 flex items-center pr-3"
+            >
+              {showPassword ? (
+                <EyeOff className="text-gray-600 w-5 h-5" />
+              ) : (
+                <Eye className="text-gray-600 w-5 h-5" />
+              )}
+            </button>
+          </div>
           {errors.password && (
             <p className="text-red-500 mt-1 text-xs">{errors.password}</p>
           )}
+          <p className="text-gray-500 mt-1 text-xs">
+            Password must contain at least one uppercase letter, one lowercase
+            letter, one number, and one special character.
+          </p>
         </div>
-
-        {/* Confirm Password */}
+        {/* Confirm Password - with eye icon */}
         <div className="mb-4">
           <label htmlFor="confirmPassword" className="block text-black text-sm">
             Confirm Password
           </label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            placeholder="•••••••••••••"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            className={getInputClassName("confirmPassword")}
-            required
-          />
+          <div className="relative mt-1">
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="•••••••••••••"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              className={`${getInputClassName("confirmPassword")} pr-10`}
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              className="absolute inset-y-0 right-0 flex items-center pr-3"
+            >
+              {showConfirmPassword ? (
+                <EyeOff className="text-gray-600 w-5 h-5" />
+              ) : (
+                <Eye className="text-gray-600 w-5 h-5" />
+              )}
+            </button>
+          </div>
           {errors.confirmPassword && (
             <p className="text-red-500 mt-1 text-xs">
               {errors.confirmPassword}
             </p>
           )}
         </div>
-
         {/* Submit Button */}
         <div className="mb-4 mt-5">
           <button
@@ -372,7 +381,6 @@ export default function AdminRegistrationPage() {
             Sign Up
           </button>
         </div>
-
         {/* Footer */}
         <div className="text-center">
           <p className="text-sm font-light text-black mb-2">
