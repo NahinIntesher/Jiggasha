@@ -24,12 +24,12 @@ const ThemeSwitcher = () => {
   return (
     <button
       onClick={handleThemeChange}
-      className="p-3 rounded-full bg-gray-400"
+      className="p-3 rounded-full bg-[#d9d9d9] hover:bg-[#b9b9b9] transition duration-300 ease-in-out"
     >
       {theme === "dark" ? (
-        <SunIcon size={24} className="text-yellow-200" />
+        <SunIcon size={24} className="text-black-200" />
       ) : (
-        <MoonIcon size={24} className="text-white" />
+        <MoonIcon size={24} className="text-black" />
       )}
     </button>
   );
