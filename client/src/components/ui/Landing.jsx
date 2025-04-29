@@ -1,16 +1,15 @@
-"use client";
 import React from "react";
-import {
-  FaGraduationCap,
-  FaGamepad,
-  FaUsers,
-  FaTrophy,
-  FaBook,
+import { 
+  FaGraduationCap, 
+  FaGamepad, 
+  FaUsers, 
+  FaTrophy, 
+  FaBook, 
   FaUniversity,
   FaComments,
   FaChartLine,
 } from "react-icons/fa";
-import {
+import { 
   Award,
   BookOpen,
   BrainCircuit,
@@ -86,8 +85,7 @@ export default function Home() {
       <section
         className="relative bg-gradient-to-r from-orange-600 to-orange-400 h-screen flex items-center justify-center text-center px-6 bg-cover bg-center"
         style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
+          backgroundImage: "url('/images/bgimage.jpg')",
           backgroundColor: "rgba(255, 140, 0, 0.3)",
           backgroundBlendMode: "multiply",
           backgroundSize: "cover",
@@ -97,7 +95,7 @@ export default function Home() {
       >
         <div className="absolute inset-0 bg-black/30"></div>
         <div className="max-w-4xl relative z-10">
-          <motion.h1
+          <motion.h1 
             className="text-5xl md:text-6xl font-extrabold text-white leading-tight mb-4"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -105,8 +103,8 @@ export default function Home() {
           >
             জিজ্ঞাসা
           </motion.h1>
-
-          <motion.p
+          
+          <motion.p 
             className="text-2xl md:text-3xl font-bold text-white mb-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -114,18 +112,17 @@ export default function Home() {
           >
             যেখানে শেখা খেলার মতো আনন্দদায়ক
           </motion.p>
-
-          <motion.p
+          
+          <motion.p 
             className="text-lg md:text-xl text-white mb-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            প্রতিটি পাঠকে চ্যালেঞ্জে রূপান্তর করুন, প্রতিটি জয় হোক শিক্ষার নতুন
-            ধাপ
+            প্রতিটি পাঠকে চ্যালেঞ্জে রূপান্তর করুন, প্রতিটি জয় হোক শিক্ষার নতুন ধাপ
           </motion.p>
-
-          <motion.div
+          
+          <motion.div 
             className="flex flex-col sm:flex-row justify-center gap-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -150,15 +147,15 @@ export default function Home() {
             </motion.a>
           </motion.div>
         </div>
-
+        
         {/* Animated scroll indicator */}
-        <motion.div
+        <motion.div 
           className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 2 }}
         >
           <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
-            <motion.div
+            <motion.div 
               className="w-1 h-2 bg-white rounded-full mt-2"
               animate={{ opacity: [0, 1, 0] }}
               transition={{ repeat: Infinity, duration: 2, delay: 0.5 }}
@@ -175,7 +172,7 @@ export default function Home() {
               কেন <span className="text-orange-600">জিজ্ঞাসা</span>?
             </h2>
           </FadeIn>
-
+          
           <FadeIn delay={0.2}>
             <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
               জিজ্ঞাসা মানে{" "}
@@ -189,12 +186,9 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <SlideIn direction="left" delay={0.3}>
-              <motion.div
+              <motion.div 
                 className="bg-orange-50 p-6 rounded-xl"
-                whileHover={{
-                  y: -10,
-                  boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
-                }}
+                whileHover={{ y: -10, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
                 transition={{ duration: 0.3 }}
               >
                 <div className="h-16 w-16 bg-orange-100 rounded-full flex items-center justify-center mb-4 mx-auto">
@@ -209,12 +203,9 @@ export default function Home() {
             </SlideIn>
 
             <FadeIn delay={0.4}>
-              <motion.div
+              <motion.div 
                 className="bg-orange-50 p-6 rounded-xl"
-                whileHover={{
-                  y: -10,
-                  boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
-                }}
+                whileHover={{ y: -10, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
                 transition={{ duration: 0.3 }}
               >
                 <div className="h-16 w-16 bg-orange-100 rounded-full flex items-center justify-center mb-4 mx-auto">
@@ -231,12 +222,9 @@ export default function Home() {
             </FadeIn>
 
             <SlideIn direction="right" delay={0.3}>
-              <motion.div
+              <motion.div 
                 className="bg-orange-50 p-6 rounded-xl"
-                whileHover={{
-                  y: -10,
-                  boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
-                }}
+                whileHover={{ y: -10, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
                 transition={{ duration: 0.3 }}
               >
                 <div className="h-16 w-16 bg-orange-100 rounded-full flex items-center justify-center mb-4 mx-auto">
@@ -265,12 +253,12 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Battle Royal */}
             <SlideIn direction="left" delay={0.2}>
-              <motion.div
+              <motion.div 
                 className="bg-white p-8 rounded-xl shadow-lg border border-orange-100 hover:shadow-xl transition"
                 whileHover={{ scale: 1.03 }}
               >
                 <div className="flex justify-center mb-6">
-                  <motion.div
+                  <motion.div 
                     className="bg-orange-500 p-4 rounded-full"
                     whileHover={{ rotate: 360 }}
                     transition={{ duration: 1 }}
@@ -291,20 +279,20 @@ export default function Home() {
 
             {/* Pair to Pair */}
             <FadeIn delay={0.3}>
-              <motion.div
+              <motion.div 
                 className="bg-white p-8 rounded-xl shadow-lg border border-orange-100 hover:shadow-xl transition"
                 whileHover={{ scale: 1.03 }}
               >
                 <div className="flex justify-center mb-6">
-                  <motion.div
+                  <motion.div 
                     className="bg-orange-500 p-4 rounded-full"
-                    animate={{
+                    animate={{ 
                       scale: [1, 1.1, 1],
-                      rotate: [0, 5, -5, 0],
+                      rotate: [0, 5, -5, 0]
                     }}
-                    transition={{
-                      repeat: Infinity,
-                      duration: 4,
+                    transition={{ 
+                      repeat: Infinity, 
+                      duration: 4 
                     }}
                   >
                     <FaUsers className="text-3xl text-white" />
@@ -315,20 +303,19 @@ export default function Home() {
                 </h3>
                 <p className="text-gray-700 text-center">
                   দুইজন শিক্ষার্থী ৪ রাউন্ডে প্রতিযোগিতা করবে, প্রত্যেকে ২
-                  রাউন্ডের বিষয় নির্বাচন করবে। আপনার জ্ঞানকে সরাসরি পরীক্ষা
-                  করুন!
+                  রাউন্ডের বিষয় নির্বাচন করবে। আপনার জ্ঞানকে সরাসরি পরীক্ষা করুন!
                 </p>
               </motion.div>
             </FadeIn>
 
             {/* Friendly Battle */}
             <SlideIn direction="right" delay={0.2}>
-              <motion.div
+              <motion.div 
                 className="bg-white p-8 rounded-xl shadow-lg border border-orange-100 hover:shadow-xl transition"
                 whileHover={{ scale: 1.03 }}
               >
                 <div className="flex justify-center mb-6">
-                  <motion.div
+                  <motion.div 
                     className="bg-orange-500 p-4 rounded-full"
                     whileHover={{ scale: 1.2 }}
                   >
@@ -360,15 +347,15 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Courses with AI */}
             <ScaleIn delay={0.1}>
-              <motion.div
+              <motion.div 
                 className="bg-orange-50 p-6 rounded-xl"
-                whileHover={{
+                whileHover={{ 
                   y: -5,
-                  boxShadow: "0 10px 15px -3px rgba(249, 115, 22, 0.3)",
+                  boxShadow: "0 10px 15px -3px rgba(249, 115, 22, 0.3)"
                 }}
               >
                 <div className="flex items-center mb-4">
-                  <motion.div
+                  <motion.div 
                     className="bg-orange-100 p-3 rounded-full mr-4"
                     whileHover={{ rotate: 15 }}
                   >
@@ -386,28 +373,22 @@ export default function Home() {
 
             {/* Daily Progress */}
             <ScaleIn delay={0.2}>
-              <motion.div
+              <motion.div 
                 className="bg-orange-50 p-6 rounded-xl"
-                whileHover={{
+                whileHover={{ 
                   y: -5,
-                  boxShadow: "0 10px 15px -3px rgba(249, 115, 22, 0.3)",
+                  boxShadow: "0 10px 15px -3px rgba(249, 115, 22, 0.3)"
                 }}
               >
                 <div className="flex items-center mb-4">
-                  <motion.div
+                  <motion.div 
                     className="bg-orange-100 p-3 rounded-full mr-4"
                     animate={{ rotate: [0, 360] }}
-                    transition={{
-                      duration: 10,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
+                    transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
                   >
                     <FaChartLine className="text-orange-600 text-xl" />
                   </motion.div>
-                  <h3 className="text-xl font-semibold">
-                    দৈনিক অগ্রগতি ও কুইজ
-                  </h3>
+                  <h3 className="text-xl font-semibold">দৈনিক অগ্রগতি ও কুইজ</h3>
                 </div>
                 <p className="text-gray-600">
                   আপনার ২৪ ঘন্টার পড়াশোনার অগ্রগতি ট্র্যাক করুন এবং সাম্প্রতিক
@@ -418,15 +399,15 @@ export default function Home() {
 
             {/* Quests */}
             <ScaleIn delay={0.3}>
-              <motion.div
+              <motion.div 
                 className="bg-orange-50 p-6 rounded-xl"
-                whileHover={{
+                whileHover={{ 
                   y: -5,
-                  boxShadow: "0 10px 15px -3px rgba(249, 115, 22, 0.3)",
+                  boxShadow: "0 10px 15px -3px rgba(249, 115, 22, 0.3)"
                 }}
               >
                 <div className="flex items-center mb-4">
-                  <motion.div
+                  <motion.div 
                     className="bg-orange-100 p-3 rounded-full mr-4"
                     whileHover={{ scale: 1.2 }}
                   >
@@ -436,23 +417,22 @@ export default function Home() {
                 </div>
                 <p className="text-gray-600">
                   পর্যায়ক্রমে নতুন কোয়েস্ট আসবে। নির্দিষ্ট শিক্ষণ লক্ষ্য
-                  সম্পূর্ণ করে এই চ্যালেঞ্জগুলি জয় করুন এবং পুরস্কার অর্জন
-                  করুন।
+                  সম্পূর্ণ করে এই চ্যালেঞ্জগুলি জয় করুন এবং পুরস্কার অর্জন করুন।
                 </p>
               </motion.div>
             </ScaleIn>
 
             {/* Blog */}
             <ScaleIn delay={0.4}>
-              <motion.div
+              <motion.div 
                 className="bg-orange-50 p-6 rounded-xl"
-                whileHover={{
+                whileHover={{ 
                   y: -5,
-                  boxShadow: "0 10px 15px -3px rgba(249, 115, 22, 0.3)",
+                  boxShadow: "0 10px 15px -3px rgba(249, 115, 22, 0.3)"
                 }}
               >
                 <div className="flex items-center mb-4">
-                  <motion.div
+                  <motion.div 
                     className="bg-orange-100 p-3 rounded-full mr-4"
                     whileHover={{ rotate: 15 }}
                   >
@@ -470,22 +450,22 @@ export default function Home() {
 
             {/* Leaderboard */}
             <ScaleIn delay={0.5}>
-              <motion.div
+              <motion.div 
                 className="bg-orange-50 p-6 rounded-xl"
-                whileHover={{
+                whileHover={{ 
                   y: -5,
-                  boxShadow: "0 10px 15px -3px rgba(249, 115, 22, 0.3)",
+                  boxShadow: "0 10px 15px -3px rgba(249, 115, 22, 0.3)"
                 }}
               >
                 <div className="flex items-center mb-4">
-                  <motion.div
+                  <motion.div 
                     className="bg-orange-100 p-3 rounded-full mr-4"
-                    animate={{
+                    animate={{ 
                       y: [0, -5, 0],
                     }}
-                    transition={{
-                      repeat: Infinity,
-                      duration: 2,
+                    transition={{ 
+                      repeat: Infinity, 
+                      duration: 2 
                     }}
                   >
                     <FaChartLine className="text-orange-600 text-xl" />
@@ -493,31 +473,30 @@ export default function Home() {
                   <h3 className="text-xl font-semibold">লিডারবোর্ড</h3>
                 </div>
                 <p className="text-gray-600">
-                  ব্যাটল রয়্যাল এবং পেয়ার-টু-পেয়ার ব্যাটল জয় করে পয়েন্ট
-                  অর্জন করুন। র্যাঙ্ক বাড়ান এবং দেখুন আপনি অন্যদের তুলনায় কতটা
-                  ভালো!
+                  ব্যাটল রয়্যাল এবং পেয়ার-টু-পেয়ার ব্যাটল জয় করে পয়েন্ট অর্জন
+                  করুন। র্যাঙ্ক বাড়ান এবং দেখুন আপনি অন্যদের তুলনায় কতটা ভালো!
                 </p>
               </motion.div>
             </ScaleIn>
 
             {/* Communities */}
             <ScaleIn delay={0.6}>
-              <motion.div
+              <motion.div 
                 className="bg-orange-50 p-6 rounded-xl"
-                whileHover={{
+                whileHover={{ 
                   y: -5,
-                  boxShadow: "0 10px 15px -3px rgba(249, 115, 22, 0.3)",
+                  boxShadow: "0 10px 15px -3px rgba(249, 115, 22, 0.3)"
                 }}
               >
                 <div className="flex items-center mb-4">
-                  <motion.div
+                  <motion.div 
                     className="bg-orange-100 p-3 rounded-full mr-4"
-                    animate={{
+                    animate={{ 
                       scale: [1, 1.1, 1],
                     }}
-                    transition={{
-                      repeat: Infinity,
-                      duration: 3,
+                    transition={{ 
+                      repeat: Infinity, 
+                      duration: 3 
                     }}
                   >
                     <Users className="text-orange-600 text-xl" />
@@ -545,26 +524,38 @@ export default function Home() {
                   <span className="text-orange-200">এআই শিক্ষা সহকারী</span>
                 </h2>
                 <p className="text-lg mb-8">
-                  জিজ্ঞাসার এআই সহকারী আপনার অগ্রগতি পর্যবেক্ষণ করে,
-                  ব্যক্তিগতকৃত পরামর্শ দেয় এবং শুধু একাডেমিক নয়, জীবন
-                  উন্নয়নের জন্যও নির্দেশনা প্রদান করে।
+                  জিজ্ঞাসার এআই সহকারী আপনার অগ্রগতি পর্যবেক্ষণ করে, ব্যক্তিগতকৃত
+                  পরামর্শ দেয় এবং শুধু একাডেমিক নয়, জীবন উন্নয়নের জন্যও
+                  নির্দেশনা প্রদান করে।
                 </p>
                 <ul className="space-y-4">
-                  <motion.li className="flex items-start" whileHover={{ x: 5 }}>
+                  <motion.li 
+                    className="flex items-start"
+                    whileHover={{ x: 5 }}
+                  >
                     <ChevronRight className="h-6 w-6 text-orange-200 mr-2 flex-shrink-0" />
                     <span>
                       আপনার শেখার ধরণ ট্র্যাক করে এবং বিষয়বস্তু কাস্টমাইজ করে
                     </span>
                   </motion.li>
-                  <motion.li className="flex items-start" whileHover={{ x: 5 }}>
+                  <motion.li 
+                    className="flex items-start"
+                    whileHover={{ x: 5 }}
+                  >
                     <ChevronRight className="h-6 w-6 text-orange-200 mr-2 flex-shrink-0" />
                     <span>একাডেমিক প্রশ্নের তাৎক্ষণিক উত্তর প্রদান করে</span>
                   </motion.li>
-                  <motion.li className="flex items-start" whileHover={{ x: 5 }}>
+                  <motion.li 
+                    className="flex items-start"
+                    whileHover={{ x: 5 }}
+                  >
                     <ChevronRight className="h-6 w-6 text-orange-200 mr-2 flex-shrink-0" />
                     <span>ব্যক্তিগতকৃত পড়ার সুপারিশ প্রদান করে</span>
                   </motion.li>
-                  <motion.li className="flex items-start" whileHover={{ x: 5 }}>
+                  <motion.li 
+                    className="flex items-start"
+                    whileHover={{ x: 5 }}
+                  >
                     <ChevronRight className="h-6 w-6 text-orange-200 mr-2 flex-shrink-0" />
                     <span>
                       সময় ব্যবস্থাপনা এবং পড়ার পরিকল্পনায় সাহায্য করে
@@ -573,29 +564,32 @@ export default function Home() {
                 </ul>
               </div>
             </SlideIn>
-
+            
             <SlideIn direction="right">
               <div className="flex justify-center">
-                <motion.div className="relative" whileHover={{ scale: 1.05 }}>
-                  <motion.div
+                <motion.div 
+                  className="relative"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <motion.div 
                     className="bg-white p-6 rounded-2xl shadow-2xl max-w-xs"
                     initial={{ rotate: -5 }}
                     animate={{ rotate: 5 }}
-                    transition={{
+                    transition={{ 
                       repeat: Infinity,
                       repeatType: "reverse",
-                      duration: 3,
+                      duration: 3
                     }}
                   >
                     <div className="flex items-center mb-4">
-                      <motion.div
+                      <motion.div 
                         className="bg-orange-100 p-2 rounded-full mr-3"
-                        animate={{
+                        animate={{ 
                           scale: [1, 1.1, 1],
                         }}
-                        transition={{
-                          repeat: Infinity,
-                          duration: 2,
+                        transition={{ 
+                          repeat: Infinity, 
+                          duration: 2 
                         }}
                       >
                         <BrainCircuit className="text-orange-600" />
@@ -606,20 +600,20 @@ export default function Home() {
                     </div>
                     <div className="bg-gray-50 p-4 rounded-lg mb-4">
                       <p className="text-gray-800 text-sm">
-                        হ্যালো! আমি দেখছি আপনি আজকে বীজগণিত নিয়ে কাজ করছেন।
-                        আপনি কি আপনার দুর্বল এলাকাগুলির উপর ভিত্তি করে কিছু
-                        অনুশীলন সমস্যার পরামর্শ চান?
+                        হ্যালো! আমি দেখছি আপনি আজকে বীজগণিত নিয়ে কাজ করছেন। আপনি
+                        কি আপনার দুর্বল এলাকাগুলির উপর ভিত্তি করে কিছু অনুশীলন
+                        সমস্যার পরামর্শ চান?
                       </p>
                     </div>
                     <div className="flex space-x-2">
-                      <motion.button
+                      <motion.button 
                         className="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                       >
                         হ্যাঁ, দয়া করে!
                       </motion.button>
-                      <motion.button
+                      <motion.button 
                         className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
@@ -628,7 +622,7 @@ export default function Home() {
                       </motion.button>
                     </div>
                   </motion.div>
-                  <motion.div
+                  <motion.div 
                     className="absolute -bottom-6 -right-6 bg-orange-700 text-white px-4 py-2 rounded-lg shadow-lg"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
@@ -654,7 +648,7 @@ export default function Home() {
           </FadeIn>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-            <motion.div
+            <motion.div 
               className="bg-orange-50 p-6 rounded-xl"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -668,7 +662,7 @@ export default function Home() {
               </p>
             </motion.div>
 
-            <motion.div
+            <motion.div 
               className="bg-orange-50 p-6 rounded-xl"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -682,7 +676,7 @@ export default function Home() {
               </p>
             </motion.div>
 
-            <motion.div
+            <motion.div 
               className="bg-orange-50 p-6 rounded-xl"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -696,7 +690,7 @@ export default function Home() {
               </p>
             </motion.div>
 
-            <motion.div
+            <motion.div 
               className="bg-orange-50 p-6 rounded-xl"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -725,12 +719,12 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Testimonial 1 */}
             <SlideIn direction="left">
-              <motion.div
+              <motion.div 
                 className="bg-white p-6 rounded-xl shadow-md"
                 whileHover={{ y: -10 }}
               >
                 <div className="flex items-center mb-4">
-                  <motion.div
+                  <motion.div 
                     className="rounded-full h-12 w-12 mr-3 overflow-hidden"
                     whileHover={{ scale: 1.1 }}
                   >
@@ -751,7 +745,10 @@ export default function Home() {
                 </p>
                 <div className="flex mt-4 text-orange-400">
                   {[...Array(5)].map((_, i) => (
-                    <motion.div key={i} whileHover={{ scale: 1.2 }}>
+                    <motion.div
+                      key={i}
+                      whileHover={{ scale: 1.2 }}
+                    >
                       <Star className="w-5 h-5 fill-current" />
                     </motion.div>
                   ))}
@@ -761,12 +758,12 @@ export default function Home() {
 
             {/* Testimonial 2 */}
             <FadeIn delay={0.2}>
-              <motion.div
+              <motion.div 
                 className="bg-white p-6 rounded-xl shadow-md"
                 whileHover={{ y: -10 }}
               >
                 <div className="flex items-center mb-4">
-                  <motion.div
+                  <motion.div 
                     className="rounded-full h-12 w-12 mr-3 overflow-hidden"
                     whileHover={{ scale: 1.1 }}
                   >
@@ -791,7 +788,10 @@ export default function Home() {
                 </p>
                 <div className="flex mt-4 text-orange-400">
                   {[...Array(5)].map((_, i) => (
-                    <motion.div key={i} whileHover={{ scale: 1.2 }}>
+                    <motion.div
+                      key={i}
+                      whileHover={{ scale: 1.2 }}
+                    >
                       <Star className="w-5 h-5 fill-current" />
                     </motion.div>
                   ))}
@@ -801,12 +801,12 @@ export default function Home() {
 
             {/* Testimonial 3 */}
             <SlideIn direction="right">
-              <motion.div
+              <motion.div 
                 className="bg-white p-6 rounded-xl shadow-md"
                 whileHover={{ y: -10 }}
               >
                 <div className="flex items-center mb-4">
-                  <motion.div
+                  <motion.div 
                     className="rounded-full h-12 w-12 mr-3 overflow-hidden"
                     whileHover={{ scale: 1.1 }}
                   >
@@ -830,7 +830,10 @@ export default function Home() {
                 </p>
                 <div className="flex mt-4 text-orange-400">
                   {[...Array(5)].map((_, i) => (
-                    <motion.div key={i} whileHover={{ scale: 1.2 }}>
+                    <motion.div
+                      key={i}
+                      whileHover={{ scale: 1.2 }}
+                    >
                       <Star className="w-5 h-5 fill-current" />
                     </motion.div>
                   ))}
@@ -852,22 +855,22 @@ export default function Home() {
               আপনার শিক্ষার অভিজ্ঞতা রূপান্তর করতে প্রস্তুত?
             </h2>
           </FadeIn>
-
+          
           <FadeIn delay={0.2}>
             <p className="text-lg mb-8">
               হাজার হাজার শিক্ষার্থীর সাথে যোগ দিন যারা জিজ্ঞাসার সাথে শিক্ষাকে
               মজাদার এবং প্রতিযোগিতামূলক করে তুলছে
             </p>
           </FadeIn>
-
+          
           <FadeIn delay={0.4}>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <motion.a
                 href="#"
                 className="bg-white text-orange-700 font-semibold py-3 px-8 rounded-lg text-lg hover:bg-gray-100 transition"
-                whileHover={{
+                whileHover={{ 
                   scale: 1.05,
-                  boxShadow: "0 5px 15px rgba(0,0,0,0.1)",
+                  boxShadow: "0 5px 15px rgba(0,0,0,0.1)"
                 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -876,9 +879,9 @@ export default function Home() {
               <motion.a
                 href="#"
                 className="bg-transparent border-2 border-white text-white font-semibold py-3 px-8 rounded-lg text-lg hover:bg-white hover:text-orange-700 transition"
-                whileHover={{
+                whileHover={{ 
                   scale: 1.05,
-                  boxShadow: "0 5px 15px rgba(0,0,0,0.1)",
+                  boxShadow: "0 5px 15px rgba(0,0,0,0.1)"
                 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -888,6 +891,110 @@ export default function Home() {
           </FadeIn>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-gray-400 py-12">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <FadeIn>
+              <div>
+                <h3 className="text-white text-xl font-semibold mb-4">
+                  জিজ্ঞাসা
+                </h3>
+                <p className="mb-4">
+                  গেম-ভিত্তিক শেখার মাধ্যমে শিক্ষাকে উত্তেজনাপূর্ণ, গতিশীল এবং
+                  প্রতিযোগিতামূলক করে তোলা
+                </p>
+                <div className="flex space-x-4">
+                  <motion.a 
+                    href="#" 
+                    className="text-gray-400 hover:text-white"
+                    whileHover={{ y: -5 }}
+                  >
+                    <FaComments className="h-6 w-6" />
+                  </motion.a>
+                  <motion.a 
+                    href="#" 
+                    className="text-gray-400 hover:text-white"
+                    whileHover={{ y: -5 }}
+                  >
+                    <FaUsers className="h-6 w-6" />
+                  </motion.a>
+                  <motion.a 
+                    href="#" 
+                    className="text-gray-400 hover:text-white"
+                    whileHover={{ y: -5 }}
+                  >
+                    <FaBook className="h-6 w-6" />
+                  </motion.a>
+                </div>
+              </div>
+            </FadeIn>
+
+            <SlideIn direction="left" delay={0.1}>
+              <div>
+                <h4 className="text-white text-lg font-medium mb-4">গেম মোড</h4>
+                <ul className="space-y-2">
+                  {['ব্যাটল রয়্যাল', 'পেয়ার টু পেয়ার', 'ফ্রেন্ডলি ব্যাটল', 'লিডারবোর্ড'].map((item, i) => (
+                    <motion.li 
+                      key={i}
+                      whileHover={{ x: 5 }}
+                    >
+                      <a href="#" className="hover:text-white transition">
+                        {item}
+                      </a>
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+            </SlideIn>
+
+            <FadeIn delay={0.2}>
+              <div>
+                <h4 className="text-white text-lg font-medium mb-4">শিক্ষণ</h4>
+                <ul className="space-y-2">
+                  {['কোর্স', 'এআই সহকারী', 'দৈনিক কুইজ', 'জ্ঞান ব্লগ'].map((item, i) => (
+                    <motion.li 
+                      key={i}
+                      whileHover={{ x: 5 }}
+                    >
+                      <a href="#" className="hover:text-white transition">
+                        {item}
+                      </a>
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+            </FadeIn>
+
+            <SlideIn direction="right" delay={0.1}>
+              <div>
+                <h4 className="text-white text-lg font-medium mb-4">কোম্পানি</h4>
+                <ul className="space-y-2">
+                  {['আমাদের সম্পর্কে', 'যোগাযোগ', 'ক্যারিয়ার', 'গোপনীয়তা নীতি'].map((item, i) => (
+                    <motion.li 
+                      key={i}
+                      whileHover={{ x: 5 }}
+                    >
+                      <a href="#" className="hover:text-white transition">
+                        {item}
+                      </a>
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+            </SlideIn>
+          </div>
+
+          <FadeIn delay={0.3}>
+            <div className="border-t border-gray-800 mt-8 pt-8 text-center">
+              <p>
+                &copy; {new Date().getFullYear()} জিজ্ঞাসা। সর্বস্বত্ব সংরক্ষিত।
+              </p>
+            </div>
+          </FadeIn>
+        </div>
+      </footer>
     </div>
   );
 }
