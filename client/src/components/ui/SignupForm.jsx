@@ -314,7 +314,7 @@ export default function AdminRegistrationPage() {
               value={formData.password}
               onChange={handleChange}
               className={`${getInputClassName("password")} pr-10`}
-              minLength="10"
+              minLength="6"
               maxLength="36"
               required
             />

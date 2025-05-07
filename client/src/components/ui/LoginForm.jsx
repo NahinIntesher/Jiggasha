@@ -26,8 +26,8 @@ export default function LoginPage() {
     e.preventDefault();
     const newErrors = {};
 
-    if (formData.password.length < 10) {
-      newErrors.password = "Password must be at least 10 characters long.";
+    if (formData.password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters long.";
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -50,7 +50,7 @@ export default function LoginPage() {
       const result = await response.json();
 
       if (result.status === "Success") {
-        router.replace("/home");
+        router.replace("/dashboard");
       } else {
         setErrors({ general: result.Error || "Invalid username or password" });
       }
@@ -114,7 +114,7 @@ export default function LoginPage() {
               value={formData.password}
               onChange={handleChange}
               className="w-full py-2 px-3 border text-black border-gray-300 rounded-lg bg-gray-100 focus:ring-0 focus:outline-none focus:border-orange-400 pr-10"
-              minLength="10"
+              minLength="6"
               maxLength="36"
               required
             />

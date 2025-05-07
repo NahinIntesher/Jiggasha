@@ -21,8 +21,8 @@ export default function Sidebar({ user, handleLogout }) {
     { icon: Gamepad2, label: "Play", href: "/play" },
     { icon: BookOpen, label: "Courses", href: "/courses" },
     { icon: MessageSquare, label: "Blogs", href: "/blogs" },
-    { icon: Bot, label: "Mama Jigao", href: "/mamajigao" },
-    { icon: Users, label: "Communities", href: "/community" },
+    { icon: Bot, label: "Srijona AI", href: "/srijona-ai" },
+    { icon: Users, label: "Communities", href: "/communities" },
     { icon: Trophy, label: "Leaderboard", href: "/leaderboard" },
   ];
 
