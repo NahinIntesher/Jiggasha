@@ -54,7 +54,7 @@ export default function Profile() {
 
     return (
         <div>
-            <Header title="Dashboard"/>
+            <Header title="Profile"/>
             <div className="flex justify-center items-center h-full">
                 <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md mt-10">
                     <div className="flex flex-col items-center">
