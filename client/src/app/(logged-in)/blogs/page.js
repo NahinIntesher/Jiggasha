@@ -1,7 +1,34 @@
-export default function Course() { 
+"use client";
+
+import Header from "@/components/ui/Header";
+import { use, useState } from "react";
+import { FaArrowUpWideShort } from "react-icons/fa6";
+
+export default function Course() {
+    const [activeTab, setActiveTab] = useState("browseBlogs");
+
     return (
-        <div className="flex items-center justify-center min-h-screen bg-purple-50">
-            <p className="text-lg text-gray-700">Blogs</p>
+        <div className="">
+            <Header title="Blogs" />
+            <div className="tabs">
+                <div
+                    onClick={() => setActiveTab("myBlogs")}
+                    className={activeTab == "myBlogs" ? "tab tabActive" : "tab"}
+                >
+                    My Blogs
+                </div>
+                <div
+                    onClick={() => setActiveTab("browseBlogs")}
+                    className={activeTab == "browseBlogs" ? "tab tabActive" : "tab"}
+                >
+                    Browse Blogs
+                </div>
+            </div>
+
+            <div className="filterContainer">
+                <FaArrowUpWideShort className="filterIcon" />
+                <div className="filterTitle">Filter</div>
+            </div>
         </div>
     )
 }
