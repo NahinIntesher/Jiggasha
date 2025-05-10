@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-import { FaBookOpen, FaWandMagicSparkles, FaUserGroup, FaListOl, FaComment, FaPlay, FaSquare, FaBook, FaRightFromBracket } from "react-icons/fa6";
+import { FaBookOpen, FaWandMagicSparkles, FaUserGroup, FaListOl, FaComment, FaPlay, FaSquare, FaBook, FaRightFromBracket, FaClipboardQuestion } from "react-icons/fa6";
 import Link from "next/link";
 import SidebarOption from "./SidebarOption";
 import { FaAngleDown, FaStar, FaUser } from "react-icons/fa";
@@ -21,6 +21,7 @@ export default function Sidebar({ user, handleLogout }) {
     { icon: FaWandMagicSparkles, label: "Srijona AI", href: "/srijona-ai" },
     { icon: FaUserGroup, label: "Communities", href: "/communities" },
     { icon: FaListOl, label: "Leaderboard", href: "/leaderboard" },
+    { icon: FaClipboardQuestion, label: "Quests", href: "/quests" }
   ];
 
   const handleLinkClick = (href) => {
@@ -32,25 +33,28 @@ export default function Sidebar({ user, handleLogout }) {
   return (
     <div className="sidebar">
       {/* Logo */}
+      <div className="sidebarContent">
+        <div className="logo">
+          <div className="icon"><FaBookOpen /></div>
+          <div className="text">Jiggasha</div>
+        </div>
 
-      <div className="logo">
-        <div className="icon"><FaBookOpen /></div>
-        <div className="text">Jiggasha</div>
+        {/* Navigation Links */}
+        <div className="menuOptions">
+          {links.map((link, index) => (
+            <SidebarOption
+              key={index}
+              label={link.label}
+              href={link.href}
+              Icon={link.icon}
+            />
+
+          ))}
+        </div>
+        <div className="copyright">
+          © 2025 Jiggasha
+        </div>
       </div>
-
-      {/* Navigation Links */}
-      <div className="menuOptions">
-        {links.map((link, index) => (
-          <SidebarOption
-            key={index}
-            label={link.label}
-            href={link.href}
-            Icon={link.icon}
-          />
-
-        ))}
-      </div>
-
       {/* User Profile and Logout */}
       <div className="profile">
         <div className="profilePicture">

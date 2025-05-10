@@ -64,12 +64,12 @@ export default function RootLayout({ children }) {
   }, []);
 
   return (
-    <div className="flex min-h-screen bg-orange-50">
+    <div className="mainContainer">
       {/* Sidebar */}
       <Sidebar user={user} handleLogout={handleLogout} />
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
+      <div className="contentContainer">
         {/* Chilldren */}
         {children}
 
