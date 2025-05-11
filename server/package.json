@@ -3,6 +3,7 @@
     "start": "nodemon server.js"
   },
   "dependencies": {
+    "@google/genai": "^0.13.0",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
@@ -23,6 +24,7 @@
     "nodemon": "^3.1.4",
     "path": "^0.12.7",
     "pg": "^8.14.1",
+    "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
     "url": "^0.11.4",
     "ws": "^8.18.0"

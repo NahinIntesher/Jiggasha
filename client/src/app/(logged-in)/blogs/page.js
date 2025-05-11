@@ -3,11 +3,40 @@
 import BlogCard from "@/components/Blogs/BlogCard";
 import Header from "@/components/ui/Header";
 import Link from "next/link";
-import { use, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { FaAngleDown, FaCalendarAlt, FaEye, FaList, FaArrowUpWideShort, FaCaretDown, FaCaretUp, FaGrip, FaPenToSquare } from "react-icons/fa6";
 
 export default function Blogs() {
   const [activeTab, setActiveTab] = useState("browseBlogs");
+
+  const [blogs, setBlogs] = useState([]);
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/blogs", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const blogsData = await response.json();
+        setBlogs(blogsData);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -62,10 +91,21 @@ export default function Blogs() {
       </div>
 
       <div className="cardContainer">
-        <BlogCard />
-        <BlogCard />
-        <BlogCard />
-        <BlogCard />
+        {blogs.map((blog) => (
+          <BlogCard
+            key={blog.blog_id}
+            title={blog.title}
+            classLevel={blog.class_level}
+            subject={blog.subject}
+            content={blog.content}
+            coverImage={blog.cover_image_url}
+            viewCount={blog.view_count}
+            voteCount={blog.vote_count}
+            createdAt={blog.created_at}
+            authorName={blog.author_name}
+            authorPicture={blog.author_picture_url}
+          />
+        ))}
       </div>
     </>
   );

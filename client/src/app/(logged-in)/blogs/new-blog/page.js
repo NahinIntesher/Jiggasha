@@ -9,7 +9,7 @@ export default function NewBlog() {
     const router = useRouter();
 
     const [errors, setErrors] = useState({});
-    
+
     const [formData, setFormData] = useState({
         coverImage: null,
         classLevel: "",
@@ -30,6 +30,7 @@ export default function NewBlog() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        console.log("Form data:", formData);
         const newErrors = {};
         // Validate fields
         // if (!validateName(formData.name)) newErrors.name = "Invalid name.";
@@ -40,24 +41,31 @@ export default function NewBlog() {
         // }
 
         try {
+            const formDataToSend = new FormData();
+            formDataToSend.append("coverImage", formData.coverImage);
+            formDataToSend.append("classLevel", formData.classLevel);
+            formDataToSend.append("title", formData.title);
+            formDataToSend.append("content", formData.content);
+            formDataToSend.append("subject", formData.subject);
+
             const response = await fetch("http://localhost:8000/blogs/add", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(formData),
+                body: formDataToSend,
                 credentials: "include",
             });
+
             const result = await response.json();
-            
+
+            // const result = JSON.parse(resultText);
+
             if (result.status === "Success") {
-                alert("Blog added!.");
+                alert("Blog added!");
                 router.back();
             } else {
-                setErrors("Failed to add blog.");
+                console.error("Error adding blog:", result);
             }
         } catch (error) {
-            console.error("Error during signup:", error);
+            console.error("Error during blog creation:", error);
             setErrors("An error occurred, please try again later.");
         }
     };
@@ -66,6 +74,7 @@ export default function NewBlog() {
         <>
             <HeaderAlt title="New Blog" />
             <form onSubmit={handleSubmit} className="formBox">
+                <div className="title">Create New Blog</div>
                 <label>
                     <div className="name">Blog Title</div>
                     <input
@@ -85,12 +94,14 @@ export default function NewBlog() {
                             <option value="6">Class 6</option>
                             <option value="7">Class 7</option>
                             <option value="8">Class 8</option>
-                            <option value="910">Class 9-10</option>
-                            <option value="1112">Class 10-11</option>
+                            <option value="9-10">Class 9-10</option>
+                            <option value="11-12">Class 10-11</option>
+                            <option value="admission">Admission</option>
+                            <option value="undergraduate">Undergraduate</option>
                         </select>
                     </label>
                     <label>
-                        <div className="name">Group</div> 
+                        <div className="name">Group</div>
                         <select name="group" defaultValue="" required>
                             <option value="" disabled>Select Group</option>
                             <option value="6">Science</option>
@@ -122,6 +133,15 @@ export default function NewBlog() {
                         value={formData.content}
                         onChange={handleChange}
                         required
+                    />
+                </label>
+                <label>
+                    <div className="name">Cover Image</div>
+                    <input
+                        type="file"
+                        name="coverImage"
+                        onChange={handleChange}
+                        accept="image/*"    
                     />
                 </label>
                 <button className="submit" type="submit">Create Blog</button>
