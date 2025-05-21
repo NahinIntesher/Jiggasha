@@ -22,6 +22,8 @@ import {
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
+import bgImgage from "../../public/images/bgJiggasha.jpg";
+
 // Animation components
 const FadeIn = ({ children, delay = 0 }) => {
   const [ref, inView] = useInView({
@@ -78,21 +80,21 @@ const ScaleIn = ({ children, delay = 0 }) => {
     </motion.div>
   );
 };
+{
+  /* <div
+  className="absolute inset-0 bg-cover bg-center opacity-30"
+  style={{ backgroundImage: `url(${bgImgage.src})` }}a
+/>; */
+}
 
 export default function Home() {
   return (
     <div className="overflow-x-hidden">
       {/* Hero Section with Background Image */}
-      <section
+      <div
         className="relative bg-gradient-to-r from-orange-600 to-orange-400 h-screen flex items-center justify-center text-center px-6 bg-cover bg-center"
         style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
-          backgroundColor: "rgba(255, 140, 0, 0.3)",
-          backgroundBlendMode: "multiply",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
+          backgroundImage: `url(${bgImgage.src})`,
         }}
       >
         <div className="absolute inset-0 bg-black/30"></div>
@@ -165,7 +167,7 @@ export default function Home() {
             />
           </div>
         </motion.div>
-      </section>
+      </div>
 
       {/* Why Jiggasha Section */}
       <section className="py-16 bg-white">
