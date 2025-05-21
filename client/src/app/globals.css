@@ -37,20 +37,30 @@ body {
 .contentContainer {
     flex: 1;
     height: 100dvh;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     position: relative;
 }
 
+
+
 /* Sidebar */
 
+.sidebarBackground {
+    display: none;
+}
+
 .sidebar {
-    width: 320px;
+    width: 300px;
     display: flex;
     flex-direction: column;
     background-color: var(--lightBackground);
-    border-right: 2px solid rgba(0, 0, 0, 0.2);
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
     align-items: center;
     justify-content: space-between;
+    box-shadow: 1px 0px 1px rgba(0, 0, 0, 0.01),
+        2px 0px 6px rgba(0, 0, 0, 0.02),
+        4px 0px 12px rgba(0, 0, 0, 0.04);
 }
 
 .sidebarContent {
@@ -141,9 +151,9 @@ body {
 
 .sidebar .profile {
     margin-top: 20px;
-    border-top: 2px solid rgba(0, 0, 0, 0.1);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(0, 0, 0, 0.04);
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -198,7 +208,7 @@ body {
     border-radius: 50%;
     margin: 4px;
     background-color: rgba(255, 255, 255, 0.8);
-    border: 2px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -212,13 +222,11 @@ body {
 }
 
 
-/* Container */
 .sidebar .moreOptions {
     position: relative;
     display: inline-block;
 }
 
-/* Dropdown content (hidden by default) */
 .sidebar .moreOptions .moreOptionsContent {
     display: none;
     position: absolute;
@@ -229,7 +237,7 @@ body {
     right: 0;
     bottom: 28px;
     border-radius: 16px;
-    border: 2px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
     overflow: hidden;
 }
 
@@ -238,7 +246,7 @@ body {
     display: flex;
     align-items: center;
     padding: 6px 12px;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }
 
@@ -268,18 +276,22 @@ body {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
+
+
 /* Top Header */
 
-.header, .headerAlt {
-    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+.header,
+.headerAlt {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 12px 16px;
     position: sticky;
     top: 0;
-    background-color: #FFFAF3;
+    background-color: rgba(255, 250, 243, 0.9);
     z-index: 10;
+    backdrop-filter: blur(10px);
 }
 
 .headerAlt {
@@ -287,8 +299,26 @@ body {
     padding: 10px 16px;
 }
 
+.header .mobileViewContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .titleButtonContainer {
+    display: flex;
+    align-items: center;
+}
+
+.header .menuButton,
+.header .secondaryMenuButton {
+    margin: 4px 8px;
+    font-size: 22px;
+    color: rgba(0, 0, 0, 0.4);
+}
+
 .header .titleContainer .title {
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 700;
     margin: 4px 12px;
 }
@@ -298,6 +328,7 @@ body {
     font-weight: 700;
     margin: 4px 12px;
 }
+
 .headerAlt .backButton {
     width: 38px;
     height: 38px;
@@ -328,7 +359,7 @@ body {
     border-radius: 50%;
     margin: 4px;
     background-color: var(--lightBackground);
-    border: 2px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -363,7 +394,7 @@ body {
 .header .iconContainer .searchBox {
     display: flex;
     align-items: center;
-    border: 2px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
     background-color: rgba(0, 0, 0, 0.1);
     padding: 4px 8px;
     border-radius: 30px;
@@ -384,6 +415,8 @@ body {
     font-weight: 500;
     font-size: 14px;
 }
+
+
 
 
 /* Tabs */
@@ -410,7 +443,7 @@ body {
 .tabs .tabActive {
     background-color: rgb(250, 135, 0, 0.2);
     color: rgb(240, 110, 0);
-    border: 2px solid rgb(250, 135, 0);
+    border: 1px solid rgb(250, 135, 0);
     font-weight: 700;
     cursor: default;
 }
@@ -434,10 +467,15 @@ body {
 }
 
 .filterContainer .filters {
+    flex: 1;
     display: flex;
     align-items: center;
-    justify-content: center;
     margin: 4px;
+}
+
+.filterContainer .filterButton {
+    display: flex;
+    margin-right: 8px;
 }
 
 
@@ -448,9 +486,13 @@ body {
 
 .filterContainer .filters .title {
     margin: 2px 4px;
-    margin-right: 10px;
     font-size: 15px;
     font-weight: 600;
+}
+
+.filterContainer .filters .selectMainContainer {
+    display: flex;
+    flex: 1;
 }
 
 .filterContainer .filters .selectContainer {
@@ -458,8 +500,8 @@ body {
 }
 
 .filterContainer .filters select {
-    background-color: rgb(0, 0, 0, 0.05);
-    border: 2px solid rgba(0, 0, 0, 0.2);
+    background-color: rgb(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     padding: 6px 12px;
     padding-right: 30px;
@@ -467,7 +509,7 @@ body {
     font-weight: 500;
     -webkit-appearance: none;
     appearance: none;
-    margin: 2px 4px;
+    margin: 4px;
     cursor: pointer;
 }
 
@@ -481,7 +523,7 @@ body {
     top: 12px;
     right: 13px;
     position: absolute;
-    pointer-events:none;
+    pointer-events: none;
 }
 
 .filterContainer .views {
@@ -499,7 +541,7 @@ body {
     align-items: center;
     justify-content: center;
     background-color: rgb(255, 255, 255, 0.4);
-    border: 2px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
     margin: 2px 4px;
     font-size: 18px;
     cursor: pointer;
@@ -553,29 +595,42 @@ body {
 /* Cards */
 
 .cardContainer {
-    padding: 4px 12px;
+    display: flex;
+    padding: 10px 12px;
+    flex-wrap: wrap;
+    align-items: stretch;
 }
 
 .card {
+    text-align: left;
     display: flex;
     align-items: center;
     background-color: var(--lightBackground);
     border-radius: 16px;
     padding: 8px;
-    margin: 8px 0px;
-    border: 2px solid rgba(0, 0, 0, 0.2);
-    margin: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    margin: 8px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.01),
+        0px 2px 6px rgba(0, 0, 0, 0.02),
+        0px 4px 12px rgba(0, 0, 0, 0.04);
+
 }
 
-.card .previewImage, .card .psudoPreviewImage {
+.card:hover {
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.02),
+        0px 2px 6px rgba(0, 0, 0, 0.04),
+        0px 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.card .previewImage,
+.card .psudoPreviewImage {
     margin: 4px;
-    width: 240px;
-    height: 180px;
+    width: 280px;
     min-width: 240px;
     min-height: 180px;
     object-fit: cover;
     border-radius: 8px;
-    border: 2px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .card .psudoPreviewImage {
@@ -592,17 +647,36 @@ body {
     object-fit: cover;
 }
 
-
 .card .details {
+    display: flex;
+    flex-direction: column;
     flex: 1;
     margin: 4px 12px;
 }
 
+
+
+.card .details .cardContentContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card .details .cardContentContainer .titleContainer {
+    flex: 1;
+}
+
 .card .details .title {
-    display: inline;
     font-size: 20px;
+    line-height: 130%;
     font-weight: 700;
-    margin: 4px;
+    margin: 8px 4px;
+    display: -webkit-box;
+    line-clamp: 1;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .card .details .tags {
@@ -634,8 +708,10 @@ body {
     font-size: 15px;
     font-weight: 500;
     display: -webkit-box;
-    line-clamp: 2; /* Number of lines */
-    -webkit-line-clamp: 2; /* Number of lines */
+    line-clamp: 2;
+    /* Number of lines */
+    -webkit-line-clamp: 2;
+    /* Number of lines */
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -644,10 +720,12 @@ body {
 
 
 .card .details hr {
-   border: 0;
-   border-top: 2px solid rgba(0, 0, 0, 0.1);
-   margin: 12px 4px;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    margin: 10px 4px;
 }
+
+
 
 .card .details .author {
     display: flex;
@@ -660,13 +738,17 @@ body {
     height: 28px;
     border-radius: 50%;
     margin: 2px 4px;
-    border: solid 2px rgba(0, 0, 0, 0.2);
+    margin-right: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
     background-color: rgba(0, 0, 0, 0.2);
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
+
+
 
 .card .details .author .profilePicture .psudoProfilePicture {
     font-size: 16px;
@@ -683,13 +765,22 @@ body {
     font-size: 13px;
     color: rgb(250, 135, 0);
     font-weight: 600;
-    margin: 2px 4px;
+    margin: 0px 4px;
 }
+
+.card .details .author .nameContainer {
+    display: flex;
+}
+
+
+
+
+
 
 .card .details .author .name {
     font-size: 15px;
     font-weight: 700;
-    margin: 2px;
+    margin: 0px 4px;
 }
 
 .card .informationContainer {
@@ -698,6 +789,15 @@ body {
     align-items: center;
     justify-content: space-between;
 }
+
+.card .informationContainer hr {
+    width: calc(100% - 8px);
+
+}
+
+
+
+
 
 .card .informations {
     display: flex;
@@ -732,18 +832,17 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 4px;
-}   
+    margin-left: 4px;
+}
 
 
 .card .voting .count {
-    width: 50px;
+    width: 45px;
     text-align: center;
     font-size: 20px;
     font-weight: 700;
-    margin: 4px;
+    margin: 4px 0;
 }
-
 
 .card .voting .button {
     width: 24px;
@@ -753,7 +852,7 @@ body {
     align-items: center;
     justify-content: center;
     background-color: rgb(250, 135, 0, 0.2);
-    border: 2px solid rgba(250, 135, 0);
+    border: 1px solid rgba(250, 135, 0);
     margin: 4px;
     font-size: 20px;
     cursor: pointer;
@@ -761,11 +860,82 @@ body {
     color: rgb(250, 135, 0);
 }
 
+.card .voting .active {
+    width: 26px;
+    height: 26px;
+    background-color: rgb(250, 135, 0);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #FFFFFF;
+}
 
-.card .voting .button:hover{
+
+.card .voting .button:hover {
     background-color: rgba(250, 135, 0, 0.4);
     color: rgb(240, 110, 0);
 }
+
+
+.listBox {
+    flex: 0 0 calc(100% - 16px);
+}
+
+.listBox .gridOnly {
+    display: none;
+}
+
+.gridBox {
+    flex: 0 0 calc(33.33% - 16px);
+    flex-direction: column;
+    display: inline-block;
+}
+
+.gridBox .previewImage,
+.gridBox .psudoPreviewImage {
+    height: 180px;
+    width: calc(100% - 8px);
+    flex: 1;
+}
+
+.gridBox .details {
+    flex: 1;
+    margin: 4px 8px;
+}
+
+.gridBox .details .title {
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+}
+
+.gridBox .details .cardContentContainer {
+    height: 150px;
+}
+
+
+.gridBox .details .author .profilePicture {
+    width: 36px;
+    height: 36px;
+}
+
+.gridBox .details .author .nameContainer {
+    flex-direction: column;
+}
+
+
+.gridBox .details hr {
+    margin: 8px 4px;
+}
+
+
+.gridBox .informationContainer {
+    flex-direction: column;
+    justify-content: left;
+    align-items: flex-start;
+}
+
+.gridBox .listOnly {
+    display: none;
+}
+
 
 
 /* Form Box */
@@ -779,7 +949,10 @@ body {
     border-radius: 16px;
     padding: 16px;
     margin: 20px;
-    border: 2px solid rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.01),
+        0px 3px 6px rgba(0, 0, 0, 0.02),
+        0px 6px 12px rgba(0, 0, 0, 0.04);
 }
 
 .formBox .title {
@@ -808,13 +981,107 @@ body {
     font-weight: 500;
 }
 
-.formBox input, .formBox textarea, .formBox select {
+.formBox input[type="text"],
+.formBox input[type="email"],
+.formBox input[type="password"],
+.formBox input[type="number"],
+.formBox input[type="date"],
+.formBox input[type="time"],
+.formBox input[type="datetime-local"],
+.formBox input[type="search"],
+.formBox textarea,
+.formBox select {
     margin: 2px;
     padding: 8px 14px;
     font-size: 15px;
     font-size: 500;
-    border: 2px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 10px;
+    background-color: rgb(0, 0, 0, 0.04);
+}
+
+.formBox .uploadContainer {
+    margin: 2px;
+    padding: 12px;
+    font-size: 15px;
+    font-size: 500;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    background-color: rgb(0, 0, 0, 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.formBox .uploadContainer .upload {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 8px;
+}
+
+.formBox .uploadContainer .upload .icon {
+    font-size: 80px;
+    margin: 2px 4px;
+}
+
+.formBox .uploadContainer .upload .title {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 2px 4px;
+}
+
+.formBox .uploadContainer .upload .semiTitle {
+    font-size: 15px;
+    margin: 2px 4px;
+}
+
+.formBox .uploadContainer .upload input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: red;
+    opacity: 0;
+}
+
+.formBox .uploadContainer .preview {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.formBox .uploadContainer .preview img {
+    border-radius: 8px;
+    max-width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.formBox .uploadContainer .preview .delete {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.formBox .uploadContainer .preview .delete:hover {
+    background-color: rgb(255, 255, 255, 1.0);
+
 }
 
 .formBox .submit {
@@ -849,13 +1116,13 @@ body {
 .messageContainer .message {
     display: inline-block;
     max-width: 70%;
-    background-color: rgba(255,255,255,0.6);
+    background-color: rgba(255, 255, 255, 0.6);
     border-radius: 12px;
     padding: 12px 16px;
     font-size: 15px;
     font-weight: 500;
     margin: 8px;
-    border: 2px solid rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.15);
     margin-left: 8px;
     margin-right: auto;
 }
@@ -881,7 +1148,10 @@ body {
     border-radius: 16px;
     margin: 18px;
     margin-top: 0;
-    border: 2px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.01),
+        0px 3px 6px rgba(0, 0, 0, 0.02),
+        0px 6px 12px rgba(0, 0, 0, 0.04);
 }
 
 .messageSendBox .buttonContainer {
@@ -905,7 +1175,7 @@ body {
     align-items: center;
     justify-content: center;
     background-color: rgb(0, 0, 0, 0.1);
-    border: 2px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
     margin: 4px;
     font-size: 20px;
     cursor: pointer;
@@ -924,7 +1194,7 @@ body {
     justify-content: center;
     background-color: rgb(250, 135, 0);
     color: #FFFFFF;
-    border: 2px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
     margin: 4px;
     font-size: 20px;
     cursor: pointer;
@@ -932,12 +1202,12 @@ body {
     padding: 4px 12px;
 }
 
-.messageSendBox .buttonContainer .sendButton .icon  {
+.messageSendBox .buttonContainer .sendButton .icon {
     margin: 2px 4px;
     font-size: 16px;
 }
 
-.messageSendBox .buttonContainer .sendButton .text  {
+.messageSendBox .buttonContainer .sendButton .text {
     margin: 2px 6px;
     font-weight: 700;
 }
@@ -950,4 +1220,461 @@ body {
     height: 40px;
     border: 0;
     outline: 0;
+}
+
+
+/* Blog Box */
+
+.blogBox {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--lightBackground);
+    border-radius: 16px;
+    padding: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    margin: 20px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.01),
+        0px 3px 6px rgba(0, 0, 0, 0.02),
+        0px 6px 12px rgba(0, 0, 0, 0.04);
+}
+
+
+.blogBox .previewImage,
+.blogBox .psudoPreviewImage {
+    width: calc(100% - 8px);
+    margin: 4px;
+    margin-bottom: 8px;
+    height: 320px;
+    min-height: 320px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.blogBox .psudoPreviewImage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(250, 135, 0, 0.4);
+    color: rgb(250, 135, 0, 0.6);
+    font-size: 160px;
+}
+
+
+.blogBox .previewImgae img {
+    object-fit: cover;
+}
+
+.blogBox .details {
+    display: flex;
+    flex: 1;
+    margin: 4px 8px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.blogBox .details .titleContainer {
+    flex: 1;
+}
+
+.blogBox .details .title {
+    font-size: 24px;
+    line-height: 130%;
+    font-weight: 700;
+    margin: 8px 4px;
+    display: -webkit-box;
+    line-clamp: 2;
+    /* Number of lines */
+    -webkit-line-clamp: 2;
+    /* Number of lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 18px;
+}
+
+.blogBox .details .tags {
+    margin: 12px 0;
+}
+
+.blogBox .details .orangeTag {
+    display: inline;
+    background-color: rgb(250, 135, 0, 0.2);
+    color: rgb(240, 110, 0);
+    padding: 6px 12px;
+    font-size: 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    margin: 4px;
+}
+
+.blogBox .details .grayTag {
+    display: inline;
+    background-color: rgb(0, 0, 0, 0.1);
+    padding: 6px 12px;
+    font-size: 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    margin: 4px;
+}
+
+
+.blogBox .voting {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 4px;
+}
+
+
+.blogBox .voting .count {
+    width: 45px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 4px 0;
+}
+
+.blogBox .voting .button {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(250, 135, 0, 0.2);
+    border: 1px solid rgba(250, 135, 0);
+    margin: 4px;
+    font-size: 20px;
+    cursor: pointer;
+    font-size: 15px;
+    color: rgb(250, 135, 0);
+}
+
+.blogBox .voting .active {
+    width: 26px;
+    height: 26px;
+    background-color: rgb(250, 135, 0);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #FFFFFF;
+}
+
+
+.blogBox .voting .button:hover {
+    background-color: rgba(250, 135, 0, 0.4);
+    color: rgb(240, 110, 0);
+}
+
+.blogBox hr {
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    margin: 8px auto;
+    width: calc(100% - 24px);
+}
+
+
+
+.blogBox .author {
+    display: flex;
+    align-items: center;
+    margin: 2px;
+}
+
+.blogBox .author .profilePicture {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin: 2px 4px;
+    margin-right: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.blogBox .author .profilePicture .psudoProfilePicture {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.blogBox .author .profilePicture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.blogBox .author .createdBy {
+    font-size: 14px;
+    color: rgb(250, 135, 0);
+    font-weight: 600;
+    margin: 0px 4px;
+}
+
+.blogBox .author .nameContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.blogBox .author .name {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0px 4px;
+}
+
+.blogBox .informationContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 4px 8px;
+}
+
+.blogBox .informations {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.blogBox .information {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 4px;
+}
+
+
+.blogBox .information .icon {
+    font-size: 18px;
+    margin: 4px;
+    color: rgba(250, 135, 0);
+}
+
+.blogBox .information .text {
+    font-size: 15px;
+    margin: 4px;
+    font-weight: 600;
+}
+
+.blogBox .content {
+    padding: 10px 14px;
+}
+
+
+
+/* New Button */
+
+.newButton {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    background-color: rgb(250, 135, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    padding: 10px 14px;
+    border-radius: 12px;
+    margin: 2px 4px;
+    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.01),
+        2px 4px 4px rgba(0, 0, 0, 0.04),
+        4px 8px 8px rgba(0, 0, 0, 0.08);
+
+}
+
+.newButton:hover {
+    background-color: rgb(240, 110, 0);
+    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.02),
+        2px 4px 4px rgba(0, 0, 0, 0.08),
+        4px 8px 8px rgba(0, 0, 0, 0.12);
+}
+
+.newButton .icon {
+    font-size: 20px;
+    margin: 4px 6px;
+}
+
+.newButton .text {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 4px 6px;
+}
+
+.bigSpacing {
+    height: 80px;
+}
+
+.menuButton,
+.secondaryMenuButton {
+    display: none;
+}
+
+
+@media (max-width: 1300px) {
+    .gridBox {
+        flex: 0 0 calc(50% - 16px);
+    }
+}
+
+@media (max-width: 1150px) {
+    .menuButton {
+        display: block;
+    }
+
+    .sidebarBackground {
+        display: block;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.1);
+        z-index: 998;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -300px;
+        z-index: 999;
+        box-shadow: none;
+        height: 100dvh;
+    }
+
+    .activeSidebar {
+        left: 0;
+        box-shadow: 1px 0px 1px rgba(0, 0, 0, 0.01),
+            2px 0px 6px rgba(0, 0, 0, 0.02),
+            4px 0px 12px rgba(0, 0, 0, 0.04);
+    }
+}
+
+@media (max-width: 850px) {
+    .nameContainer {
+        flex-direction: column;
+    }
+
+    .formBox .multipleLabel {
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: stretch;
+    }
+}
+
+@media (max-width: 700px) {
+    .filterContainer .filters .selectMainContainer {
+        height: 0;
+        overflow: hidden;
+        flex-direction: column;
+        opacity: 0;
+    }
+    
+    .filterContainer .filters .activeSelectMainContainer {
+        height: auto;
+        opacity: 1;
+    }
+
+    .filterContainer .filters select{
+        width: calc(100% - 8px);
+    }
+
+    .filterContainer .views {
+        display: none;
+    }
+    .filterContainer .filterButton {
+        background-color: rgb(0, 0, 0, 0.04);
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        padding: 4px 8px;
+    }
+    .card {
+        flex: 0 0 calc(50% - 16px);
+        flex-direction: column;
+        display: inline-block;
+    }
+
+    .card .previewImage,
+    .card .psudoPreviewImage {
+        height: 180px;
+        width: calc(100% - 8px);
+        flex: 1;
+    }
+
+    .card .details {
+        flex: 1;
+        margin: 4px 8px;
+    }
+
+    .card .details .title {
+        line-clamp: 2;
+        -webkit-line-clamp: 2;
+    }
+
+    .card .details .cardContentContainer {
+        height: 150px;
+    }
+
+    .card .details .author .profilePicture {
+        width: 36px;
+        height: 36px;
+    }
+
+    .card .details hr {
+        margin: 8px 4px;
+    }
+
+    .card .informationContainer {
+        flex-direction: column;
+        justify-content: left;
+        align-items: flex-start;
+    }
+
+    .card .gridOnly {
+        display: block;
+    }
+}
+
+@media (max-width: 600px) {
+    .card, .gridBox {
+        flex: 0 0 calc(100% - 16px);
+    }
+
+    .secondaryMenuButton {
+        display: block;
+    }
+
+    .header {
+        flex-direction: column;
+    }
+
+    .header .mobileViewContainer {
+        width: 100%;
+    }
+
+    .header .iconContainer {
+        width: 100%;
+        height: 0;
+        overflow: hidden;
+        opacity: 0;
+    }
+
+    .header .active {
+        margin-top: 8px;
+        height: 50px;
+        opacity: 1;
+    }
+
+    .header .rotate {
+        transform: rotate(180deg);
+    }
+
+    .header .iconContainer .searchBox {
+        flex: 1;
+    }
 }

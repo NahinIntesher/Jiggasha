@@ -1,9 +1,10 @@
 "use client";
 
-import Header from "@/components/ui/Header";
 import HeaderAlt from "@/components/ui/HeaderAlt";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { classLevel, group, department, subject, subjectName } from "@/utils/Constant";
+import { FaCross, FaImages, FaXmark } from "react-icons/fa6";
 
 export default function NewBlog() {
     const router = useRouter();
@@ -12,11 +13,22 @@ export default function NewBlog() {
 
     const [formData, setFormData] = useState({
         coverImage: null,
-        classLevel: "",
+        classLevel: "6",
+        group: "all",
+        subject: 101,
         title: "",
-        content: "",
-        subject: "",
+        content: ""
     });
+
+    function deleteImage(e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        setFormData((prev) => ({
+            ...prev,
+            coverImage: null
+        }));
+    }
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
@@ -30,7 +42,6 @@ export default function NewBlog() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log("Form data:", formData);
         const newErrors = {};
         // Validate fields
         // if (!validateName(formData.name)) newErrors.name = "Invalid name.";
@@ -87,42 +98,80 @@ export default function NewBlog() {
                     />
                 </label>
                 <div className="multipleLabel">
+
                     <label>
                         <div className="name">Class</div>
-                        <select value={formData.classLevel} onChange={handleChange} name="classLevel" required>
-                            <option value="" disabled>Select Class</option>
-                            <option value="6">Class 6</option>
-                            <option value="7">Class 7</option>
-                            <option value="8">Class 8</option>
-                            <option value="9-10">Class 9-10</option>
-                            <option value="11-12">Class 10-11</option>
-                            <option value="admission">Admission</option>
-                            <option value="undergraduate">Undergraduate</option>
+                        <select name="classLevel" value={formData.classLevel} onChange={handleChange}>
+                            {classLevel.map((level) => (
+                                <option key={level} value={level}>
+                                    {level == "admission" ? "Admission" : level == "undergraduate" ? "Undergraduate" : `Class ${level}`}
+                                </option>
+                            ))}
                         </select>
+
                     </label>
-                    <label>
-                        <div className="name">Group</div>
-                        <select name="group" defaultValue="" required>
-                            <option value="" disabled>Select Group</option>
-                            <option value="6">Science</option>
-                            <option value="7">Commerce</option>
-                            <option value="8">Arts</option>
-                        </select>
-                    </label>
-                    <label>
-                        <div className="name">Subject</div>
-                        <select value={formData.subject} onChange={handleChange} name="subject" required>
-                            <option value="" disabled>Select Subject</option>
-                            <option value="Bangla">Bangla</option>
-                            <option value="English">English</option>
-                            <option value="Mathematics">Mathematics</option>
-                            <option value="Physics">Physics</option>
-                            <option value="Chemistry">Chemistry</option>
-                            <option value="Biology">Biology</option>
-                            <option value="Higher Mathematics">Higher Mathematics</option>
-                            <option value="Agricultural Education">Agricultural Education</option>
-                        </select>
-                    </label>
+                    {
+                        (formData.classLevel == "9-10" || formData.classLevel == "11-12" || formData.classLevel == "admission") ?
+                            <label>
+                                <div className="name">Group</div>
+                                <select name="group" value={formData.group} onChange={handleChange}>
+                                    <option value="all">All Group</option>
+                                    {group.map((level) => (
+                                        <option key={level} value={level}>
+                                            {level}
+                                        </option>
+                                    ))}
+                                </select>
+
+                            </label>
+                            :
+                            formData.classLevel == "undergraduate" ?
+                                <label>
+                                    <div className="name">Department</div>
+                                    <select name="group" value={formData.group} onChange={handleChange}>
+                                        <option value="all">All Department</option>
+                                        {department.map((level) => (
+                                            <option key={level} value={level}>
+                                                {level}
+                                            </option>
+                                        ))}
+                                    </select>
+
+                                </label>
+                                :
+                                <></>
+                    }
+                    {
+                        (formData.classLevel == "9-10" || formData.classLevel == "11-12" || formData.classLevel == "admission" || formData.classLevel == "undergraduate") ?
+                            formData.group != "" && <label>
+                                <div className="name">Subject</div>
+                                <select name="subject" value={formData.subject} onChange={handleChange}>
+                                    {subject[formData.classLevel][formData.group].map((level) => (
+                                        <option key={level} value={level}>
+                                            {subjectName[level]}
+                                        </option>
+                                    ))}
+                                </select>
+
+                            </label>
+                            :
+                            (formData.classLevel != "") ?
+                                <label>
+                                    <div className="name">Subject</div>
+                                    <select name="subject" value={formData.subject} onChange={handleChange}>
+
+                                        {subject[formData.classLevel].map((level) => (
+                                            <option key={level} value={level}>
+                                                {subjectName[level]}
+                                            </option>
+                                        ))}
+                                    </select>
+
+                                </label>
+                                :
+                                <></>
+                    }
+
                 </div>
                 <label>
                     <div className="name">Content</div>
@@ -137,12 +186,31 @@ export default function NewBlog() {
                 </label>
                 <label>
                     <div className="name">Cover Image</div>
-                    <input
-                        type="file"
-                        name="coverImage"
-                        onChange={handleChange}
-                        accept="image/*"    
-                    />
+                    <div className="uploadContainer">
+                        {formData.coverImage ?
+                            <div className="preview">
+                                <img
+                                    src={URL.createObjectURL(formData.coverImage)}
+                                    alt="Preview"
+                                    className="previewImage"
+                                />
+                                <div className="delete" onClick={deleteImage}><FaXmark/></div>
+                            </div>
+                            :
+                            <div className="upload">
+                                <FaImages className="icon" />
+                                <div className="title">Upload Cover Image</div>
+                                <div className="semiTitle">Drop Image Here or Upload File</div>
+                                <input
+                                    type="file"
+                                    name="coverImage"
+                                    onChange={handleChange}
+                                    accept="image/*"
+                                />
+                            </div>
+
+                        }
+                    </div>
                 </label>
                 <button className="submit" type="submit">Create Blog</button>
             </form>

@@ -5,6 +5,7 @@ import Footer from "@/components/ui/Footer";
 import Sidebar from "@/components/ui/Sidebar";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { LayoutProvider } from "@/components/Contexts/LayoutProvider";
 
 export default function RootLayout({ children }) {
   const router = useRouter();
@@ -64,16 +65,18 @@ export default function RootLayout({ children }) {
   }, []);
 
   return (
-    <div className="mainContainer">
-      {/* Sidebar */}
-      <Sidebar user={user} handleLogout={handleLogout} />
+    <LayoutProvider>
+      <div className="mainContainer">
+        {/* Sidebar */}
+        <Sidebar user={user} handleLogout={handleLogout} />
 
-      {/* Main Content */}
-      <div className="contentContainer">
-        {/* Chilldren */}
-        {children}
+        {/* Main Content */}
+        <div className="contentContainer">
+          {/* Chilldren */}
+          {children}
 
+        </div>
       </div>
-    </div>
+    </LayoutProvider>
   );
 }

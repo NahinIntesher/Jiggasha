@@ -1,9 +1,13 @@
 "use client";
-import React from "react";
+import { subjectName } from "@/utils/Constant";
+import { classLevelName, dateFormat } from "@/utils/Functions";
+import Link from "next/link";
+import React, { useState } from "react";
 import { FaCalendarAlt } from "react-icons/fa";
 import { FaEye, FaCaretDown, FaCaretUp, FaComment } from "react-icons/fa6";
 
 const BlogCard = ({
+  id,
   title,
   content,
   subject,
@@ -13,36 +17,119 @@ const BlogCard = ({
   createdAt,
   coverImage,
   authorName,
-  authorPicture
+  authorPicture,
+  isVoted,
+  view
 }) => {
-  function classLevelName() {
-    if (classLevel == "admission") return "Admission";
-    else if (classLevel == "undergraduate") return "Undergraduate";
-    else return `Class ${classLevel}`;
-  }
+  const [totalVote, setTotalVote] = useState(voteCount);
+  const [votingStatus, setVotingStatus] = useState(isVoted);
 
-  function dateFormat(dateStr) {
-    return new Date(dateStr).toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "long",
-      year: "numeric",
-    });
-  }
+  const vote = async (e, vote) => {
+    try {
+      e.stopPropagation();
+      e.preventDefault();
+
+      const response = await fetch("http://localhost:8000/blogs/vote", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        mode: "cors",
+        body: JSON.stringify({
+          blogId: id,
+          vote: vote
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.status === "Success") {
+        setTotalVote((prev) => parseInt(prev) + parseInt(vote) - parseInt(votingStatus));
+        setVotingStatus(vote);
+      } else {
+        console.error("Error:", result.error);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const unvote = async (e) => {
+    try {
+      e.stopPropagation();
+      e.preventDefault();
+
+      const response = await fetch("http://localhost:8000/blogs/unvote", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        mode: "cors",
+        body: JSON.stringify({
+          blogId: id
+        })
+      });
+
+      const result = await response.json();
+
+      if (result.status === "Success") {
+        setTotalVote((prev) => parseInt(prev) - parseInt(votingStatus));
+        setVotingStatus(0);
+      } else {
+        console.error("Error:", result);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   return (
-    <div className="card blogListCard">
+    <Link href={`/blogs/${id}`} className={`card ${view}Box`}>
       {coverImage ? <img
         className="previewImage"
         src={coverImage}
       /> : <div className="psudoPreviewImage"><FaComment /></div>}
       <div className="details">
-        <div className="title">{title}</div>
-        <div className="tags">
-          <div className="orangeTag">{subject}</div>
-          <div className="grayTag">{classLevelName(classLevel)}</div>
-        </div>
-        <div className="description">
-          {content}
+        <div className="cardContentContainer">
+          <div className="titleContainer">
+            <div className="title">{title}</div>
+            <div className="tags">
+              <div className="orangeTag">{subjectName[subject]}</div>
+              <div className="grayTag">{classLevelName(classLevel)}</div>
+            </div>
+            <div className="description">
+              {content}
+            </div>
+          </div>
+          <div className="voting">
+            {
+              votingStatus == 1 ? (
+                <div onClick={(e) => { unvote(e) }} className="button active">
+                  <FaCaretUp className="icon" />
+                </div>
+              ) : (
+                <div onClick={(e) => { vote(e, 1) }} className="button">
+                  <FaCaretUp className="icon" />
+                </div>
+              )
+            }
+            <div className="count">
+              {totalVote}
+            </div>
+            {
+              votingStatus == -1 ? (
+                <div onClick={(e) => { unvote(e) }} className="button active">
+                  <FaCaretDown className="icon" />
+                </div>
+              ) : (
+                <div onClick={(e) => { vote(e, -1) }} className="button">
+                  <FaCaretDown className="icon" />
+                </div>
+              )
+            }
+          </div>
         </div>
         <hr />
         <div className="informationContainer">
@@ -58,9 +145,13 @@ const BlogCard = ({
                 </div>
               )}
             </div>
-            <div className="createdBy">Created By</div>
-            <div className="name">{authorName}</div>
+            <div className="nameContainer">
+              <div className="createdBy">Created By</div>
+              <div className="name">{authorName}</div>
+            </div>
           </div>
+
+          <hr className="gridOnly" />
           <div className="informations">
             <div className="information">
               <FaCalendarAlt className="icon" />
@@ -73,18 +164,7 @@ const BlogCard = ({
           </div>
         </div>
       </div>
-      <div className="voting">
-        <div className="button">
-          <FaCaretUp className="icon" />
-        </div>
-        <div className="count">
-          {voteCount}
-        </div>
-        <div className="button">
-          <FaCaretDown className="icon" />
-        </div>
-      </div>
-    </div>
+    </Link>
   );
 };
 

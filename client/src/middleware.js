@@ -3,6 +3,7 @@ import { jwtVerify } from "jose";
 import { cookies } from "next/headers";
 
 const publicRoutes = [
+  "/home",
   "/login",
   "/signup",
   "/forget-password",
@@ -19,11 +20,15 @@ export default async function middleware(req) {
   const isPublicRoute = publicRoutes.includes(path);
   const token = (await cookies()).get(`${process.env.COOKIE_NAME}`)?.value;
 
+  if(path == "/" && !token) {
+    return NextResponse.redirect(new URL("/home", req.url));
+  }
+
   if (isPublicRoute && !token) {
     return NextResponse.next();
   }
   if (isPublicRoute && token) {
-    return NextResponse.redirect(new URL("/chat", req.url));
+    return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
   if (!token) {

@@ -6,8 +6,10 @@ import { FaBookOpen, FaWandMagicSparkles, FaUserGroup, FaListOl, FaComment, FaPl
 import Link from "next/link";
 import SidebarOption from "./SidebarOption";
 import { FaAngleDown, FaStar, FaUser } from "react-icons/fa";
+import { useLayout } from "../Contexts/LayoutProvider";
 
 export default function Sidebar({ user, handleLogout }) {
+  const { menu, toggleMenu } = useLayout();
   const router = useRouter();
 
   //  const isActive = exact ? router.pathname === href : router.pathname.startsWith(href);
@@ -24,84 +26,81 @@ export default function Sidebar({ user, handleLogout }) {
     { icon: FaClipboardQuestion, label: "Quests", href: "/quests" }
   ];
 
-  const handleLinkClick = (href) => {
-    setActiveLink(href);
-    localStorage.setItem("activeLink", href);
-    router.push(href);
-  };
-
   return (
-    <div className="sidebar">
-      {/* Logo */}
-      <div className="sidebarContent">
-        <div className="logo">
-          <div className="icon"><FaBookOpen /></div>
-          <div className="text">Jiggasha</div>
-        </div>
+    <>
+      {menu && <div className="sidebarBackground" onClick={toggleMenu}></div>}
+      <div className={menu ? "sidebar activeSidebar" : "sidebar"}>
+        {/* Logo */}
+        <div className="sidebarContent">
+          <div className="logo">
+            <div className="icon"><FaBookOpen /></div>
+            <div className="text">Jiggasha</div>
+          </div>
 
-        {/* Navigation Links */}
-        <div className="menuOptions">
-          {links.map((link, index) => (
-            <SidebarOption
-              key={index}
-              label={link.label}
-              href={link.href}
-              Icon={link.icon}
-            />
+          {/* Navigation Links */}
+          <div className="menuOptions">
+            {links.map((link, index) => (
+              <SidebarOption
+                key={index}
+                label={link.label}
+                href={link.href}
+                Icon={link.icon}
+              />
 
-          ))}
-        </div>
-        <div className="copyright">
-          © 2025 Jiggasha
-        </div>
-      </div>
-      {/* User Profile and Logout */}
-      <div className="profile">
-        <div className="profilePicture">
-          {user?.user_picture ? (
-            <img
-              src={user.user_picture}
-              alt="User"
-              className=""
-            />
-          ) : (
-            <div className="psudoProfilePicture">
-              <span className="">
-                {user?.full_name?.[0] || "U"}
-              </span>
-            </div>
-          )}
-        </div>
-        <div className="profileDetails">
-          <p className="name">{user?.full_name || "User"}</p>
-          <div className="level">
-            <div className="icon"><FaStar /></div>
-            <div>Level {user?.user_rating || 0}</div>
+            ))}
+          </div>
+          <div className="copyright">
+            © 2025 Jiggasha
           </div>
         </div>
-        <div className="moreOptions">
-          <div className="moreOptionsButton">
-            <div className="icon"><FaAngleDown /></div>
+        {/* User Profile and Logout */}
+        <div className="profile">
+          <div className="profilePicture">
+            {user?.user_picture ? (
+              <img
+                src={user.user_picture}
+                alt="User"
+                className=""
+              />
+            ) : (
+              <div className="psudoProfilePicture">
+                <span className="">
+                  {user?.full_name?.[0] || "U"}
+                </span>
+              </div>
+            )}
           </div>
-          <div className="moreOptionsContent">
-            <Link href="/profile" className="option">
-              <div className="icon"><FaUser /></div>
-              <div className="text">Profile</div>
-            </Link>
-            <div className="option" onClick={handleLogout}>
-              <div className="icon"><FaRightFromBracket /></div>
-              <div className="text">Logout</div>
+          <div className="profileDetails">
+            <p className="name">{user?.full_name || "User"}</p>
+            <div className="level">
+              <div className="icon"><FaStar /></div>
+              <div>Level {user?.user_rating || 0}</div>
             </div>
           </div>
-        </div>
+          <div className="moreOptions">
+            <div className="moreOptionsButton">
+              <div className="icon"><FaAngleDown /></div>
+            </div>
+            <div className="moreOptionsContent">
+              <Link href="/profile" className="option">
+                <div className="icon"><FaUser /></div>
+                <div className="text">Profile</div>
+              </Link>
+              <div className="option" onClick={handleLogout}>
+                <div className="icon"><FaRightFromBracket /></div>
+                <div className="text">Logout</div>
+              </div>
+            </div>
+          </div>
 
-        {/* <button
-          onClick={handleLogout}
-          className=""
-        >
-          Logout
-        </button> */}
+          {/* <button
+            onClick={handleLogout}
+            className=""
+          >
+            Logout
+          </button> */}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
