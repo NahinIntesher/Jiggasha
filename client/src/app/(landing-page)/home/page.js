@@ -87,7 +87,7 @@ export default function Home() {
         className="relative bg-gradient-to-r from-orange-600 to-orange-400 h-screen flex items-center justify-center text-center px-6 bg-cover bg-center"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
+            "url('/images/bgJiggasha.jpg')",
           backgroundColor: "rgba(255, 140, 0, 0.3)",
           backgroundBlendMode: "multiply",
           backgroundSize: "cover",
