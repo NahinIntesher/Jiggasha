@@ -23,6 +23,7 @@ export default function LoginPage() {
   };
 
   const handleSubmit = async (e) => {
+    console.log("Form data before submission");
     e.preventDefault();
     const newErrors = {};
 
@@ -49,6 +50,9 @@ export default function LoginPage() {
       });
 
       const result = await response.json();
+
+      console.log("Response from :")
+      console.log(result);
 
       if (result.status === "Success") {
         router.replace("/dashboard");
@@ -168,7 +172,7 @@ export default function LoginPage() {
             type="submit"
             className="w-full p-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition duration-300"
           >
-            Login
+            Log in
           </button>
         </div>
 
