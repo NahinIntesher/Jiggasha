@@ -5,7 +5,6 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const routes = require("./routes/index");
 const connection = require("./config/database");
-
 const app = express();
 
 // DB connection
@@ -19,13 +18,18 @@ connection
   });
 
 // Middleware
+const allowedOrigins = ["http://localhost:3000", "https://jiggasha.vercel.app"];
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 app.use(bodyParser.json());
