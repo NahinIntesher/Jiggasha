@@ -121,11 +121,12 @@ exports.login = (req, res) => {
         //   path: "/",
         // };
 
+        // const isProd = process.env.NODE_ENV === "production";
         // For Production
         const cookieOptions = {
           expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
           httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
+          secure: true,
           sameSite: "None",
           path: "/",
         };
