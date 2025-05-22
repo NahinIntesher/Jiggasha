@@ -123,6 +123,8 @@ exports.login = (req, res) => {
 
         // const isProd = process.env.NODE_ENV === "production";
         // For Production
+        console.log("process.env.NODE_ENV: ");
+        console.log(process.env.NODE_ENV);
         const cookieOptions = {
           expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
           httpOnly: true,
