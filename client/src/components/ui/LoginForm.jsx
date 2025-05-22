@@ -44,8 +44,8 @@ export default function LoginPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
-        mode: "cors",
+        credentials: 'include',
+        // mode: "cors",
         body: JSON.stringify(formData),
       });
 
@@ -172,7 +172,7 @@ export default function LoginPage() {
             type="submit"
             className="w-full p-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition duration-300"
           >
-            Log in
+            Login
           </button>
         </div>
 

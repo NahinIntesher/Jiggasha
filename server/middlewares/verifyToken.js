@@ -4,7 +4,11 @@ const verifyToken = (req, res, next) => {
   const token = req.cookies[process.env.COOKIE_NAME];
 
   if (!token) {
-    return res.json({ status: "Failed", message: "You are not authenticated!" });
+    return res.json({
+      status: "Failed",
+      cookieName: process.env.COOKIE_NAME,
+      message: "You are not authenticated!"
+    });
   }
 
   try {

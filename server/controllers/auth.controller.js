@@ -140,6 +140,7 @@ exports.login = (req, res) => {
 
           return res.status(200).json({
             status: "Success",
+            cookieName: process.env.COOKIE_NAME,
             user: {
               id: user.user_id,
               name: user.user_full_name,
