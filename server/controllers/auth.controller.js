@@ -112,11 +112,21 @@ exports.login = (req, res) => {
           expiresIn: process.env.JWT_EXPIRES_IN || "1d",
         });
 
+        // For Localhost
+        // const cookieOptions = {
+        //   expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
+        //   httpOnly: true,
+        //   secure: process.env.NODE_ENV === "development",
+        //   sameSite: "Lax",
+        //   path: "/",
+        // };
+
+        // For Production
         const cookieOptions = {
           expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
           httpOnly: true,
-          secure: process.env.NODE_ENV === "development",
-          sameSite: "Lax",
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "None",
           path: "/",
         };
 
