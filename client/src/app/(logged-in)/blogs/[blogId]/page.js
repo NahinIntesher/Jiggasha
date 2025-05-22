@@ -190,8 +190,11 @@ export default function SingleBlog() {
               </div>
             </div>
             <hr />
-            <div className="content">
-              {blog.content}
+            <div 
+              className="content"
+              dangerouslySetInnerHTML={{ __html: blog.content }}
+            >
+              
             </div>
           </div>
         )}

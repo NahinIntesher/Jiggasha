@@ -117,6 +117,7 @@ body {
     padding: 4px 24px;
     font-weight: 500;
     border-radius: 12px;
+    cursor: pointer;
 }
 
 
@@ -976,7 +977,20 @@ body {
     flex-direction: column;
 }
 
-.formBox label .name {
+
+.quillLabel {
+    margin: 4px 6px;
+    overflow: visible;
+    position: relative;
+}
+
+.quillContainer {
+    margin: 2px;
+}
+
+
+.formBox label .name,
+.quillLabel .name {
     font-size: 15px;
     margin: 4px 8px;
     font-weight: 500;
@@ -1464,9 +1478,47 @@ body {
 }
 
 .blogBox .content {
-    padding: 10px 14px;
+    padding: 10px 16px;
 }
 
+.blogBox .content h1 {
+  font-size: 38px; /* Tailwind's text-4xl */
+  font-weight: 700;
+  line-height: 180%;
+}
+
+.blogBox .content h2 {
+  font-size: 30px; /* text-3xl */
+  font-weight: 700;
+  line-height: 180%;
+}
+
+.blogBox .content p {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.blogBox .content h3 {
+  font-size: 24px; /* text-2xl */
+  font-weight: 700;
+  line-height: 180%;
+}
+
+
+
+.blogBox .content ul, .blogBox .content ol {
+  list-style-type: disc; /* restores bullets or numbers */
+  padding: 0;          /* remove Tailwind’s reset padding */
+  margin: 4px;
+  margin-left: 32px;
+  font-weight: 500;       /* typical left margin for nested lists */
+  
+}
+
+.blogBox .content ol {
+  list-style-type: decimal;
+}
 
 
 /* New Button */
@@ -1514,6 +1566,48 @@ body {
 .menuButton,
 .secondaryMenuButton {
     display: none;
+}
+
+
+
+
+.ql-toolbar {
+    border-radius: 12px 12px 0 0;
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+
+.ql-container {
+    border-radius: 0 0 12px 12px;
+}
+
+.ql-editor {
+    min-height: 100px;
+}
+
+
+.ql-editor {
+  font-size: 16px; /* Normal text (p) */
+}
+
+.ql-editor h1 {
+  font-size: 38px; /* Tailwind's text-4xl */
+  font-weight: 700;
+  line-height: 180%;
+}
+
+.ql-editor h2 {
+  font-size: 30px; /* text-3xl */
+  font-weight: 600;
+  padding: 16px 0;
+  line-height: 180%;
+}
+
+.ql-editor h3 {
+  font-size: 24px; /* text-2xl */
+  font-weight: 600;
+  padding: 8px 0;
+  line-height: 180%;
 }
 
 
@@ -1575,25 +1669,27 @@ body {
         flex-direction: column;
         opacity: 0;
     }
-    
+
     .filterContainer .filters .activeSelectMainContainer {
         height: auto;
         opacity: 1;
     }
 
-    .filterContainer .filters select{
+    .filterContainer .filters select {
         width: calc(100% - 8px);
     }
 
     .filterContainer .views {
         display: none;
     }
+
     .filterContainer .filterButton {
         background-color: rgb(0, 0, 0, 0.04);
         border: 1px solid rgba(0, 0, 0, 0.2);
         border-radius: 10px;
         padding: 4px 8px;
     }
+
     .card {
         flex: 0 0 calc(50% - 16px);
         flex-direction: column;
@@ -1642,7 +1738,9 @@ body {
 }
 
 @media (max-width: 600px) {
-    .card, .gridBox {
+
+    .card,
+    .gridBox {
         flex: 0 0 calc(100% - 16px);
     }
 

@@ -1,6 +1,6 @@
 "use client";
 import { subjectName } from "@/utils/Constant";
-import { classLevelName, dateFormat } from "@/utils/Functions";
+import { classLevelName, dateFormat, stripHTML} from "@/utils/Functions";
 import Link from "next/link";
 import React, { useState } from "react";
 import { FaCalendarAlt } from "react-icons/fa";
@@ -100,7 +100,7 @@ const BlogCard = ({
               <div className="grayTag">{classLevelName(classLevel)}</div>
             </div>
             <div className="description">
-              {content}
+              {stripHTML(content)}
             </div>
           </div>
           <div className="voting">

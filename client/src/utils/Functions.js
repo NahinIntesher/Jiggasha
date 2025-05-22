@@ -12,4 +12,8 @@ function dateFormat(dateStr) {
     });
 }
 
-export { classLevelName, dateFormat };
+function stripHTML(input) {
+  return input.replaceAll("><", "> <").replace(/<[^>]*>/g, '');
+}
+
+export { classLevelName, dateFormat, stripHTML };

@@ -2,11 +2,26 @@
 
 import HeaderAlt from "@/components/ui/HeaderAlt";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import React, { useRef, useState } from 'react';
 import { classLevel, group, department, subject, subjectName } from "@/utils/Constant";
-import { FaCross, FaImages, FaXmark } from "react-icons/fa6";
+import { FaImages, FaXmark } from "react-icons/fa6";
+import Editor from '@/components/Blogs/Editor';
+import Quill from 'quill';
+
+import "quill/dist/quill.snow.css";
+
+const Delta = Quill.import('delta');
+
 
 export default function NewBlog() {
+    const [range, setRange] = useState();
+    const [lastChange, setLastChange] = useState();
+    const [readOnly, setReadOnly] = useState(false);
+
+    // Use a ref to access the quill instance directly
+    const quillRef = useRef();
+
+
     const router = useRouter();
 
     const [errors, setErrors] = useState({});
@@ -42,6 +57,11 @@ export default function NewBlog() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        
+        const quill = quillRef.current;
+
+        const html = quill.root.innerHTML;
+
         const newErrors = {};
         // Validate fields
         // if (!validateName(formData.name)) newErrors.name = "Invalid name.";
@@ -56,7 +76,7 @@ export default function NewBlog() {
             formDataToSend.append("coverImage", formData.coverImage);
             formDataToSend.append("classLevel", formData.classLevel);
             formDataToSend.append("title", formData.title);
-            formDataToSend.append("content", formData.content);
+            formDataToSend.append("content", html);
             formDataToSend.append("subject", formData.subject);
 
             const response = await fetch("http://localhost:8000/blogs/add", {
@@ -84,8 +104,10 @@ export default function NewBlog() {
     return (
         <>
             <HeaderAlt title="New Blog" />
+
             <form onSubmit={handleSubmit} className="formBox">
                 <div className="title">Create New Blog</div>
+
                 <label>
                     <div className="name">Blog Title</div>
                     <input
@@ -173,17 +195,29 @@ export default function NewBlog() {
                     }
 
                 </div>
-                <label>
+
+
+
+                <div className="quillLabel">
                     <div className="name">Content</div>
-                    <textarea
-                        type="text"
-                        name="content"
-                        placeholder="Enter Blog Content"
-                        value={formData.content}
-                        onChange={handleChange}
-                        required
-                    />
-                </label>
+
+
+                    <div className="quillContainer">
+                        <Editor
+                            ref={quillRef}
+                            readOnly={readOnly}
+                            defaultValue={new Delta()
+                                .insert('Demo Title')
+                                .insert('\n', { header: 1 })
+                                .insert('Demo Content')
+                                .insert('\n')}
+                            onSelectionChange={setRange}
+                            onTextChange={setLastChange}
+                        />
+                    </div>
+
+                </div>
+
                 <label>
                     <div className="name">Cover Image</div>
                     <div className="uploadContainer">
@@ -194,7 +228,7 @@ export default function NewBlog() {
                                     alt="Preview"
                                     className="previewImage"
                                 />
-                                <div className="delete" onClick={deleteImage}><FaXmark/></div>
+                                <div className="delete" onClick={deleteImage}><FaXmark /></div>
                             </div>
                             :
                             <div className="upload">
