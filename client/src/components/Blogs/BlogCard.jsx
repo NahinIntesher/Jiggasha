@@ -1,6 +1,6 @@
 "use client";
 import { subjectName } from "@/utils/Constant";
-import { classLevelName, dateFormat, stripHTML} from "@/utils/Functions";
+import { classLevelName, dateFormat, stripHTML } from "@/utils/Functions";
 import Link from "next/link";
 import React, { useState } from "react";
 import { FaCalendarAlt } from "react-icons/fa";
@@ -19,7 +19,7 @@ const BlogCard = ({
   authorName,
   authorPicture,
   isVoted,
-  view
+  view,
 }) => {
   const [totalVote, setTotalVote] = useState(voteCount);
   const [votingStatus, setVotingStatus] = useState(isVoted);
@@ -29,7 +29,7 @@ const BlogCard = ({
       e.stopPropagation();
       e.preventDefault();
 
-      const response = await fetch("http://localhost:8000/blogs/vote", {
+      const response = await fetch("https://jiggasha.onrender.com/blogs/vote", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -38,14 +38,16 @@ const BlogCard = ({
         mode: "cors",
         body: JSON.stringify({
           blogId: id,
-          vote: vote
+          vote: vote,
         }),
       });
 
       const result = await response.json();
 
       if (result.status === "Success") {
-        setTotalVote((prev) => parseInt(prev) + parseInt(vote) - parseInt(votingStatus));
+        setTotalVote(
+          (prev) => parseInt(prev) + parseInt(vote) - parseInt(votingStatus)
+        );
         setVotingStatus(vote);
       } else {
         console.error("Error:", result.error);
@@ -60,17 +62,20 @@ const BlogCard = ({
       e.stopPropagation();
       e.preventDefault();
 
-      const response = await fetch("http://localhost:8000/blogs/unvote", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        mode: "cors",
-        body: JSON.stringify({
-          blogId: id
-        })
-      });
+      const response = await fetch(
+        "https://jiggasha.onrender.com/blogs/unvote",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          mode: "cors",
+          body: JSON.stringify({
+            blogId: id,
+          }),
+        }
+      );
 
       const result = await response.json();
 
@@ -87,10 +92,13 @@ const BlogCard = ({
 
   return (
     <Link href={`/blogs/${id}`} className={`card ${view}Box`}>
-      {coverImage ? <img
-        className="previewImage"
-        src={coverImage}
-      /> : <div className="psudoPreviewImage"><FaComment /></div>}
+      {coverImage ? (
+        <img className="previewImage" src={coverImage} />
+      ) : (
+        <div className="psudoPreviewImage">
+          <FaComment />
+        </div>
+      )}
       <div className="details">
         <div className="cardContentContainer">
           <div className="titleContainer">
@@ -99,36 +107,48 @@ const BlogCard = ({
               <div className="orangeTag">{subjectName[subject]}</div>
               <div className="grayTag">{classLevelName(classLevel)}</div>
             </div>
-            <div className="description">
-              {stripHTML(content)}
-            </div>
+            <div className="description">{stripHTML(content)}</div>
           </div>
           <div className="voting">
-            {
-              votingStatus == 1 ? (
-                <div onClick={(e) => { unvote(e) }} className="button active">
-                  <FaCaretUp className="icon" />
-                </div>
-              ) : (
-                <div onClick={(e) => { vote(e, 1) }} className="button">
-                  <FaCaretUp className="icon" />
-                </div>
-              )
-            }
-            <div className="count">
-              {totalVote}
-            </div>
-            {
-              votingStatus == -1 ? (
-                <div onClick={(e) => { unvote(e) }} className="button active">
-                  <FaCaretDown className="icon" />
-                </div>
-              ) : (
-                <div onClick={(e) => { vote(e, -1) }} className="button">
-                  <FaCaretDown className="icon" />
-                </div>
-              )
-            }
+            {votingStatus == 1 ? (
+              <div
+                onClick={(e) => {
+                  unvote(e);
+                }}
+                className="button active"
+              >
+                <FaCaretUp className="icon" />
+              </div>
+            ) : (
+              <div
+                onClick={(e) => {
+                  vote(e, 1);
+                }}
+                className="button"
+              >
+                <FaCaretUp className="icon" />
+              </div>
+            )}
+            <div className="count">{totalVote}</div>
+            {votingStatus == -1 ? (
+              <div
+                onClick={(e) => {
+                  unvote(e);
+                }}
+                className="button active"
+              >
+                <FaCaretDown className="icon" />
+              </div>
+            ) : (
+              <div
+                onClick={(e) => {
+                  vote(e, -1);
+                }}
+                className="button"
+              >
+                <FaCaretDown className="icon" />
+              </div>
+            )}
           </div>
         </div>
         <hr />
@@ -136,13 +156,9 @@ const BlogCard = ({
           <div className="author">
             <div className="profilePicture">
               {authorPicture ? (
-                <img
-                  src={authorPicture}
-                />
+                <img src={authorPicture} />
               ) : (
-                <div className="psudoProfilePicture">
-                  {authorName[0]}
-                </div>
+                <div className="psudoProfilePicture">{authorName[0]}</div>
               )}
             </div>
             <div className="nameContainer">

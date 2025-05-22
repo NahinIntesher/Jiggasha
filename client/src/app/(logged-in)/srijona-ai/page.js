@@ -4,7 +4,7 @@ import Header from "@/components/ui/Header";
 import { useEffect, useMemo, useState } from "react";
 import { FaImage, FaMicrophone, FaPaperPlane } from "react-icons/fa";
 import { FaPaperclip } from "react-icons/fa6";
-import 'katex/dist/katex.min.css';
+import "katex/dist/katex.min.css";
 import ComprehensiveFormatter from "@/components/ui/ComprehensiveFormatter";
 import SenderBox from "@/components/AI/SenderBox";
 
@@ -16,15 +16,15 @@ export default function SrijonaAI() {
   const [messages, setMessages] = useState([]);
 
   const [formData, setFormData] = useState({
-    message: ""
+    message: "",
   });
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === "coverImage") {
-      setFormData(prev => ({ ...prev, coverImage: files[0] }));
+      setFormData((prev) => ({ ...prev, coverImage: files[0] }));
     } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
+      setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
 
@@ -36,7 +36,7 @@ export default function SrijonaAI() {
 
     let inputMessage = formData.message;
 
-    setFormData(prev => ({ ...prev, message: "" }));
+    setFormData((prev) => ({ ...prev, message: "" }));
 
     const newErrors = {};
 
@@ -51,24 +51,27 @@ export default function SrijonaAI() {
     setMessages((prevMessages) => [
       {
         self: true,
-        content: inputMessage
+        content: inputMessage,
       },
-      ...prevMessages
+      ...prevMessages,
     ]);
 
     try {
       const formDataToSend = new FormData();
       formDataToSend.append("message", inputMessage);
 
-      const response = await fetch("http://localhost:8000/ai/response", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        mode: "cors",
-        body: JSON.stringify(formData),
-        credentials: "include",
-      });
+      const response = await fetch(
+        "https://jiggasha.onrender.com/ai/response",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          mode: "cors",
+          body: JSON.stringify(formData),
+          credentials: "include",
+        }
+      );
 
       const result = await response.json();
 
@@ -77,13 +80,12 @@ export default function SrijonaAI() {
       // const result = JSON.parse(resultText);
 
       if (result.status === "Success") {
-
         setMessages((prevMessages) => [
           {
             self: false,
-            content: result.response
+            content: result.response,
           },
-          ...prevMessages
+          ...prevMessages,
         ]);
 
         setIsReady(true);
@@ -94,7 +96,6 @@ export default function SrijonaAI() {
       console.error("Error during blog creation:", error);
     }
   };
-
 
   const renderedMessages = useMemo(() => {
     return messages.map((message, index) => (
@@ -109,11 +110,14 @@ export default function SrijonaAI() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/ai/messages", {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-        });
+        const response = await fetch(
+          "https://jiggasha.onrender.com/ai/messages",
+          {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+          }
+        );
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -131,15 +135,15 @@ export default function SrijonaAI() {
     fetchData();
   }, []);
 
-
-
   return (
     <div className="">
       <Header title="Srijona AI" />
-      <div className="messageContainer">
-        {renderedMessages}
-      </div>
-      <SenderBox handleSubmit={handleSubmit} handleChange={handleChange} value={formData.message} />
+      <div className="messageContainer">{renderedMessages}</div>
+      <SenderBox
+        handleSubmit={handleSubmit}
+        handleChange={handleChange}
+        value={formData.message}
+      />
     </div>
   );
 }
