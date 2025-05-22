@@ -125,24 +125,32 @@ exports.login = (req, res) => {
         // For Production
         console.log("process.env.NODE_ENV: ");
         console.log(process.env.NODE_ENV);
-        const cookieOptions = {
-          expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
-          httpOnly: true,
-          secure: true,
-          sameSite: "None",
-          path: "/",
-        };
+        try {
+          const cookieOptions = {
+            expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
+            httpOnly: true,
+            secure: true,
+            sameSite: "None",
+            path: "/",
+          };
 
-        res.cookie(process.env.COOKIE_NAME, token, cookieOptions);
+          res.cookie(process.env.COOKIE_NAME, token, cookieOptions);
 
-        return res.status(200).json({
-          status: "Success",
-          user: {
-            id: user.user_id,
-            name: user.user_full_name,
-            role: user.user_role,
-          },
-        });
+          console.log("Cookie set successfully");
+
+          return res.status(200).json({
+            status: "Success",
+            user: {
+              id: user.user_id,
+              name: user.user_full_name,
+              role: user.user_role,
+            },
+          });
+        }
+        catch (error) {
+          console.error("Error setting cookie:", error);
+          return res.status(500).json({ status: "Failed", error: error });
+        }
       });
     }
   );
@@ -151,8 +159,8 @@ exports.login = (req, res) => {
 exports.logout = (req, res) => {
   res.clearCookie(process.env.COOKIE_NAME, {
     httpOnly: true,
-    secure: false,
-    sameSite: "Lax",
+    secure: true,
+    sameSite: "None",
     path: "/",
   });
   return res.status(200).json({ status: "Success" });
@@ -197,9 +205,8 @@ exports.forgotPassword = async (req, res) => {
       [user.user_id, tokenHash, tokenExpiry]
     );
 
-    const resetUrl = `${
-      process.env.CLIENT_URL || "http://localhost:3000"
-    }/reset-password/${resetToken}`;
+    const resetUrl = `${process.env.CLIENT_URL || "http://localhost:3000"
+      }/reset-password/${resetToken}`;
 
     const mailOptions = {
       from: process.env.EMAIL_FROM || "noreply@yourrouter.com",
