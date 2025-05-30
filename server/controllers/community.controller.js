@@ -47,35 +47,39 @@ exports.getCommunities = async (req, res) => {
 
 exports.getMyCommunities = async (req, res) => {
   const userId = req.userId;
-
   try {
     const { rows } = await connection.query(
-      `SELECT c.community_id, c.name, c.description, c.created_at, c.subject, c.class_level, c.approval_status, c.admin_id,
-      CASE 
-      WHEN c.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/communities/image/', c.community_id)
-      ELSE NULL
-      END AS cover_image_url,
-      u.full_name AS author_name,
-      CASE
-      WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
-      ELSE NULL
-      END AS author_picture_url,
-      COALESCE(bv.vote, 0) AS is_voted,
-      COALESCE(v_c.total_vote, 0) AS vote_count
+      `SELECT
+        c.community_id,
+        c.name,
+        c.description,
+        c.created_at,
+        c.subject,
+        c.class_level,
+        c.approval_status,
+        c.admin_id,
+        CASE
+          WHEN c.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/communities/image/', c.community_id)
+          ELSE NULL
+        END AS cover_image_url,
+        CASE
+          WHEN cm.membership_id IS NOT NULL THEN 1
+          ELSE 0
+        END AS is_member,
+        COALESCE(member_count.total_members, 0) AS total_members
       FROM communities c
-      JOIN users u ON c.admin_id = u.user_id
-      LEFT JOIN community_votes bv 
-      ON bv.community_id = c.community_id AND bv.voter_id = $1
+      LEFT JOIN community_members cm
+        ON c.community_id = cm.community_id
+        AND cm.member_id = $1
       LEFT JOIN (
-        SELECT community_id, SUM(vote) AS total_vote
-        FROM community_votes
+        SELECT community_id, COUNT(*) AS total_members
+        FROM community_members
         GROUP BY community_id
-      ) v_c ON v_c.community_id = c.community_id
-      WHERE c.admin_id = $2;
-      `,
-      [userId, userId]
+      ) AS member_count
+        ON c.community_id = member_count.community_id
+      WHERE c.admin_id = $1;`,
+      [userId]
     );
-
     res.json(rows);
   } catch (error) {
     res.status(500).json({ error: error });
@@ -187,7 +191,6 @@ exports.image = async (req, res) => {
   }
 };
 
-
 exports.joinCommunity = async (req, res) => {
   const userId = req.userId;
   const { communityId } = req.body;
@@ -195,9 +198,9 @@ exports.joinCommunity = async (req, res) => {
   try {
     // Validate input
     if (!communityId) {
-      return res.status(400).json({ 
-        success: false, 
-        error: "Community ID is required" 
+      return res.status(400).json({
+        success: false,
+        error: "Community ID is required",
       });
     }
 
@@ -206,11 +209,11 @@ exports.joinCommunity = async (req, res) => {
       `SELECT id FROM communities WHERE id = $1`,
       [communityId]
     );
-    
+
     if (communityExists.length === 0) {
-      return res.status(404).json({ 
-        success: false, 
-        error: "Community not found" 
+      return res.status(404).json({
+        success: false,
+        error: "Community not found",
       });
     }
 
@@ -221,9 +224,9 @@ exports.joinCommunity = async (req, res) => {
     );
 
     if (existingMember.length > 0) {
-      return res.status(409).json({ 
-        success: false, 
-        error: "Already a member of this community" 
+      return res.status(409).json({
+        success: false,
+        error: "Already a member of this community",
       });
     }
 
@@ -239,20 +242,19 @@ exports.joinCommunity = async (req, res) => {
       [communityId]
     );
 
-    res.status(200).json({ 
+    res.status(200).json({
       success: true,
       message: "Joined community successfully",
       data: {
         communityId: communityId,
-        totalMembers: parseInt(memberCount[0].total_members)
-      }
+        totalMembers: parseInt(memberCount[0].total_members),
+      },
     });
-
   } catch (error) {
-    console.error('Error joining community:', error);
-    res.status(500).json({ 
-      success: false, 
-      error: "Internal server error" 
+    console.error("Error joining community:", error);
+    res.status(500).json({
+      success: false,
+      error: "Internal server error",
     });
   }
 };
