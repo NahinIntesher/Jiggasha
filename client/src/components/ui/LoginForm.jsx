@@ -39,19 +39,19 @@ export default function LoginPage() {
 
     try {
       console.log("Form data before submission");
-      const response = await fetch("https://jiggasha.onrender.com/login", {
+      const response = await fetch("http://localhost:8000/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: 'include',
+        credentials: "include",
         // mode: "cors",
         body: JSON.stringify(formData),
       });
 
       const result = await response.json();
 
-      console.log("Response from :")
+      console.log("Response from :");
       console.log(result);
 
       if (result.status === "Success") {

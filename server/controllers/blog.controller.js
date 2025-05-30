@@ -10,12 +10,12 @@ exports.getBlogs = async (req, res) => {
     const { rows } = await connection.query(
       `SELECT b.blog_id, b.title, b.content, b.created_at, b.subject, b.class_level, b.view_count,
       CASE 
-      WHEN b.cover_image IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/blogs/image/', b.blog_id)
+      WHEN b.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/blogs/image/', b.blog_id)
       ELSE NULL
       END AS cover_image_url,
       u.full_name AS author_name,
       CASE
-      WHEN u.user_picture IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/profile/image/', u.user_id)
+      WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
       ELSE NULL
       END AS author_picture_url,
       COALESCE(bv.vote, 0) AS is_voted,
@@ -46,12 +46,12 @@ exports.getMyBlogs = async (req, res) => {
     const { rows } = await connection.query(
       `SELECT b.blog_id, b.title, b.content, b.created_at, b.subject, b.class_level, b.view_count,
       CASE 
-      WHEN b.cover_image IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/blogs/image/', b.blog_id)
+      WHEN b.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/blogs/image/', b.blog_id)
       ELSE NULL
       END AS cover_image_url,
       u.full_name AS author_name,
       CASE
-      WHEN u.user_picture IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/profile/image/', u.user_id)
+      WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
       ELSE NULL
       END AS author_picture_url,
       COALESCE(bv.vote, 0) AS is_voted,
@@ -84,12 +84,12 @@ exports.getSingleBlog = async (req, res) => {
     const { rows } = await connection.query(
       `SELECT b.blog_id, b.title, b.content, b.created_at, b.subject, b.class_level, b.view_count,
       CASE 
-      WHEN b.cover_image IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/blogs/image/', b.blog_id)
+      WHEN b.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/blogs/image/', b.blog_id)
       ELSE NULL
       END AS cover_image_url,
       u.full_name AS author_name,
       CASE
-      WHEN u.user_picture IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/profile/image/', u.user_id)
+      WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
       ELSE NULL
       END AS author_picture_url,
       COALESCE(bv.vote, 0) AS is_voted,
