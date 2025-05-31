@@ -6,6 +6,7 @@ const {
   getSingleCommunities,
   getMyCommunities,
   addCommunity,
+  joinCommunity,
   image,
 } = require("../controllers/community.controller");
 
@@ -14,6 +15,7 @@ const verifyToken = require("../middlewares/verifyToken");
 router.get("/", verifyToken, getCommunities);
 router.get("/my", verifyToken, getMyCommunities);
 router.post("/add", verifyToken, addCommunity);
+router.post("/join", verifyToken, joinCommunity);
 // router.post("/edit/:communityId", verifyToken, editCommunity);
 // router.post("/delete/:communityId", verifyToken, deleteCommunity);
 router.get("/image/:communityId", verifyToken, image);

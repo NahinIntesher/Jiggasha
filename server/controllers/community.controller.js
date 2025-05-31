@@ -9,33 +9,48 @@ exports.getCommunities = async (req, res) => {
   try {
     const { rows } = await connection.query(
       `SELECT 
-        c.community_id, 
-        c.name, 
-        c.description, 
-        c.created_at, 
-        c.subject, 
-        c.class_level, 
-        c.approval_status, 
-        c.admin_id,
-        CASE 
-          WHEN c.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/communities/image/', c.community_id)
-          ELSE NULL
-        END AS cover_image_url,
-        CASE 
-          WHEN cm.membership_id IS NOT NULL THEN 1
-          ELSE 0
-        END AS is_member,
-        COALESCE(member_count.total_members, 0) AS total_members
+          c.community_id, 
+          c.name, 
+          c.description, 
+          c.created_at, 
+          c.subject, 
+          c.class_level, 
+          c.approval_status, 
+          c.admin_id,
+          c.created_at AS created_at,
+          u.full_name AS admin_name,
+          CASE 
+              WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/users/profile/', u.user_picture)
+              ELSE NULL
+          END AS admin_picture,
+
+          CASE 
+              WHEN c.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/communities/image/', c.community_id)
+              ELSE NULL
+          END AS cover_image_url,
+
+          CASE 
+              WHEN cm.membership_id IS NOT NULL THEN 1
+              ELSE 0
+          END AS is_member,
+
+          COALESCE(member_count.total_members, 0) AS total_members
+
       FROM communities c
+
+      LEFT JOIN users u 
+          ON c.admin_id = u.user_id
+
       LEFT JOIN community_members cm 
-        ON c.community_id = cm.community_id 
-        AND cm.member_id = $1
+          ON c.community_id = cm.community_id 
+          AND cm.member_id = $1
+
       LEFT JOIN (
-        SELECT community_id, COUNT(*) AS total_members
-        FROM community_members
-        GROUP BY community_id
+          SELECT community_id, COUNT(*) AS total_members
+          FROM community_members
+          GROUP BY community_id
       ) AS member_count
-        ON c.community_id = member_count.community_id;`,
+          ON c.community_id = member_count.community_id;`,
       [userId]
     );
 
@@ -193,47 +208,19 @@ exports.image = async (req, res) => {
 
 exports.joinCommunity = async (req, res) => {
   const userId = req.userId;
-  const { communityId } = req.body;
+  const communityId = req.body.community_id;
+  if (!communityId || !userId) {
+    return res.status(400).json({
+      success: false,
+      error: "Community ID and User ID are required",
+    });
+  }
 
   try {
-    // Validate input
-    if (!communityId) {
-      return res.status(400).json({
-        success: false,
-        error: "Community ID is required",
-      });
-    }
-
-    // Check if community exists
-    const { rows: communityExists } = await connection.query(
-      `SELECT id FROM communities WHERE id = $1`,
-      [communityId]
-    );
-
-    if (communityExists.length === 0) {
-      return res.status(404).json({
-        success: false,
-        error: "Community not found",
-      });
-    }
-
-    // Check if the user is already a member
-    const { rows: existingMember } = await connection.query(
-      `SELECT * FROM community_members WHERE member_id = $1 AND community_id = $2`,
-      [userId, communityId]
-    );
-
-    if (existingMember.length > 0) {
-      return res.status(409).json({
-        success: false,
-        error: "Already a member of this community",
-      });
-    }
-
     // Insert new membership
     await connection.query(
-      `INSERT INTO community_members (member_id, community_id, joined_at) VALUES ($1, $2, NOW())`,
-      [userId, communityId]
+      `INSERT INTO community_members (member_id, community_id, role, joined_at) VALUES ($1, $2, $3, NOW())`,
+      [userId, communityId, "member"]
     );
 
     // Optional: Get updated member count
