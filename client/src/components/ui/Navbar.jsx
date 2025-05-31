@@ -92,6 +92,7 @@ export default function Navbar() {
               alt="Jiggasha"
               className="h-11 w-11 rounded-full transition-transform duration-300 group-hover:scale-105"
             />
+            <span className="hidden font-extrabold text-xl md:inline-block">Jiggasha</span>
           </Link>
         </div>
 

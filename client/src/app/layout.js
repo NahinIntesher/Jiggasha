@@ -10,6 +10,12 @@ const quicksand = localFont({
   display: "swap",
 });
 
+const anekbangla = localFont({
+  src: "../../public/fonts/BalooDa2-VariableFont_wght.ttf",
+  variable: "--font-anekbangla",
+  display: "swap",
+});
+
 export const metadata = {
   title: "Jiggasha",
   description: "Jiggasha is a platform for learning and sharing knowledge.",
@@ -22,7 +28,7 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/images/JiggashaLogo.png" type="image/png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body>
+      <body className={`${anekbangla.className} ${quicksand.className}`}>
         <ThemeProviders>
           <main>{children}</main>
         </ThemeProviders>

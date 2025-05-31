@@ -9,6 +9,12 @@ const quicksand = localFont({
   display: "swap",
 });
 
+const anekbangla = localFont({
+  src: "../../../public/fonts/BalooDa2-VariableFont_wght.ttf",
+  variable: "--font-anekbangla",
+  display: "swap",
+});
+
 export const metadata = {
   title: "Jiggasha",
   description: "Jiggasha is a platform for learning and sharing knowledge.",
@@ -16,7 +22,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <div>
+    <div className={`${anekbangla.variable} ${quicksand.variable}`}>
       <Navbar />
       <main className="min-h-screen">{children}</main>
       <Footer />
