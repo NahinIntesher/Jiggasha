@@ -266,12 +266,16 @@ export default function MyCommunities() {
         {filteredCommunities.map((community) => (
           <CommunityCard
             key={community.community_id}
-            id={community.community_id}
+            community_id={community.community_id}
             name={community.name}
             description={community.description}
             subject={community.subject}
-            classLevel={community.class_level}
-            totalMembers={parseInt(community.total_members)}
+            class_level={community.class_level}
+            total_members={parseInt(community.total_members)}
+            admin_id={community.admin_id}
+            admin_name={community.admin_name}
+            admin_picture={community.admin_picture}
+            created_at={community.created_at}
             isJoined={community.is_member === 1}
             coverImage={community.cover_image_url}
             view={view}

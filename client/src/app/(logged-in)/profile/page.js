@@ -189,15 +189,6 @@ export default function Profile() {
                       {user.user_group || "Not specified"}
                     </p>
                   </div>
-
-                  <div className="border-l-4 border-orange-400 pl-4">
-                    <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">
-                      Performance Rating
-                    </p>
-                    <p className="text-lg font-semibold text-orange-600 mt-1">
-                      {user.user_rating || "Not rated"}
-                    </p>
-                  </div>
                 </div>
               </div>
             </div>
