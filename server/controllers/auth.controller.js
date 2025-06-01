@@ -123,8 +123,6 @@ exports.login = (req, res) => {
 
         // const isProd = process.env.NODE_ENV === "production";
         // For Production
-        console.log("process.env.NODE_ENV: ");
-        console.log(process.env.NODE_ENV);
         try {
           const cookieOptions = {
             expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
@@ -195,7 +193,7 @@ exports.forgotPassword = async (req, res) => {
       .createHash("sha256")
       .update(resetToken)
       .digest("hex");
-    const tokenExpiry = new Date(Date.now() + 3600000); 
+    const tokenExpiry = new Date(Date.now() + 3600000);
 
     await connection.query("DELETE FROM reset_tokens WHERE user_id = $1", [
       user.user_id,
