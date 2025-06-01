@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Eye, EyeOff } from "lucide-react"; // Importing Eye icons from lucide-react
+import { Eye, EyeOff, AlertCircle, X } from "lucide-react"; // Added AlertCircle and X icons
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
@@ -13,6 +13,7 @@ export default function LoginPage() {
   });
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,22 +21,46 @@ export default function LoginPage() {
       ...formData,
       [name]: value,
     });
+
+    // Clear specific field error when user starts typing
+    if (errors[name]) {
+      setErrors({
+        ...errors,
+        [name]: "",
+      });
+    }
   };
 
-  const handleSubmit = async (e) => {
-    console.log("Form data before submission");
-    e.preventDefault();
+  const validateForm = () => {
     const newErrors = {};
 
-    if (formData.password.length < 6) {
+    if (!formData.username.trim()) {
+      newErrors.username = "Username is required.";
+    }
+
+    if (!formData.password) {
+      newErrors.password = "Password is required.";
+    } else if (formData.password.length < 6) {
       newErrors.password = "Password must be at least 6 characters long.";
     }
 
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
+    return newErrors;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Clear previous errors
+    setErrors({});
+
+    // Validate form
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
       return;
     }
-    setErrors({});
+
+    setIsLoading(true);
 
     try {
       console.log("Form data before submission");
@@ -45,29 +70,65 @@ export default function LoginPage() {
           "Content-Type": "application/json",
         },
         credentials: "include",
-        // mode: "cors",
         body: JSON.stringify(formData),
       });
 
       const result = await response.json();
-
-      console.log("Response from :");
-      console.log(result);
+      console.log("Response from server:", result);
 
       if (result.status === "Success") {
         router.replace("/dashboard");
       } else {
-        setErrors({ general: result.Error || "Invalid username or password" });
+        setErrors({
+          general:
+            result.Error ||
+            result.message ||
+            "Invalid username or password. Please try again.",
+        });
       }
     } catch (error) {
       console.log("Error during login:", error);
-      setErrors({ general: "An error occurred, please try again later." });
+      setErrors({
+        general:
+          "Unable to connect to server. Please check your internet connection and try again.",
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleGoogleLogin = () => {
     signIn("google", { callbackUrl: "/dashboard" });
   };
+
+  const dismissError = () => {
+    setErrors({});
+  };
+
+  // Error Alert Component
+  const ErrorAlert = ({ message, onDismiss }) => (
+    <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-start space-x-3">
+      <AlertCircle className="text-red-500 w-5 h-5 mt-0.5 flex-shrink-0" />
+      <div className="flex-1">
+        {/* <p className="text-red-700 text-sm font-medium">Error</p> */}
+        <p className="text-red-600 text-sm">{message}</p>
+      </div>
+      <button
+        onClick={onDismiss}
+        className="text-red-400 hover:text-red-600 flex-shrink-0"
+      >
+        <X className="w-4 h-4" />
+      </button>
+    </div>
+  );
+
+  // Field Error Component
+  const FieldError = ({ message }) => (
+    <div className="mt-1 flex items-center space-x-1">
+      <AlertCircle className="text-red-500 w-4 h-4" />
+      <p className="text-red-500 text-xs">{message}</p>
+    </div>
+  );
 
   return (
     <div className="bg-white md:w-sm px-8 py-6 flex flex-col justify-center rounded-xl shadow-xl overflow-hidden border border-gray-300">
@@ -77,17 +138,18 @@ export default function LoginPage() {
         <p className="text-gray-600">Sign in to your account</p>
       </div>
 
-      {/* General Errors */}
+      {/* General Error Alert */}
       {errors.general && (
-        <p className="text-red-500 text-center text-sm mb-1">
-          {errors.general}
-        </p>
+        <ErrorAlert message={errors.general} onDismiss={dismissError} />
       )}
 
       <form onSubmit={handleSubmit}>
         {/* Username */}
-        <div className="mb-2">
-          <label htmlFor="username" className="block text-black text-sm">
+        <div className="mb-4">
+          <label
+            htmlFor="username"
+            className="block text-black text-sm font-medium mb-1"
+          >
             Username
           </label>
           <input
@@ -97,20 +159,25 @@ export default function LoginPage() {
             placeholder="example145"
             value={formData.username}
             onChange={handleChange}
-            className="w-full py-2 px-3 border text-black border-gray-300 rounded-lg bg-gray-100 mt-1 focus:ring-0 focus:outline-none focus:border-orange-400"
+            className={`w-full py-2 px-3 border rounded-lg bg-gray-100 mt-1 focus:ring-0 focus:outline-none transition-colors ${
+              errors.username
+                ? "border-red-300 focus:border-red-400 bg-red-50"
+                : "border-gray-300 focus:border-orange-400 text-black"
+            }`}
             required
           />
-          {errors.username && (
-            <p className="text-red-500 mt-1 text-xs">{errors.username}</p>
-          )}
+          {errors.username && <FieldError message={errors.username} />}
         </div>
 
-        {/* Password - Fixed icon alignment */}
-        <div className="mb-2">
-          <label htmlFor="password" className="block text-black text-sm">
+        {/* Password */}
+        <div className="mb-4">
+          <label
+            htmlFor="password"
+            className="block text-black text-sm font-medium mb-1"
+          >
             Password
           </label>
-          <div className="relative mt-1">
+          <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
               id="password"
@@ -118,7 +185,11 @@ export default function LoginPage() {
               placeholder="•••••••••••••"
               value={formData.password}
               onChange={handleChange}
-              className="w-full py-2 px-3 border text-black border-gray-300 rounded-lg bg-gray-100 focus:ring-0 focus:outline-none focus:border-orange-400 pr-10"
+              className={`w-full py-2 px-3 border rounded-lg bg-gray-100 focus:ring-0 focus:outline-none pr-10 transition-colors ${
+                errors.password
+                  ? "border-red-300 focus:border-red-400 bg-red-50"
+                  : "border-gray-300 focus:border-orange-400 text-black"
+              }`}
               minLength="6"
               maxLength="36"
               required
@@ -126,7 +197,7 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute inset-y-0 right-0 flex items-center pr-3"
+              className="absolute inset-y-0 right-0 flex items-center pr-3 hover:bg-gray-200 rounded-r-lg transition-colors"
             >
               {showPassword ? (
                 <EyeOff className="text-gray-600 w-5 h-5" />
@@ -135,9 +206,7 @@ export default function LoginPage() {
               )}
             </button>
           </div>
-          {errors.password && (
-            <p className="text-red-500 mt-1 text-xs">{errors.password}</p>
-          )}
+          {errors.password && <FieldError message={errors.password} />}
         </div>
 
         {/* Remember Me and Forgot Password */}
@@ -148,7 +217,7 @@ export default function LoginPage() {
                 type="checkbox"
                 id="remember"
                 name="remember"
-                className="w-3 h-3 text-orange-600 focus:ring-orange-500"
+                className="w-3 h-3 text-orange-600 focus:ring-orange-500 rounded"
               />
             </div>
             <div className="ml-3 text-sm">
@@ -170,9 +239,21 @@ export default function LoginPage() {
         <div className="mb-2 mt-2">
           <button
             type="submit"
-            className="w-full p-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition duration-300"
+            disabled={isLoading}
+            className={`w-full p-3 rounded-lg transition duration-300 font-medium ${
+              isLoading
+                ? "bg-gray-400 text-gray-200 cursor-not-allowed"
+                : "bg-orange-500 text-white hover:bg-orange-600"
+            }`}
           >
-            Login
+            {isLoading ? (
+              <div className="flex items-center justify-center space-x-2">
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                <span>Signing in...</span>
+              </div>
+            ) : (
+              "Login"
+            )}
           </button>
         </div>
 
@@ -188,7 +269,12 @@ export default function LoginPage() {
           <button
             type="button"
             onClick={handleGoogleLogin}
-            className="w-full p-3 bg-gray-300 text-black rounded-lg hover:bg-gray-400 transition duration-300"
+            disabled={isLoading}
+            className={`w-full p-3 rounded-lg transition duration-300 font-medium ${
+              isLoading
+                ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                : "bg-gray-300 text-black hover:bg-gray-400"
+            }`}
           >
             Continue with Google
           </button>

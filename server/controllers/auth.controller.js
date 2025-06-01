@@ -26,18 +26,49 @@ exports.signup = (req, res) => {
     group,
     department,
   } = req.body;
+
+  // Input validation
+  if (!name || !username || !email || !password) {
+    return res.status(400).json({
+      Error: "Missing required fields",
+      required: ["name", "username", "email", "password"],
+    });
+  }
+
+  // Email format validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ Error: "Invalid email format" });
+  }
+
+  // Password strength validation
+  if (password.length < 6) {
+    return res
+      .status(400)
+      .json({ Error: "Password must be at least 6 characters long" });
+  }
+
+  // Check for existing username or email
   connection.query(
-    "SELECT * FROM users WHERE username = $1",
-    [username],
+    "SELECT * FROM users WHERE username = $1 OR email = $2",
+    [username, email],
     (err, results) => {
       if (err) {
         console.error("Database query error:", err);
         return res.status(500).json({ Error: "Database error" });
       }
+
       if (results.rows.length > 0) {
-        return res.status(400).json({ Error: "Username already taken" });
+        const existingUser = results.rows[0];
+        if (existingUser.username === username) {
+          return res.status(400).json({ Error: "Username already taken" });
+        }
+        if (existingUser.email === email) {
+          return res.status(400).json({ Error: "Email already registered" });
+        }
       }
 
+      // Hash password
       bcrypt
         .hash(password, 10)
         .then((hashedPassword) => {
@@ -57,101 +88,288 @@ exports.signup = (req, res) => {
             (err, results) => {
               if (err) {
                 console.error("Database insertion error:", err);
+
+                // Handle specific database errors
+                if (err.code === "23505") {
+                  // PostgreSQL unique violation
+                  return res.status(400).json({ Error: "User already exists" });
+                }
+
                 return res
                   .status(500)
                   .json({ Error: "Error registering user" });
               }
-              return res.json({ status: "Success" });
+
+              return res.status(201).json({
+                status: "Success",
+                message: "User registered successfully",
+              });
             }
           );
         })
         .catch((error) => {
           console.error("Password hashing error:", error);
-          return res.status(500).json({ Error: "Error hashing password" });
+          return res
+            .status(500)
+            .json({ Error: "Error processing registration" });
         });
     }
   );
 };
 
-exports.login = (req, res) => {
-  const { username, password } = req.body;
+exports.login = async (req, res) => {
+  try {
+    // Input validation
+    const { username, password } = req.body;
 
-  if (!username || !password) {
-    return res
-      .status(400)
-      .json({ Error: "Username and password are required" });
-  }
-
-  connection.query(
-    "SELECT * FROM users WHERE username = $1",
-    [username],
-    (err, results) => {
-      if (err) {
-        console.error("Database query error:", err);
-        return res.status(500).json({ Error: "Error during query" });
-      }
-
-      if (results.rows.length === 0) {
-        return res.status(401).json({ Error: "Invalid credentials" });
-      }
-
-      const user = results.rows[0];
-
-      bcrypt.compare(password, user.password, (err, isMatch) => {
-        if (err) {
-          console.error("Password comparison error:", err);
-          return res.status(500).json({ Error: "Error comparing password" });
-        }
-
-        if (!isMatch) {
-          return res.status(401).json({ Error: "Invalid credentials" });
-        }
-
-        const uid = user.user_id;
-        const token = jwt.sign({ id: uid }, process.env.JWT_SECRET, {
-          expiresIn: process.env.JWT_EXPIRES_IN || "1d",
-        });
-
-        // For Localhost
-        // const cookieOptions = {
-        //   expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
-        //   httpOnly: true,
-        //   secure: process.env.NODE_ENV === "development",
-        //   sameSite: "Lax",
-        //   path: "/",
-        // };
-
-        // const isProd = process.env.NODE_ENV === "production";
-        // For Production
-        try {
-          const cookieOptions = {
-            expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
-            httpOnly: true,
-            secure: true,
-            sameSite: "None",
-            path: "/",
-          };
-
-          res.cookie(process.env.COOKIE_NAME, token, cookieOptions);
-
-          console.log("Cookie set successfully");
-
-          return res.status(200).json({
-            status: "Success",
-            cookieName: process.env.COOKIE_NAME,
-            user: {
-              id: user.user_id,
-              name: user.user_full_name,
-              role: user.user_role,
-            },
-          });
-        } catch (error) {
-          console.error("Error setting cookie:", error);
-          return res.status(500).json({ status: "Failed", error: error });
-        }
+    if (!username || !password) {
+      return res.status(400).json({
+        status: "Failed",
+        Error: "Username and password are required",
+        field: "general",
       });
     }
-  );
+
+    // Validate input format
+    if (typeof username !== "string" || typeof password !== "string") {
+      return res.status(400).json({
+        status: "Failed",
+        Error: "Invalid input format",
+        field: "general",
+      });
+    }
+
+    // Trim whitespace and validate length
+    const trimmedUsername = username.trim();
+    if (trimmedUsername.length === 0) {
+      return res.status(400).json({
+        status: "Failed",
+        Error: "Username cannot be empty",
+        field: "username",
+      });
+    }
+
+    if (password.length < 6) {
+      return res.status(400).json({
+        status: "Failed",
+        Error: "Password must be at least 6 characters long",
+        field: "password",
+      });
+    }
+
+    // Database query with proper error handling
+    const queryUser = () => {
+      return new Promise((resolve, reject) => {
+        connection.query(
+          "SELECT * FROM users WHERE username = $1",
+          [trimmedUsername],
+          (err, results) => {
+            if (err) {
+              console.error("Database query error:", err);
+              reject({
+                status: "Failed",
+                Error: "Database connection error. Please try again later.",
+                technical: err.message,
+                field: "general",
+              });
+            } else {
+              resolve(results);
+            }
+          }
+        );
+      });
+    };
+
+    // Execute database query
+    let results;
+    try {
+      results = await queryUser();
+    } catch (dbError) {
+      return res.status(500).json(dbError);
+    }
+
+    // Check if user exists
+    if (!results.rows || results.rows.length === 0) {
+      return res.status(401).json({
+        status: "Failed",
+        Error: "Invalid username or password",
+        field: "general",
+      });
+    }
+
+    const user = results.rows[0];
+
+    // Check if user account is active (if you have such field)
+    if (user.status && user.status === "inactive") {
+      return res.status(403).json({
+        status: "Failed",
+        Error: "Account is inactive. Please contact support.",
+        field: "general",
+      });
+    }
+
+    // Password comparison with proper error handling
+    const comparePassword = () => {
+      return new Promise((resolve, reject) => {
+        bcrypt.compare(password, user.password, (err, isMatch) => {
+          if (err) {
+            console.error("Password comparison error:", err);
+            reject({
+              status: "Failed",
+              Error: "Authentication error. Please try again.",
+              technical: err.message,
+              field: "general",
+            });
+          } else {
+            resolve(isMatch);
+          }
+        });
+      });
+    };
+
+    // Execute password comparison
+    let isMatch;
+    try {
+      isMatch = await comparePassword();
+    } catch (bcryptError) {
+      return res.status(500).json(bcryptError);
+    }
+
+    // Check password match
+    if (!isMatch) {
+      return res.status(401).json({
+        status: "Failed",
+        Error: "Invalid username or password",
+        field: "general",
+      });
+    }
+
+    // JWT token generation with error handling
+    let token;
+    try {
+      const uid = user.user_id;
+
+      if (!process.env.JWT_SECRET) {
+        throw new Error("JWT_SECRET not configured");
+      }
+
+      token = jwt.sign(
+        {
+          id: uid,
+          username: user.username,
+          role: user.user_role,
+        },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: process.env.JWT_EXPIRES_IN || "1d",
+        }
+      );
+    } catch (jwtError) {
+      console.error("JWT generation error:", jwtError);
+      return res.status(500).json({
+        status: "Failed",
+        Error: "Token generation failed. Please try again.",
+        technical: jwtError.message,
+        field: "general",
+      });
+    }
+
+    // Cookie setting with comprehensive error handling
+    try {
+      if (!process.env.COOKIE_NAME) {
+        throw new Error("COOKIE_NAME not configured");
+      }
+
+      const cookieOptions = {
+        expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000), // 1 day
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production", // true for production
+        sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+        path: "/",
+      };
+
+      // Validate cookie options
+      if (cookieOptions.expires < new Date()) {
+        throw new Error("Invalid cookie expiration time");
+      }
+
+      res.cookie(process.env.COOKIE_NAME, token, cookieOptions);
+      console.log("Cookie set successfully for user:", user.username);
+
+      // Success response with user data
+      return res.status(200).json({
+        status: "Success",
+        message: "Login successful",
+        cookieName: process.env.COOKIE_NAME,
+        user: {
+          id: user.user_id,
+          username: user.username,
+          name: user.user_full_name || user.username,
+          role: user.user_role || "user",
+          email: user.email || null,
+        },
+        loginTime: new Date().toISOString(),
+      });
+    } catch (cookieError) {
+      console.error("Error setting cookie:", cookieError);
+      return res.status(500).json({
+        status: "Failed",
+        Error: "Session creation failed. Please try again.",
+        technical: cookieError.message,
+        field: "general",
+      });
+    }
+  } catch (error) {
+    // Catch any unexpected errors
+    console.error("Unexpected error in login function:", error);
+    return res.status(500).json({
+      status: "Failed",
+      Error: "An unexpected error occurred. Please try again later.",
+      technical:
+        process.env.NODE_ENV === "development" ? error.message : undefined,
+      field: "general",
+    });
+  }
+};
+
+// Optional: Add rate limiting helper function
+const loginAttempts = new Map();
+
+const checkRateLimit = (username, ip) => {
+  const key = `${username}-${ip}`;
+  const now = Date.now();
+  const attempts = loginAttempts.get(key) || { count: 0, lastAttempt: now };
+
+  // Reset counter if more than 15 minutes have passed
+  if (now - attempts.lastAttempt > 15 * 60 * 1000) {
+    attempts.count = 0;
+  }
+
+  attempts.count++;
+  attempts.lastAttempt = now;
+  loginAttempts.set(key, attempts);
+
+  // Allow max 5 attempts per 15 minutes
+  return attempts.count <= 5;
+};
+
+// Enhanced login function with rate limiting (optional)
+exports.loginWithRateLimit = async (req, res) => {
+  const clientIP = req.ip || req.connection.remoteAddress;
+  const { username } = req.body;
+
+  // Check rate limit
+  if (username && !checkRateLimit(username, clientIP)) {
+    return res.status(429).json({
+      status: "Failed",
+      Error: "Too many login attempts. Please try again in 15 minutes.",
+      field: "general",
+      retryAfter: 15 * 60, // seconds
+    });
+  }
+
+  // Call the main login function
+  return exports.login(req, res);
 };
 
 exports.logout = (req, res) => {
