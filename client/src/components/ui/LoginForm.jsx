@@ -66,7 +66,7 @@ export default function LoginPage() {
   };
 
   const handleGoogleLogin = () => {
-    signIn("google");
+    signIn("google", { callbackUrl: "/dashboard" });
   };
 
   return (

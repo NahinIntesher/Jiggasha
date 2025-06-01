@@ -1,8 +1,6 @@
 import localFont from "next/font/local";
-import ThemeProviders from "@/components/ThemeProvider";
-import Navbar from "@/components/ui/Navbar";
-import Footer from "@/components/ui/Footer";
 import "./globals.css";
+import Providers from "@/components/Providers";
 
 const quicksand = localFont({
   src: "../../public/fonts/Quicksand-Regular.ttf",
@@ -29,9 +27,9 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className={`${anekbangla.className} ${quicksand.className}`}>
-        <ThemeProviders>
+        <Providers>
           <main>{children}</main>
-        </ThemeProviders>
+        </Providers>
       </body>
     </html>
   );

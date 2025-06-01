@@ -147,8 +147,7 @@ exports.login = (req, res) => {
               role: user.user_role,
             },
           });
-        }
-        catch (error) {
+        } catch (error) {
           console.error("Error setting cookie:", error);
           return res.status(500).json({ status: "Failed", error: error });
         }
@@ -196,7 +195,7 @@ exports.forgotPassword = async (req, res) => {
       .createHash("sha256")
       .update(resetToken)
       .digest("hex");
-    const tokenExpiry = new Date(Date.now() + 3600000);
+    const tokenExpiry = new Date(Date.now() + 3600000); 
 
     await connection.query("DELETE FROM reset_tokens WHERE user_id = $1", [
       user.user_id,
@@ -206,11 +205,11 @@ exports.forgotPassword = async (req, res) => {
       [user.user_id, tokenHash, tokenExpiry]
     );
 
-    const resetUrl = `${process.env.CLIENT_URL || "http://localhost:3000"
-      }/reset-password/${resetToken}`;
+    const resetUrl = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
 
     const mailOptions = {
-      from: process.env.EMAIL_FROM || "noreply@yourrouter.com",
+      from:
+        process.env.EMAIL_FROM || `"Jiggasha" <${process.env.EMAIL_USERNAME}>`,
       to: email,
       subject: "Password Reset Request",
       html: `
