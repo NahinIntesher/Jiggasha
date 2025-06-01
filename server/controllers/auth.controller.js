@@ -89,10 +89,25 @@ exports.signup = (req, res) => {
               if (err) {
                 console.error("Database insertion error:", err);
 
-                // Handle specific database errors
                 if (err.code === "23505") {
-                  // PostgreSQL unique violation
-                  return res.status(400).json({ Error: "User already exists" });
+                  // Check which unique constraint failed
+                  const detail = err.detail || "";
+
+                  if (detail.includes("username")) {
+                    return res
+                      .status(400)
+                      .json({ error: "Username already taken" });
+                  } else if (detail.includes("email")) {
+                    return res
+                      .status(400)
+                      .json({ error: "Email already taken" });
+                  } else if (detail.includes("mobile")) {
+                    return res
+                      .status(400)
+                      .json({ error: "Mobile number already taken" });
+                  } else {
+                    return res.status(400).json({ error: "Duplicate entry" });
+                  }
                 }
 
                 return res

@@ -182,11 +182,30 @@ export default function AdminRegistrationPage() {
 
     // Simulate API call
     try {
-      console.log("Form submitted with data:", formData);
-      alert("Registration successful! (This is a demo)");
+      const response = await fetch("http://localhost:8000/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+        credentials: "include",
+      });
+      const result = await response.json();
+      if (
+        response.status === 400 &&
+        result.Error === "Username already taken"
+      ) {
+        newErrors.username = "Username already taken";
+        setErrors(newErrors);
+      } else if (result.status === "Success") {
+        console.log("Signup successful.");
+        router.push("/login");
+      } else {
+        setErrors({ general: result.Error || "Signup failed." });
+      }
     } catch (error) {
       console.error("Error during signup:", error);
-      setErrors({ general: "An error occurred. Please try again later." });
+      setErrors({ general: "An error occurred, please try again later." });
     }
   };
 
