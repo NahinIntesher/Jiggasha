@@ -261,7 +261,6 @@ exports.joinCommunity = async (req, res) => {
 
 exports.getAllPosts = async (req, res) => {
   const { communityId } = req.params;
-  console.log("Fetching posts for community:", communityId);
   if (!communityId) {
     return res.status(400).json({ error: "Community ID is required" });
   }
