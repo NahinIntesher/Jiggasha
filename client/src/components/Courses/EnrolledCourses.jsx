@@ -17,7 +17,7 @@
   } from "react-icons/fa6";
   import Loading from "../ui/Loading";
 
-  export default function BrowseCourses() {
+  export default function EnrolledCourses() {
     const [view, setView] = useState("grid");
 
     const [courses, setcourses] = useState([]);
@@ -74,7 +74,8 @@
           }
 
           const coursesData = await response.json();
-          setcourses(coursesData);
+          const joinedCourses = coursesData.filter(course => course.is_joined === true);
+          setcourses(joinedCourses);
         } catch (error) {
           console.error("Error fetching user data:", error);
         } finally {

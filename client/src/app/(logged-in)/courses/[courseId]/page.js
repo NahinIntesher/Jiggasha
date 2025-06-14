@@ -1,14 +1,17 @@
 "use client";
 import HeaderAlt from "@/components/ui/HeaderAlt";
 import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import { FaCaretDown, FaCaretUp, FaComment, FaEye, FaPlay } from "react-icons/fa6";
+import { useParams, useRouter } from "next/navigation";
+import { FaCaretDown, FaCaretUp, FaChalkboardUser, FaComment, FaEye, FaPlay } from "react-icons/fa6";
 import { subjectName } from "@/utils/Constant";
 import { classLevelName, dateFormat } from "@/utils/Functions";
-import { FaBook, FaCalendarAlt } from "react-icons/fa";
+import { FaBook, FaCalendarAlt, FaUser } from "react-icons/fa";
+import Link from "next/link";
 
 export default function SingleCourse() {
   const { courseId } = useParams();
+
+  const router = useRouter();
 
   const [course, setCourse] = useState();
   const [loading, setLoading] = useState(true);
@@ -109,6 +112,15 @@ export default function SingleCourse() {
     fetchData();
   }, []);
 
+  function goToMaterial() {
+    if (course.is_joined) {
+      router.push(`/courses/${course.course_id}/2rgvrwvwv`);
+    }
+    else {
+      alert("You need to enroll in the course to access the materials.");
+    }
+  }
+
   if (loading) {
     return <>Loading</>;
   } else {
@@ -131,16 +143,24 @@ export default function SingleCourse() {
                       </div>
                     </div>
                   </div>
-                  <div className="enrollment">
-                    <div className="enrollButton">
-                      Enroll Now
+                  {course.is_joined ? (
+                    <div className="enrollment enrolled">
+                      <div className="enrollButton">
+                        Enrolled
+                      </div>
                     </div>
-                    {course.price == 0 ? (
-                      <div className="free">Free</div>
-                    ) : (
-                      <div className="price">৳{course.price}</div>
-                    )}
-                  </div>
+                  ) : (
+                    <div className="enrollment">
+                      <div className="enrollButton">
+                        Enroll Now
+                      </div>
+                      {course.price == 0 ? (
+                        <div className="free">Free</div>
+                      ) : (
+                        <div className="price">৳{course.price}</div>
+                      )}
+                    </div>
+                  )}
                 </div>
                 {course.cover_image_url ? (
                   <img className="previewImage" src={course.cover_image_url} />
@@ -167,12 +187,12 @@ export default function SingleCourse() {
                   </div>
                   <div className="informations">
                     <div className="information">
-                      <FaCalendarAlt className="icon" />
-                      <div className="text">{dateFormat(course.created_at)}</div>
+                      <FaUser className="icon" />
+                      <div className="text">{course.total_student} Studnets</div>
                     </div>
                     <div className="information">
-                      <FaEye className="icon" />
-                      <div className="text">{course.view_count}</div>
+                      <FaChalkboardUser className="icon" />
+                      <div className="text">3 Lectures</div>
                     </div>
                   </div>
                 </div>
@@ -189,9 +209,9 @@ export default function SingleCourse() {
               <div className="courseContentsBox">
                 <div className="title">Course Contents</div>
                 <div className="courseContentBoxContainer">
-                  <CourseContentBox />
-                  <CourseContentBox />
-                  <CourseContentBox />
+                  <CourseContentBox action={goToMaterial} />
+                  <CourseContentBox action={goToMaterial} />
+                  <CourseContentBox action={goToMaterial} />
                 </div>
               </div>
             </div>
@@ -202,9 +222,9 @@ export default function SingleCourse() {
   }
 }
 
-function CourseContentBox() {
+function CourseContentBox({ action }) {
   return (
-    <div className="courseContentBox">
+    <div onClick={action} className="courseContentBox">
       <div className="iconContainer">
         <FaPlay className="icon" />
       </div>

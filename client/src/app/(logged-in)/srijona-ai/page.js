@@ -131,7 +131,7 @@ export default function SrijonaAI() {
 
   return (
     <div className="">
-      <Header title="Srijona AI" />
+      <Header title="Jiggasha AI" />
       <div className="messageContainer">{renderedMessages}</div>
       <SenderBox
         handleSubmit={handleSubmit}

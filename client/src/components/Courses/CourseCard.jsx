@@ -4,7 +4,7 @@ import { classLevelName, dateFormat, stripHTML } from "@/utils/Functions";
 import Link from "next/link";
 import React, { useState } from "react";
 import { FaCalendarAlt } from "react-icons/fa";
-import { FaEye, FaCaretDown, FaCaretUp, FaComment, FaBook } from "react-icons/fa6";
+import { FaEye, FaCaretDown, FaCaretUp, FaComment, FaBook, FaUser, FaChalkboardUser } from "react-icons/fa6";
 
 const CourseCard = ({
   id,
@@ -16,6 +16,8 @@ const CourseCard = ({
   coverImage,
   instructorName,
   instructorPicture,
+  totalStudent,
+  isJoined,
   view,
 }) => {
   const [enrollStatus, setEnrollStatus] = useState(false);
@@ -60,12 +62,12 @@ const CourseCard = ({
           <hr className="gridOnly" />
           <div className="informations">
             <div className="information">
-              <FaCalendarAlt className="icon" />
-              <div className="text">{dateFormat(createdAt)}</div>
+              <FaUser className="icon" />
+              <div className="text">{totalStudent} Students</div>
             </div>
             <div className="information">
-              <FaEye className="icon" />
-              <div className="text">{0}</div>
+              <FaChalkboardUser className="icon" />
+              <div className="text">{3} Lectures</div>
             </div>
           </div>
         </div>

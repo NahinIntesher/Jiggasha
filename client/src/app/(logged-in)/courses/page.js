@@ -1,6 +1,7 @@
 "use client";
 
 import BrowseCourses from "@/components/Courses/BrowseCourses";
+import EnrolledCourses from "@/components/Courses/EnrolledCourses";
 import Header from "@/components/ui/Header";
 import { use, useState } from "react";
 import { FaArrowUpWideShort } from "react-icons/fa6";
@@ -27,6 +28,7 @@ export default function Course() {
       </div>
 
       { activeTab == "browseCourses" && <BrowseCourses /> }
+      { activeTab == "enrolledCourses" && <EnrolledCourses /> }
 
     </div>
   );
