@@ -291,7 +291,14 @@ exports.getAllPosts = async (req, res) => {
         COALESCE(c.comment_count, 0) AS comment_count,
 
         -- Media array
-        COALESCE(m.media, '[]') AS media
+        COALESCE(m.media, '[]') AS media,
+
+        -- Poster (Admin/User) information
+        u.full_name AS author_name,
+        CASE 
+          WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/users/profile/', u.user_picture)
+          ELSE NULL
+        END AS author_picture
 
       FROM community_posts p
 
@@ -312,20 +319,23 @@ exports.getAllPosts = async (req, res) => {
       -- Join media
       LEFT JOIN (
         SELECT post_id, 
-               JSON_AGG(JSON_BUILD_OBJECT(
-                 'media_id', media_id,
-                 'media_type', media_type,
-                 'media_blob', media_blob,
-                 'created_at', created_at
-               )) AS media
+              JSON_AGG(JSON_BUILD_OBJECT(
+                'media_id', media_id,
+                'media_type', media_type,
+                'media_blob', media_blob,
+                'created_at', created_at
+              )) AS media
         FROM community_post_media
         GROUP BY post_id
       ) m ON p.post_id = m.post_id
 
+      -- Join member/user table
+      LEFT JOIN users u ON p.member_id = u.user_id  -- adjust 'users' and 'user_id' as per your schema
+
       WHERE p.community_id = $1
         AND p.approval_status = 'approved'
 
-      ORDER BY p.is_pinned DESC, p.created_at DESC
+      ORDER BY p.is_pinned DESC, p.created_at DESC;
       `,
       [communityId]
     );

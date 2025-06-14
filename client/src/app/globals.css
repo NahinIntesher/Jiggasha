@@ -1170,7 +1170,9 @@ body {
 
 /* Blog Box */
 
-.blogBox, .courseBox, .courseVideoBox {
+.blogBox,
+.courseBox,
+.courseVideoBox {
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -1202,7 +1204,6 @@ body {
   margin: 12px 4px;
 }
 
-
 .blogBox .psudoPreviewImage,
 .courseBox .psudoPreviewImage {
   display: flex;
@@ -1226,7 +1227,6 @@ body {
   align-items: center;
   justify-content: space-between;
 }
-
 
 .courseBox .enrollment {
   display: flex;
@@ -1421,14 +1421,14 @@ body {
   flex-direction: column;
 }
 
-.blogBox .author .name, 
+.blogBox .author .name,
 .courseBox .instructor .name {
   font-size: 16px;
   font-weight: 700;
   margin: 0px 4px;
 }
 
-.blogBox .informationContainer, 
+.blogBox .informationContainer,
 .courseBox .informationContainer {
   display: flex;
   flex-direction: row;
@@ -1437,7 +1437,7 @@ body {
   margin: 4px 8px;
 }
 
-.blogBox .informations, 
+.blogBox .informations,
 .courseBox .informations {
   display: flex;
   flex-direction: row;
@@ -1445,7 +1445,7 @@ body {
   justify-content: center;
 }
 
-.blogBox .information, 
+.blogBox .information,
 .courseBox .information {
   display: flex;
   flex-direction: row;
@@ -1539,7 +1539,7 @@ body {
 
 .courseVideoBox {
   margin: 10px;
-  margin-bottom: 20px;  
+  margin-bottom: 20px;
 }
 
 .courseContentsBox {
@@ -1561,7 +1561,6 @@ body {
   font-weight: 700;
   margin: 6px 12px;
 }
-
 
 .courseBoxContainer .scrollContainer {
   flex: 1;
@@ -1608,7 +1607,7 @@ body {
   font-size: 18px;
   text-align: center;
   margin: 8px 12px;
-} 
+}
 
 .courseContentBox .contentDetails {
   margin: 8px;
@@ -1651,7 +1650,7 @@ body {
   font-size: 18px;
   text-align: center;
   margin: 8px;
-} 
+}
 
 .courseVideoBox .details .contentDetails {
   margin: 8px;
@@ -1669,12 +1668,12 @@ body {
   font-weight: 500;
 }
 
-
 .courseContentBox:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.courseContentBoxActive, .courseContentBoxActive:hover {
+.courseContentBoxActive,
+.courseContentBoxActive:hover {
   background-color: rgb(250, 135, 0, 0.2);
 }
 
@@ -1704,7 +1703,7 @@ body {
 }
 
 .courseChatbox .self {
-  background-color: rgb(250, 135, 0, 0.8);  
+  background-color: rgb(250, 135, 0, 0.8);
   margin-right: 4px;
   margin-left: auto;
 }
@@ -1715,7 +1714,6 @@ body {
   padding: 14px 20px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
-
 
 .courseChatbox .messageSendBox {
   position: absolute;
@@ -1972,5 +1970,530 @@ body {
 
   .header .iconContainer .searchBox {
     flex: 1;
+  }
+}
+
+/* communityPosts */
+.givePostBox {
+  margin: 10px;
+  text-align: center;
+  padding: 10px;
+}
+
+.givePostBox .profilePicture {
+  display: inline-block;
+  vertical-align: middle;
+  background-image: linear-gradient(rgb(var(--dark)), rgb(var(--medium)));
+  padding: 5px;
+  border-radius: 80px;
+  margin: 8px;
+}
+
+.givePostBox .profilePicture img {
+  border-radius: 60px;
+  border: 5px solid #ffffff;
+  display: block;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+
+.givePostBox .textBox {
+  display: inline-block;
+  vertical-align: middle;
+  width: calc(100% - 140px);
+  max-width: 860px;
+  margin: 8px;
+  background-color: #ffffff;
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+}
+
+.givePostBox .textBox .textareaContainer {
+  display: inline-block;
+  vertical-align: middle;
+  width: calc(100% - 120px);
+}
+
+.givePostBox .textBox textarea {
+  display: inline-block;
+  vertical-align: middle;
+  background-color: transparent;
+  padding: 18px 24px;
+  padding-bottom: 10px;
+  resize: none;
+  outline: 0;
+  width: 100%;
+  border: none;
+  font-family: inherit;
+}
+
+.givePostBox .addMediaContainer {
+  background-color: rgba(255, 169, 82, 0.4);
+  display: flex;
+  border-radius: 40px;
+  margin: 12px;
+  cursor: default;
+  margin-top: 0;
+}
+
+.givePostBox .addMedia {
+  flex: 1;
+  color: #ef5a5acc;
+  display: inline-block;
+  padding: 8px;
+  position: relative;
+  border-left: 2px #ef5d5d66 solid;
+  cursor: pointer;
+}
+
+.givePostBox .changeCategory {
+  flex: 2;
+  color: #ef5a5acc;
+  display: inline-block;
+  padding: 8px;
+  position: relative;
+  text-align: left;
+  cursor: pointer;
+}
+
+.givePostBox .changeCategory .dropdownIcon {
+  position: absolute;
+  right: 8px;
+  top: 12px;
+}
+
+.givePostBox .changeCategory .categoryContainer {
+  background-color: #ffffff;
+  position: absolute;
+  padding: 8px;
+  border-radius: 16px;
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 3000;
+  top: 100%;
+  left: 0;
+  min-width: 150px;
+}
+
+.givePostBox .changeCategory .categoryContainer .category {
+  color: rgba(0, 0, 0, 0.6);
+  padding: 10px 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.givePostBox .changeCategory .categoryContainer .category:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+.givePostBox .addMedia .icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 2px;
+}
+
+.givePostBox .addMedia .text {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 4px;
+}
+
+.givePostBox .changeCategory .icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 2px 6px;
+}
+
+.givePostBox .changeCategory .text {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 4px;
+}
+
+.givePostBox .addMedia input[type="file"] {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.givePostBox .mediaContainer {
+  text-align: left;
+  padding: 10px 12px;
+  padding-top: 0;
+}
+
+.givePostBox .mediaContainer .media {
+  display: inline-block;
+  vertical-align: middle;
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  margin: 4px;
+  background-color: rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.givePostBox .mediaContainer .media .audio {
+  display: block;
+  margin-top: 8px;
+}
+
+.givePostBox .mediaContainer .media audio {
+  display: none;
+}
+
+.givePostBox .mediaContainer .media video {
+  display: none;
+}
+
+.givePostBox .mediaContainer .duration {
+  display: inline-block;
+  font-size: 12px;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #ffffff;
+  padding: 1px 10px;
+  border-radius: 20px;
+  margin-top: 4px;
+}
+
+.givePostBox .mediaContainer .media img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+
+.givePostBox .mediaContainer .media .remove {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.givePostBox .postButton {
+  display: inline-block;
+  vertical-align: middle;
+  background-image: radial-gradient(
+      80px 30px at left top,
+      rgba(var(--light), 0.8),
+      rgba(var(--light), 0.6),
+      transparent
+    ),
+    linear-gradient(rgb(var(--dark)), rgb(var(--medium)));
+  color: #ffffff;
+  padding: 10px 28px;
+  border-radius: 60px;
+  font-weight: 600;
+  margin: 8px 12px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.postContentContainer {
+  cursor: pointer;
+}
+
+.postBoxContainer {
+  margin: 10px;
+  text-align: center;
+}
+
+.postBox {
+  display: inline-block;
+  background-color: #ffffff;
+  border-radius: 18px;
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  width: calc(100% - 20px);
+  max-width: 940px;
+  text-align: left;
+  position: relative;
+}
+
+.postBox .reportButton {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  color: #c62d42cc;
+  background-color: #f4ced3;
+  border-radius: 30px;
+  font-size: 15px;
+  padding: 6px 20px;
+  cursor: pointer;
+}
+
+.postBox .reportButton:hover {
+  color: #c62d42;
+  background-color: #e9a1aa;
+}
+
+.postBox .reportButton .icon,
+.postBox .reportButton .text {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 2px;
+  font-weight: 500;
+}
+
+.postBox .profile {
+  padding: 14px;
+  padding-bottom: 0;
+}
+
+.postBox .profilePicture {
+  display: inline-block;
+  vertical-align: middle;
+  background-image: linear-gradient(rgb(var(--dark)), rgb(var(--medium)));
+  padding: 3px;
+  border-radius: 80px;
+  margin: 4px 6px;
+}
+
+.postBox .profilePicture img {
+  border-radius: 50px;
+  border: 3px solid #ffffff;
+  display: block;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.postBox .profileDetail {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 4px;
+}
+
+.postBox .profileDetail .name {
+  font-weight: 600;
+}
+
+.postBox .profileDetail .detail {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.postBox .postContent {
+  padding: 12px 20px;
+  color: rgba(0, 0, 0, 0.6);
+  white-space: pre-wrap;
+}
+
+.postBox .mediaContainer {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding: 6px;
+  text-align: center;
+  text-wrap: nowrap;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  margin: 12px;
+  margin-top: 4px;
+}
+
+.postBox .mediaContainer img {
+  display: inline-block;
+  vertical-align: middle;
+  max-height: 500px;
+  border-radius: 8px;
+  margin: 6px;
+}
+
+.postBox .mediaContainer video {
+  display: inline-block;
+  vertical-align: middle;
+  max-height: 500px;
+  border-radius: 8px;
+  margin: 6px;
+}
+
+.postBox .mediaContainer .audioContainer {
+  display: inline-block;
+  vertical-align: middle;
+  width: 70%;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 6px;
+  margin: 6px;
+}
+
+.postBox .mediaContainer .audioContainer .icon {
+  color: rgba(0, 0, 0, 0.5);
+  margin: 12px;
+}
+
+.postBox .mediaContainer audio {
+  width: calc(100% - 12px);
+  margin: 6px;
+  border-radius: 50px;
+}
+
+.postBox .postActionBoxContainer {
+  display: flex;
+  border-radius: 0 0 18px 18px;
+  padding: 8px;
+  padding-top: 0;
+}
+
+.postBox .postActionBox {
+  flex: 1;
+  text-align: center;
+  padding: 6px;
+  background-color: rgba(0, 0, 0, 0.09);
+  margin: 4px;
+  border-radius: 50px;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.postBox .postActionBox:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.postBox .postActionBox .icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 4px;
+}
+
+.postBox .postActionBox .text {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 4px;
+  font-size: 15px;
+}
+
+.postBox .active {
+  background-color: rgba(var(--medium), 0.4);
+  color: rgb(var(--dark));
+}
+
+.postBox .active .text {
+  font-weight: 600;
+}
+
+.postBox .active:hover {
+  background-color: rgba(var(--medium), 0.5);
+}
+
+.postBox .postDetails {
+  font-size: 14px;
+  margin: 2px 16px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.postBox .postDetails .detail {
+  font-size: 14px;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 4px;
+}
+
+.postBox .postDetails .divider {
+  width: 4px;
+  height: 4px;
+  border-radius: 4px;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 4px;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.miniBreak {
+  min-height: 10px;
+}
+
+@media (max-width: 480px) {
+  .givePostBox .profilePicture,
+  .postBox .profilePicture {
+    margin-bottom: 10px;
+  }
+
+  .givePostBox .textBox,
+  .postBox .postContent {
+    width: 100%;
+    margin: 0;
+  }
+
+  .givePostBox .addMedia,
+  .givePostBox .changeCategory {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .givePostBox .textBox textarea {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .givePostBox .postButton {
+    margin-top: 10px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .givePostBox,
+  .postBox {
+    max-width: 90%;
+    padding: 12px;
+  }
+
+  .givePostBox .textBox,
+  .postBox .postContent {
+    width: 100%;
+  }
+
+  .givePostBox .profilePicture img,
+  .postBox .profilePicture img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .givePostBox .textBox textarea {
+    padding: 14px 20px;
+    width: calc(100% - 40px);
+  }
+
+  .givePostBox .addMedia,
+  .givePostBox .changeCategory {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .givePostBox .addMedia .text,
+  .givePostBox .changeCategory .text {
+    font-size: 12px;
+  }
+
+  .givePostBox .mediaContainer .media {
+    width: 60px;
+    height: 60px;
+  }
+
+  .givePostBox .postButton {
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 14px;
   }
 }
