@@ -258,3 +258,81 @@ exports.joinCommunity = async (req, res) => {
     });
   }
 };
+
+exports.getAllPosts = async (req, res) => {
+  const { communityId } = req.params;
+  console.log("Fetching posts for community:", communityId);
+  if (!communityId) {
+    return res.status(400).json({ error: "Community ID is required" });
+  }
+
+  try {
+    const result = await connection.query(
+      `
+      SELECT 
+        p.post_id,
+        p.title,
+        p.content,
+        p.member_id,
+        p.is_pinned,
+        p.view_count,
+        p.approval_status,
+        p.approval_date,
+        p.created_at,
+        p.updated_at,
+
+        -- Is Edited (if content was updated after creation)
+        CASE WHEN p.updated_at > p.created_at THEN true ELSE false END AS is_edited,
+
+        -- Reactions count
+        COALESCE(r.reaction_count, 0) AS reaction_count,
+
+        -- Comments count
+        COALESCE(c.comment_count, 0) AS comment_count,
+
+        -- Media array
+        COALESCE(m.media, '[]') AS media
+
+      FROM community_posts p
+
+      -- Join reactions count
+      LEFT JOIN (
+        SELECT post_id, COUNT(*) AS reaction_count
+        FROM community_post_reactions
+        GROUP BY post_id
+      ) r ON p.post_id = r.post_id
+
+      -- Join comments count
+      LEFT JOIN (
+        SELECT post_id, COUNT(*) AS comment_count
+        FROM community_post_comments
+        GROUP BY post_id
+      ) c ON p.post_id = c.post_id
+
+      -- Join media
+      LEFT JOIN (
+        SELECT post_id, 
+               JSON_AGG(JSON_BUILD_OBJECT(
+                 'media_id', media_id,
+                 'media_type', media_type,
+                 'media_blob', media_blob,
+                 'created_at', created_at
+               )) AS media
+        FROM community_post_media
+        GROUP BY post_id
+      ) m ON p.post_id = m.post_id
+
+      WHERE p.community_id = $1
+        AND p.approval_status = 'approved'
+
+      ORDER BY p.is_pinned DESC, p.created_at DESC
+      `,
+      [communityId]
+    );
+
+    res.status(200).json({ posts: result.rows });
+  } catch (error) {
+    console.error("Error fetching community posts:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
