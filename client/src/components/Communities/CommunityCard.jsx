@@ -90,7 +90,7 @@ const CommunityCard = ({
               <div className="description">{description}</div>
             </div>
 
-            <div className="voting joinSection">
+            <div className="joinSection">
               <button
                 onClick={(e) => {
                   e.preventDefault();

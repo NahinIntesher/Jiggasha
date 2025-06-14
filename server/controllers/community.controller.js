@@ -73,6 +73,11 @@ exports.getMyCommunities = async (req, res) => {
         c.class_level,
         c.approval_status,
         c.admin_id,
+        u.full_name AS admin_name,
+          CASE 
+              WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/users/profile/', u.user_picture)
+              ELSE NULL
+          END AS admin_picture,
         CASE
           WHEN c.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/communities/image/', c.community_id)
           ELSE NULL
@@ -83,6 +88,8 @@ exports.getMyCommunities = async (req, res) => {
         END AS is_member,
         COALESCE(member_count.total_members, 0) AS total_members
       FROM communities c
+      LEFT JOIN users u 
+          ON c.admin_id = u.user_id
       LEFT JOIN community_members cm
         ON c.community_id = cm.community_id
         AND cm.member_id = $1
@@ -107,30 +114,36 @@ exports.getSingleCommunities = async (req, res) => {
 
   try {
     const { rows } = await connection.query(
-      `SELECT c.community_id, c.name, c.description, c.created_at, c.subject, c.class_level, c.approval_status, c.admin_id,
-      CASE 
-      WHEN c.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/communities/image/', c.community_id)
-      ELSE NULL
-      END AS cover_image_url,
-      u.full_name AS author_name,
-      CASE
-      WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
-      ELSE NULL
-      END AS author_picture_url,
-      COALESCE(bv.vote, 0) AS is_voted,
-      COALESCE(v_c.total_vote, 0) AS vote_count
+      `SELECT
+        c.community_id,
+        c.name,
+        c.description,
+        c.created_at,
+        c.subject,
+        c.class_level,
+        c.approval_status,
+        c.admin_id,
+        u.full_name AS admin_name,
+          CASE 
+              WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/users/profile/', u.user_picture)
+              ELSE NULL
+          END AS admin_picture,
+        CASE
+          WHEN c.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/communities/image/', c.community_id)
+          ELSE NULL
+        END AS cover_image_url
       FROM communities c
-      JOIN users u ON c.admin_id = u.user_id
-      LEFT JOIN community_votes bv 
-      ON bv.community_id = c.community_id AND bv.voter_id = $1
+      LEFT JOIN users u 
+          ON c.admin_id = u.user_id
       LEFT JOIN (
-        SELECT community_id, SUM(vote) AS total_vote
-        FROM community_votes
+        SELECT community_id, COUNT(*) AS total_members
+        FROM community_members
         GROUP BY community_id
-      ) v_c ON v_c.community_id = c.community_id
-       WHERE c.community_id = $2;
+      ) AS member_count
+        ON c.community_id = member_count.community_id
+      WHERE c.community_id = $1;
       `,
-      [userId, communityId]
+      [communityId]
     );
 
     if (!rows.length) return res.status(404).json({ status: "404" });

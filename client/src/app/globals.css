@@ -282,6 +282,7 @@ body {
 .headerAlt {
   justify-content: left;
   padding: 10px 16px;
+  height: 64px;
 }
 
 .header .mobileViewContainer {
@@ -728,6 +729,7 @@ body {
 
 .card .details .author .nameContainer {
   display: flex;
+  align-items: center;
 }
 
 .card .details .author .name {
@@ -861,6 +863,7 @@ body {
 
 .gridBox .details .author .nameContainer {
   flex-direction: column;
+  align-items: flex-start;
 }
 
 .gridBox .details hr {
@@ -1167,7 +1170,7 @@ body {
 
 /* Blog Box */
 
-.blogBox {
+.blogBox, .courseBox {
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -1181,7 +1184,9 @@ body {
 }
 
 .blogBox .previewImage,
-.blogBox .psudoPreviewImage {
+.courseBox .previewImage,
+.blogBox .psudoPreviewImage,
+.courseBox .psudoPreviewImage {
   width: calc(100% - 8px);
   margin: 4px;
   margin-bottom: 8px;
@@ -1192,7 +1197,14 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.blogBox .psudoPreviewImage {
+.courseBox .previewImage,
+.courseBox .psudoPreviewImage {
+  margin: 12px 4px;
+}
+
+
+.blogBox .psudoPreviewImage,
+.courseBox .psudoPreviewImage {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1201,11 +1213,13 @@ body {
   font-size: 160px;
 }
 
-.blogBox .previewImgae img {
+.blogBox .previewImgae img,
+.courseBox .previewImgae img {
   object-fit: cover;
 }
 
-.blogBox .details {
+.blogBox .details,
+.courseBox .details {
   display: flex;
   flex: 1;
   margin: 4px 8px;
@@ -1213,11 +1227,49 @@ body {
   justify-content: space-between;
 }
 
-.blogBox .details .titleContainer {
+.courseBox .enrollment {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.courseBox .enrollment .enrollButton {
+  background-color: rgb(250, 135, 0);
+  padding: 8px 18px;
+  border-radius: 10px;
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: 700;
+  margin: 4px;
+  cursor: pointer;
+}
+
+.courseBox .enrollment .enrollButton:hover {
+  background-color: rgb(240, 110, 0);
+}
+
+.courseBox .enrollment .price {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 4px;
+  color: rgb(240, 110, 0);
+}
+
+.courseBox .enrollment .free {
+  font-size: 15px;
+  font-weight: 700;
+  opacity: 0.8;
+  margin: 6px;
+}
+
+.blogBox .details .titleContainer,
+.courseBox .details .titleContainer {
   flex: 1;
 }
 
-.blogBox .details .title {
+.blogBox .details .title,
+.courseBox .details .title {
   font-size: 24px;
   line-height: 130%;
   font-weight: 700;
@@ -1233,11 +1285,13 @@ body {
   margin-bottom: 18px;
 }
 
-.blogBox .details .tags {
+.blogBox .details .tags,
+.courseBox .details .tags {
   margin: 12px 0;
 }
 
-.blogBox .details .orangeTag {
+.blogBox .details .orangeTag,
+.courseBox .details .orangeTag {
   display: inline;
   background-color: rgb(250, 135, 0, 0.2);
   color: rgb(240, 110, 0);
@@ -1248,7 +1302,8 @@ body {
   margin: 4px;
 }
 
-.blogBox .details .grayTag {
+.blogBox .details .grayTag,
+.courseBox .details .grayTag {
   display: inline;
   background-color: rgb(0, 0, 0, 0.1);
   padding: 6px 12px;
@@ -1303,20 +1358,23 @@ body {
   color: rgb(240, 110, 0);
 }
 
-.blogBox hr {
+.blogBox hr,
+.courseBox hr {
   border: 0;
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   margin: 8px auto;
   width: calc(100% - 24px);
 }
 
-.blogBox .author {
+.blogBox .author,
+.courseBox .instructor {
   display: flex;
   align-items: center;
   margin: 2px;
 }
 
-.blogBox .author .profilePicture {
+.blogBox .author .profilePicture,
+.courseBox .instructor .profilePicture {
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -1330,36 +1388,42 @@ body {
   justify-content: center;
 }
 
-.blogBox .author .profilePicture .psudoProfilePicture {
+.blogBox .author .profilePicture .psudoProfilePicture,
+.courseBox .instructor .profilePicture .psudoProfilePicture {
   font-size: 18px;
   font-weight: 700;
 }
 
-.blogBox .author .profilePicture img {
+.blogBox .author .profilePicture img,
+.courseBox .instructor .profilePicture img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.blogBox .author .createdBy {
+.blogBox .author .createdBy,
+.courseBox .instructor .createdBy {
   font-size: 14px;
   color: rgb(250, 135, 0);
   font-weight: 600;
   margin: 0px 4px;
 }
 
-.blogBox .author .nameContainer {
+.blogBox .author .nameContainer,
+.courseBox .instructor .nameContainer {
   display: flex;
   flex-direction: column;
 }
 
-.blogBox .author .name {
+.blogBox .author .name, 
+.courseBox .instructor .name {
   font-size: 16px;
   font-weight: 700;
   margin: 0px 4px;
 }
 
-.blogBox .informationContainer {
+.blogBox .informationContainer, 
+.courseBox .informationContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1367,14 +1431,16 @@ body {
   margin: 4px 8px;
 }
 
-.blogBox .informations {
+.blogBox .informations, 
+.courseBox .informations {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 }
 
-.blogBox .information {
+.blogBox .information, 
+.courseBox .information {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1382,20 +1448,39 @@ body {
   margin: 4px;
 }
 
-.blogBox .information .icon {
+.blogBox .information .icon,
+.courseBox .information .icon {
   font-size: 18px;
   margin: 4px;
   color: rgba(250, 135, 0);
 }
 
-.blogBox .information .text {
+.blogBox .information .text,
+.courseBox .information .text {
   font-size: 15px;
   margin: 4px;
   font-weight: 600;
 }
 
-.blogBox .content {
+.blogBox .content,
+.courseBox .content {
   padding: 10px 16px;
+}
+
+.courseBox .descriptionContainer {
+  padding: 4px 8px;
+}
+
+.courseBox .descriptionContainer .title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 4px;
+}
+
+.courseBox .descriptionContainer .description {
+  font-size: 15px;
+  font-weight: 450;
+  margin: 4px;
 }
 
 .blogBox .content h1 {
@@ -1433,6 +1518,100 @@ body {
 
 .blogBox .content ol {
   list-style-type: decimal;
+}
+
+.courseBoxContainer {
+  display: flex;
+  padding: 0 10px;
+}
+
+.courseBox {
+  flex: 1;
+  margin: 10px;
+  height: auto;
+}
+
+.courseContentsBox {
+  width: calc(100% - 20px);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--lightBackground);
+  border-radius: 16px;
+  padding: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  margin: 10px;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.01), 0px 3px 6px rgba(0, 0, 0, 0.02),
+    0px 6px 12px rgba(0, 0, 0, 0.04);
+}
+
+.courseContentsBox .title {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 6px 12px;
+}
+
+
+.courseBoxContainer .scrollContainer {
+  flex: 1;
+  overflow-y: auto;
+  height: calc(100dvh - 64px);
+  padding: 10px 0;
+}
+
+.courseBoxContainer .scrollContainer::-webkit-scrollbar {
+  width: 0;
+}
+
+.courseBoxContainer .courseBoxFlex {
+  flex: 1;
+}
+
+.courseBoxContainer .courseContentsBoxFlex {
+  display: flex;
+  flex: 0.6;
+}
+
+.courseContentBox {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 4px;
+  border-radius: 12px;
+}
+
+.courseContentBox .iconContainer {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(250, 135, 0);
+  color: #ffffff;
+  font-size: 18px;
+  text-align: center;
+  margin: 8px;;
+} 
+
+.courseContentBox .contentDetails {
+  margin: 8px;
+}
+
+.courseContentBox .contentDetails .title {
+  margin: 2px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.courseContentBox .contentDetails .semiTitle {
+  margin: 2px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.courseContentBox:hover {
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 /* New Button */

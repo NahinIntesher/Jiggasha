@@ -1,11 +1,12 @@
 "use client";
 
+import BrowseCourses from "@/components/Courses/BrowseCourses";
 import Header from "@/components/ui/Header";
 import { use, useState } from "react";
 import { FaArrowUpWideShort } from "react-icons/fa6";
 import { FaFilter, FaList, FaGrip, FaPen } from "react-icons/fa6";
 export default function Course() {
-  const [activeTab, setActiveTab] = useState("enrolledCourses");
+  const [activeTab, setActiveTab] = useState("browseCourses");
 
   return (
     <div className="">
@@ -25,10 +26,8 @@ export default function Course() {
         </div>
       </div>
 
-      <div className="filterContainer">
-        <FaArrowUpWideShort className="filterIcon" />
-        <div className="filterTitle">Filter</div>
-      </div>
+      { activeTab == "browseCourses" && <BrowseCourses /> }
+
     </div>
   );
 }

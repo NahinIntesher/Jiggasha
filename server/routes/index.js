@@ -7,10 +7,12 @@ const userRoutes = require("./user.routes");
 const blogRoutes = require("./blog.routes");
 const communityRoutes = require("./community.routes");
 const aiRoutes = require("./ai.routes");
+const courseRoutes = require("./course.routes");
 
 router.use("/", userRoutes);
 router.use("/", authRoutes);
 router.use("/blogs", blogRoutes);
+router.use("/courses", courseRoutes);
 router.use("/communities", communityRoutes);
 router.use("/ai", aiRoutes);
 

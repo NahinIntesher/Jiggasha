@@ -277,7 +277,7 @@ export default function MyCommunities() {
             admin_picture={community.admin_picture}
             created_at={community.created_at}
             isJoined={community.is_member === 1}
-            coverImage={community.cover_image_url}
+            cover_image_url={community.cover_image_url}
             view={view}
           />
         ))}
