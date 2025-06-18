@@ -20,7 +20,7 @@ export default function Sidebar({ user, handleLogout }) {
     { icon: FaPlay, label: "Play", href: "/play" },
     { icon: FaBook, label: "Courses", href: "/courses" },
     { icon: FaComment, label: "Blogs", href: "/blogs" },
-    { icon: FaWandMagicSparkles, label: "Srijona AI", href: "/srijona-ai" },
+    { icon: FaWandMagicSparkles, label: "Jiggasha AI", href: "/srijona-ai" },
     { icon: FaUserGroup, label: "Communities", href: "/communities" },
     { icon: FaListOl, label: "Leaderboard", href: "/leaderboard" },
     { icon: FaClipboardQuestion, label: "Quests", href: "/quests" }
@@ -74,7 +74,7 @@ export default function Sidebar({ user, handleLogout }) {
             <p className="name">{user?.full_name || "User"}</p>
             <div className="level">
               <div className="icon"><FaStar /></div>
-              <div>Level {user?.user_rating || 0}</div>
+              <div>Level {user?.level || 0}</div>
             </div>
           </div>
           <div className="moreOptions">

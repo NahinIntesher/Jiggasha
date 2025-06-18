@@ -1102,7 +1102,8 @@ body {
     0px 6px 12px rgba(0, 0, 0, 0.04);
 }
 
-.messageSendBox .buttonContainer {
+.messageSendBox .buttonContainer,
+.givePostBox .buttonContainer {
   width: 100%;
   flex: 1;
   display: flex;
@@ -1111,11 +1112,13 @@ body {
   margin: 4px;
 }
 
-.messageSendBox .buttonContainer .attachButtons {
+.messageSendBox .buttonContainer .attachButtons,
+.givePostBox .buttonContainer .attachButtons {
   display: flex;
 }
 
-.messageSendBox .buttonContainer .attachButton {
+.messageSendBox .buttonContainer .attachButton, 
+.givePostBox .buttonContainer .attachButton {
   width: 38px;
   height: 38px;
   border-radius: 8px;
@@ -1127,13 +1130,26 @@ body {
   margin: 4px;
   font-size: 20px;
   cursor: pointer;
+  position: relative;
 }
 
-.messageSendBox .buttonContainer .attachButton:hover {
+.givePostBox .buttonContainer .attachButton input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.messageSendBox .buttonContainer .attachButton:hover,
+.givePostBox .buttonContainer .attachButton:hover {
   background-color: rgb(0, 0, 0, 0.2);
 }
 
-.messageSendBox .buttonContainer .sendButton {
+.messageSendBox .buttonContainer .sendButton, 
+.givePostBox .buttonContainer .sendButton {
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -1148,12 +1164,14 @@ body {
   padding: 4px 12px;
 }
 
-.messageSendBox .buttonContainer .sendButton .icon {
+.messageSendBox .buttonContainer .sendButton .icon, 
+.givePostBox .buttonContainer .sendButton .icon {
   margin: 2px 4px;
   font-size: 16px;
 }
 
-.messageSendBox .buttonContainer .sendButton .text {
+.messageSendBox .buttonContainer .sendButton .text,
+.givePostBox .buttonContainer .sendButton .text {
   margin: 2px 6px;
   font-weight: 700;
 }
@@ -1172,7 +1190,8 @@ body {
 
 .blogBox,
 .courseBox,
-.courseVideoBox {
+.courseVideoBox,
+.communityBox {
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -1187,8 +1206,10 @@ body {
 
 .blogBox .previewImage,
 .courseBox .previewImage,
+.communityBox .previewImage,
 .blogBox .psudoPreviewImage,
-.courseBox .psudoPreviewImage {
+.courseBox .psudoPreviewImage,
+.communityBox .psudoPreviewImage {
   width: calc(100% - 8px);
   margin: 4px;
   margin-bottom: 8px;
@@ -1205,7 +1226,8 @@ body {
 }
 
 .blogBox .psudoPreviewImage,
-.courseBox .psudoPreviewImage {
+.courseBox .psudoPreviewImage,
+.communityBox .psudoPreviewImage {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1215,12 +1237,33 @@ body {
 }
 
 .blogBox .previewImgae img,
-.courseBox .previewImgae img {
+.courseBox .previewImgae img,
+.communityBox .previewImgae img {
   object-fit: cover;
 }
 
+.communityBox {
+  display: flex;
+  flex-direction: row;
+}
+
+.communityBox .previewImage,
+.communityBox .psudoPreviewImage {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.communityBox .detailsContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 12px;
+}
+
 .blogBox .details,
-.courseBox .details {
+.courseBox .details,
+.communityBox .details {
   display: flex;
   flex: 1;
   margin: 4px 8px;
@@ -1270,12 +1313,14 @@ body {
 }
 
 .blogBox .details .titleContainer,
-.courseBox .details .titleContainer {
+.courseBox .details .titleContainer,
+.communityBox .details .titleContainer {
   flex: 1;
 }
 
 .blogBox .details .title,
-.courseBox .details .title {
+.courseBox .details .title,
+.communityBox .details .title {
   font-size: 24px;
   line-height: 130%;
   font-weight: 700;
@@ -1292,12 +1337,14 @@ body {
 }
 
 .blogBox .details .tags,
-.courseBox .details .tags {
+.courseBox .details .tags,
+.communityBox .details .tags {
   margin: 12px 0;
 }
 
 .blogBox .details .orangeTag,
-.courseBox .details .orangeTag {
+.courseBox .details .orangeTag,
+.communityBox .details .orangeTag {
   display: inline;
   background-color: rgb(250, 135, 0, 0.2);
   color: rgb(240, 110, 0);
@@ -1309,7 +1356,8 @@ body {
 }
 
 .blogBox .details .grayTag,
-.courseBox .details .grayTag {
+.courseBox .details .grayTag,
+.communityBox .details .grayTag {
   display: inline;
   background-color: rgb(0, 0, 0, 0.1);
   padding: 6px 12px;
@@ -1365,7 +1413,8 @@ body {
 }
 
 .blogBox hr,
-.courseBox hr {
+.courseBox hr,
+.communityBox hr {
   border: 0;
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   margin: 8px auto;
@@ -1373,14 +1422,16 @@ body {
 }
 
 .blogBox .author,
-.courseBox .instructor {
+.courseBox .instructor,
+.communityBox .author {
   display: flex;
   align-items: center;
   margin: 2px;
 }
 
 .blogBox .author .profilePicture,
-.courseBox .instructor .profilePicture {
+.courseBox .instructor .profilePicture,
+.communityBox .author .profilePicture {
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -1395,20 +1446,23 @@ body {
 }
 
 .blogBox .author .profilePicture .psudoProfilePicture,
-.courseBox .instructor .profilePicture .psudoProfilePicture {
+.courseBox .instructor .profilePicture .psudoProfilePicture,
+.communityBox .author .profilePicture .psudoProfilePicture {
   font-size: 18px;
   font-weight: 700;
 }
 
 .blogBox .author .profilePicture img,
-.courseBox .instructor .profilePicture img {
+.courseBox .instructor .profilePicture img,
+.communityBox .author .profilePicture img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
 .blogBox .author .createdBy,
-.courseBox .instructor .createdBy {
+.courseBox .instructor .createdBy,
+.communityBox .author .createdBy {
   font-size: 14px;
   color: rgb(250, 135, 0);
   font-weight: 600;
@@ -1416,20 +1470,23 @@ body {
 }
 
 .blogBox .author .nameContainer,
-.courseBox .instructor .nameContainer {
+.courseBox .instructor .nameContainer,
+.communityBox .author .nameContainer {
   display: flex;
   flex-direction: column;
 }
 
 .blogBox .author .name,
-.courseBox .instructor .name {
+.courseBox .instructor .name,
+.communityBox .author .name {
   font-size: 16px;
   font-weight: 700;
   margin: 0px 4px;
 }
 
 .blogBox .informationContainer,
-.courseBox .informationContainer {
+.courseBox .informationContainer,
+.communityBox .informationContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1438,7 +1495,8 @@ body {
 }
 
 .blogBox .informations,
-.courseBox .informations {
+.courseBox .informations,
+.communityBox .informations {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1446,7 +1504,8 @@ body {
 }
 
 .blogBox .information,
-.courseBox .information {
+.courseBox .information,
+.communityBox .information {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1454,22 +1513,30 @@ body {
   margin: 4px;
 }
 
+.communityBox .information {
+  margin: 0 4px;
+
+}
+
 .blogBox .information .icon,
-.courseBox .information .icon {
+.courseBox .information .icon,
+.communityBox .information .icon {
   font-size: 18px;
   margin: 4px;
   color: rgba(250, 135, 0);
 }
 
 .blogBox .information .text,
-.courseBox .information .text {
+.courseBox .information .text,
+.communityBox .information .text {
   font-size: 15px;
   margin: 4px;
   font-weight: 600;
 }
 
 .blogBox .content,
-.courseBox .content {
+.courseBox .content,
+.communityBox .content {
   padding: 10px 16px;
 }
 
@@ -1490,13 +1557,15 @@ body {
 }
 
 .blogBox .content h1 {
-  font-size: 38px; /* Tailwind's text-4xl */
+  font-size: 38px;
+  /* Tailwind's text-4xl */
   font-weight: 700;
   line-height: 180%;
 }
 
 .blogBox .content h2 {
-  font-size: 30px; /* text-3xl */
+  font-size: 30px;
+  /* text-3xl */
   font-weight: 700;
   line-height: 180%;
 }
@@ -1508,18 +1577,22 @@ body {
 }
 
 .blogBox .content h3 {
-  font-size: 24px; /* text-2xl */
+  font-size: 24px;
+  /* text-2xl */
   font-weight: 700;
   line-height: 180%;
 }
 
 .blogBox .content ul,
 .blogBox .content ol {
-  list-style-type: disc; /* restores bullets or numbers */
-  padding: 0; /* remove Tailwind’s reset padding */
+  list-style-type: disc;
+  /* restores bullets or numbers */
+  padding: 0;
+  /* remove Tailwind’s reset padding */
   margin: 4px;
   margin-left: 32px;
-  font-weight: 500; /* typical left margin for nested lists */
+  font-weight: 500;
+  /* typical left margin for nested lists */
 }
 
 .blogBox .content ol {
@@ -1771,6 +1844,124 @@ body {
   display: none;
 }
 
+.leaderboardContainer {
+  background-color: var(--lightBackground);
+  border-radius: 16px;
+  margin: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.01), 0px 3px 6px rgba(0, 0, 0, 0.02),
+    0px 6px 12px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+}
+
+
+.leaderboardUserCard {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.leaderboardUserCard:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+.leaderboardUserCard:last-child {
+  border-bottom: none;
+}
+
+.leaderboardUserCard .userDetails {
+  display: flex;
+  align-items: center;
+  margin: 2px;
+}
+
+.leaderboardUserCard .userDetails .profilePicture {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  margin: 2px 4px;
+  margin-right: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.leaderboardUserCard .userDetails .profilePicture .psudoProfilePicture {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.leaderboardUserCard .userDetails .profilePicture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.leaderboardUserCard .userDetails .level {
+  font-size: 15px;
+  color: rgb(250, 135, 0);
+  font-weight: 600;
+  margin: 0px 4px;
+}
+
+.leaderboardUserCard .userDetails .nameContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.leaderboardUserCard .userDetails .name {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0px 4px;
+}
+
+.leaderboardUserCard .userDetails .rank {
+  width: 30px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 4px;
+}
+
+.leaderboardUserCard .userRating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 8px 16px;
+}
+
+.leaderboardUserCard .userRating .ratingValue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(240, 110, 0);
+}
+
+.leaderboardUserCard .userRating .title {
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+.leaderboardUserCard .userRating .ratingValue .ratingIcon {
+  font-size: 17px;
+  margin: 0 2px;
+}
+
+.leaderboardUserCard .userRating .ratingValue .ratingValueNumber {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 2px;
+}
+
 .ql-toolbar {
   border-radius: 12px 12px 0 0;
   background-color: rgba(0, 0, 0, 0.04);
@@ -1785,24 +1976,28 @@ body {
 }
 
 .ql-editor {
-  font-size: 16px; /* Normal text (p) */
+  font-size: 16px;
+  /* Normal text (p) */
 }
 
 .ql-editor h1 {
-  font-size: 38px; /* Tailwind's text-4xl */
+  font-size: 38px;
+  /* Tailwind's text-4xl */
   font-weight: 700;
   line-height: 180%;
 }
 
 .ql-editor h2 {
-  font-size: 30px; /* text-3xl */
+  font-size: 30px;
+  /* text-3xl */
   font-weight: 600;
   padding: 16px 0;
   line-height: 180%;
 }
 
 .ql-editor h3 {
-  font-size: 24px; /* text-2xl */
+  font-size: 24px;
+  /* text-2xl */
   font-weight: 600;
   padding: 8px 0;
   line-height: 180%;
@@ -1934,6 +2129,7 @@ body {
 }
 
 @media (max-width: 600px) {
+
   .card,
   .gridBox {
     flex: 0 0 calc(100% - 16px);
@@ -1975,57 +2171,67 @@ body {
 
 /* communityPosts */
 .givePostBox {
-  margin: 10px;
-  text-align: center;
-  padding: 10px;
+  margin: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .givePostBox .profilePicture {
-  display: inline-block;
-  vertical-align: middle;
-  background-image: linear-gradient(rgb(var(--dark)), rgb(var(--medium)));
-  padding: 5px;
-  border-radius: 80px;
-  margin: 8px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin: 2px 4px;
+  margin-right: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.givePostBox .profilePicture .psudoProfilePicture {
+  font-size: 26px;
+  font-weight: 700;
 }
 
 .givePostBox .profilePicture img {
-  border-radius: 60px;
-  border: 5px solid #ffffff;
-  display: block;
-  width: 80px;
-  height: 80px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
 .givePostBox .textBox {
-  display: inline-block;
-  vertical-align: middle;
-  width: calc(100% - 140px);
-  max-width: 860px;
-  margin: 8px;
-  background-color: #ffffff;
-  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 10px;
+  background-color: var(--lightBackground);
   border-radius: 16px;
+  margin: 10px;
+  margin-top: 0;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.01), 0px 3px 6px rgba(0, 0, 0, 0.02),
+    0px 6px 12px rgba(0, 0, 0, 0.04);
 }
 
 .givePostBox .textBox .textareaContainer {
   display: inline-block;
   vertical-align: middle;
-  width: calc(100% - 120px);
+  width: 100%;
+  padding: 8px 12px;
 }
 
 .givePostBox .textBox textarea {
-  display: inline-block;
-  vertical-align: middle;
-  background-color: transparent;
-  padding: 18px 24px;
-  padding-bottom: 10px;
-  resize: none;
-  outline: 0;
   width: 100%;
-  border: none;
-  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  height: 40px;
+  border: 0;
+  outline: 0;
 }
 
 .givePostBox .addMediaContainer {
@@ -2192,12 +2398,10 @@ body {
 .givePostBox .postButton {
   display: inline-block;
   vertical-align: middle;
-  background-image: radial-gradient(
-      80px 30px at left top,
+  background-image: radial-gradient(80px 30px at left top,
       rgba(var(--light), 0.8),
       rgba(var(--light), 0.6),
-      transparent
-    ),
+      transparent),
     linear-gradient(rgb(var(--dark)), rgb(var(--medium)));
   color: #ffffff;
   padding: 10px 28px;
@@ -2423,6 +2627,7 @@ body {
 }
 
 @media (max-width: 480px) {
+
   .givePostBox .profilePicture,
   .postBox .profilePicture {
     margin-bottom: 10px;
@@ -2452,6 +2657,7 @@ body {
 }
 
 @media (max-width: 768px) {
+
   .givePostBox,
   .postBox {
     max-width: 90%;

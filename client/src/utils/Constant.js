@@ -204,7 +204,7 @@ const subjectName = {
     109: "Mathematics",
     127: "Science",
     111: "Religion Studies",
-    150: "Bangladesh & Global Studies",
+    150: "BDS",
     154: "ICT",
     275: "ICT",
     134: "Agricultural Studies",
