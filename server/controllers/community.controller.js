@@ -273,15 +273,9 @@ exports.getAllPosts = async (req, res) => {
         p.title,
         p.content,
         p.member_id,
-        p.is_pinned,
-        p.view_count,
-        p.approval_status,
         p.approval_date,
         p.created_at,
         p.updated_at,
-
-        -- Is Edited (if content was updated after creation)
-        CASE WHEN p.updated_at > p.created_at THEN true ELSE false END AS is_edited,
 
         -- Reactions count
         COALESCE(r.reaction_count, 0) AS reaction_count,
@@ -317,24 +311,33 @@ exports.getAllPosts = async (req, res) => {
 
       -- Join media
       LEFT JOIN (
-        SELECT post_id, 
-              JSON_AGG(JSON_BUILD_OBJECT(
-                'media_id', media_id,
-                'media_type', media_type,
-                'media_blob', media_blob,
-                'created_at', created_at
-              )) AS media
+        SELECT
+          post_id,
+          JSON_AGG(JSON_BUILD_OBJECT(
+            'media_id', media_id,
+            'media_type', media_type,
+            'media_url', 
+              CASE 
+                WHEN media_type = 'image' THEN 'data:image/jpeg;base64,' || ENCODE(media_blob, 'base64')
+                WHEN media_type = 'video' THEN 'data:video/mp4;base64,' || ENCODE(media_blob, 'base64')
+                WHEN media_type = 'audio' THEN 'data:audio/mpeg;base64,' || ENCODE(media_blob, 'base64')
+                WHEN media_type = 'document' THEN 'data:application/pdf;base64,' || ENCODE(media_blob, 'base64')
+                ELSE 'data:application/octet-stream;base64,' || ENCODE(media_blob, 'base64')
+              END,
+            'created_at', created_at
+          ) ORDER BY created_at) AS media
         FROM community_post_media
+        WHERE media_blob IS NOT NULL
         GROUP BY post_id
       ) m ON p.post_id = m.post_id
 
+
       -- Join member/user table
-      LEFT JOIN users u ON p.member_id = u.user_id  -- adjust 'users' and 'user_id' as per your schema
+      LEFT JOIN users u ON p.member_id = u.user_id 
 
       WHERE p.community_id = $1
-        AND p.approval_status = 'approved'
 
-      ORDER BY p.is_pinned DESC, p.created_at DESC;
+      ORDER BY p.created_at DESC;
       `,
       [communityId]
     );
@@ -343,5 +346,95 @@ exports.getAllPosts = async (req, res) => {
   } catch (error) {
     console.error("Error fetching community posts:", error);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+exports.createPost = async (req, res) => {
+  const userId = req.userId;
+  const { community_id, title, content, approval_status, approver_id } =
+    req.body;
+
+  if (!community_id || !title || !content) {
+    return res
+      .status(400)
+      .json({ error: "Community, title, and content are required" });
+  }
+
+  try {
+    // Create the post first
+    const postResult = await connection.query(
+      `
+      INSERT INTO community_posts (
+        community_id,
+        member_id,
+        title,
+        content,
+        approval_status,
+        approver_id,
+        created_at,
+        updated_at
+      )
+      VALUES ($1, $2, $3, $4, $5, $6, NOW(), NOW())
+      RETURNING post_id
+      `,
+      [
+        community_id,
+        userId,
+        title,
+        content,
+        approval_status || "pending",
+        approver_id || null,
+      ]
+    );
+
+    const postId = postResult.rows[0].post_id;
+
+    // Handle file uploads if any files are attached
+    if (req.files && req.files.length > 0) {
+      for (const file of req.files) {
+        const mediaType = getMediaType(file.mimetype);
+        const mediaUrl = `/uploads/media/${file.filename}`;
+
+        await connection.query(
+          `
+          INSERT INTO community_post_media (post_id, media_url, media_type, file_name, file_size)
+          VALUES ($1, $2, $3, $4, $5)
+          `,
+          [postId, mediaUrl, mediaType, file.originalname, file.size]
+        );
+      }
+    }
+
+    res.status(201).json({
+      message: "Post created successfully",
+      post_id: postId,
+    });
+  } catch (error) {
+    console.error("Error creating post:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+exports.uploadMedia = async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
+
+    const mediaType = getMediaType(req.file.mimetype);
+    const mediaUrl = `/uploads/media/${req.file.filename}`;
+
+    res.json({
+      success: true,
+      media: {
+        media_url: mediaUrl,
+        media_type: mediaType,
+        file_name: req.file.originalname,
+        file_size: req.file.size,
+      },
+    });
+  } catch (error) {
+    console.error("Upload error:", error);
+    res.status(500).json({ error: "Upload failed" });
   }
 };

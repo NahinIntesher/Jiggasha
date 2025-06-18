@@ -8,6 +8,7 @@ const {
   addCommunity,
   getAllPosts,
   joinCommunity,
+  createPost,
   image,
 } = require("../controllers/community.controller");
 
@@ -18,6 +19,7 @@ router.get("/my", verifyToken, getMyCommunities);
 router.post("/add", verifyToken, addCommunity);
 router.post("/join", verifyToken, joinCommunity);
 router.get("/allPosts/:communityId", verifyToken, getAllPosts);
+router.post("/newPost", verifyToken, createPost);
 // router.post("/edit/:communityId", verifyToken, editCommunity);
 // router.post("/delete/:communityId", verifyToken, deleteCommunity);
 router.get("/image/:communityId", verifyToken, image);

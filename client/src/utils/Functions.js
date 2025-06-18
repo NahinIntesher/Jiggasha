@@ -17,18 +17,17 @@ function stripHTML(input) {
 }
 
 function hexToUrl(hex) {
-  if (!hex) return "";
   try {
-    const hexStr = hex.startsWith("\\x") ? hex.slice(2) : hex;
-    const decoded = decodeURIComponent(
-      hexStr
-        .match(/.{1,2}/g)
-        .map((byte) => `%${byte}`)
-        .join("")
-    );
-    return decoded;
-  } catch (e) {
-    console.error("Invalid hex URL:", hex);
+    if (hex.startsWith("\\x")) {
+      hex = hex.slice(2);
+    }
+    const hexStr = hex
+      .match(/.{1,2}/g)
+      .map((byte) => String.fromCharCode(parseInt(byte, 16)))
+      .join("");
+    return hexStr;
+  } catch (err) {
+    console.error("Invalid hex:", hex);
     return "";
   }
 }
