@@ -21,7 +21,7 @@ export default function SingleBlog() {
       e.stopPropagation();
       e.preventDefault();
 
-      const response = await fetch("http://localhost:8000/blogs/vote", {
+      const response = await fetch("https://jiggasha.onrender.com/blogs/vote", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -54,17 +54,20 @@ export default function SingleBlog() {
       e.stopPropagation();
       e.preventDefault();
 
-      const response = await fetch("http://localhost:8000/blogs/unvote", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        mode: "cors",
-        body: JSON.stringify({
-          blogId: blogId,
-        }),
-      });
+      const response = await fetch(
+        "https://jiggasha.onrender.com/blogs/unvote",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          mode: "cors",
+          body: JSON.stringify({
+            blogId: blogId,
+          }),
+        }
+      );
 
       const result = await response.json();
 
@@ -83,7 +86,7 @@ export default function SingleBlog() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://localhost:8000/blogs/single/" + blogId,
+          "https://jiggasha.onrender.com/blogs/single/" + blogId,
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },

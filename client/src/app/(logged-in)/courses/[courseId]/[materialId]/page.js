@@ -2,7 +2,13 @@
 import HeaderAlt from "@/components/ui/HeaderAlt";
 import React, { useEffect, useState, useMemo } from "react";
 import { useParams } from "next/navigation";
-import { FaCaretDown, FaCaretUp, FaComment, FaEye, FaPlay } from "react-icons/fa6";
+import {
+  FaCaretDown,
+  FaCaretUp,
+  FaComment,
+  FaEye,
+  FaPlay,
+} from "react-icons/fa6";
 import { subjectName } from "@/utils/Constant";
 import { classLevelName, dateFormat } from "@/utils/Functions";
 import { FaBook, FaCalendarAlt } from "react-icons/fa";
@@ -17,10 +23,12 @@ export default function SingleCourse() {
 
   const [isReady, setIsReady] = useState(true);
 
-  const [messages, setMessages] = useState([{
-    self: false,
-    content: "Hello, How can I help you?",
-  }]);
+  const [messages, setMessages] = useState([
+    {
+      self: false,
+      content: "Hello, How can I help you?",
+    },
+  ]);
 
   const [formData, setFormData] = useState({
     message: "",
@@ -69,15 +77,18 @@ export default function SingleCourse() {
       const formDataToSend = new FormData();
       formDataToSend.append("message", inputMessage);
 
-      const response = await fetch("http://localhost:8000/ai/response", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        mode: "cors",
-        body: JSON.stringify(formData),
-        credentials: "include",
-      });
+      const response = await fetch(
+        "https://jiggasha.onrender.com/ai/response",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          mode: "cors",
+          body: JSON.stringify(formData),
+          credentials: "include",
+        }
+      );
 
       const result = await response.json();
 
@@ -117,7 +128,7 @@ export default function SingleCourse() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://localhost:8000/courses/single/" + courseId,
+          "https://jiggasha.onrender.com/courses/single/" + courseId,
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -153,7 +164,11 @@ export default function SingleCourse() {
           <div className="courseBoxContainer">
             <div className="scrollContainer">
               <div className="courseVideoBox">
-                <video src="http://localhost:3000/images/demo.mp4" controls className="videoPlayer" />
+                <video
+                  src="http://localhost:3000/images/demo.mp4"
+                  controls
+                  className="videoPlayer"
+                />
                 <div className="details">
                   <div className="iconContainer">
                     <FaPlay className="icon" />
@@ -167,17 +182,15 @@ export default function SingleCourse() {
               <div className="courseContentsBox">
                 <div className="title">Course Contents</div>
                 <div className="courseContentBoxContainer">
-                  <CourseContentBox isActive={true}/>
-                  <CourseContentBox isActive={false}/>
-                  <CourseContentBox isActive={false}/>
+                  <CourseContentBox isActive={true} />
+                  <CourseContentBox isActive={false} />
+                  <CourseContentBox isActive={false} />
                 </div>
               </div>
             </div>
             <div className="scrollContainer courseChatbotFlex">
               <div className="courseChatbox">
-                <div className="title">
-                  Jiggasha AI
-                </div>
+                <div className="title">Jiggasha AI</div>
                 <div className="messageContainer">{renderedMessages}</div>
                 <SenderBox
                   handleSubmit={handleSubmit}
@@ -193,9 +206,15 @@ export default function SingleCourse() {
   }
 }
 
-function CourseContentBox({isActive}) {
+function CourseContentBox({ isActive }) {
   return (
-    <div className={isActive ? "courseContentBox courseContentBoxActive" : "courseContentBox"}>
+    <div
+      className={
+        isActive
+          ? "courseContentBox courseContentBoxActive"
+          : "courseContentBox"
+      }
+    >
       <div className="iconContainer">
         <FaPlay className="icon" />
       </div>

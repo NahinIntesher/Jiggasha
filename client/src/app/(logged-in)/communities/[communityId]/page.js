@@ -47,7 +47,7 @@ export default function SingleCommunity() {
   }, [communityId]);
 
   const fetchCommunityData = () => {
-    fetch("http://localhost:8000/communities/single/" + communityId, {
+    fetch("https://jiggasha.onrender.com/communities/single/" + communityId, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -58,7 +58,7 @@ export default function SingleCommunity() {
   };
 
   const fetchPosts = () => {
-    fetch("http://localhost:8000/communities/allPosts/" + communityId, {
+    fetch("https://jiggasha.onrender.com/communities/allPosts/" + communityId, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -97,7 +97,7 @@ export default function SingleCommunity() {
       console.log("Creating post for community:", communityId);
 
       const response = await fetch(
-        "http://localhost:8000/communities/newPost",
+        "https://jiggasha.onrender.com/communities/newPost",
         {
           method: "POST",
           credentials: "include",

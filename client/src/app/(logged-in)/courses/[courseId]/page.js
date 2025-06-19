@@ -2,7 +2,14 @@
 import HeaderAlt from "@/components/ui/HeaderAlt";
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { FaCaretDown, FaCaretUp, FaChalkboardUser, FaComment, FaEye, FaPlay } from "react-icons/fa6";
+import {
+  FaCaretDown,
+  FaCaretUp,
+  FaChalkboardUser,
+  FaComment,
+  FaEye,
+  FaPlay,
+} from "react-icons/fa6";
 import { subjectName } from "@/utils/Constant";
 import { classLevelName, dateFormat } from "@/utils/Functions";
 import { FaBook, FaCalendarAlt, FaUser } from "react-icons/fa";
@@ -24,18 +31,21 @@ export default function SingleCourse() {
       e.stopPropagation();
       e.preventDefault();
 
-      const response = await fetch("http://localhost:8000/courses/vote", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        mode: "cors",
-        body: JSON.stringify({
-          courseId: courseId,
-          vote: vote,
-        }),
-      });
+      const response = await fetch(
+        "https://jiggasha.onrender.com/courses/vote",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          mode: "cors",
+          body: JSON.stringify({
+            courseId: courseId,
+            vote: vote,
+          }),
+        }
+      );
 
       const result = await response.json();
 
@@ -57,17 +67,20 @@ export default function SingleCourse() {
       e.stopPropagation();
       e.preventDefault();
 
-      const response = await fetch("http://localhost:8000/courses/unvote", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        mode: "cors",
-        body: JSON.stringify({
-          courseId: courseId,
-        }),
-      });
+      const response = await fetch(
+        "https://jiggasha.onrender.com/courses/unvote",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          mode: "cors",
+          body: JSON.stringify({
+            courseId: courseId,
+          }),
+        }
+      );
 
       const result = await response.json();
 
@@ -86,7 +99,7 @@ export default function SingleCourse() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://localhost:8000/courses/single/" + courseId,
+          "https://jiggasha.onrender.com/courses/single/" + courseId,
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -115,8 +128,7 @@ export default function SingleCourse() {
   function goToMaterial() {
     if (course.is_joined) {
       router.push(`/courses/${course.course_id}/2rgvrwvwv`);
-    }
-    else {
+    } else {
       alert("You need to enroll in the course to access the materials.");
     }
   }
@@ -137,7 +149,9 @@ export default function SingleCourse() {
                   <div className="titleContainer">
                     <div className="title">{course.name}</div>
                     <div className="tags">
-                      <div className="orangeTag">{subjectName[course.subject]}</div>
+                      <div className="orangeTag">
+                        {subjectName[course.subject]}
+                      </div>
                       <div className="grayTag">
                         {classLevelName(course.class_level)}
                       </div>
@@ -145,15 +159,11 @@ export default function SingleCourse() {
                   </div>
                   {course.is_joined ? (
                     <div className="enrollment enrolled">
-                      <div className="enrollButton">
-                        Enrolled
-                      </div>
+                      <div className="enrollButton">Enrolled</div>
                     </div>
                   ) : (
                     <div className="enrollment">
-                      <div className="enrollButton">
-                        Enroll Now
-                      </div>
+                      <div className="enrollButton">Enroll Now</div>
                       {course.price == 0 ? (
                         <div className="free">Free</div>
                       ) : (
@@ -188,7 +198,9 @@ export default function SingleCourse() {
                   <div className="informations">
                     <div className="information">
                       <FaUser className="icon" />
-                      <div className="text">{course.total_student} Studnets</div>
+                      <div className="text">
+                        {course.total_student} Studnets
+                      </div>
                     </div>
                     <div className="information">
                       <FaChalkboardUser className="icon" />
@@ -199,9 +211,7 @@ export default function SingleCourse() {
                 <hr />
                 <div className="descriptionContainer">
                   <div className="title">About the Course</div>
-                  <div className="description">
-                    {course.description}
-                  </div>
+                  <div className="description">{course.description}</div>
                 </div>
               </div>
             </div>

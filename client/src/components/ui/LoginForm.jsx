@@ -64,7 +64,7 @@ export default function LoginPage() {
 
     try {
       console.log("Form data before submission");
-      const response = await fetch("http://localhost:8000/login", {
+      const response = await fetch("https://jiggasha.onrender.com/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
