@@ -2,6 +2,30 @@ const { error } = require("console");
 const connection = require("../config/database");
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs");
+const { v4: uuidv4 } = require("uuid");
+
+// Configure multer for file uploads
+const upload = multer({
+  storage: multer.memoryStorage(), // Store files in memory for processing
+  limits: {
+    fileSize: 50 * 1024 * 1024, // 50MB limit
+  },
+  fileFilter: function (req, file, cb) {
+    // Allow specific file types
+    const allowedTypes = /jpeg|jpg|png|gif|mp4|avi|mov|mp3|wav|pdf|doc|docx/;
+    const extname = allowedTypes.test(
+      path.extname(file.originalname).toLowerCase()
+    );
+    const mimetype = allowedTypes.test(file.mimetype);
+
+    if (mimetype && extname) {
+      return cb(null, true);
+    } else {
+      cb(new Error("Invalid file type"));
+    }
+  },
+});
 
 exports.getCommunities = async (req, res) => {
   const userId = req.userId;
@@ -155,9 +179,6 @@ exports.getSingleCommunities = async (req, res) => {
   }
 };
 
-// Configure multer for file uploads
-const upload = multer({ storage: multer.memoryStorage() });
-
 exports.addCommunity = [
   upload.single("coverImage"), // Middleware to handle file upload
   async (req, res) => {
@@ -165,7 +186,7 @@ exports.addCommunity = [
 
     const { name, description, classLevel, subject } = req.body;
 
-    const coverImageBuffer = req.file ? req.file.buffer : null; // Get binary buffer
+    const coverImageBuffer = req.file ? req.file.buffer : null;
 
     try {
       connection.query(
@@ -209,7 +230,6 @@ exports.image = async (req, res) => {
 
         const imageData = results.rows[0].cover_image;
 
-        // Optional: detect mime type or assume JPEG
         res.setHeader("Content-Type", "image/jpeg");
         res.send(imageData);
       }
@@ -261,6 +281,7 @@ exports.joinCommunity = async (req, res) => {
 
 exports.getAllPosts = async (req, res) => {
   const { communityId } = req.params;
+
   if (!communityId) {
     return res.status(400).json({ error: "Community ID is required" });
   }
@@ -268,7 +289,7 @@ exports.getAllPosts = async (req, res) => {
   try {
     const result = await connection.query(
       `
-      SELECT 
+      SELECT
         p.post_id,
         p.title,
         p.content,
@@ -276,67 +297,50 @@ exports.getAllPosts = async (req, res) => {
         p.approval_date,
         p.created_at,
         p.updated_at,
-
         -- Reactions count
         COALESCE(r.reaction_count, 0) AS reaction_count,
-
         -- Comments count
         COALESCE(c.comment_count, 0) AS comment_count,
-
-        -- Media array
+        -- Media array with URLs
         COALESCE(m.media, '[]') AS media,
-
         -- Poster (Admin/User) information
         u.full_name AS author_name,
-        CASE 
+        CASE
           WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/users/profile/', u.user_picture)
           ELSE NULL
         END AS author_picture
-
       FROM community_posts p
-
       -- Join reactions count
       LEFT JOIN (
         SELECT post_id, COUNT(*) AS reaction_count
         FROM community_post_reactions
         GROUP BY post_id
       ) r ON p.post_id = r.post_id
-
       -- Join comments count
       LEFT JOIN (
         SELECT post_id, COUNT(*) AS comment_count
         FROM community_post_comments
         GROUP BY post_id
       ) c ON p.post_id = c.post_id
-
-      -- Join media
+      -- Join media with URLs (Updated section)
       LEFT JOIN (
         SELECT
           post_id,
           JSON_AGG(JSON_BUILD_OBJECT(
             'media_id', media_id,
             'media_type', media_type,
-            'media_url', 
-              CASE 
-                WHEN media_type = 'image' THEN 'data:image/jpeg;base64,' || ENCODE(media_blob, 'base64')
-                WHEN media_type = 'video' THEN 'data:video/mp4;base64,' || ENCODE(media_blob, 'base64')
-                WHEN media_type = 'audio' THEN 'data:audio/mpeg;base64,' || ENCODE(media_blob, 'base64')
-                WHEN media_type = 'document' THEN 'data:application/pdf;base64,' || ENCODE(media_blob, 'base64')
-                ELSE 'data:application/octet-stream;base64,' || ENCODE(media_blob, 'base64')
-              END,
+            'media_url', CONCAT('http://localhost:8000', media_url), -- Full URL for media
+            'file_name', file_name,
+            'file_size', file_size,
             'created_at', created_at
           ) ORDER BY created_at) AS media
         FROM community_post_media
-        WHERE media_blob IS NOT NULL
+        WHERE media_url IS NOT NULL -- Check for media_url instead of media_blob
         GROUP BY post_id
       ) m ON p.post_id = m.post_id
-
-
       -- Join member/user table
-      LEFT JOIN users u ON p.member_id = u.user_id 
-
+      LEFT JOIN users u ON p.member_id = u.user_id
       WHERE p.community_id = $1
-
       ORDER BY p.created_at DESC;
       `,
       [communityId]
@@ -350,6 +354,17 @@ exports.getAllPosts = async (req, res) => {
 };
 
 exports.createPost = async (req, res) => {
+  upload.array("files", 5)(req, res, async (err) => {
+    if (err) {
+      console.error("File upload error:", err);
+      return res.status(400).json({ error: "File upload failed" });
+    }
+    // Proceed with post creation after file upload
+    await createPostHandler(req, res);
+  });
+};
+
+const createPostHandler = async (req, res) => {
   const userId = req.userId;
   const { community_id, title, content, approval_status, approver_id } =
     req.body;
@@ -438,3 +453,11 @@ exports.uploadMedia = async (req, res) => {
     res.status(500).json({ error: "Upload failed" });
   }
 };
+
+function getMediaType(mimetype) {
+  if (mimetype.startsWith("image/")) return "image";
+  if (mimetype.startsWith("video/")) return "video";
+  if (mimetype.startsWith("audio/")) return "audio";
+  if (mimetype === "application/pdf") return "document";
+  return "unknown";
+}

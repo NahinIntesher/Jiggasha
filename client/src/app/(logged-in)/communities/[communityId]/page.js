@@ -69,14 +69,7 @@ export default function SingleCommunity() {
     setSelectedFiles(selectedFiles.filter((_, i) => i !== index));
   };
 
-  function getMediaMimeType(mediaType) {
-  switch (mediaType) {
-    case 'image': return 'image/jpeg'; // or determine actual format
-    case 'video': return 'video/mp4';
-    case 'audio': return 'audio/mpeg';
-    default: return 'application/octet-stream';
-  }
-}
+
 
   const handlePostSubmit = async () => {
     if (!postContent.trim()) return;
