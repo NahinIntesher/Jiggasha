@@ -2,28 +2,12 @@ const { error } = require("console");
 const connection = require("../config/database");
 const multer = require("multer");
 const path = require("path");
-const fs = require("fs");
-const { v4: uuidv4 } = require("uuid");
 
 // Configure multer for file uploads
 const upload = multer({
-  storage: multer.memoryStorage(), // Store files in memory for processing
+  storage: multer.memoryStorage(),
   limits: {
-    fileSize: 50 * 1024 * 1024, // 50MB limit
-  },
-  fileFilter: function (req, file, cb) {
-    // Allow specific file types
-    const allowedTypes = /jpeg|jpg|png|gif|mp4|avi|mov|mp3|wav|pdf|doc|docx/;
-    const extname = allowedTypes.test(
-      path.extname(file.originalname).toLowerCase()
-    );
-    const mimetype = allowedTypes.test(file.mimetype);
-
-    if (mimetype && extname) {
-      return cb(null, true);
-    } else {
-      cb(new Error("Invalid file type"));
-    }
+    fileSize: 50 * 1024 * 1024,
   },
 });
 
@@ -180,7 +164,7 @@ exports.getSingleCommunities = async (req, res) => {
 };
 
 exports.addCommunity = [
-  upload.single("coverImage"), // Middleware to handle file upload
+  upload.single("coverImage"),
   async (req, res) => {
     const userId = req.userId;
 
@@ -291,55 +275,61 @@ exports.getAllPosts = async (req, res) => {
       `
       SELECT
         p.post_id,
-        p.title,
         p.content,
         p.member_id,
-        p.approval_date,
         p.created_at,
         p.updated_at,
+        
         -- Reactions count
         COALESCE(r.reaction_count, 0) AS reaction_count,
+        
         -- Comments count
         COALESCE(c.comment_count, 0) AS comment_count,
+        
         -- Media array with URLs
         COALESCE(m.media, '[]') AS media,
+        
         -- Poster (Admin/User) information
         u.full_name AS author_name,
         CASE
           WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/users/profile/', u.user_picture)
           ELSE NULL
         END AS author_picture
+
       FROM community_posts p
+
       -- Join reactions count
       LEFT JOIN (
         SELECT post_id, COUNT(*) AS reaction_count
         FROM community_post_reactions
         GROUP BY post_id
       ) r ON p.post_id = r.post_id
+      
       -- Join comments count
       LEFT JOIN (
         SELECT post_id, COUNT(*) AS comment_count
         FROM community_post_comments
         GROUP BY post_id
       ) c ON p.post_id = c.post_id
-      -- Join media with URLs (Updated section)
+       
+      -- Join media with updated URL pattern
       LEFT JOIN (
         SELECT
           post_id,
           JSON_AGG(JSON_BUILD_OBJECT(
             'media_id', media_id,
             'media_type', media_type,
-            'media_url', CONCAT('http://localhost:8000', media_url), -- Full URL for media
-            'file_name', file_name,
-            'file_size', file_size,
+            'media_url', CONCAT('http://localhost:8000/communities/postMedia/', media_id),
             'created_at', created_at
           ) ORDER BY created_at) AS media
         FROM community_post_media
-        WHERE media_url IS NOT NULL -- Check for media_url instead of media_blob
+        WHERE media_blob IS NOT NULL
         GROUP BY post_id
       ) m ON p.post_id = m.post_id
-      -- Join member/user table
+
+      -- Join user table
       LEFT JOIN users u ON p.member_id = u.user_id
+
       WHERE p.community_id = $1
       ORDER BY p.created_at DESC;
       `,
@@ -354,103 +344,119 @@ exports.getAllPosts = async (req, res) => {
 };
 
 exports.createPost = async (req, res) => {
-  upload.array("files", 5)(req, res, async (err) => {
+  console.log("Creating post with media:", req.body);
+
+  upload.array("media", 5)(req, res, async (err) => {
     if (err) {
       console.error("File upload error:", err);
-      return res.status(400).json({ error: "File upload failed" });
+      return res
+        .status(400)
+        .json({ error: "File upload failed: " + err.message });
     }
-    // Proceed with post creation after file upload
+
+    console.log("Files uploaded successfully:", req.files); // Should be req.files, not req.media
     await createPostHandler(req, res);
   });
 };
 
 const createPostHandler = async (req, res) => {
   const userId = req.userId;
-  const { community_id, title, content, approval_status, approver_id } =
-    req.body;
+  const { community_id, content } = req.body;
 
-  if (!community_id || !title || !content) {
-    return res
-      .status(400)
-      .json({ error: "Community, title, and content are required" });
-  }
+  // if (!content || content.trim() === "") {
+  //   return res.status(400).json({ error: "Content is required" });
+  // }
+
+  // if (!community_id) {
+  //   return res.status(400).json({ error: "Community ID is required" });
+  // }
+
+  // Fix: Use req.files instead of req.media
+  const uploadedFiles = req.files || [];
 
   try {
-    // Create the post first
+    // Start a transaction for data consistency
+    await connection.query("BEGIN");
+
     const postResult = await connection.query(
       `
       INSERT INTO community_posts (
         community_id,
         member_id,
-        title,
         content,
-        approval_status,
-        approver_id,
         created_at,
         updated_at
       )
-      VALUES ($1, $2, $3, $4, $5, $6, NOW(), NOW())
+      VALUES ($1, $2, $3, NOW(), NOW())
       RETURNING post_id
       `,
-      [
-        community_id,
-        userId,
-        title,
-        content,
-        approval_status || "pending",
-        approver_id || null,
-      ]
+      [community_id, userId, content]
     );
 
     const postId = postResult.rows[0].post_id;
 
-    // Handle file uploads if any files are attached
-    if (req.files && req.files.length > 0) {
-      for (const file of req.files) {
+    // Handle media uploads if any
+    if (uploadedFiles.length > 0) {
+      for (const file of uploadedFiles) {
         const mediaType = getMediaType(file.mimetype);
-        const mediaUrl = `/uploads/media/${file.filename}`;
 
         await connection.query(
           `
-          INSERT INTO community_post_media (post_id, media_url, media_type, file_name, file_size)
-          VALUES ($1, $2, $3, $4, $5)
+          INSERT INTO community_post_media (post_id, media_type, media_blob, created_at)
+          VALUES ($1, $2, $3, NOW())
           `,
-          [postId, mediaUrl, mediaType, file.originalname, file.size]
+          [postId, mediaType, file.buffer]
         );
       }
     }
 
+    // Commit the transaction
+    await connection.query("COMMIT");
+
     res.status(201).json({
       message: "Post created successfully",
       post_id: postId,
+      media_count: uploadedFiles.length,
     });
   } catch (error) {
+    // Rollback the transaction on error
+    await connection.query("ROLLBACK");
     console.error("Error creating post:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: "Internal Server Error: " + error.message });
   }
 };
 
-exports.uploadMedia = async (req, res) => {
+exports.postMedia = async (req, res) => {
+  const { mediaId } = req.params;
+
+  if (!mediaId) {
+    return res.status(400).json({ error: "Media ID is required" });
+  }
+
   try {
-    if (!req.file) {
-      return res.status(400).json({ error: "No file uploaded" });
+    const result = await connection.query(
+      `SELECT media_blob, media_type FROM community_post_media WHERE media_id = $1`,
+      [mediaId]
+    );
+
+    if (!result.rows.length) {
+      return res.status(404).json({ error: "Media not found" });
     }
 
-    const mediaType = getMediaType(req.file.mimetype);
-    const mediaUrl = `/uploads/media/${req.file.filename}`;
+    const { media_blob, media_type } = result.rows[0];
 
-    res.json({
-      success: true,
-      media: {
-        media_url: mediaUrl,
-        media_type: mediaType,
-        file_name: req.file.originalname,
-        file_size: req.file.size,
-      },
-    });
+    if (!media_blob || !media_type) {
+      return res.status(400).json({ error: "Invalid media data" });
+    }
+
+    // Set proper headers
+    res.setHeader("Content-Type", media_type);
+    res.setHeader("Cache-Control", "public, max-age=31536000"); // this sets a long cache time for media files
+
+    res.send(media_blob);
   } catch (error) {
-    console.error("Upload error:", error);
-    res.status(500).json({ error: "Upload failed" });
+    console.error("Error fetching media:", error);
+    res.status(500).json({ error: "Internal Server Error: " + error.message });
   }
 };
 
@@ -458,6 +464,7 @@ function getMediaType(mimetype) {
   if (mimetype.startsWith("image/")) return "image";
   if (mimetype.startsWith("video/")) return "video";
   if (mimetype.startsWith("audio/")) return "audio";
-  if (mimetype === "application/pdf") return "document";
-  return "unknown";
+  if (mimetype === "application/pdf" || mimetype.includes("document"))
+    return "document";
+  return "other";
 }

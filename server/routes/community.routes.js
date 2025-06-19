@@ -10,7 +10,7 @@ const {
   getAllPosts,
   createPost,
   image,
-  uploadMedia,
+  postMedia,
 } = require("../controllers/community.controller");
 
 const verifyToken = require("../middlewares/verifyToken");
@@ -25,7 +25,7 @@ router.post("/newPost", verifyToken, createPost);
 // router.post("/edit/:communityId", verifyToken, editCommunity);
 // router.post("/delete/:communityId", verifyToken, deleteCommunity);
 router.get("/image/:communityId", verifyToken, image);
-router.get("/uploadMedia/:postId", verifyToken, uploadMedia);
+router.get("/postMedia/:postId", verifyToken, postMedia);
 router.get("/single/:communityId", verifyToken, getSingleCommunities);
 
 module.exports = router;
