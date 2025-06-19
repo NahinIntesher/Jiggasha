@@ -17,15 +17,21 @@ connection
     console.error("Database connection failed:", err);
   });
 
-// Middleware
 const allowedOrigins = ["http://localhost:3000", "https://jiggasha.vercel.app"];
-app.use(cookieParser());
+
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
