@@ -6,7 +6,6 @@ const cookieParser = require("cookie-parser");
 const routes = require("./routes/index");
 const connection = require("./config/database");
 const app = express();
-
 // DB connection
 connection
   .connect()
@@ -19,6 +18,7 @@ connection
 
 const allowedOrigins = ["http://localhost:3000", "https://jiggasha.vercel.app"];
 
+app.use(cookieParser());
 app.use(
   cors({
     origin: function (origin, callback) {
