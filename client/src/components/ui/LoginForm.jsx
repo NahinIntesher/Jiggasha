@@ -63,7 +63,7 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("https://jiggasha.onrender.com/login", {
+      const response = await fetch("http://jiggasha.onrender.com/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -76,6 +76,7 @@ export default function LoginPage() {
       console.log("Response from server:", result);
 
       if (result.status === "Success") {
+        localStorage.setItem("token", result.token);
         router.replace("/dashboard");
       } else {
         setErrors({

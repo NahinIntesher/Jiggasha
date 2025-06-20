@@ -314,6 +314,7 @@ exports.login = async (req, res) => {
       return res.status(200).json({
         status: "Success",
         message: "Login successful",
+        token: token,
         cookieName: process.env.COOKIE_NAME,
         user: {
           id: user.user_id,
@@ -344,46 +345,6 @@ exports.login = async (req, res) => {
       field: "general",
     });
   }
-};
-
-// Optional: Add rate limiting helper function
-const loginAttempts = new Map();
-
-const checkRateLimit = (username, ip) => {
-  const key = `${username}-${ip}`;
-  const now = Date.now();
-  const attempts = loginAttempts.get(key) || { count: 0, lastAttempt: now };
-
-  // Reset counter if more than 15 minutes have passed
-  if (now - attempts.lastAttempt > 15 * 60 * 1000) {
-    attempts.count = 0;
-  }
-
-  attempts.count++;
-  attempts.lastAttempt = now;
-  loginAttempts.set(key, attempts);
-
-  // Allow max 5 attempts per 15 minutes
-  return attempts.count <= 5;
-};
-
-// Enhanced login function with rate limiting (optional)
-exports.loginWithRateLimit = async (req, res) => {
-  const clientIP = req.ip || req.connection.remoteAddress;
-  const { username } = req.body;
-
-  // Check rate limit
-  if (username && !checkRateLimit(username, clientIP)) {
-    return res.status(429).json({
-      status: "Failed",
-      Error: "Too many login attempts. Please try again in 15 minutes.",
-      field: "general",
-      retryAfter: 15 * 60, // seconds
-    });
-  }
-
-  // Call the main login function
-  return exports.login(req, res);
 };
 
 exports.logout = (req, res) => {
