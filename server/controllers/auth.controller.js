@@ -309,7 +309,6 @@ exports.login = async (req, res) => {
       }
 
       res.cookie(process.env.COOKIE_NAME, token, cookieOptions);
-      console.log("Cookie set successfully for user:", user.username);
 
       // Success response with user data
       return res.status(200).json({

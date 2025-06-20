@@ -63,7 +63,6 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
-      console.log("Form data before submission");
       const response = await fetch("https://jiggasha.onrender.com/login", {
         method: "POST",
         headers: {

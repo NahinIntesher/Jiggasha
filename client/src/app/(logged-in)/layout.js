@@ -27,7 +27,6 @@ export default function RootLayout({ children }) {
       }
 
       const result = await response.json();
-      console.log(result);
       if (result.status === "Success") {
         router.push("/login");
       } else {
