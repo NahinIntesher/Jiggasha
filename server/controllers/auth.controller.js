@@ -298,8 +298,8 @@ exports.login = async (req, res) => {
       const cookieOptions = {
         expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000), // 1 day
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production", // true for production
-        sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+        secure: true,
+        sameSite: "None",
         path: "/",
       };
 
