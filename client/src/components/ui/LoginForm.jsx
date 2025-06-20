@@ -77,6 +77,7 @@ export default function LoginPage() {
 
       if (result.status === "Success") {
         localStorage.setItem("token", result.token);
+        document.cookie = `${result.cookieName}=${result.token}; path=/; max-age=86400; SameSite=Strict; Secure`;
         router.replace("/dashboard");
       } else {
         setErrors({
