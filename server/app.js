@@ -21,7 +21,7 @@ const allowedOrigins = ["http://localhost:3000", "https://jiggasha.vercel.app"];
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://jiggasha.vercel.app",
+    origin: allowedOrigins,
     credentials: true,
   })
 );
