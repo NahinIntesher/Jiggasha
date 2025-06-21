@@ -1,6 +1,9 @@
 "use client";
 
-import AllTime from "@/components/Leaderboard/AllTime";
+import AllTimeLeaderboard from "@/components/Leaderboard/AllTimeLeaderboard";
+import MonthlyLeaderboard from "@/components/Leaderboard/MonthlyLeaderboard";
+import WeeklyLeaderboard from "@/components/Leaderboard/WeeklyLeaderboard";
+
 import Header from "@/components/ui/Header";
 import { useState } from "react";
 
@@ -31,7 +34,9 @@ export default function Leaderboard() {
         </div>
       </div>
 
-      <AllTime />
+      {activeTab === "allTime" && <AllTimeLeaderboard />}
+      {activeTab === "monthly" && <MonthlyLeaderboard />}
+      {activeTab === "weekly" && <WeeklyLeaderboard />}
     </div>
   );
 }

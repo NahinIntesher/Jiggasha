@@ -38,3 +38,101 @@ exports.leaderboard = async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 };
+
+exports.getAllTimeLeaderboard = async (req, res) => {
+  try {
+    const result = await connection.query(`
+      SELECT 
+        u.full_name,
+        u.username,
+        u.level,
+        COALESCE(ROUND(SUM(ur.rating_point)::numeric, 2), 0) AS total_rating,
+        COUNT(ur.rating_id) AS rating_count,
+
+      CASE
+        WHEN user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
+        ELSE NULL
+      END AS user_picture_url 
+
+      FROM 
+        users u
+      LEFT JOIN 
+        user_rating ur ON u.user_id = ur.user_id
+      GROUP BY 
+        u.user_id, u.username
+      ORDER BY 
+        total_rating DESC
+      LIMIT 100;
+    `);
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+exports.getWeeklyLeaderboard = async (req, res) => {
+  try {
+    const result = await connection.query(`
+      SELECT 
+        u.full_name,
+        u.username,
+        u.level,
+        COALESCE(ROUND(SUM(ur.rating_point)::numeric, 2), 0) AS weekly_rating,
+        COUNT(ur.rating_id) AS rating_count,
+
+      CASE
+        WHEN user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
+        ELSE NULL
+      END AS user_picture_url 
+      
+      FROM 
+        users u
+      LEFT JOIN 
+        user_rating ur ON u.user_id = ur.user_id
+        AND ur.earned_at >= (NOW() - INTERVAL '7 days')
+      GROUP BY 
+        u.user_id, u.username
+      ORDER BY 
+        weekly_rating DESC
+      LIMIT 100;
+    `);
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+exports.getMonthlyLeaderboard = async (req, res) => {
+  try {
+    const result = await connection.query(`
+      SELECT 
+        u.full_name,
+        u.username,
+        u.level,
+        COALESCE(ROUND(SUM(ur.rating_point)::numeric, 2), 0) AS monthly_rating,
+        COUNT(ur.rating_id) AS rating_count,
+
+      CASE
+        WHEN user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
+        ELSE NULL
+      END AS user_picture_url 
+      
+      FROM 
+        users u
+      LEFT JOIN 
+        user_rating ur ON u.user_id = ur.user_id
+        AND ur.earned_at >= (NOW() - INTERVAL '30 days')
+      GROUP BY 
+        u.user_id, u.username
+      ORDER BY 
+        monthly_rating DESC
+      LIMIT 100;
+    `);
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};

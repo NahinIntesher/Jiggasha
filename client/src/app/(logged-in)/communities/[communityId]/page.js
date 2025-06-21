@@ -94,7 +94,7 @@ export default function SingleCommunity() {
         formData.append("media", file);
       });
 
-      console.log("Creating post for community:", communityId);
+      console.log("Creating post for community:", formData);
 
       const response = await fetch(
         "http://localhost:8000/communities/newPost",
@@ -108,7 +108,7 @@ export default function SingleCommunity() {
       const data = await response.json();
 
       if (response.ok) {
-        console.log("Post created:", data);
+        // console.log("Post created:", data);
         setNewPost("");
         setSelectedFiles([]);
         fetchPosts();
@@ -452,135 +452,133 @@ export default function SingleCommunity() {
 
               <div className="postContent">{post.content}</div>
 
-              {/* Media rendering - Updated to use media_url from backend */}
               {post.media?.length > 0 && (
                 <div className="mediaContainer">
                   {post.media.map((media) => {
                     const url = media.media_url;
 
-                    // Common media container with consistent styling
                     const MediaContainer = ({ children }) => (
-                      <div
-                        // key={media.media_id}
-                        className="media-container my-3 rounded-lg overflow-hidden shadow-sm bg-gray-50 dark:bg-gray-800"
-                      >
+                      <div className="media-container my-3 rounded-lg overflow-hidden shadow-sm bg-gray-50 dark:bg-gray-800">
                         {children}
                       </div>
                     );
 
-                    // try {
-                    //   switch (media.media_type) {
-                    //     case "image":
-                    //       return (
-                    //         <MediaContainer>
-                    //           <div className="relative pt-[56.25%]">
-                    //             {" "}
-                    //             {/* 16:9 aspect ratio container */}
-                    //             <img
-                    //               src={url}
-                    //               alt="Post media"
-                    //               className="absolute top-0 left-0 w-full h-full object-cover"
-                    //               onError={(e) => {
-                    //                 e.target.onerror = null;
-                    //                 e.target.src = "/placeholder-image.jpg"; // Fallback image
-                    //               }}
-                    //             />
-                    //           </div>
-                    //         </MediaContainer>
-                    //       );
+                    if (!url) return null;
 
-                    //     case "audio":
-                    //       return (
-                    //         <MediaContainer>
-                    //           <div className="p-4">
-                    //             <div className="flex items-center gap-3 mb-2">
-                    //               <div className="bg-indigo-100 dark:bg-indigo-900 p-2 rounded-full">
-                    //                 <FaMusic className="text-indigo-600 dark:text-indigo-300" />
-                    //               </div>
-                    //               <span className="font-medium truncate">
-                    //                 {media.filename || "Audio File"}
-                    //               </span>
-                    //             </div>
-                    //             <audio controls className="w-full">
-                    //               <source
-                    //                 src={url}
-                    //                 type={`audio/${url.split(".").pop()}`}
-                    //               />
-                    //               Your browser does not support the audio
-                    //               element.
-                    //             </audio>
-                    //           </div>
-                    //         </MediaContainer>
-                    //       );
+                    switch (media.media_type) {
+                      case "image":
+                        return (
+                          <div key={media.media_id}>
+                            <MediaContainer>
+                              <div className="relative pt-[56.25%]">
+                                <img
+                                  src={url}
+                                  alt="Post media"
+                                  className="absolute top-0 left-0 w-full h-full object-cover"
+                                  onError={(e) => {
+                                    e.target.onerror = null;
+                                    e.target.src = "/placeholder-image.jpg";
+                                  }}
+                                />
+                              </div>
+                            </MediaContainer>
+                          </div>
+                        );
 
-                    //     case "video":
-                    //       return (
-                    //         <MediaContainer>
-                    //           <video
-                    //             controls
-                    //             className="w-full max-h-[500px]"
-                    //             poster={
-                    //               media.thumbnail_url || "/video-thumbnail.jpg"
-                    //             }
-                    //           >
-                    //             <source
-                    //               src={url}
-                    //               type={`video/${url.split(".").pop()}`}
-                    //             />
-                    //             Your browser does not support the video tag.
-                    //           </video>
-                    //         </MediaContainer>
-                    //       );
+                      case "audio":
+                        return (
+                          <div key={media.media_id}>
+                            <MediaContainer>
+                              <div className="p-4">
+                                <div className="flex items-center gap-3 mb-2">
+                                  <div className="bg-indigo-100 dark:bg-indigo-900 p-2 rounded-full">
+                                    <FaMusic className="text-indigo-600 dark:text-indigo-300" />
+                                  </div>
+                                  <span className="font-medium truncate">
+                                    {media.filename || "Audio File"}
+                                  </span>
+                                </div>
+                                <audio controls className="w-full">
+                                  <source
+                                    src={url}
+                                    type={`audio/${url.split(".").pop()}`}
+                                  />
+                                  Your browser does not support the audio
+                                  element.
+                                </audio>
+                              </div>
+                            </MediaContainer>
+                          </div>
+                        );
 
-                    //     case "document":
-                    //       return (
-                    //         <MediaContainer>
-                    //           <div className="p-4 flex items-center gap-4">
-                    //             <div className="bg-gray-200 dark:bg-gray-700 p-3 rounded-lg">
-                    //               <FaFilePdf className="text-red-500 text-2xl" />
-                    //             </div>
-                    //             <div className="flex-1 min-w-0">
-                    //               <p className="font-medium truncate">
-                    //                 {media.filename || "Document"}
-                    //               </p>
-                    //               <p className="text-sm text-gray-500 dark:text-gray-400">
-                    //                 {media.file_size
-                    //                   ? formatFileSize(media.file_size)
-                    //                   : "Unknown size"}
-                    //               </p>
-                    //             </div>
-                    //             <a
-                    //               href={url}
-                    //               target="_blank"
-                    //               rel="noopener noreferrer"
-                    //               className="text-indigo-600 dark:text-indigo-400 hover:underline font-medium whitespace-nowrap"
-                    //               download
-                    //             >
-                    //               Download
-                    //             </a>
-                    //           </div>
-                    //         </MediaContainer>
-                    //       );
+                      case "video":
+                        return (
+                          <div key={media.media_id}>
+                            <MediaContainer>
+                              <video
+                                controls
+                                className="w-full max-h-[500px]"
+                                poster={
+                                  media.thumbnail_url || "/video-thumbnail.jpg"
+                                }
+                              >
+                                <source
+                                  src={url}
+                                  type={`video/${url.split(".").pop()}`}
+                                />
+                                Your browser does not support the video tag.
+                              </video>
+                            </MediaContainer>
+                          </div>
+                        );
 
-                    //     default:
-                    //       return (
-                    //         <MediaContainer>
-                    //           <div className="p-4 text-center text-gray-500">
-                    //             Unsupported media type: {media.media_type}
-                    //           </div>
-                    //         </MediaContainer>
-                    //       );
-                    //   }
-                    // } catch (error) {
-                    //   console.error("Error rendering media:", error);
-                    //   return (
-                    //     <MediaContainer>
-                    //       <div className="p-4 text-center text-red-500">
-                    //         Error loading media
-                    //       </div>
-                    //     </MediaContainer>
-                    //   );
-                    // }
+                      case "document":
+                        return (
+                          <div key={media.media_id}>
+                            <MediaContainer>
+                              <div className="p-4 flex items-center gap-4">
+                                <div className="bg-gray-200 dark:bg-gray-700 p-3 rounded-lg">
+                                  <FaFilePdf className="text-red-500 text-2xl" />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <p className="font-medium truncate">
+                                    {media.filename || "Document"}
+                                  </p>
+                                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                                    {media.file_size
+                                      ? `${(
+                                          media.file_size /
+                                          1024 /
+                                          1024
+                                        ).toFixed(2)} MB`
+                                      : "Unknown size"}
+                                  </p>
+                                </div>
+                                <a
+                                  href={url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-indigo-600 dark:text-indigo-400 hover:underline font-medium whitespace-nowrap"
+                                  download
+                                >
+                                  Download
+                                </a>
+                              </div>
+                            </MediaContainer>
+                          </div>
+                        );
+
+                      default:
+                        return (
+                          <div key={media.media_id}>
+                            <MediaContainer>
+                              <div className="p-4 text-center text-gray-500">
+                                Unsupported media type: {media.media_type}
+                              </div>
+                            </MediaContainer>
+                          </div>
+                        );
+                    }
                   })}
                 </div>
               )}

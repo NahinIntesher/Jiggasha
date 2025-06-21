@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Loading from "../ui/Loading";
 import { FaStar } from "react-icons/fa6";
 
-export default function AllTime() {
+export default function MonthlyLeaderboard() {
   const [leaderboard, setLeaderboard] = useState([]);
 
   const [loading, setLoading] = useState(true);
@@ -13,11 +13,14 @@ export default function AllTime() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/leaderboard", {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-        });
+        const response = await fetch(
+          "http://localhost:8000/leaderboard/monthly",
+          {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+          }
+        );
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -63,7 +66,7 @@ export default function AllTime() {
                 <div className="title">Rating</div>
                 <div className="ratingValue">
                   <FaStar className="ratingIcon" />
-                  <div className="ratingValueNumber">{user.user_rating}</div>
+                  <div className="ratingValueNumber">{user.monthly_rating}</div>
                 </div>
               </div>
             </div>
