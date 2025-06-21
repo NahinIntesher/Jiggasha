@@ -297,7 +297,9 @@ WHERE c.name ILIKE $2 OR c.description ILIKE $2
 
 GROUP BY 
   c.course_id, c.name, c.description, c.created_at, c.subject, c.class_level, 
-  c.cover_image, u.full_name, u.user_picture, u.user_id;`,
+  c.cover_image, u.full_name, u.user_picture, u.user_id
+
+  LIMIT 3;`,
       [userId, `%${keyword}%`]
     );
 
