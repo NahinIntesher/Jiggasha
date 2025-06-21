@@ -182,7 +182,7 @@ export default function AdminRegistrationPage() {
 
     // Simulate API call
     try {
-      const response = await fetch("https://jiggasha.onrender.com/signup", {
+      const response = await fetch("http://localhost:8000/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

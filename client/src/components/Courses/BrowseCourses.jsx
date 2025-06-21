@@ -63,7 +63,7 @@ export default function BrowseCourses() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://jiggasha.onrender.com/courses", {
+        const response = await fetch("http://localhost:8000/courses", {
           method: "GET",
           headers: { "Content-Type": "application/json" },
           credentials: "include",

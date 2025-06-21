@@ -25,7 +25,7 @@ exports.leaderboard = async (req, res) => {
     const { rows } = await connection.query(
       `SELECT full_name, username, level, user_rating,
       CASE
-        WHEN user_picture IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/profile/image/', user_id)
+        WHEN user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', user_id)
         ELSE NULL
       END AS user_picture_url 
       FROM users

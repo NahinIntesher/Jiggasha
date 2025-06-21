@@ -31,21 +31,18 @@ export default function SingleCourse() {
       e.stopPropagation();
       e.preventDefault();
 
-      const response = await fetch(
-        "https://jiggasha.onrender.com/courses/vote",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          mode: "cors",
-          body: JSON.stringify({
-            courseId: courseId,
-            vote: vote,
-          }),
-        }
-      );
+      const response = await fetch("http://localhost:8000/courses/vote", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        mode: "cors",
+        body: JSON.stringify({
+          courseId: courseId,
+          vote: vote,
+        }),
+      });
 
       const result = await response.json();
 
@@ -67,20 +64,17 @@ export default function SingleCourse() {
       e.stopPropagation();
       e.preventDefault();
 
-      const response = await fetch(
-        "https://jiggasha.onrender.com/courses/unvote",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          mode: "cors",
-          body: JSON.stringify({
-            courseId: courseId,
-          }),
-        }
-      );
+      const response = await fetch("http://localhost:8000/courses/unvote", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        mode: "cors",
+        body: JSON.stringify({
+          courseId: courseId,
+        }),
+      });
 
       const result = await response.json();
 
@@ -99,7 +93,7 @@ export default function SingleCourse() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://jiggasha.onrender.com/courses/single/" + courseId,
+          "http://localhost:8000/courses/single/" + courseId,
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },

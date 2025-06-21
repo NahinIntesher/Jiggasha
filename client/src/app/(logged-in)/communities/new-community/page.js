@@ -59,14 +59,11 @@ export default function NewCommunity() {
       formDataToSend.append("group", formData.group);
       formDataToSend.append("subject", formData.subject);
 
-      const response = await fetch(
-        "https://jiggasha.onrender.com/communities/add",
-        {
-          method: "POST",
-          body: formDataToSend,
-          credentials: "include",
-        }
-      );
+      const response = await fetch("http://localhost:8000/communities/add", {
+        method: "POST",
+        body: formDataToSend,
+        credentials: "include",
+      });
 
       const result = await response.json();
 
