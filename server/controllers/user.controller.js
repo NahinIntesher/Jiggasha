@@ -138,7 +138,6 @@ exports.getMonthlyLeaderboard = async (req, res) => {
   }
 };
 
-
 const upload = multer({ storage: multer.memoryStorage() });
 
 exports.updateProfilePicture = [
@@ -176,3 +175,26 @@ exports.updateProfilePicture = [
     }
   },
 ];
+
+exports.changeProfileDetails = async (req, res) => {
+  console.log("Changing profile details...");
+  console.log(req.body);
+  const userId = req.userId;
+  const { name, email, mobile_no, classLevel, group, department } = req.body;
+
+  try {
+    const result = await connection.query(
+      `UPDATE users SET full_name = $1, email = $2, mobile_no = $3, user_class_level = $4, user_group = $5, user_department = $6 WHERE user_id = $7`,
+      [name, email, mobile_no, classLevel, group, department, userId]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.json({ status: "Success" });
+  } catch (error) {
+    console.error("Error updating profile details:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+};
