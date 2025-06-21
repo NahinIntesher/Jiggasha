@@ -2198,6 +2198,31 @@ body {
 }
 
 
+/* Notification */
+
+.notificationContainer {
+  position: fixed;
+  top: 70px;
+  right: 10px;
+  width: 400px;
+  max-height: 500px;
+  overflow-y: auto;
+  background-color: var(--lightBackground);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.01), 0px 2px 6px rgba(0, 0, 0, 0.02),
+    0px 4px 12px rgba(0, 0, 0, 0.04);
+    z-index: 500;
+  padding: 4px;
+}
+
+.notificationContainer .title {
+  font-size: 20px;
+  font-weight: 700;
+  padding: 12px 16px;  
+}
+
+
 
 .ql-toolbar {
   border-radius: 12px 12px 0 0;

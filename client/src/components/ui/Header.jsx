@@ -62,7 +62,7 @@ export default function Header({ title, subtitle }) {
     } else {
       setSearchShow(false);
     }
-    
+
     const fetchData = async () => {
       try {
         const blogResponse = await fetch("http://localhost:8000/blogs/search/" + (value ? value : "_"), {
@@ -199,6 +199,9 @@ export default function Header({ title, subtitle }) {
         <Link href={"/settings"} className="iconButton">
           <FaGear className="icon" />
         </Link>
+      </div>
+      <div className="notificationContainer">
+        <div className="title">Notification</div>
       </div>
     </div>
   );
