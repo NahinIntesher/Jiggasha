@@ -1,4 +1,5 @@
 const connection = require("../config/database");
+const multer = require("multer");
 
 exports.getUserProfile = async (req, res) => {
   const userId = req.userId;
@@ -136,3 +137,42 @@ exports.getMonthlyLeaderboard = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+
+const upload = multer({ storage: multer.memoryStorage() });
+
+exports.updateProfilePicture = [
+  upload.single("coverImage"), // Middleware to handle file upload
+  async (req, res) => {
+    console.log("Updating profile picture...");
+    return;
+    const userId = req.userId;
+
+    const { title, content, classLevel, subject } = req.body;
+
+    const coverImageBuffer = req.file ? req.file.buffer : null; // Get binary buffer
+
+    try {
+      connection.query(
+        `INSERT INTO blogs (title, class_level, subject, content, cover_image, author_id)
+        VALUES ($1, $2, $3, $4, $5, $6)`,
+        [
+          title,
+          classLevel || null,
+          subject || null,
+          content,
+          coverImageBuffer || null,
+          userId,
+        ],
+        (err, results) => {
+          if (err) {
+            return res.status(500).json({ error: err });
+          }
+          return res.json({ status: "Success" });
+        }
+      );
+    } catch (error) {
+      res.status(500).json({ error: error });
+    }
+  },
+];

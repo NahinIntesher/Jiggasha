@@ -6,6 +6,7 @@ import SearchBoxOn from "./SearchBarOn";
 import { FaGear, FaBell, FaAngleDown } from "react-icons/fa6";
 import { FaBars, FaSearch } from "react-icons/fa";
 import { useLayout } from "../Contexts/LayoutProvider";
+import Link from "next/link";
 const pageMeta = {
   "/dashboard": {
     title: "Dashboard",
@@ -89,9 +90,9 @@ export default function Header({ title, subtitle }) {
           <div className="count">4</div>
           <FaBell className="icon" />
         </div>
-        <div className="iconButton">
+        <Link href={"/settings"} className="iconButton">
           <FaGear className="icon" />
-        </div>
+        </Link>
       </div>
     </div>
   );

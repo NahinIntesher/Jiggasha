@@ -65,7 +65,7 @@ export default function Profile() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white">
-      <Header title="Professional Profile" />
+      <Header title="Profile" />
 
       <div className="relative max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 pt-8 pb-16">
         <div className="bg-white rounded-2xl shadow-lg border border-orange-100 overflow-hidden">
@@ -85,12 +85,12 @@ export default function Profile() {
               <div className="flex flex-col items-center lg:items-start w-full lg:w-auto">
                 <div className="relative">
                   <img
-                    src={profileImage}
+                    src={user.user_picture_url || profileImage}
                     alt="Profile"
                     className="w-48 h-48 rounded-full object-cover shadow-lg border-4 border-white"
                   />
                   <div className="absolute -bottom-0 -right-0 bg-orange-500 text-white text-xs font-medium px-3 py-1 rounded-full shadow">
-                    {user.user_role || "Member"}
+                    Level {user.level}
                   </div>
                 </div>
 
@@ -99,7 +99,7 @@ export default function Profile() {
                     {user.full_name || "User Name"}
                   </h1>
                   <p className="text-orange-600 font-medium mt-1">
-                    {user.user_department || "Department"}
+                    Ratings <b>{user.user_rating}</b>
                   </p>
                 </div>
               </div>
