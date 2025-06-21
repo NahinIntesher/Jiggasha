@@ -3,11 +3,7 @@
 import HeaderAlt from "@/components/ui/HeaderAlt";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
-import {
-  classLevel,
-  group,
-  department
-} from "@/utils/Constant";
+import { classLevel, group, department } from "@/utils/Constant";
 import { FaImages, FaXmark } from "react-icons/fa6";
 
 export default function NewBlog() {
@@ -20,7 +16,8 @@ export default function NewBlog() {
     classLevel: "6",
     group: "all",
     mobileNumber: "",
-    email: ""
+    department: "all",
+    email: "",
   });
 
   const handleChange = (e) => {
@@ -38,15 +35,22 @@ export default function NewBlog() {
       formDataToSend.append("group", formData.group);
       formDataToSend.append("mobile", formData.mobileNumber);
       formDataToSend.append("email", formData.email);
+      formDataToSend.append("department", formData.department);
 
-      const response = await fetch("http://localhost:8000/update-profile-details", {
-        method: "POST",
-        mode: "cors",
-        body: formDataToSend,
-        credentials: "include",
-      });
+      console.log("Form Data to Send:", formDataToSend);
+      const response = await fetch(
+        "http://localhost:8000/update-profile-details",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(Object.fromEntries(formDataToSend)),
+        }
+      );
 
-      console.log(response)
+      console.log(response);
 
       const result = await response.json();
 
@@ -54,11 +58,10 @@ export default function NewBlog() {
         alert("Profile Successfully Updated!");
         router.back();
       } else {
-        console.error("Error adding blog:", result);
+        console.error("Error updating profile:", result);
       }
     } catch (error) {
-      console.error("Error during blog creation:", error);
-      setErrors("An error occurred, please try again later.");
+      console.error("Error during profile update:", error);
     }
   };
 
@@ -76,13 +79,14 @@ export default function NewBlog() {
         }
 
         const userData = await response.json();
-        setFormData({ ...formData,
+        setFormData({
+          ...formData,
           name: userData.full_name || "",
           classLevel: userData.user_class_level || "6",
           group: userData.user_group || "all",
           mobileNumber: userData.mobile_no || "",
-          email: userData.email || ""
-         });
+          email: userData.email || "",
+        });
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -122,15 +126,15 @@ export default function NewBlog() {
                   {level == "admission"
                     ? "Admission"
                     : level == "undergraduate"
-                      ? "Undergraduate"
-                      : `Class ${level}`}
+                    ? "Undergraduate"
+                    : `Class ${level}`}
                 </option>
               ))}
             </select>
           </label>
           {formData.classLevel == "9-10" ||
-            formData.classLevel == "11-12" ||
-            formData.classLevel == "admission" ? (
+          formData.classLevel == "11-12" ||
+          formData.classLevel == "admission" ? (
             <label>
               <div className="name">Group</div>
               <select
@@ -165,7 +169,6 @@ export default function NewBlog() {
           ) : (
             <></>
           )}
-
         </div>
 
         <label>

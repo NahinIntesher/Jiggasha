@@ -23,11 +23,11 @@ export default function CommentBox({
 
   return (
     <div className="commentBox">
-      <Link to={"/profile/" + commentatorId} className="profilePicture">
+      <Link href={"/profile/" + commentatorId} className="profilePicture">
         <img src={commentatorPicture ? commentatorPicture : dp} />
       </Link>
       <div className="commentContentBox">
-        <Link to={"/profile/" + commentatorId} className="name">
+        <Link href={"/profile/" + commentatorId} className="name">
           {commentatorName}
         </Link>
         <div className="text">{commentContent}</div>

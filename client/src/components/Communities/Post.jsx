@@ -9,7 +9,7 @@ import PostCard from "./PostCard";
 import { useParams } from "next/navigation";
 
 export default function Post() {
-  const { communityId, postId } = useParams();
+  const { postId } = useParams();
   const [post, setPost] = useState({});
   const [commentators, setCommentators] = useState([]);
   const [commentContent, setCommentContent] = useState("");
@@ -36,6 +36,7 @@ export default function Post() {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify({
         commentContent: commentContent,
         postId: postId,
@@ -51,13 +52,20 @@ export default function Post() {
           alert(data.Error);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error("Error submitting comment:", err));
   };
 
   useEffect(() => {
-    fetch("http://localhost:8000/communities/singlePost/" + postId)
+    fetch("http://localhost:8000/communities/singlePost/" + postId, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    })
       .then((res) => res.json())
       .then((data) => {
+        console.log("Fetched Post Data:", data);
         const postData = data?.post || {};
         const commentsData = data?.post?.commentators || [];
 
@@ -68,18 +76,6 @@ export default function Post() {
         console.error("Error fetching post:", error);
       });
   }, [updatePost]);
-
-  function getTimeAgo(timestamp) {
-    const date = new Date(timestamp);
-    const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
-    if (seconds < 60) return `${seconds}s ago`;
-    const minutes = Math.floor(seconds / 60);
-    if (minutes < 60) return `${minutes}m ago`;
-    const hours = Math.floor(minutes / 60);
-    if (hours < 24) return `${hours}h ago`;
-    const days = Math.floor(hours / 24);
-    return `${days}d ago`;
-  }
 
   return (
     <div className="mainContent">
@@ -93,14 +89,14 @@ export default function Post() {
             posterName={post.author_name || "Anonymous"}
             posterPicture={post.author_picture}
             content={post.content}
-            postTimeAgo={getTimeAgo(post.created_at)}
+            postTimeAgo={post.created_at}
             postMediaArray={post.media || []}
             isPostReacted={!!post.is_reacted}
             postReactionCount={parseInt(post.reaction_count)}
             postCommentCount={parseInt(post.comment_count)}
             postTime={post.created_at}
             setUpdatePost={setUpdatePost}
-            con
+            commentators={commentators}
           />
         )}
         <div className="giveCommentBox">
@@ -119,25 +115,6 @@ export default function Post() {
               Comment
             </button>
           </form>
-        </div>
-        <div className="commentBoxContainer">
-          <div className="title">Comments</div>
-          {commentators.length > 0 ? (
-            commentators.map(function (commentator, index) {
-              return (
-                <CommentBox
-                  key={index}
-                  commentatorId={commentator.commentator_name}
-                  commentatorPicture={commentator.user_picture}
-                  commentContent={commentator.comment}
-                  commentatorName={commentator.full_name}
-                  commentTimeAgo={commentator.commented_at}
-                />
-              );
-            })
-          ) : (
-            <NotFound type="comments" />
-          )}
         </div>
       </div>
     </div>

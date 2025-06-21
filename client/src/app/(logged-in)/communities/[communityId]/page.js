@@ -25,10 +25,12 @@ import {
   FaMicrophone,
   FaPaperclip,
   FaPaperPlane,
+  FaRegThumbsUp,
   FaUser,
   FaUserGroup,
 } from "react-icons/fa6";
 import NotFound from "@/components/ui/NotFound";
+import Link from "next/link";
 
 export default function SingleCommunity() {
   const { communityId } = useParams();
@@ -453,130 +455,138 @@ export default function SingleCommunity() {
               <div className="postContent">{post.content}</div>
 
               {post.media?.length > 0 && (
-                <div className="mediaContainer">
-                  {post.media.map((media) => {
-                    const url = media.media_url;
+                <div className="p-5">
+                  {post.media && post.media.length > 0 && (
+                    <div className="">
+                      {post.media.map((media, index) => {
+                        const url = media.media_url;
 
-                    const MediaContainer = ({ children }) => (
-                      <div className="media-container my-3 rounded-lg overflow-hidden shadow-sm bg-gray-50 dark:bg-gray-800">
-                        {children}
-                      </div>
-                    );
+                        const MediaContainer = ({ children }) => (
+                          <div className="media-container my-4 rounded-xl overflow-hidden shadow border-2 border-orange-200 bg-orange-50">
+                            {children}
+                          </div>
+                        );
 
-                    if (!url) return null;
+                        if (!url) return null;
 
-                    switch (media.media_type) {
-                      case "image":
-                        return (
-                          <div key={media.media_id}>
-                            <MediaContainer>
-                              <div className="relative pt-[56.25%]">
-                                <img
-                                  src={url}
-                                  alt="Post media"
-                                  className="absolute top-0 left-0 w-full h-full object-cover"
-                                  onError={(e) => {
-                                    e.target.onerror = null;
-                                    e.target.src = "/placeholder-image.jpg";
-                                  }}
-                                />
+                        switch (media.media_type) {
+                          case "image":
+                            return (
+                              <div key={media.media_id || index}>
+                                <MediaContainer>
+                                  <div className="relative pt-[56.25%]">
+                                    <img
+                                      src={url}
+                                      alt="Post image"
+                                      className="absolute top-0 left-0 w-full h-full object-cover"
+                                      onError={(e) => {
+                                        e.target.onerror = null;
+                                        e.target.src = "/placeholder-image.jpg";
+                                      }}
+                                    />
+                                  </div>
+                                </MediaContainer>
                               </div>
-                            </MediaContainer>
-                          </div>
-                        );
+                            );
 
-                      case "audio":
-                        return (
-                          <div key={media.media_id}>
-                            <div className="p-4">
-                              <div className="flex items-center gap-3 mb-2">
-                                <div className="bg-indigo-100 dark:bg-indigo-900 p-2 rounded-full">
-                                  <FaMusic className="text-indigo-600 dark:text-indigo-300" />
-                                </div>
-                                <span className="font-medium truncate">
-                                  {media.filename || "Audio File"}
-                                </span>
+                          case "audio":
+                            return (
+                              <div key={media.media_id || index}>
+                                <MediaContainer>
+                                  <div className="p-4">
+                                    <div className="flex items-center gap-3 mb-2">
+                                      <div className="bg-orange-100 p-2 rounded-full">
+                                        <FaMusic className="text-orange-500" />
+                                      </div>
+                                      <span className="font-medium truncate text-orange-700">
+                                        {media.filename || "Audio File"}
+                                      </span>
+                                    </div>
+                                    <audio controls className="w-full">
+                                      <source
+                                        src={url}
+                                        type={`audio/${url.split(".").pop()}`}
+                                      />
+                                      Your browser does not support the audio
+                                      element.
+                                    </audio>
+                                  </div>
+                                </MediaContainer>
                               </div>
-                              <audio controls className="w-full">
-                                <source
-                                  src={url}
-                                  type={`audio/${url.split(".").pop()}`}
-                                />
-                                Your browser does not support the audio element.
-                              </audio>
-                            </div>
-                          </div>
-                        );
+                            );
 
-                      case "video":
-                        return (
-                          <div key={media.media_id}>
-                            <div>
-                              <video
-                                controls
-                                className="w-full max-h-[500px]"
-                                poster={
-                                  media.thumbnail_url || "/video-thumbnail.jpg"
-                                }
-                              >
-                                <source
-                                  src={url}
-                                  type={`video/${url.split(".").pop()}`}
-                                />
-                                Your browser does not support the video tag.
-                              </video>
-                            </div>
-                          </div>
-                        );
-
-                      case "document":
-                        return (
-                          <div key={media.media_id}>
-                            <MediaContainer>
-                              <div className="p-4 flex items-center gap-4">
-                                <div className="bg-gray-200 dark:bg-gray-700 p-3 rounded-lg">
-                                  <FaFilePdf className="text-red-500 text-2xl" />
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                  <p className="font-medium truncate text-white">
-                                    {post.content || "Document"}
-                                  </p>
-                                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                                    {media.file_size
-                                      ? `${(
-                                          media.file_size /
-                                          1024 /
-                                          1024
-                                        ).toFixed(2)} MB`
-                                      : "Unknown size"}
-                                  </p>
-                                </div>
-                                <a
-                                  href={url}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="text-indigo-600 dark:text-indigo-400 hover:underline font-medium whitespace-nowrap"
-                                  download
-                                >
-                                  Download
-                                </a>
+                          case "video":
+                            return (
+                              <div key={media.media_id || index}>
+                                <MediaContainer>
+                                  <video
+                                    controls
+                                    className="w-full max-h-[500px] bg-black"
+                                    poster={
+                                      media.thumbnail_url ||
+                                      "/video-thumbnail.jpg"
+                                    }
+                                  >
+                                    <source
+                                      src={url}
+                                      type={`video/${url.split(".").pop()}`}
+                                    />
+                                    Your browser does not support the video tag.
+                                  </video>
+                                </MediaContainer>
                               </div>
-                            </MediaContainer>
-                          </div>
-                        );
+                            );
 
-                      default:
-                        return (
-                          <div key={media.media_id}>
-                            <MediaContainer>
-                              <div className="p-4 text-center text-gray-500">
-                                Unsupported media type: {media.media_type}
+                          case "document":
+                            return (
+                              <div key={media.media_id || index}>
+                                <MediaContainer>
+                                  <div className="p-4 flex items-center gap-4">
+                                    <div className="bg-orange-100 p-3 rounded-lg">
+                                      <FaFilePdf className="text-red-500 text-2xl" />
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                      <p className="font-medium truncate text-orange-900">
+                                        {media.filename || "Document"}
+                                      </p>
+                                      <p className="text-sm text-orange-600">
+                                        {media.file_size
+                                          ? `${(
+                                              media.file_size /
+                                              1024 /
+                                              1024
+                                            ).toFixed(2)} MB`
+                                          : "Unknown size"}
+                                      </p>
+                                    </div>
+                                    <a
+                                      href={url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="text-orange-600 hover:underline font-semibold"
+                                      download
+                                    >
+                                      Download
+                                    </a>
+                                  </div>
+                                </MediaContainer>
                               </div>
-                            </MediaContainer>
-                          </div>
-                        );
-                    }
-                  })}
+                            );
+
+                          default:
+                            return (
+                              <div key={media.media_id || index}>
+                                <MediaContainer>
+                                  <div className="p-4 text-center text-orange-600 font-medium">
+                                    Unsupported media type: {media.media_type}
+                                  </div>
+                                </MediaContainer>
+                              </div>
+                            );
+                        }
+                      })}
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -587,14 +597,24 @@ export default function SingleCommunity() {
               </div>
 
               <div className="postActionBoxContainer">
-                <div className="postActionBox">
-                  <FaThumbsUp className="icon" />
-                  <span className="text">Likes</span>
-                </div>
-                <div className="postActionBox">
+                {post.is_reacted ? (
+                  <div className="postActionBox bg-orange-100">
+                    <FaThumbsUp className="icon" />
+                    <span className="text">Liked</span>
+                  </div>
+                ) : (
+                  <div className="postActionBox">
+                    <FaRegThumbsUp className="icon " />
+                    <span className="text">Like</span>
+                  </div>
+                )}
+                <Link
+                  href={`/communities/${communityId}/${post.post_id}`}
+                  className="postActionBox"
+                >
                   <FaComment className="icon" />
                   <span className="text">Comments</span>
-                </div>
+                </Link>
               </div>
             </div>
           ))

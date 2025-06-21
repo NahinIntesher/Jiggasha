@@ -6,7 +6,6 @@ import React, { useRef, useState } from "react";
 
 import { FaImages } from "react-icons/fa6";
 
-
 export default function NewBlog() {
   const router = useRouter();
 
@@ -17,7 +16,11 @@ export default function NewBlog() {
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    setFormData({ ...formData, coverImage: files[0], coverImageUrl: URL.createObjectURL(files[0]) });
+    setFormData({
+      ...formData,
+      coverImage: files[0],
+      coverImageUrl: URL.createObjectURL(files[0]),
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -27,12 +30,15 @@ export default function NewBlog() {
       const formDataToSend = new FormData();
       formDataToSend.append("coverImage", formData.coverImage);
 
-      const response = await fetch("http://localhost:8000/profile/update/picture", {
-        method: "POST",
-        body: formDataToSend,
-        mode: "cors",
-        credentials: "include",
-      });
+      const response = await fetch(
+        "http://localhost:8000/profile/update/picture",
+        {
+          method: "POST",
+          body: formDataToSend,
+          mode: "cors",
+          credentials: "include",
+        }
+      );
 
       const result = await response.json();
 
@@ -44,7 +50,6 @@ export default function NewBlog() {
       }
     } catch (error) {
       console.error("Error during blog creation:", error);
-      setErrors("An error occurred, please try again later.");
     }
   };
 
@@ -59,9 +64,7 @@ export default function NewBlog() {
             {formData.coverImageUrl ? (
               <img className="previewImage" src={formData.coverImageUrl} />
             ) : (
-              <div className="psudoPreviewImage">
-                N
-              </div>
+              <div className="psudoPreviewImage">N</div>
             )}
 
             <div className="uploadImage">
