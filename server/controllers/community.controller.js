@@ -687,9 +687,6 @@ exports.postComment = async function (req, res) {
   );
 };
 
-
-
-
 exports.searchCommunities = async (req, res) => {
   const userId = req.userId;
 

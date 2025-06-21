@@ -138,15 +138,13 @@ export default function SingleCommunity() {
     alert("Report feature is not implemented yet.");
   };
 
-  function reactPost() {
+  function reactPost({ postId }) {
     fetch("http://localhost:8000/communities/post/react", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        postId: postId,
-      }),
+      body: JSON.stringify({ postId, commentContent }),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -626,12 +624,18 @@ export default function SingleCommunity() {
 
               <div className="postActionBoxContainer">
                 {post.is_reacted ? (
-                  <div className="postActionBox ">
+                  <div
+                    className="postActionBox "
+                    onClick={() => reactPost(post.post_id)}
+                  >
                     <FaThumbsUp className="icon" />
                     <span className="text">Liked</span>
                   </div>
                 ) : (
-                  <div className="postActionBox">
+                  <div
+                    className="postActionBox"
+                    onClick={() => reactPost(post.post_id)}
+                  >
                     <FaRegThumbsUp className="icon " />
                     <span className="text">Like</span>
                   </div>
