@@ -381,7 +381,46 @@ body {
   padding: 4px 8px;
   border-radius: 30px;
   margin: 4px;
+  position: relative;
 }
+
+.header .iconContainer .searchBox .searchResultContainer {
+  position: absolute;
+  top: 50px;
+  left: -50%;
+  width: 400px;
+  max-height: 500px;
+  overflow-y: auto;
+  background-color: var(--lightBackground);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.01), 0px 2px 6px rgba(0, 0, 0, 0.02),
+    0px 4px 12px rgba(0, 0, 0, 0.04);
+    z-index: 500;
+}
+
+.header .iconContainer .searchBox .searchResultContainer .notFound {
+  padding: 8px;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 240px;
+}
+
+.header .iconContainer .searchBox .searchResultContainer .notFound .text {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 8px;
+}
+
+.header .iconContainer .searchBox .searchResultContainer .notFound .icon {
+  font-size: 100px;
+  margin: 16px;
+}
+
+
 
 .header .iconContainer .searchBox .icon {
   font-size: 16px;

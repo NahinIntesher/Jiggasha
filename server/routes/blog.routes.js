@@ -9,6 +9,7 @@ const {
   unvote,
   getSingleBlog,
   getMyBlogs,
+  searchBlogs,
 } = require("../controllers/blog.controller");
 
 const verifyToken = require("../middlewares/verifyToken");
@@ -22,5 +23,6 @@ router.post("/vote", verifyToken, vote);
 router.post("/unvote", verifyToken, unvote);
 router.get("/image/:blogId", verifyToken, image);
 router.get("/single/:blogId", verifyToken, getSingleBlog);
+router.get("/search/:keyword", verifyToken, searchBlogs);
 
 module.exports = router;

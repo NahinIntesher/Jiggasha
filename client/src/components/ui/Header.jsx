@@ -85,6 +85,12 @@ export default function Header({ title, subtitle }) {
         <div className="searchBox">
           <FaSearch className="icon" />
           <input type="text" placeholder="Search" />
+          <div className="searchResultContainer">
+            <div className="notFound">
+              <FaSearch className="icon" />
+              <div className="text">Nothing Found!</div>
+            </div>
+          </div>
         </div>
         <div className="iconButton">
           <div className="count">4</div>

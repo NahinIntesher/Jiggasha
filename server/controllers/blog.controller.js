@@ -248,3 +248,43 @@ exports.image = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+
+exports.searchBlogs = async (req, res) => {
+  const userId = req.userId;
+
+  const { keyword } = req.params;
+
+  try {
+    const { rows } = await connection.query(
+      `SELECT b.blog_id, b.title, b.content, b.created_at, b.subject, b.class_level, b.view_count,
+      CASE 
+      WHEN b.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/blogs/image/', b.blog_id)
+      ELSE NULL
+      END AS cover_image_url,
+      u.full_name AS author_name,
+      CASE
+      WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
+      ELSE NULL
+      END AS author_picture_url,
+      COALESCE(bv.vote, 0) AS is_voted,
+      COALESCE(v_c.total_vote, 0) AS vote_count
+      FROM blogs b
+      JOIN users u ON b.author_id = u.user_id
+      LEFT JOIN blog_votes bv 
+      ON bv.blog_id = b.blog_id AND bv.voter_id = $1
+      LEFT JOIN (
+        SELECT blog_id, SUM(vote) AS total_vote
+        FROM blog_votes
+        GROUP BY blog_id
+      ) v_c ON v_c.blog_id = b.blog_id
+
+      WHERE b.title ILIKE $2 OR b.content ILIKE $2;`,
+      [userId, `%${keyword}%`]
+    );
+
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};

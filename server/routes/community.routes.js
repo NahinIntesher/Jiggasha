@@ -14,6 +14,7 @@ const {
   getSinglePost,
   postReaction,
   postComment,
+  searchCommunities,
 } = require("../controllers/community.controller");
 
 const verifyToken = require("../middlewares/verifyToken");
@@ -33,5 +34,6 @@ router.post("/newPost", verifyToken, createPost);
 router.get("/image/:communityId", verifyToken, image);
 router.get("/postMedia/:mediaId", verifyToken, postMedia);
 router.get("/single/:communityId", verifyToken, getSingleCommunities);
+router.get("/search/:keyword", verifyToken, searchCommunities);
 
 module.exports = router;
