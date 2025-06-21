@@ -279,7 +279,8 @@ exports.searchBlogs = async (req, res) => {
         GROUP BY blog_id
       ) v_c ON v_c.blog_id = b.blog_id
 
-      WHERE b.title ILIKE $2 OR b.content ILIKE $2;`,
+      WHERE b.title ILIKE $2 OR b.content ILIKE $2
+  LIMIT 3;`,
       [userId, `%${keyword}%`]
     );
 

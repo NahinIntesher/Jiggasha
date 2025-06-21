@@ -397,6 +397,17 @@ body {
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.01), 0px 2px 6px rgba(0, 0, 0, 0.02),
     0px 4px 12px rgba(0, 0, 0, 0.04);
     z-index: 500;
+  padding: 4px;
+}
+
+.header .iconContainer .searchBox .searchResultContainer .segmentName {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 4px 12px;
+}
+
+.header .iconContainer .searchBox .searchResultContainer::-webkit-scrollbar {
+  width: 0;
 }
 
 .header .iconContainer .searchBox .searchResultContainer .notFound {
@@ -407,6 +418,72 @@ body {
   align-items: center;
   justify-content: center;
   height: 240px;
+}
+.header .iconContainer .searchBox .searchResultContainer .searchResult {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  padding: 4px;
+  margin: 4px;
+}
+
+.header .iconContainer .searchBox .searchResultContainer .searchResult:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.header .iconContainer .searchBox .searchResultContainer .searchResult .previewImage {
+  flex: 0 0 70px;
+  width: 70px;
+  height: 70px;
+  border-radius: 10px;
+  margin: 4px;
+  object-fit: cover;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.header .iconContainer .searchBox .searchResultContainer .searchResult .psudoPreviewImage {
+  flex: 0 0 70px;
+  width: 70px;
+  height: 70px;
+  border-radius: 10px;
+  margin: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(250, 135, 0, 0.4);
+  color: rgb(250, 135, 0, 0.6);
+  font-size: 40px;
+}
+.header .iconContainer .searchBox .searchResultContainer .searchResult .details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 4px;
+}
+
+.header .iconContainer .searchBox .searchResultContainer .searchResult .details .name {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 4px;
+  display: -webkit-box;
+  line-clamp: 1;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.header .iconContainer .searchBox .searchResultContainer .searchResult .details .description {
+  font-size: 13px;
+  font-weight: 400;
+  margin: 0 4px;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .header .iconContainer .searchBox .searchResultContainer .notFound .text {
@@ -1940,6 +2017,10 @@ body {
 
 .bigSpacing {
   height: 80px;
+}
+
+.none {
+  display: none;
 }
 
 .menuButton,

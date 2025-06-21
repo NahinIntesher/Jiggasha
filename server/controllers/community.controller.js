@@ -742,7 +742,8 @@ exports.searchCommunities = async (req, res) => {
           ON c.community_id = member_count.community_id
           
       WHERE c.name ILIKE $2 OR c.description ILIKE $2
-          ;`,
+          
+  LIMIT 3;`,
       [userId, `%${keyword}%`]
     );
 
