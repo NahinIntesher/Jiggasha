@@ -58,33 +58,7 @@ export default function PostCard({
     return time.toLocaleString("en-US", { dateStyle: "long" });
   }
 
-  function reactPost() {
-    fetch("http://localhost:8000/communities/post/react", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        postId: postId,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === "Success") {
-          if (data.message === "Liked") {
-            setIsReacted(true);
-            setReactionCount((prevCount) => prevCount + 1);
-          } else {
-            setIsReacted(false);
-            setReactionCount((prevCount) => prevCount - 1);
-          }
-          setUpdatePost((prevData) => prevData + 1);
-        } else {
-          alert(data.Error);
-        }
-      })
-      .catch((err) => console.error("Error reacting to post:", err));
-  }
+  
 
   return (
     <div className="postBox bg-white p-6 rounded-xl border-2 border-orange-100 shadow-lg hover:shadow-xl transition-all duration-300 mb-6">
@@ -258,7 +232,7 @@ export default function PostCard({
         <div className="detail">{getPMTime(postTime)}</div>
       </div>
 
-      <div className="postActionBoxContainer flex items-center space-x-3 pt-4 border-t-2 border-orange-100">
+      {/* <div className="postActionBoxContainer flex items-center space-x-3 pt-4 border-t-2 border-orange-100">
         {isReacted ? (
           <button
             className="postActionBox flex items-center space-x-2 px-6 py-3 text-orange-600 bg-orange-50 hover:bg-orange-100 rounded-xl transition-all duration-200 font-semibold border-2 border-orange-200 hover:border-orange-300"
@@ -283,7 +257,7 @@ export default function PostCard({
           <FaComment className="text-lg" />
           <span className="text">Comment</span>
         </Link>
-      </div>
+      </div> */}
 
       {commentators && commentators.length > 0 && (
         <div className="commentsSection mt-4 pt-5 border-t-2 border-orange-100">

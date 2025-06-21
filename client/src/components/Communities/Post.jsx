@@ -99,21 +99,42 @@ export default function Post() {
             commentators={commentators}
           />
         )}
-        <div className="giveCommentBox">
-          <form onSubmit={handleSubmit}>
-            <div className="profilePicture">
-              <img src={post.author_picture ? post.author_picture : dp} />
+        <div className="bg-white rounded-xl shadow-sm border border-orange-100 p-4 mt-6">
+          <form onSubmit={handleSubmit} className="flex items-start gap-3">
+            {/* Profile Picture */}
+            <div className="profilePicture shrink-0">
+              <img
+                src={post.author_picture == null ? dp : post.author_picture}
+                className="w-10 h-10 rounded-full object-cover border-2 border-orange-200"
+              />
             </div>
-            <textarea
-              id="content"
-              name="content"
-              placeholder="Write something..."
-              onChange={handleChange}
-              value={commentContent}
-            />
-            <button className="postButton" type="submit">
-              Comment
-            </button>
+
+            {/* Comment Input Area */}
+            <div className="flex-1 space-y-3">
+              <textarea
+                id="content"
+                name="content"
+                placeholder="Share your thoughts..."
+                onChange={handleChange}
+                value={commentContent}
+                className="w-full p-3 text-gray-800 border border-orange-200 rounded-lg focus:ring-2 focus:ring-orange-300 focus:border-orange-300 outline-none transition-all resize-none min-h-[80px] placeholder-orange-300"
+                rows="3"
+              />
+
+              <div className="flex justify-end">
+                <button
+                  className={`px-5 py-2 rounded-full font-medium transition-all ${
+                    commentContent
+                      ? "bg-orange-500 hover:bg-orange-600 text-white shadow-md shadow-orange-200 transform hover:scale-105"
+                      : "bg-orange-100 text-orange-400 cursor-not-allowed"
+                  }`}
+                  type="submit"
+                  disabled={!commentContent}
+                >
+                  Post Comment
+                </button>
+              </div>
+            </div>
           </form>
         </div>
       </div>

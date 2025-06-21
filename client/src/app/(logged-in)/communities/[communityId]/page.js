@@ -138,6 +138,34 @@ export default function SingleCommunity() {
     alert("Report feature is not implemented yet.");
   };
 
+  function reactPost() {
+    fetch("http://localhost:8000/communities/post/react", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        postId: postId,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === "Success") {
+          if (data.message === "Liked") {
+            setIsReacted(true);
+            setReactionCount((prevCount) => prevCount + 1);
+          } else {
+            setIsReacted(false);
+            setReactionCount((prevCount) => prevCount - 1);
+          }
+          setUpdatePost((prevData) => prevData + 1);
+        } else {
+          alert(data.Error);
+        }
+      })
+      .catch((err) => console.error("Error reacting to post:", err));
+  }
+
   const getMediaDuration = (file) => {
     return new Promise((resolve) => {
       if (file.type.startsWith("audio/") || file.type.startsWith("video/")) {
@@ -598,7 +626,7 @@ export default function SingleCommunity() {
 
               <div className="postActionBoxContainer">
                 {post.is_reacted ? (
-                  <div className="postActionBox bg-orange-100">
+                  <div className="postActionBox ">
                     <FaThumbsUp className="icon" />
                     <span className="text">Liked</span>
                   </div>
