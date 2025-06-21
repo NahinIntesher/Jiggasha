@@ -12,6 +12,8 @@ const {
   image,
   postMedia,
   getSinglePost,
+  postReaction,
+  postComment,
 } = require("../controllers/community.controller");
 
 const verifyToken = require("../middlewares/verifyToken");
@@ -23,6 +25,8 @@ router.post("/join", verifyToken, joinCommunity);
 router.get("/allPosts/:communityId", verifyToken, getAllPosts);
 router.get("/singlePost/:postId", verifyToken, getSinglePost);
 
+router.post("/post/comments", verifyToken, postComment);
+router.post("/post/react", verifyToken, postReaction);
 router.post("/newPost", verifyToken, createPost);
 // router.post("/edit/:communityId", verifyToken, editCommunity);
 // router.post("/delete/:communityId", verifyToken, deleteCommunity);

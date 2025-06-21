@@ -1,55 +1,175 @@
-'use client';
-import Image from 'next/image';
+"use client";
+import React, { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import {
+  FaHeart,
+  FaRegHeart,
+  FaComment,
+  FaTrash,
+  FaFlag,
+  FaMusic,
+  FaPlay,
+} from "react-icons/fa6";
+import dp from "../../../public/images/demo_profile_image.jpg";
 
-const getMediaURL = hexBlob => {
-  try {
-    return Buffer.from(hexBlob.replace('\\x', ''), 'hex').toString();
-  } catch {
-    return '';
+export default function PostCard({
+  postId,
+  posterId,
+  posterName,
+  posterPicture,
+  content,
+  postTimeAgo,
+  postMediaArray,
+  isPostReacted,
+  postReactionCount,
+  postCommentCount,
+  postTime,
+  setUpdatePost,
+}) {
+  const [isReacted, setIsReacted] = useState(isPostReacted);
+  const [reactionCount, setReactionCount] = useState(postReactionCount);
+
+  function getPMTime(datetime) {
+    let time = new Date(datetime);
+    return time.toLocaleString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    });
   }
-};
 
-export default function PostCard({ post }) {
+  function getDate(datetime) {
+    let time = new Date(datetime);
+    return time.toLocaleString("en-US", { dateStyle: "long" });
+  }
+
+  function reactPost() {
+    fetch("http://localhost:8000/communities/post/react", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        postId: postId,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === "Success") {
+          if (data.message === "Liked") {
+            setIsReacted(true);
+            setReactionCount((prevCount) => prevCount + 1);
+          } else {
+            setIsReacted(false);
+            setReactionCount((prevCount) => prevCount - 1);
+          }
+          setUpdatePost((prevData) => prevData + 1);
+        } else {
+          alert(data.Error);
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
   return (
-    <div className="bg-white p-4 rounded-lg border border-gray-200 shadow">
-      <div className="flex justify-between items-center">
-        <h2 className="text-lg font-semibold">{post.title}</h2>
-        {post.is_pinned && <span className="text-xs bg-yellow-300 px-2 py-1 rounded">Pinned</span>}
-      </div>
-      <p className="mt-2 text-gray-700">{post.content}</p>
-
-      {post.media.length > 0 && (
-        <div className="mt-4">
-          {post.media.map(media => {
-            const url = getMediaURL(media.media_blob);
-            switch (media.media_type) {
-              case 'image':
-                return <img key={media.media_id} src={url} alt="Post image" className="rounded-lg w-full" />;
-              case 'audio':
-                return <audio key={media.media_id} controls src={url} className="w-full mt-2" />;
-              case 'video':
-                return <video key={media.media_id} controls src={url} className="w-full mt-2 rounded-lg" />;
-              case 'document':
-                return (
-                  <a
-                    key={media.media_id}
-                    href={url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 underline mt-2 block"
-                  >
-                    View Document
-                  </a>
-                );
-              default:
-                return null;
-            }
-          })}
+    <div className="postBox bg-white p-4 rounded-lg border border-gray-200 shadow">
+      <div className="profile flex items-center mb-4">
+        <Link href={"/profile/" + posterId} className="profilePicture">
+          <img
+            src={posterPicture ? posterPicture : dp}
+            alt="Profile"
+            className="w-10 h-10 rounded-full object-cover"
+          />
+        </Link>
+        <div className="profileDetail ml-3">
+          <Link
+            href={"/profile/" + posterId}
+            className="name font-semibold text-gray-900 hover:text-blue-600"
+          >
+            {posterName}
+          </Link>
+          <div className="detail text-sm text-gray-500">{postTimeAgo}</div>
         </div>
-      )}
+      </div>
 
-      <div className="mt-4 text-sm text-gray-500">
-        Views: {post.view_count} | Reactions: {post.reaction_count} | Comments: {post.comment_count}
+      <div className="postContentContainer">
+        <div className="postContent text-gray-800 mb-4">{content}</div>
+        {postMediaArray && postMediaArray.length > 0 && (
+          <div className="mediaContainer mb-4">
+            {postMediaArray.map(function (postMedia, index) {
+              if (postMedia.media_type === "image") {
+                return (
+                  <img
+                    key={index}
+                    src={postMedia.media_url}
+                    alt="Post media"
+                    className="w-full rounded-lg object-cover max-h-96"
+                  />
+                );
+              } else if (postMedia.media_type === "audio") {
+                return (
+                  <div
+                    key={index}
+                    className="audioContainer bg-gray-100 p-4 rounded-lg flex flex-col items-center"
+                  >
+                    <FaMusic className="text-4xl text-gray-600 mb-2" />
+                    <audio controls className="w-full">
+                      <source src={postMedia.media_url} type="audio/mpeg" />
+                      Your browser does not support the audio element.
+                    </audio>
+                  </div>
+                );
+              } else if (postMedia.media_type === "video") {
+                return (
+                  <video
+                    controls
+                    key={index}
+                    className="w-full rounded-lg max-h-96"
+                  >
+                    <source src={postMedia.media_url} type="video/mp4" />
+                    Your browser does not support the video element.
+                  </video>
+                );
+              }
+              return null;
+            })}
+          </div>
+        )}
+      </div>
+
+      <div className="postDetails flex items-center text-sm text-gray-500 mb-4 space-x-4">
+        <div className="detail">{reactionCount} Likes</div>
+        <div className="detail">{postCommentCount} Comments</div>
+        <div className="detail">{getDate(postTime)}</div>
+        <div className="detail">{getPMTime(postTime)}</div>
+      </div>
+
+      <div className="postActionBoxContainer flex items-center space-x-4 pt-3 border-t border-gray-200">
+        {isReacted ? (
+          <button
+            className="postActionBox flex items-center space-x-2 px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+            onClick={reactPost}
+          >
+            <FaHeart className="text-lg" />
+            <span className="text">Liked</span>
+          </button>
+        ) : (
+          <button
+            className="postActionBox flex items-center space-x-2 px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors"
+            onClick={reactPost}
+          >
+            <FaRegHeart className="text-lg" />
+            <span className="text">Like</span>
+          </button>
+        )}
+        <Link
+          href={"/communities/post/" + postId}
+          className="postActionBox flex items-center space-x-2 px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors"
+        >
+          <FaComment className="text-lg" />
+          <span className="text">Comment</span>
+        </Link>
       </div>
     </div>
   );

@@ -488,33 +488,30 @@ export default function SingleCommunity() {
                       case "audio":
                         return (
                           <div key={media.media_id}>
-                            <MediaContainer>
-                              <div className="p-4">
-                                <div className="flex items-center gap-3 mb-2">
-                                  <div className="bg-indigo-100 dark:bg-indigo-900 p-2 rounded-full">
-                                    <FaMusic className="text-indigo-600 dark:text-indigo-300" />
-                                  </div>
-                                  <span className="font-medium truncate">
-                                    {media.filename || "Audio File"}
-                                  </span>
+                            <div className="p-4">
+                              <div className="flex items-center gap-3 mb-2">
+                                <div className="bg-indigo-100 dark:bg-indigo-900 p-2 rounded-full">
+                                  <FaMusic className="text-indigo-600 dark:text-indigo-300" />
                                 </div>
-                                <audio controls className="w-full">
-                                  <source
-                                    src={url}
-                                    type={`audio/${url.split(".").pop()}`}
-                                  />
-                                  Your browser does not support the audio
-                                  element.
-                                </audio>
+                                <span className="font-medium truncate">
+                                  {media.filename || "Audio File"}
+                                </span>
                               </div>
-                            </MediaContainer>
+                              <audio controls className="w-full">
+                                <source
+                                  src={url}
+                                  type={`audio/${url.split(".").pop()}`}
+                                />
+                                Your browser does not support the audio element.
+                              </audio>
+                            </div>
                           </div>
                         );
 
                       case "video":
                         return (
                           <div key={media.media_id}>
-                            <MediaContainer>
+                            <div>
                               <video
                                 controls
                                 className="w-full max-h-[500px]"
@@ -528,7 +525,7 @@ export default function SingleCommunity() {
                                 />
                                 Your browser does not support the video tag.
                               </video>
-                            </MediaContainer>
+                            </div>
                           </div>
                         );
 
@@ -541,8 +538,8 @@ export default function SingleCommunity() {
                                   <FaFilePdf className="text-red-500 text-2xl" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <p className="font-medium truncate">
-                                    {media.filename || "Document"}
+                                  <p className="font-medium truncate text-white">
+                                    {post.content || "Document"}
                                   </p>
                                   <p className="text-sm text-gray-500 dark:text-gray-400">
                                     {media.file_size

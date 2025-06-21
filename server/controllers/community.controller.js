@@ -307,8 +307,8 @@ exports.getAllPosts = async (req, res) => {
           WHEN EXISTS (
             SELECT *
             FROM community_post_reactions
-            WHERE community_post_reactions.post_id = s_p.post_id 
-            AND community_post_reactions.reactor_id = '${userId}'
+            WHERE community_post_reactions.post_id = p.post_id 
+            AND community_post_reactions.reactor_id = $1
           ) THEN 1
           ELSE 0
         END AS is_reacted,
@@ -360,10 +360,10 @@ exports.getAllPosts = async (req, res) => {
       -- Join user table
       LEFT JOIN users u ON p.member_id = u.user_id
 
-      WHERE p.community_id = $1
+      WHERE p.community_id = $2
       ORDER BY p.created_at DESC;
       `,
-      [communityId]
+      [userId, communityId]
     );
 
     res.status(200).json({ posts: result.rows });
@@ -375,6 +375,7 @@ exports.getAllPosts = async (req, res) => {
 
 exports.getSinglePost = async (req, res) => {
   const { postId } = req.params;
+  const userId = req.userId;
 
   if (!postId) {
     return res.status(400).json({ error: "Post ID is required" });
@@ -395,6 +396,16 @@ exports.getSinglePost = async (req, res) => {
         
         -- Comments count
         COALESCE(c.comment_count, 0) AS comment_count,
+
+        CASE
+          WHEN EXISTS (
+            SELECT *
+            FROM community_post_reactions
+            WHERE community_post_reactions.post_id = p.post_id 
+            AND community_post_reactions.reactor_id = $1
+          ) THEN 1
+          ELSE 0
+        END AS is_reacted,
         
         -- Media array with URLs
         COALESCE(m.media, '[]') AS media,
@@ -404,7 +415,40 @@ exports.getSinglePost = async (req, res) => {
         CASE
           WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/users/profile/', u.user_picture)
           ELSE NULL
-        END AS author_picture
+        END AS author_picture,
+
+        -- Commentators information
+        (
+          SELECT JSON_AGG(JSON_BUILD_OBJECT(
+            'full_name', uc.full_name,
+            'commentator_name', uc.username,
+            'user_picture', CASE
+              WHEN uc.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/users/profile/', uc.user_picture)
+              ELSE NULL
+            END,
+            'comment', cc.content,
+            'commented_at', cc.commented_at
+          ) ORDER BY cc.commented_at DESC)
+          FROM community_post_comments cc
+          JOIN users uc ON cc.commentator_id = uc.user_id
+          WHERE cc.post_id = p.post_id
+        ) AS commentators,
+
+        -- Reactors information
+        (
+          SELECT JSON_AGG(JSON_BUILD_OBJECT(
+            'full_name', ur.full_name,
+            'reactor_name', ur.username,
+            'user_picture', CASE
+              WHEN ur.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/users/profile/', ur.user_picture)
+              ELSE NULL
+            END,
+            'reacted_at', cr.reacted_at
+          ) ORDER BY cr.reacted_at DESC)
+          FROM community_post_reactions cr
+          JOIN users ur ON cr.reactor_id = ur.user_id
+          WHERE cr.post_id = p.post_id
+        ) AS reactors
 
       FROM community_posts p
 
@@ -414,14 +458,14 @@ exports.getSinglePost = async (req, res) => {
         FROM community_post_reactions
         GROUP BY post_id
       ) r ON p.post_id = r.post_id
-      
+
       -- Join comments count
       LEFT JOIN (
         SELECT post_id, COUNT(*) AS comment_count
         FROM community_post_comments
         GROUP BY post_id
       ) c ON p.post_id = c.post_id
-       
+      
       -- Join media with updated URL pattern
       LEFT JOIN (
         SELECT
@@ -440,12 +484,12 @@ exports.getSinglePost = async (req, res) => {
       -- Join user table
       LEFT JOIN users u ON p.member_id = u.user_id
 
-      WHERE p.post_id = $1
+      WHERE p.post_id = $2
       `,
-      [postId]
+      [userId, postId]
     );
 
-    res.status(200).json({ posts: result.rows });
+    res.status(200).json({ post: result.rows[0] });
   } catch (error) {
     console.error("Error fetching community posts:", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -583,3 +627,62 @@ function getMimeTypeFromMediaType(mediaType) {
       return "application/octet-stream";
   }
 }
+
+exports.postReaction = async function (req, res) {
+  const token = req.cookies.userRegistered;
+  if (token) {
+    const userId = req.userId;
+    let { postId } = req.body;
+
+    console.log(postId);
+    console.log(userId);
+
+    connection.query(
+      `
+      SELECT * 
+      FROM community_post_reactions 
+      WHERE post_id = ? AND reactor_id = ?`,
+      [postId, userId],
+      function (error, result) {
+        if (error) throw error;
+        if (result.length <= 0) {
+          connection.query(
+            `INSERT INTO community_post_reactions(post_id, reactor_id) 
+          VALUES(?, ?)`,
+            [postId, userId],
+            function (error, result) {
+              if (error) throw error;
+              return res.json({ status: "Success", message: "Liked" });
+            }
+          );
+        } else {
+          connection.query(
+            `DELETE FROM community_post_reactions 
+            WHERE post_id = ? AND reactor_id = ?`,
+            [postId, userId],
+            function (error, result) {
+              if (error) throw error;
+              return res.json({ status: "Success", message: "Unliked" });
+            }
+          );
+        }
+      }
+    );
+  }
+};
+
+exports.postComment = async function (req, res) {
+  const userId = req.userId;
+  const { postId, commentContent } = req.body;
+
+  connection.query(
+    `INSERT INTO community_post_comments (comment_content, post_id, commentator_id)
+          VALUES (?, ?, ?)`,
+    [commentContent, postId, userId],
+    (err, results) => {
+      if (err) throw err;
+
+      return res.json({ status: "Success" });
+    }
+  );
+};
