@@ -47,7 +47,7 @@ exports.getCommunities = async (req, res) => {
           c.created_at AS created_at,
           u.full_name AS admin_name,
           CASE 
-              WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/users/profile/', u.user_picture)
+              WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
               ELSE NULL
           END AS admin_picture,
 
