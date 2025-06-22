@@ -56,9 +56,9 @@ export default function Sidebar({ user, handleLogout }) {
         {/* User Profile and Logout */}
         <div className="profile">
           <div className="profilePicture">
-            {user?.user_picture ? (
+            {user?.user_picture_url ? (
               <img
-                src={user.user_picture}
+                src={user.user_picture_url}
                 alt="User"
                 className=""
               />

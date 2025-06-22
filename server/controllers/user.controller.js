@@ -6,7 +6,11 @@ exports.getUserProfile = async (req, res) => {
 
   try {
     const { rows } = await connection.query(
-      `SELECT full_name, level, username, email, mobile_no, user_role, user_class_level, user_group, user_department, user_picture, user_rating 
+      `SELECT full_name, level, username, email, mobile_no, user_role, user_class_level, user_group, user_department, user_rating,
+      CASE
+      WHEN user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', user_id)
+      ELSE NULL
+      END AS user_picture_url
        FROM users WHERE user_id = $1`,
       [userId]
     );
@@ -15,7 +19,36 @@ exports.getUserProfile = async (req, res) => {
 
     res.json(rows[0]);
   } catch (error) {
+    throw error; // Log the error for debugging
     res.status(500).json({ error: "Server error" });
+  }
+};
+
+
+exports.image = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    connection.query(
+      `SELECT user_picture FROM users WHERE user_id = $1`,
+      [userId],
+      (err, results) => {
+        if (err) {
+          return res.status(500).json({ error: err.message });
+        }
+        if (!results.rows.length) {
+          return res.status(404).json({ error: "Image not found" });
+        }
+
+        const imageData = results.rows[0].user_picture;
+
+        // Optional: detect mime type or assume JPEG
+        res.setHeader("Content-Type", "image/jpeg");
+        res.send(imageData);
+      }
+    );
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };
 
@@ -141,56 +174,41 @@ exports.getMonthlyLeaderboard = async (req, res) => {
 const upload = multer({ storage: multer.memoryStorage() });
 
 exports.updateProfilePicture = [
-  upload.single("coverImage"), // Middleware to handle file upload
+  upload.single("profilePicture"), // Middleware to handle file upload
   async (req, res) => {
-    console.log("Updating profile picture...");
-    return;
     const userId = req.userId;
+    const profilePictureBuffer = req.file ? req.file.buffer : null; // Get binary buffer
 
-    const { title, content, classLevel, subject } = req.body;
-
-    const coverImageBuffer = req.file ? req.file.buffer : null; // Get binary buffer
+    if (!profilePictureBuffer) {
+      return res.status(400).json({ error: "No profile picture uploaded" });
+    }
 
     try {
-      connection.query(
-        `INSERT INTO blogs (title, class_level, subject, content, cover_image, author_id)
-        VALUES ($1, $2, $3, $4, $5, $6)`,
-        [
-          title,
-          classLevel || null,
-          subject || null,
-          content,
-          coverImageBuffer || null,
-          userId,
-        ],
-        (err, results) => {
-          if (err) {
-            return res.status(500).json({ error: err });
-          }
-          return res.json({ status: "Success" });
-        }
+      const result = await connection.query(
+        `UPDATE users SET user_picture = $1 WHERE user_id = $2`,
+        [profilePictureBuffer, userId]
       );
+
+      if (result.rowCount === 0) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      return res.json({ status: "Success" });
     } catch (error) {
-      res.status(500).json({ error: error });
+      res.status(500).json({ error: "Server error" });
     }
   },
 ];
 
 exports.changeProfileDetails = async (req, res) => {
-  console.log("Changing profile details...");
-  console.log(req.body);
   const userId = req.userId;
   const { name, email, mobile_no, classLevel, group, department } = req.body;
 
   try {
     const result = await connection.query(
-      `UPDATE users SET full_name = $1, email = $2, mobile_no = $3, user_class_level = $4, user_group = $5, user_department = $6 WHERE user_id = $7`,
-      [name, email, mobile_no, classLevel, group, department, userId]
+      `UPDATE users SET full_name = $1 WHERE user_id = $2`,
+      [name, userId]
     );
-
-    if (result.rowCount === 0) {
-      return res.status(404).json({ error: "User not found" });
-    }
 
     res.json({ status: "Success" });
   } catch (error) {

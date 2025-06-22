@@ -50,7 +50,7 @@ export default function AllTimeLeaderboard() {
                 <div className="rank">{i + 1}</div>
                 <div className="profilePicture">
                   {user.user_picture_url ? (
-                    <img src={user_picture_url} />
+                    <img src={user.user_picture_url} />
                   ) : (
                     <div className="psudoProfilePicture">
                       {user.full_name[0]}

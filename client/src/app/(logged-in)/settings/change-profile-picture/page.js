@@ -28,7 +28,7 @@ export default function NewBlog() {
 
     try {
       const formDataToSend = new FormData();
-      formDataToSend.append("coverImage", formData.coverImage);
+      formDataToSend.append("profilePicture", formData.coverImage);
 
       const response = await fetch(
         "http://localhost:8000/profile/update/picture",
