@@ -108,7 +108,7 @@ export default function Header({ title, subtitle }) {
     setSecondaryMenu((prev) => !prev);
   }
   return (
-    <div className="header bg-white shadow-md px-4 py-2 flex flex-col gap-2 md:flex-row md:items-center md:justify-between relative">
+    <div className="header">
       {/* Title and Subtitle */}
       <div className="mobileViewContainer flex items-center justify-between md:justify-start w-full md:w-auto">
         <div className="titleButtonContainer flex items-center gap-2">
