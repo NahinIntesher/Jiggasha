@@ -9,41 +9,90 @@ exports.getCourses = async (req, res) => {
   try {
     const { rows } = await connection.query(
       `SELECT 
-  c.course_id, 
-  c.name, 
-  c.description, 
-  c.created_at, 
-  c.subject, 
-  c.class_level,
+        c.course_id, 
+        c.name, 
+        c.description, 
+        c.created_at, 
+        c.subject, 
+        c.class_level,
 
-  CASE 
-    WHEN c.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/courses/image/', c.course_id)
-    ELSE NULL
-  END AS cover_image_url,
+        CASE 
+          WHEN c.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/courses/image/', c.course_id)
+          ELSE NULL
+        END AS cover_image_url,
 
-  u.full_name AS instructor_name,
+        u.full_name AS instructor_name,
 
-  CASE
-    WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
-    ELSE NULL
-  END AS instructor_picture_url,
+        CASE
+          WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
+          ELSE NULL
+        END AS instructor_picture_url,
 
-  COUNT(cp_all.user_id) AS total_student,
+        COUNT(cp_all.user_id) AS total_student,
 
-  BOOL_OR(cp_user.user_id IS NOT NULL) AS is_joined
+        BOOL_OR(cp_user.user_id IS NOT NULL) AS is_joined
 
-FROM courses c
-JOIN users u ON c.instructor_id = u.user_id
+      FROM courses c
+      JOIN users u ON c.instructor_id = u.user_id
 
-LEFT JOIN course_participants cp_all 
-  ON cp_all.course_id = c.course_id
+      LEFT JOIN course_participants cp_all 
+        ON cp_all.course_id = c.course_id
 
-LEFT JOIN course_participants cp_user 
-  ON cp_user.course_id = c.course_id AND cp_user.user_id = $1
+      LEFT JOIN course_participants cp_user 
+        ON cp_user.course_id = c.course_id AND cp_user.user_id = $1
 
-GROUP BY 
-  c.course_id, c.name, c.description, c.created_at, c.subject, c.class_level, 
-  c.cover_image, u.full_name, u.user_picture, u.user_id;`,
+      GROUP BY 
+        c.course_id, c.name, c.description, c.created_at, c.subject, c.class_level, 
+        c.cover_image, u.full_name, u.user_picture, u.user_id;`,
+      [userId]
+    );
+
+    res.json(rows);
+  } catch (error) {
+    throw error;
+    res.status(500).json({ error: error });
+  }
+};
+exports.getEnrolledCourses = async (req, res) => {
+  const userId = req.userId;
+
+  try {
+    const { rows } = await connection.query(
+      `SELECT 
+        c.course_id, 
+        c.name, 
+        c.description, 
+        c.created_at, 
+        c.subject, 
+        c.class_level,
+
+        CASE 
+          WHEN c.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/courses/image/', c.course_id)
+          ELSE NULL
+        END AS cover_image_url,
+
+        u.full_name AS instructor_name,
+
+        CASE
+          WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
+          ELSE NULL
+        END AS instructor_picture_url,
+
+        COUNT(cp_all.user_id) AS total_student
+
+      FROM courses c
+      JOIN users u ON c.instructor_id = u.user_id
+
+      -- Count all participants for total_student
+      LEFT JOIN course_participants cp_all ON cp_all.course_id = c.course_id
+
+      -- Inner join only those courses where user is enrolled
+      JOIN course_participants cp_user ON cp_user.course_id = c.course_id AND cp_user.user_id = $1
+
+      GROUP BY 
+        c.course_id, c.name, c.description, c.created_at, c.subject, c.class_level, 
+        c.cover_image, u.full_name, u.user_picture, u.user_id
+      ;`,
       [userId]
     );
 

@@ -17,10 +17,10 @@ import {
 } from "react-icons/fa6";
 import Loading from "../ui/Loading";
 
-export default function BrowseCourses() {
+export default function BrowseCourses({ coursesData }) {
   const [view, setView] = useState("grid");
 
-  const [courses, setcourses] = useState([]);
+  const courses = Array.isArray(coursesData) ? coursesData : [];
 
   const [loading, setLoading] = useState(true);
   const [sortMenu, setSortMenu] = useState(false);
@@ -61,29 +61,9 @@ export default function BrowseCourses() {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:8000/courses", {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const coursesData = await response.json();
-        setcourses(coursesData);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+    console.log("coursesData", coursesData);
+    setLoading(false);
+  }, [coursesData]);
 
   if (loading) {
     return <Loading />;

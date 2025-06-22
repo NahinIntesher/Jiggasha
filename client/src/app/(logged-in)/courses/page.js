@@ -1,35 +1,34 @@
-"use client";
+import CourseTabs from "@/components/Courses/CourseTabs";
+import { cookies } from "next/headers";
 
-import BrowseCourses from "@/components/Courses/BrowseCourses";
-import EnrolledCourses from "@/components/Courses/EnrolledCourses";
-import Header from "@/components/ui/Header";
-import { use, useState } from "react";
-import { FaArrowUpWideShort } from "react-icons/fa6";
-import { FaFilter, FaList, FaGrip, FaPen } from "react-icons/fa6";
-export default function Course() {
-  const [activeTab, setActiveTab] = useState("browseCourses");
+export default async function CoursePage() {
+  const cookieStore = await cookies();
+  const cookieHeader = cookieStore.get("userRegistered");
+  const allCoursesResponse = await fetch("http://localhost:8000/courses", {
+    headers: {
+      "Content-Type": "application/json",
+      cookie: cookieHeader ? `userRegistered=${cookieHeader.value}` : "",
+    },
+    cache: "no-store",
+  });
+  const allCoursesData = await allCoursesResponse.json();
+
+  const enrolledCoursesResponse = await fetch(
+    "http://localhost:8000/courses/enrolled",
+    {
+      headers: {
+        "Content-Type": "application/json",
+        cookie: cookieHeader ? `userRegistered=${cookieHeader.value}` : "",
+      },
+      cache: "no-store",
+    }
+  );
+  const enrolledCoursesData = await enrolledCoursesResponse.json();
 
   return (
-    <div className="">
-      <Header title="Courses" />
-      <div className="tabs">
-        <div
-          onClick={() => setActiveTab("enrolledCourses")}
-          className={activeTab == "enrolledCourses" ? "tab tabActive" : "tab"}
-        >
-          Enrolled Courses
-        </div>
-        <div
-          onClick={() => setActiveTab("browseCourses")}
-          className={activeTab == "browseCourses" ? "tab tabActive" : "tab"}
-        >
-          Browse Courses
-        </div>
-      </div>
-
-      { activeTab == "browseCourses" && <BrowseCourses /> }
-      { activeTab == "enrolledCourses" && <EnrolledCourses /> }
-
-    </div>
+    <CourseTabs
+      allCourses={allCoursesData}
+      enrolledCourses={enrolledCoursesData}
+    />
   );
 }
