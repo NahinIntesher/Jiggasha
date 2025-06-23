@@ -5,9 +5,9 @@ const NotFound = ({
   title,
   description,
   icon: Icon = Inbox,
-  actionText = "Create First Post",
+  actionText = "",
   onAction,
-  type = "posts", // posts, comments, members, etc.
+  type = "posts",
 }) => {
   const getTypeSpecificContent = () => {
     switch (type) {

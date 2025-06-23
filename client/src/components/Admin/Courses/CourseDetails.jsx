@@ -14,6 +14,12 @@ import {
 import { subjectName, classLevelName } from "@/utils/Constant";
 import Link from "next/link";
 import { FaPlus } from "react-icons/fa";
+import {
+  formatFileSize,
+  formatDate,
+  formatDateOnly,
+  formatRelativeTime,
+} from "@/utils/Functions";
 
 // File type icons mapping
 const fileTypeIcons = {
@@ -27,16 +33,8 @@ const fileTypeIcons = {
 export default function CourseDetails({ course }) {
   const router = useRouter();
   const courseData = course || {};
-  const isJoined = courseData.is_joined || false;
+  const isJoined = courseData.is_joined;
   const materials = courseData.course_materials || [];
-
-  function handleMaterialClick(materialId) {
-    if (isJoined) {
-      router.push(`/courses/material/${materialId}`);
-    } else {
-      alert("You need to enroll in the course to access the materials.");
-    }
-  }
 
   function getFileIcon(materialType) {
     return (
@@ -120,7 +118,6 @@ export default function CourseDetails({ course }) {
                   <MaterialBox
                     key={material.material_id}
                     material={material}
-                    onClick={() => handleMaterialClick(material.material_id)}
                     icon={getFileIcon(material.type)}
                   />
                 ))
@@ -150,14 +147,15 @@ export default function CourseDetails({ course }) {
 
 function MaterialBox({ material, onClick, icon }) {
   return (
-    <div onClick={onClick} className="courseContentBox">
+    <div onClick={onClick} className="courseContentBox cursor-default">
       <div className="iconContainer">{icon}</div>
       <div className="contentDetails">
-        <div className="semiTitle">{material.type.toUpperCase()}</div>
-        <div className="title">{material.name}</div>
-        <div className="metaInfo">
-          {new Date(material.created_at).toLocaleDateString()} •
-          {material.size > 0 ? ` ${Math.round(material.size / 1024)}KB` : ""}
+        <div className="title">
+          {material.name ? material.name : "Untitled"}
+        </div>
+        <div className="text-xs text-gray-500">{material.type}</div>
+        <div className="text-xs text-gray-500">
+          Uploaded at: {new Date(material.created_at).toLocaleString()}
         </div>
       </div>
     </div>

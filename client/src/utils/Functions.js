@@ -37,4 +37,64 @@ function hexToUrl(hex) {
   }
 }
 
-export { classLevelName, dateFormat, stripHTML, hexToUrl };
+ function formatDate(dateString, options = {}) {
+  if (!dateString) return "No date";
+
+  try {
+    const date = new Date(dateString);
+
+    // Default formatting options
+    const defaultOptions = {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    };
+
+    // Merge with custom options
+    const formatOptions = { ...defaultOptions, ...options };
+
+    return date.toLocaleDateString("en-US", formatOptions);
+  } catch (error) {
+    console.error("Error formatting date:", error);
+    return "Invalid date";
+  }
+}
+
+function formatDateOnly(dateString) {
+  return formatDate(dateString, { hour: undefined, minute: undefined });
+}
+
+function formatRelativeTime(dateString) {
+  if (!dateString) return "No date";
+
+  try {
+    const date = new Date(dateString);
+    const now = new Date();
+    const seconds = Math.round((now - date) / 1000);
+    const minutes = Math.round(seconds / 60);
+    const hours = Math.round(minutes / 60);
+    const days = Math.round(hours / 24);
+
+    if (seconds < 60) return "Just now";
+    if (minutes < 60) return `${minutes} minute${minutes === 1 ? "" : "s"} ago`;
+    if (hours < 24) return `${hours} hour${hours === 1 ? "" : "s"} ago`;
+    if (days < 7) return `${days} day${days === 1 ? "" : "s"} ago`;
+
+    return formatDateOnly(dateString);
+  } catch (error) {
+    console.error("Error formatting relative date:", error);
+    return formatDateOnly(dateString);
+  }
+}
+
+export {
+  classLevelName,
+  dateFormat,
+  stripHTML,
+  hexToUrl,
+  formatDate,
+  formatDateOnly,
+  formatRelativeTime,
+};

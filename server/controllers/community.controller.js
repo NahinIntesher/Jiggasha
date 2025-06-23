@@ -322,7 +322,7 @@ exports.getAllPosts = async (req, res) => {
         -- Poster (Admin/User) information
         u.full_name AS author_name,
         CASE
-          WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/users/profile/', u.user_picture)
+          WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
           ELSE NULL
         END AS author_picture
 
@@ -747,5 +747,92 @@ exports.searchCommunities = async (req, res) => {
     res.json(rows);
   } catch (error) {
     res.status(500).json({ error: error });
+  }
+};
+
+exports.getAllReportedPosts = async (req, res) => {
+  const userId = req.userId;
+  try {
+    const result = await connection.query(
+      `
+      SELECT
+        p.post_id,
+        p.content,
+        p.member_id,
+        p.created_at,
+        p.updated_at,
+      
+        -- Reactions count
+        COALESCE(r.reaction_count, 0) AS reaction_count,
+      
+        -- Comments count
+        COALESCE(c.comment_count, 0) AS comment_count,
+        -- Reports count
+        COALESCE(rep.report_count, 0) AS report_count,
+      
+        -- Media array with URLs
+        COALESCE(m.media, '[]') AS media,
+      
+        -- Poster (Admin/User) information
+        u.full_name AS author_name,
+        CASE
+          WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
+          ELSE NULL
+        END AS author_picture
+      FROM community_posts p
+      -- Join reactions count
+      LEFT JOIN (
+        SELECT post_id, COUNT(*) AS reaction_count
+        FROM community_post_reactions
+        GROUP BY post_id
+      ) r ON p.post_id = r.post_id
+
+      -- Join comments count
+      LEFT JOIN (
+        SELECT post_id, COUNT(*) AS comment_count
+        FROM community_post_comments
+        GROUP BY post_id
+      ) c ON p.post_id = c.post_id
+
+      -- Join reports count
+      LEFT JOIN (
+        SELECT post_id, COUNT(*) AS report_count
+        FROM post_reports
+        GROUP BY post_id
+      ) rep ON p.post_id = rep.post_id
+      
+      -- Join media with updated URL pattern
+      LEFT JOIN (
+        SELECT
+          post_id,
+          JSON_AGG(JSON_BUILD_OBJECT(
+            'media_id', media_id,
+            'media_type', media_type,
+            'media_url', CONCAT('http://localhost:8000/communities/postMedia/', media_id),
+            'created_at', created_at
+          ) ORDER BY created_at) AS media
+        FROM community_post_media
+        WHERE media_blob IS NOT NULL
+        GROUP BY post_id
+      ) m ON p.post_id = m.post_id
+
+      -- Join user table
+      LEFT JOIN users u ON p.member_id = u.user_id
+
+      WHERE EXISTS (
+        SELECT 1 
+        FROM post_reports pr 
+        WHERE pr.post_id = p.post_id 
+        GROUP BY pr.post_id 
+        HAVING COUNT(*) >= 10
+      )
+
+      ORDER BY p.created_at DESC;
+      `
+    );
+    res.status(200).json({ posts: result.rows });
+  } catch (error) {
+    console.error("Error fetching community posts:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };

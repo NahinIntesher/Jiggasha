@@ -31,8 +31,8 @@ export default function Sidebar({ user, handleLogout }) {
           { icon: FaListOl, label: "Reports", href: "/admin/reports" },
           {
             icon: FaUserGroup,
-            label: "User Management",
-            href: "/admin/user_management",
+            label: "Users",
+            href: "/admin/user-management",
           },
         ]
       : [

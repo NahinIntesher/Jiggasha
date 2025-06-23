@@ -24,7 +24,6 @@ exports.getUserProfile = async (req, res) => {
   }
 };
 
-
 exports.image = async (req, res) => {
   const { userId } = req.params;
 
@@ -215,4 +214,47 @@ exports.changeProfileDetails = async (req, res) => {
     console.error("Error updating profile details:", error);
     res.status(500).json({ error: "Server error" });
   }
+};
+
+exports.getAllUsers = async (req, res) => {
+  const query = `
+      SELECT 
+        u.user_id,
+        u.full_name, 
+        u.email, 
+        u.mobile_no, 
+        CASE 
+            WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
+            ELSE NULL
+        END AS user_picture
+    FROM users u
+    `;
+  connection.query(query, (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json({ message: "Failed" });
+    }
+
+    return res.json({ users: result.rows });
+  });
+};
+
+exports.deleteUser = (req, res) => {
+  const deletedId = req.params.id;
+  console.log("Deleting user with ID:", deletedId);
+  let query = `DELETE FROM users WHERE user_id = $1`;
+
+  connection.query(query, [deletedId], (err, result) => {
+    if (err) {
+      console.error("Delete error:", err);
+      return res.status(500).json({ message: "Failed to delete user" });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    return res.json({
+      status: "Success",
+      message: "User deleted successfully",
+    });
+  });
 };

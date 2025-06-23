@@ -14,6 +14,7 @@ const {
   getSinglePost,
   postReaction,
   postComment,
+  getAllReportedPosts,
   searchCommunities,
 } = require("../controllers/community.controller");
 
@@ -24,6 +25,7 @@ router.get("/my", verifyToken, getMyCommunities);
 router.post("/add", verifyToken, addCommunity);
 router.post("/join", verifyToken, joinCommunity);
 router.get("/allPosts/:communityId", verifyToken, getAllPosts);
+router.get("/allReportedPosts", verifyToken, getAllReportedPosts);
 router.get("/singlePost/:postId", verifyToken, getSinglePost);
 
 router.post("/post/comments", verifyToken, postComment);
