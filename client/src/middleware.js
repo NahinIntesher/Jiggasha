@@ -15,20 +15,36 @@ const publicRoutes = [
   "/",
 ];
 
+function pathStartsWith(path, prefixes) {
+  return prefixes.some((prefix) => path.startsWith(prefix));
+}
+
 export default async function middleware(req) {
   const path = req.nextUrl.pathname;
-  const isPublicRoute = publicRoutes.includes(path);
-  const token = (await cookies()).get(`${process.env.COOKIE_NAME}`)?.value;
+  const cookieStore = await cookies();
+  const token = cookieStore.get(process.env.COOKIE_NAME)?.value;
 
-  if(path == "/" && !token) {
+  if (path === "/" && !token) {
     return NextResponse.redirect(new URL("/home", req.url));
   }
 
-  if (isPublicRoute && !token) {
+  if (publicRoutes.includes(path) && !token) {
     return NextResponse.next();
   }
-  if (isPublicRoute && token) {
-    return NextResponse.redirect(new URL("/dashboard", req.url));
+
+  if (publicRoutes.includes(path) && token) {
+    try {
+      const { payload } = await jwtVerify(
+        token,
+        new TextEncoder().encode(process.env.JWT_SECRET)
+      );
+      if (payload.role === "admin") {
+        return NextResponse.redirect(new URL("/admin/dashboard", req.url));
+      }
+      return NextResponse.redirect(new URL("/dashboard", req.url));
+    } catch {
+      return NextResponse.redirect(new URL("/login", req.url));
+    }
   }
 
   if (!token) {
@@ -36,7 +52,20 @@ export default async function middleware(req) {
   }
 
   try {
-    await jwtVerify(token, new TextEncoder().encode(process.env.JWT_SECRET));
+    const { payload } = await jwtVerify(
+      token,
+      new TextEncoder().encode(process.env.JWT_SECRET)
+    );
+    const role = payload.role;
+
+    if (role === "admin" && !path.startsWith("/admin")) {
+      return NextResponse.redirect(new URL("/admin/dashboard", req.url));
+    }
+
+    if (role !== "admin" && path.startsWith("/admin")) {
+      return NextResponse.redirect(new URL("/dashboard", req.url));
+    }
+
     return NextResponse.next();
   } catch (error) {
     return NextResponse.redirect(new URL("/login", req.url));
@@ -44,5 +73,7 @@ export default async function middleware(req) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|.*\\.(?:png|jpg|jpeg|gif|svg|webp|ico|css|js|txt|json|woff|woff2|eot|ttf|otf)$).*)"],
+  matcher: [
+    "/((?!api|_next/static|_next/image|.*\\.(?:png|jpg|jpeg|gif|svg|webp|ico|css|js|txt|json|woff|woff2|eot|ttf|otf)$).*)",
+  ],
 };
