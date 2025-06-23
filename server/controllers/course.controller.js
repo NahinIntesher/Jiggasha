@@ -2,6 +2,40 @@ const { error } = require("console");
 const connection = require("../config/database");
 const multer = require("multer");
 const path = require("path");
+const sharp = require("sharp");
+const { PDFDocument } = require("pdf-lib");
+const ffmpeg = require("fluent-ffmpeg");
+const fs = require("fs");
+const util = require("util");
+const writeFile = util.promisify(fs.writeFile);
+const unlink = util.promisify(fs.unlink);
+
+const {
+  compressImage,
+  compressPDF,
+  compressAudio,
+  compressVideo,
+} = require("../utils/MediaCompresser");
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 50 * 1024 * 1024,
+  },
+  fileFilter: (req, file, cb) => {
+    const filetypes = /image\/|audio\/|video\/|application\/pdf/;
+    const mimetype = filetypes.test(file.mimetype);
+    if (mimetype) {
+      return cb(null, true);
+    } else {
+      cb(
+        new Error(
+          "Error: Only images, audio, video, and PDF files are allowed!"
+        )
+      );
+    }
+  },
+});
 
 exports.getCourses = async (req, res) => {
   const userId = req.userId;
@@ -110,44 +144,60 @@ exports.getSingleCourse = async (req, res) => {
   try {
     const { rows } = await connection.query(
       `SELECT 
-  c.course_id,
-  c.price, 
-  c.name, 
-  c.description, 
-  c.created_at, 
-  c.subject, 
-  c.class_level,
+          c.course_id,
+          c.price, 
+          c.name, 
+          c.description, 
+          c.created_at, 
+          c.subject, 
+          c.class_level,
+          
+          CASE 
+            WHEN c.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/courses/image/', c.course_id)
+            ELSE NULL
+          END AS cover_image_url,
+          
+          u.full_name AS instructor_name,
+          
+          CASE
+            WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
+            ELSE NULL
+          END AS instructor_picture_url,
+          
+          COUNT(DISTINCT cp_all.user_id) AS total_student,
+          
+          BOOL_OR(cp_user.user_id IS NOT NULL) AS is_joined,
+          
+          -- Course materials as JSON array
+          (
+            SELECT COALESCE(
+              JSON_AGG(
+                JSON_BUILD_OBJECT(
+                  'material_id', cm.material_id,
+                  'name', cm.name,
+                  'type', cm.material_type,
+                  'url', CONCAT('http://localhost:8000/courses/courseMaterial/', cm.material_id)
+                )
+              ),
+              '[]'::json
+            )
+            FROM course_material cm
+            WHERE cm.course_id = c.course_id
+          ) AS course_materials
+          
+        FROM courses c
+        JOIN users u ON c.instructor_id = u.user_id
 
-  CASE 
-    WHEN c.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/courses/image/', c.course_id)
-    ELSE NULL
-  END AS cover_image_url,
+        LEFT JOIN course_participants cp_all 
+          ON cp_all.course_id = c.course_id
 
-  u.full_name AS instructor_name,
+        LEFT JOIN course_participants cp_user 
+          ON cp_user.course_id = c.course_id AND cp_user.user_id = $1
 
-  CASE
-    WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
-    ELSE NULL
-  END AS instructor_picture_url,
+        WHERE c.course_id = '${courseId}'
 
-  COUNT(cp_all.user_id) AS total_student,
-
-  BOOL_OR(cp_user.user_id IS NOT NULL) AS is_joined
-
-FROM courses c
-JOIN users u ON c.instructor_id = u.user_id
-
-LEFT JOIN course_participants cp_all 
-  ON cp_all.course_id = c.course_id
-
-LEFT JOIN course_participants cp_user 
-  ON cp_user.course_id = c.course_id AND cp_user.user_id = $1
-
-WHERE c.course_id = '${courseId}'
-
-GROUP BY 
-  c.course_id, c.name, c.description, c.created_at, c.subject, c.class_level, 
-  c.cover_image, u.full_name, u.user_picture, u.user_id;
+        GROUP BY 
+          c.course_id, u.user_id;
       `,
       [userId]
     );
@@ -355,5 +405,177 @@ GROUP BY
     res.json(rows);
   } catch (error) {
     res.status(500).json({ error: error });
+  }
+};
+
+exports.addMaterial = async (req, res) => {
+  console.log("Adding course material...");
+  // Use multer to handle file upload
+  upload.array("files", 5)(req, res, async (err) => {
+    if (err) {
+      return res.status(400).json({
+        status: "Error",
+        message: err.message,
+      });
+    }
+
+    try {
+      // Check if courseId is provided
+      if (!req.body.courseId) {
+        return res.status(400).json({
+          status: "Error",
+          message: "Course ID is required",
+        });
+      }
+
+      const { courseId, materialName } = req.body;
+      const materialFiles = req.files;
+
+      // Create temp directory if it doesn't exist
+      const tempDir = path.join(__dirname, "temp");
+      if (!fs.existsSync(tempDir)) {
+        fs.mkdirSync(tempDir);
+      }
+
+      for (const file of materialFiles) {
+        try {
+          const materialType = getMaterialType(file.mimetype);
+          let processedBuffer = file.buffer;
+
+          // Apply compression based on file type
+          switch (materialType) {
+            case "image":
+              processedBuffer = await compressImage(file);
+              break;
+            case "pdf":
+              processedBuffer = await compressPDF(file);
+              break;
+            case "audio":
+              processedBuffer = await compressAudio(file);
+              break;
+            case "video":
+              processedBuffer = await compressVideo(file);
+              break;
+            default:
+              // No compression for other types
+              break;
+          }
+
+          await connection.query(
+            `INSERT INTO course_material (course_id, material_type, material)
+            VALUES ($1, $2, $3)`,
+            [courseId, materialType, processedBuffer]
+          );
+        } catch (err) {
+          console.error(`Failed to process ${file.originalname}:`, err.message);
+          return res.status(500).json({
+            status: "Error",
+            message: `Failed to add material ${file.originalname}: ${err.message}`,
+          });
+        }
+      }
+
+      res.status(201).json({
+        status: "Success",
+        message: "Materials added successfully",
+        data: {
+          courseId,
+          filesCount: materialFiles.length,
+        },
+      });
+    } catch (error) {
+      console.error("Error adding material:", error);
+      res.status(500).json({
+        status: "Error",
+        message: "Internal server error",
+      });
+    } finally {
+      // Clean up temp directory (optional)
+      // This could be done more carefully in a production environment
+      try {
+        const files = await fs.promises.readdir(path.join(__dirname, "temp"));
+        for (const file of files) {
+          await unlink(path.join(__dirname, "temp", file));
+        }
+      } catch (cleanupError) {
+        console.error("Temp cleanup error:", cleanupError);
+      }
+    }
+  });
+};
+
+function getMaterialType(mime) {
+  if (mime.startsWith("image/")) return "image";
+  if (mime.startsWith("video/")) return "video";
+  if (mime.startsWith("audio/")) return "audio";
+  if (mime === "application/pdf") return "pdf";
+  if (
+    mime === "application/msword" ||
+    mime ===
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+  )
+    return "doc";
+  if (
+    mime === "application/vnd.ms-powerpoint" ||
+    mime ===
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+  )
+    return "ppt";
+  return "other";
+}
+
+function getMimeTypeFromMediaType(mediaType) {
+  switch (mediaType) {
+    case "image":
+      return "image/jpeg";
+    case "video":
+      return "video/mp4";
+    case "audio":
+      return "audio/mpeg";
+    case "document":
+      return "application/pdf";
+    default:
+      return "application/octet-stream";
+  }
+}
+
+exports.getCourseMaterial = async (req, res) => {
+  const { materialId } = req.params;
+  console.log("Fetching course material for ID:", materialId);
+
+  if (!materialId) {
+    return res.status(400).json({ error: "Material ID is required" });
+  }
+
+  try {
+    const result = await connection.query(
+      `SELECT material, material_type, name FROM course_material WHERE material_id = $1`,
+      [materialId]
+    );
+
+    if (!result.rows.length) {
+      return res.status(404).json({ error: "Course material not found" });
+    }
+
+    const { material, material_type, name } = result.rows[0];
+
+    if (!material || !material_type) {
+      return res.status(400).json({ error: "Invalid material data" });
+    }
+
+    const mimeType = getMimeTypeFromMediaType(material_type);
+
+    // Set proper headers
+    res.setHeader("Content-Type", mimeType);
+    res.setHeader(
+      "Content-Disposition",
+      `inline; filename="${name || "material"}"`
+    );
+    res.setHeader("Cache-Control", "public, max-age=31536000");
+
+    res.send(material);
+  } catch (error) {
+    console.error("Error fetching course material:", error);
+    res.status(500).json({ error: "Internal Server Error: " + error.message });
   }
 };

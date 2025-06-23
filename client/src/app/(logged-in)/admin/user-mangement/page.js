@@ -1,5 +1,9 @@
-import React from "react";
+import Header from "@/components/ui/Header";
 
 export default function page() {
-  return <div>User Management</div>;
+  return (
+    <div className="">
+      <Header title="User Management" />
+    </div>
+  );
 }

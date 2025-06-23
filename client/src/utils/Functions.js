@@ -1,5 +1,10 @@
 function classLevelName(classLevel) {
   if (classLevel == "admission") return "Admission";
+  else if (classLevel == "6") return "Class 6";
+  else if (classLevel == "7") return "Class 7";
+  else if (classLevel == "8") return "Class 8";
+  else if (classLevel == "9-10") return "Class 9-10";
+  else if (classLevel == "11-12") return "Class 11-12";
   else if (classLevel == "undergraduate") return "Undergraduate";
   else return `Class ${classLevel}`;
 }

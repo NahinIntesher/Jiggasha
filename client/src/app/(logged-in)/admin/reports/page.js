@@ -1,5 +1,9 @@
-import React from "react";
+import Header from "@/components/ui/Header";
 
 export default function page() {
-  return <div>Reports Page</div>;
+  return (
+    <div className="">
+      <Header title="Reports" />
+    </div>
+  );
 }
