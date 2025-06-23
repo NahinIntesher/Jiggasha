@@ -16,6 +16,7 @@ import {
   FaGrip,
 } from "react-icons/fa6";
 import Loading from "../ui/Loading";
+import NotFoundPage from "../ui/NotFound";
 
 export default function BrowseCommunities() {
   const [view, setView] = useState("list");
@@ -258,9 +259,7 @@ export default function BrowseCommunities() {
       </div>
 
       <div className="cardContainer">
-        {filteredCommunities.length === 0 && (
-          <p className="noResults">No communities found.</p>
-        )}
+        {filteredCommunities.length === 0 && <NotFoundPage type="community" />}
         {filteredCommunities.map((community) => (
           <CommunityCard
             key={community.community_id}

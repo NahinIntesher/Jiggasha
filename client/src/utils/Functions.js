@@ -37,7 +37,7 @@ function hexToUrl(hex) {
   }
 }
 
- function formatDate(dateString, options = {}) {
+function formatDate(dateString, options = {}) {
   if (!dateString) return "No date";
 
   try {
@@ -89,6 +89,12 @@ function formatRelativeTime(dateString) {
   }
 }
 
+function getQuestStatus(quest) {
+  if (quest.claimed) return "claimed";
+  if (quest.is_completed) return "completed";
+  return "in-progress";
+}
+
 export {
   classLevelName,
   dateFormat,
@@ -97,4 +103,5 @@ export {
   formatDate,
   formatDateOnly,
   formatRelativeTime,
+  getQuestStatus,
 };

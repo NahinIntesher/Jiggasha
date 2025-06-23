@@ -61,7 +61,7 @@ export default function EnrolledCourses({ coursesData }) {
   };
 
   useEffect(() => {
-    console.log("coursesData", coursesData);
+    // console.log("coursesData", coursesData);
     setLoading(false);
   }, [coursesData]);
 

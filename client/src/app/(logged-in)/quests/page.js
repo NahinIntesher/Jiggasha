@@ -1,41 +1,32 @@
-import Header from "@/components/ui/Header";
+import QuestTabs from "@/components/Quest/QuestTab";
+import { cookies } from "next/headers";
 
-export default function Quests() {
+export default async function QuestPage() {
+  const cookieStore = await cookies();
+  const cookieHeader = cookieStore.get("userRegistered");
+
+  const questsResponse = await fetch("http://localhost:8000/quests", {
+    headers: {
+      "Content-Type": "application/json",
+      cookie: cookieHeader ? `userRegistered=${cookieHeader.value}` : "",
+    },
+    cache: "no-store",
+  });
+  const questsData = await questsResponse.json();
+
+  const completedQuestsResponse = await fetch(
+    "http://localhost:8000/quests/completed",
+    {
+      headers: {
+        "Content-Type": "application/json",
+        cookie: cookieHeader ? `userRegistered=${cookieHeader.value}` : "",
+      },
+      cache: "no-store",
+    }
+  );
+  const completedQuestsData = await completedQuestsResponse.json();
+
   return (
-    <div className="">
-      <Header title="Quests" />
-      <div className="space-y-4 p-6">
-        {/* Quest 1 */}
-        <div className="bg-white border border-gray-200 rounded-lg shadow p-6 flex flex-col gap-3 mb-4">
-          <div className="flex justify-between items-center mb-2">
-            <span className="font-semibold text-orange-700 text-lg">Play 5 Battle Royale Game</span>
-            <span className="text-orange-600 font-bold">3/5</span>
-          </div>
-          <div className="w-full bg-orange-100 rounded-full h-3">
-            <div className="bg-orange-500 h-3 rounded-full" style={{ width: "60%" }}></div>
-          </div>
-        </div>
-        {/* Quest 2 */}
-        <div className="bg-white border border-gray-200 rounded-lg shadow p-6 flex flex-col gap-3 mb-4">
-          <div className="flex justify-between items-center mb-2">
-            <span className="font-semibold text-orange-700 text-lg">Watch 10 Lecture in Your Courses</span>
-            <span className="text-orange-600 font-bold">7/10</span>
-          </div>
-          <div className="w-full bg-orange-100 rounded-full h-3">
-            <div className="bg-orange-500 h-3 rounded-full" style={{ width: "70%" }}></div>
-          </div>
-        </div>
-        {/* Quest 3 */}
-        <div className="bg-white border border-gray-200 rounded-lg shadow p-6 flex flex-col gap-3 mb-4">
-          <div className="flex justify-between items-center mb-2">
-            <span className="font-semibold text-orange-700 text-lg">Play 5 Pair To Pair Battle</span>
-            <span className="text-orange-600 font-bold">1/5</span>
-          </div>
-          <div className="w-full bg-orange-100 rounded-full h-3">
-            <div className="bg-orange-500 h-3 rounded-full" style={{ width: "20%" }}></div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <QuestTabs allQuests={questsData} completedQuests={completedQuestsData} />
   );
 }
