@@ -27,16 +27,29 @@ export default function CompletedQuests({ quests }) {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-1  gap-4">
-        {quests.map((quest) => (
-          <QuestCard
-            key={quest.quest_id}
-            quest={quest}
-            onClaim={() => {}}
-            view={view}
-          />
-        ))}
-      </div>
+      {view === "list" ? (
+        <div className="grid grid-cols-1 gap-4 px-5">
+          {quests.map((quest) => (
+            <QuestCard
+              key={quest.quest_id}
+              quest={quest}
+              onClaim={onClaim}
+              view={view}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-5">
+          {quests.map((quest) => (
+            <QuestCard
+              key={quest.quest_id}
+              quest={quest}
+              onClaim={onClaim}
+              view={view}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

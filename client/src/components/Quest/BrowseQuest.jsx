@@ -5,7 +5,7 @@ import QuestCard from "./QuestCard";
 import { FaList, FaGripVertical } from "react-icons/fa";
 
 export default function BrowseQuests({ quests, onClaim }) {
-  const [view, setView] = useState("list");
+  const [view, setView] = useState("grid");
 
   if (!quests.length) return <NotFoundPage type="quest" />;
 

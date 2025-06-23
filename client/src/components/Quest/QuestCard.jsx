@@ -42,11 +42,7 @@ export default function QuestCard({ quest, onClaim, view = "grid" }) {
             </div>
           </div>
 
-          <p className="text-sm text-gray-500 leading-relaxed">
-            {quest.description}
-          </p>
-
-          <div className="relative w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+          <div className="relative w-full bg-gray-200 rounded-full h-2 mt-10  overflow-hidden">
             <div
               className={`h-full rounded-full transition-all duration-300 ${
                 status === QUEST_STATUS.CLAIMED
@@ -108,9 +104,6 @@ export default function QuestCard({ quest, onClaim, view = "grid" }) {
             <h3 className="text-lg lg:text-xl font-semibold mb-1 truncate">
               {quest.title}
             </h3>
-            <p className="text-sm lg:text-base text-gray-500 mb-2 line-clamp-2">
-              {quest.description}
-            </p>
 
             {/* Progress Bar */}
             <div className="relative w-full bg-gray-200 rounded-full h-2 lg:h-3 mb-2 overflow-hidden">
@@ -120,7 +113,7 @@ export default function QuestCard({ quest, onClaim, view = "grid" }) {
                     ? "bg-green-600"
                     : status === QUEST_STATUS.COMPLETED
                     ? "bg-blue-300"
-                    : "bg-orange-300"
+                    : "bg-orange-200"
                 }`}
                 style={{ width: `${progressPercent}%` }}
               />
@@ -135,7 +128,7 @@ export default function QuestCard({ quest, onClaim, view = "grid" }) {
           {/* Action Button */}
           <div className="flex-shrink-0">
             <button
-              className={`px-4 lg:px-6 py-2 lg:py-3 rounded-lg text-white text-sm lg:text-base font-medium transition-colors ${
+              className={`px-4 lg:px-6 py-2 lg:py-3 rounded-xl text-white text-sm lg:text-base font-medium transition-colors ${
                 status === QUEST_STATUS.CLAIMED
                   ? "bg-gray-500 cursor-not-allowed"
                   : status === QUEST_STATUS.COMPLETED
@@ -187,9 +180,6 @@ export default function QuestCard({ quest, onClaim, view = "grid" }) {
       <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3 text-gray-800 leading-tight">
         {quest.title}
       </h3>
-      <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4 leading-relaxed line-clamp-3">
-        {quest.description}
-      </p>
 
       {/* Progress Section */}
       <div className="mb-3 sm:mb-4">
@@ -197,7 +187,7 @@ export default function QuestCard({ quest, onClaim, view = "grid" }) {
           <span className="text-xs sm:text-sm font-medium text-gray-700">
             Progress
           </span>
-          <span className="text-xs sm:text-sm font-bold text-gray-800">
+          <span className="text-xs sm:text-sm font-bold text-gray-400">
             {progressPercent.toFixed(0)}%
           </span>
         </div>
@@ -207,8 +197,8 @@ export default function QuestCard({ quest, onClaim, view = "grid" }) {
               status === QUEST_STATUS.CLAIMED
                 ? "bg-gradient-to-r from-green-500 to-green-600"
                 : status === QUEST_STATUS.COMPLETED
-                ? "bg-gradient-to-r from-blue-400 to-blue-500"
-                : "bg-gradient-orange-300"
+                ? "bg-blue-500"
+                : "bg-orange-200"
             }`}
             style={{ width: `${progressPercent}%` }}
           />
@@ -219,7 +209,7 @@ export default function QuestCard({ quest, onClaim, view = "grid" }) {
       </div>
 
       <button
-        className={`w-full mt-3 sm:mt-4 px-4 py-2 sm:py-3 rounded-lg text-white text-sm sm:text-base font-semibold transition-all duration-200 ${
+        className={`w-full mt-3 sm:mt-4 px-4 py-2 sm:py-3 rounded-xl text-white text-sm sm:text-base font-semibold transition-all duration-200 ${
           status === QUEST_STATUS.CLAIMED
             ? "bg-gray-500 cursor-not-allowed"
             : status === QUEST_STATUS.COMPLETED
