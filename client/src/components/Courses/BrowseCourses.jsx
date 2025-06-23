@@ -15,7 +15,7 @@ import {
   FaArrowUpWideShort,
   FaGrip,
 } from "react-icons/fa6";
-import Loading from "../ui/Loading";
+import Loading from "../../components/ui/Loading";
 
 export default function BrowseCourses({ coursesData }) {
   const [view, setView] = useState("grid");
@@ -61,7 +61,6 @@ export default function BrowseCourses({ coursesData }) {
   };
 
   useEffect(() => {
-    console.log("coursesData", coursesData);
     setLoading(false);
   }, [coursesData]);
 

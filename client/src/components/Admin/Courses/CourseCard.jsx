@@ -28,7 +28,6 @@ const CourseCard = ({
   isJoined,
   view,
 }) => {
-  const [enrollStatus, setEnrollStatus] = useState(false);
 
   return (
     <Link href={`/admin/course/${id}`} className={`card ${view}Box`}>
@@ -74,7 +73,7 @@ const CourseCard = ({
             </div>
             <div className="information">
               <FaChalkboardUser className="icon" />
-              <div className="text">{3} Lectures</div>
+              <div className="text">{5} Lectures</div>
             </div>
           </div>
         </div>

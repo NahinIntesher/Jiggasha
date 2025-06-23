@@ -194,12 +194,12 @@ exports.getSingleCourse = async (req, res) => {
         LEFT JOIN course_participants cp_user 
           ON cp_user.course_id = c.course_id AND cp_user.user_id = $1
 
-        WHERE c.course_id = '${courseId}'
+        WHERE c.course_id = $2
 
         GROUP BY 
           c.course_id, u.user_id;
       `,
-      [userId]
+      [userId, courseId]
     );
 
     res.json(rows[0]);
@@ -579,3 +579,41 @@ exports.getCourseMaterial = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error: " + error.message });
   }
 };
+
+exports.addCourse = [
+  upload.single("coverImage"),
+  async (req, res) => {
+    const userId = req.userId;
+    console.log("Adding new course...");
+
+    const { name, description, classLevel, price, subject } = req.body;
+
+    const coverImageBuffer = req.file ? req.file.buffer : null;
+
+    try {
+      connection.query(
+        `INSERT INTO courses (name, description, class_level, price, subject, cover_image, instructor_id)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+        [
+          name,
+          description,
+          classLevel || null,
+          price || null,
+          subject || null,
+          coverImageBuffer || null,
+          userId,
+        ],
+        (err, results) => {
+          if (err) {
+            return res
+              .status(500)
+              .json({ error: err, message: "Internal Server Error" });
+          }
+          return res.json({ status: "Success" });
+        }
+      );
+    } catch (error) {
+      res.status(500).json({ error: error, message: "Internal Server Error" });
+    }
+  },
+];

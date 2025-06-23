@@ -4,7 +4,15 @@ import { classLevelName, dateFormat, stripHTML } from "@/utils/Functions";
 import Link from "next/link";
 import React, { useState } from "react";
 import { FaCalendarAlt } from "react-icons/fa";
-import { FaEye, FaCaretDown, FaCaretUp, FaComment, FaBook, FaUser, FaChalkboardUser } from "react-icons/fa6";
+import {
+  FaEye,
+  FaCaretDown,
+  FaCaretUp,
+  FaComment,
+  FaBook,
+  FaUser,
+  FaChalkboardUser,
+} from "react-icons/fa6";
 
 const CourseCard = ({
   id,
@@ -21,7 +29,6 @@ const CourseCard = ({
   view,
 }) => {
   const [enrollStatus, setEnrollStatus] = useState(false);
-
 
   return (
     <Link href={`/courses/${id}`} className={`card ${view}Box`}>

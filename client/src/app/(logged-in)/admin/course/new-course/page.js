@@ -23,6 +23,8 @@ export default function NewCommunity() {
     coverImage: null,
     classLevel: "6",
     group: "all",
+    price: 0,
+    department: "",
     subject: 101,
     name: "",
     description: "",
@@ -55,9 +57,12 @@ export default function NewCommunity() {
       formDataToSend.append("coverImage", formData.coverImage);
       formDataToSend.append("classLevel", formData.classLevel);
       formDataToSend.append("name", formData.name);
+      formDataToSend.append("price", formData.price);
       formDataToSend.append("description", formData.description);
       formDataToSend.append("group", formData.group);
       formDataToSend.append("subject", formData.subject);
+
+      console.log("Form Data to Send:", formDataToSend);
 
       const response = await fetch("http://localhost:8000/course/add", {
         method: "POST",
@@ -65,25 +70,25 @@ export default function NewCommunity() {
         credentials: "include",
       });
 
+      // Then try to parse as JSON
       const result = await response.json();
-
-      // const result = JSON.parse(resultText);
 
       if (result.status === "Success") {
         alert("Course added!");
         router.back();
       } else {
         console.error("Error adding course:", result);
+        setErrors(result.message || "Failed to create course");
       }
     } catch (error) {
       console.error("Error during course creation:", error);
-      setErrors("An error occurred, please try again later.");
+      setErrors(error.message || "An error occurred, please try again later.");
     }
   };
 
   return (
     <>
-      <HeaderAlt title="New Community" />
+      <HeaderAlt title="New Course" />
 
       <form onSubmit={handleSubmit} className="formBox">
         <div className="title">Create New Course</div>
@@ -205,6 +210,17 @@ export default function NewCommunity() {
             <></>
           )}
         </div>
+
+        <label>
+          <div className="name">Price</div>
+          <input
+            type="number"
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
+            min="0"
+          />
+        </label>
 
         <label>
           <div className="name">Cover Image</div>

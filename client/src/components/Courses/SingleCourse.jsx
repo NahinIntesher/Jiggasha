@@ -15,7 +15,7 @@ import { FaBook, FaCalendarAlt } from "react-icons/fa";
 import SenderBox from "@/components/AI/SenderBox";
 import ComprehensiveFormatter from "@/components/ui/ComprehensiveFormatter";
 
-export default function SingleCourse({ course }) {
+export default function SingleCourse(course) {
   const [loading, setLoading] = useState(true);
 
   const [isReady, setIsReady] = useState(true);

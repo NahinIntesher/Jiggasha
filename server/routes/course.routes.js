@@ -8,6 +8,7 @@ const {
   searchCourses,
   getEnrolledCourses,
   addMaterial,
+  addCourse,
   getCourseMaterial,
 } = require("../controllers/course.controller");
 
@@ -18,6 +19,8 @@ router.get("/enrolled", verifyToken, getEnrolledCourses);
 router.get("/image/:courseId", verifyToken, image);
 router.get("/single/:courseId", verifyToken, getSingleCourse);
 router.get("/search/:keyword", verifyToken, searchCourses);
+router.get("/course/add", verifyToken, addCourse);
 router.post("/material/add", verifyToken, addMaterial);
+
 router.get("/courseMaterial/:materialId", getCourseMaterial);
 module.exports = router;

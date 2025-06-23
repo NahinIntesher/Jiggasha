@@ -2,13 +2,36 @@
 
 import HeaderAlt from "@/components/ui/HeaderAlt";
 import { useRouter } from "next/navigation";
-import { FaBook, FaUser, FaChalkboardUser, FaPlay } from "react-icons/fa6";
-import { subjectName, classLevelName } from "@/utils/Constant";
+import {
+  FaBook,
+  FaUser,
+  FaChalkboardUser,
+  FaFilePdf,
+  FaFileImage,
+  FaFileVideo,
+  FaFileAudio,
+  FaPlay,
+} from "react-icons/fa6";
 
 export default function CourseDetails({ course }) {
   const router = useRouter();
   const courseData = course || {};
   const isJoined = courseData.is_joined || false;
+  const materials = courseData.course_materials || [];
+
+  function getFileIcon(materialType) {
+    return (
+      fileTypeIcons[materialType.toLowerCase()] || fileTypeIcons["default"]
+    );
+  }
+
+  const fileTypeIcons = {
+    pdf: <FaFilePdf className="icon" />,
+    image: <FaFileImage className="icon" />,
+    video: <FaFileVideo className="icon" />,
+    audio: <FaFileAudio className="icon" />,
+    default: <FaFilePdf className="icon" />,
+  };
 
   function goToMaterial() {
     if (isJoined) {
@@ -49,7 +72,6 @@ export default function CourseDetails({ course }) {
                 </div>
               )}
             </div>
-
             {course.cover_image_url ? (
               <img className="previewImage" src={course.cover_image_url} />
             ) : (
@@ -57,7 +79,6 @@ export default function CourseDetails({ course }) {
                 <FaBook />
               </div>
             )}
-
             <div className="informationContainer">
               <div className="instructor">
                 <div className="profilePicture">
@@ -85,7 +106,6 @@ export default function CourseDetails({ course }) {
                 </div>
               </div>
             </div>
-
             <hr />
             <div className="descriptionContainer">
               <div className="title">About the Course</div>
@@ -96,11 +116,23 @@ export default function CourseDetails({ course }) {
 
         <div className="scrollContainer courseContentsBoxFlex">
           <div className="courseContentsBox">
-            <div className="title">Course Contents</div>
+            <div className="title">Course Materials</div>
             <div className="courseContentBoxContainer">
-              <CourseContentBox action={goToMaterial} />
-              <CourseContentBox action={goToMaterial} />
-              <CourseContentBox action={goToMaterial} />
+              {materials.length > 0 ? (
+                materials.map((material, index) => (
+                  <MaterialBox
+                    index={index}
+                    action={goToMaterial}
+                    key={material.material_id}
+                    material={material}
+                    icon={getFileIcon(material.type)}
+                  />
+                ))
+              ) : (
+                <div className="emptyMaterials">
+                  No materials available for this course yet
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -109,15 +141,23 @@ export default function CourseDetails({ course }) {
   );
 }
 
-function CourseContentBox({ action }) {
+function MaterialBox({ material, action, icon, index }) {
   return (
-    <div onClick={action} className="courseContentBox">
-      <div className="iconContainer">
-        <FaPlay className="icon" />
-      </div>
+    <div onClick={action} className="courseContentBox cursor-default">
+      <div className="iconContainer">{icon}</div>
       <div className="contentDetails">
-        <div className="semiTitle">Lecture 1</div>
-        <div className="title">Introduction to the Course</div>
+        <div className="contentDetails">
+          <div className="semiTitle">
+            Lecture {index + 1} ({material.type})
+          </div>
+          <div className="title">
+            {material.name ? material.name : "Untitled"}
+          </div>
+        </div>
+
+        {/* <div className="text-xs text-gray-500">
+          Uploaded at: {new Date(material.created_at).toLocaleString()}
+        </div> */}
       </div>
     </div>
   );
