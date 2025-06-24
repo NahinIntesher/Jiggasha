@@ -2740,9 +2740,9 @@ body {
   top: 18px;
   color: #c62d42cc;
   background-color: #f4ced3;
-  border-radius: 30px;
-  font-size: 15px;
-  padding: 6px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  padding: 6px 16px;
   cursor: pointer;
 }
 
@@ -2755,7 +2755,7 @@ body {
 .postBox .reportButton .text {
   display: inline-block;
   vertical-align: middle;
-  margin: 2px;
+  margin: 2px 4px;
   font-weight: 500;
 }
 
@@ -2864,10 +2864,16 @@ body {
   text-align: center;
   padding: 6px;
   background-color: rgba(0, 0, 0, 0.09);
-  margin: 4px;
-  border-radius: 50px;
+  margin: 6px;
+  border-radius: 10px;
   cursor: pointer;
   color: rgba(0, 0, 0, 0.8);
+}
+
+.postBox .liked {
+  background-color: rgba(250, 135, 0, 0.2);
+  color: rgb(240, 110, 0);
+  font-weight: 700;
 }
 
 .postBox .postActionBox:hover {
