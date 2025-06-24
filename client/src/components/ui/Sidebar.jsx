@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   FaBookOpen,
@@ -19,9 +19,57 @@ import { FaAngleDown, FaStar, FaUser } from "react-icons/fa";
 import Link from "next/link";
 import { useLayout } from "../Contexts/LayoutProvider";
 
-export default function Sidebar({ user, handleLogout }) {
+export default function Sidebar() {
+  const [user, setUser] = useState(null);
+
   const { menu, toggleMenu } = useLayout();
   const router = useRouter();
+
+  const fetchUser = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const userData = await response.json();
+      setUser(userData);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/logout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      if (result.status === "Success") {
+        router.push("/login");
+      } else {
+        alert(result.Error || "Logout failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error during logout:", error);
+      alert("An error occurred, please try again later.");
+    }
+  };
 
   // Define links conditionally based on user_role
   const links =
