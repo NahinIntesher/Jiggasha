@@ -12,6 +12,7 @@ import {
   FaBook,
   FaRightFromBracket,
   FaClipboardQuestion,
+  FaPerson,
 } from "react-icons/fa6";
 import SidebarOption from "./SidebarOption";
 import { FaAngleDown, FaStar, FaUser } from "react-icons/fa";
@@ -19,6 +20,7 @@ import Link from "next/link";
 import { useLayout } from "../Contexts/LayoutProvider";
 
 export default function Sidebar({ user, handleLogout }) {
+  const [user, setUser] = useState(null);
   const { menu, toggleMenu } = useLayout();
   const router = useRouter();
 
@@ -29,6 +31,8 @@ export default function Sidebar({ user, handleLogout }) {
           { icon: FaSquare, label: "Dashboard", href: "/admin/dashboard" },
           { icon: FaBook, label: "Course", href: "/admin/course" },
           { icon: FaListOl, label: "Reports", href: "/admin/reports" },
+          // { icon: FaPerson, label: "Profile", href: "/admin/profile" },
+
           {
             icon: FaUserGroup,
             label: "Users",
@@ -104,12 +108,22 @@ export default function Sidebar({ user, handleLogout }) {
               </div>
             </div>
             <div className="moreOptionsContent">
-              <Link href="/profile" className="option">
-                <div className="icon">
-                  <FaUser />
-                </div>
-                <div className="text">Profile</div>
-              </Link>
+              {user?.user_role === "admin" ? (
+                <Link href="/admin/profile" className="option">
+                  <div className="icon">
+                    <FaUser />
+                  </div>
+                  <div className="text">Profile</div>
+                </Link>
+              ) : (
+                <Link href="/profile" className="option">
+                  <div className="icon">
+                    <FaUser />
+                  </div>
+                  <div className="text">Profile</div>
+                </Link>
+              )}
+
               <div className="option" onClick={handleLogout}>
                 <div className="icon">
                   <FaRightFromBracket />

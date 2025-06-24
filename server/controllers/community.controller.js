@@ -869,7 +869,7 @@ exports.getAllReportedPosts = async (req, res) => {
         FROM post_reports pr 
         WHERE pr.post_id = p.post_id 
         GROUP BY pr.post_id 
-        HAVING COUNT(*) >= 10
+        HAVING COUNT(*) <= 10
       )
 
       ORDER BY p.created_at DESC;

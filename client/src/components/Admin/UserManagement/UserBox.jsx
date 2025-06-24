@@ -7,6 +7,8 @@ export default function UserBox({
   picture = null,
   email,
   class_level,
+  user_group,
+  user_department,
   mobileNo,
   refreshUsers,
 }) {
@@ -32,11 +34,11 @@ export default function UserBox({
   }
 
   return (
-    <div className="flex bg-gradient-to-br from-orange-50 to-orange-100 border border-orange-200 rounded-xl shadow-md overflow-hidden">
+    <div className="flex bg-white border border-gray-300 rounded-xl shadow-md overflow-hidden">
       <div className="p-6 w-full">
         <div className="flex items-center space-x-4 mb-4">
           <div className="flex-shrink-0">
-            <div className="w-16 h-16 rounded-full overflow-hidden bg-orange-200 flex items-center justify-center border-2 border-orange-300">
+            <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-300 flex items-center justify-center border border-gray-400">
               {picture ? (
                 <img
                   src={picture}
@@ -44,9 +46,7 @@ export default function UserBox({
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <div className="text-2xl font-bold text-orange-700">
-                  {name[0]}
-                </div>
+                <div className="text-2xl font-bold text-black">{name[0]}</div>
               )}
             </div>
           </div>
@@ -59,16 +59,31 @@ export default function UserBox({
         </div>
 
         <div className="space-y-2 text-sm">
+          <div className="flex flex-row gap-4">
+            {class_level && (
+              <p className="text-orange-800">
+                <span className="font-semibold">Class:</span>{" "}
+                <span className="text-orange-700">{class_level}</span>
+              </p>
+            )}
+            {user_group && (
+              <p className="text-orange-800">
+                <span className="font-semibold">Group:</span>{" "}
+                <span className="text-orange-700">{user_group}</span>
+              </p>
+            )}
+          </div>
+
           <p className="text-orange-800">
             <span className="font-semibold">Mobile:</span>{" "}
             {mobileNo || (
               <span className="text-orange-500 italic">Not provided</span>
             )}
           </p>
-          {class_level && (
+          {user_department && (
             <p className="text-orange-800">
-              <span className="font-semibold">Class:</span>{" "}
-              <span className="text-orange-700">{class_level}</span>
+              <span className="font-semibold">Department:</span>{" "}
+              <span className="text-orange-700">{user_department}</span>
             </p>
           )}
         </div>

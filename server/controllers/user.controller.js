@@ -237,12 +237,16 @@ exports.getAllUsers = async (req, res) => {
         u.user_id,
         u.full_name, 
         u.email, 
+        u.user_class_level,
+        u.user_group,
+        u.user_department,
         u.mobile_no, 
         CASE 
             WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
             ELSE NULL
         END AS user_picture
-    FROM users u
+    FROM users u 
+    where u.user_role != 'admin'
     `;
   connection.query(query, (err, result) => {
     if (err) {

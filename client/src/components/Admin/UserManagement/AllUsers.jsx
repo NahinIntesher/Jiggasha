@@ -99,7 +99,7 @@ export default function AllUsers({ userData }) {
       </div>
 
       {/* Users Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {users.length > 0 ? (
           users.map((user) => (
             <UserBox
@@ -109,7 +109,9 @@ export default function AllUsers({ userData }) {
               email={user.email}
               picture={user.user_picture}
               mobileNo={user.mobile_no}
-              class_level={user.class_level} // Added class_level if available
+              class_level={user.user_class_level}
+              user_group={user.user_group}
+              user_department={user.user_department}
               refreshUsers={fetchUsers}
             />
           ))

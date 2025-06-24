@@ -27,6 +27,7 @@ router.post("/join", verifyToken, joinCommunity);
 router.get("/allPosts/:communityId", verifyToken, getAllPosts);
 router.get("/allReportedPosts", verifyToken, getAllReportedPosts);
 router.get("/singlePost/:postId", verifyToken, getSinglePost);
+// router.get("/postReports/:postId", verifyToken, makeReport);
 
 router.post("/post/comments", verifyToken, postComment);
 router.post("/post/react", verifyToken, postReaction);
