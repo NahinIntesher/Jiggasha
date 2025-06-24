@@ -20,7 +20,6 @@ import Link from "next/link";
 import { useLayout } from "../Contexts/LayoutProvider";
 
 export default function Sidebar({ user, handleLogout }) {
-  const [user, setUser] = useState(null);
   const { menu, toggleMenu } = useLayout();
   const router = useRouter();
 
