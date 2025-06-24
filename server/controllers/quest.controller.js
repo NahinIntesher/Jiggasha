@@ -1,50 +1,9 @@
 const connection = require("../config/database");
 
-// -------------------
-// Quest logic mapping
-// -------------------
-
-const QUEST_LOGIC = {
-  "Complete 1 Material": { type: "materials_completed", target: 1 },
-  "Complete 2 Materials": { type: "materials_completed", target: 2 },
-  "Complete 5 Materials": { type: "materials_completed", target: 5 },
-  "Complete 10 Materials": { type: "materials_completed", target: 10 },
-  "Complete 20 Materials": { type: "materials_completed", target: 20 },
-  "Complete 40 Materials": { type: "materials_completed", target: 40 },
-  "Complete 80 Materials": { type: "materials_completed", target: 80 },
-  "Complete 120 Materials": { type: "materials_completed", target: 120 },
-  "Complete 200 Materials": { type: "materials_completed", target: 200 },
-  "Complete 300 Materials": { type: "materials_completed", target: 300 },
-
-  "Join 1 Battle": { type: "battles_joined", target: 1 },
-  "Join 2 Battles": { type: "battles_joined", target: 2 },
-  "Join 5 Battles": { type: "battles_joined", target: 5 },
-  "Join 10 Battles": { type: "battles_joined", target: 10 },
-  "Join 20 Battles": { type: "battles_joined", target: 20 },
-  "Join 40 Battles": { type: "battles_joined", target: 40 },
-  "Join 80 Battles": { type: "battles_joined", target: 80 },
-  "Join 120 Battles": { type: "battles_joined", target: 120 },
-  "Join 200 Battles": { type: "battles_joined", target: 200 },
-  "Join 300 Battles": { type: "battles_joined", target: 300 },
-
-  "Write 1 Blog": { type: "blog_posts_written", target: 1 },
-  "Write 2 Blogs": { type: "blog_posts_written", target: 2 },
-  "Write 5 Blogs": { type: "blog_posts_written", target: 5 },
-  "Write 10 Blogs": { type: "blog_posts_written", target: 10 },
-  "Write 20 Blogs": { type: "blog_posts_written", target: 20 },
-  "Write 40 Blogs": { type: "blog_posts_written", target: 40 },
-  "Write 80 Blogs": { type: "blog_posts_written", target: 80 },
-  "Write 120 Blogs": { type: "blog_posts_written", target: 120 },
-  "Write 200 Blogs": { type: "blog_posts_written", target: 200 },
-  "Write 300 Blogs": { type: "blog_posts_written", target: 300 },
-};
-
-// ---------------------
-// Get all quests status
-// ---------------------
-
+// Get incomplete quests
 exports.getIncompleteQuests = async (req, res) => {
   const userId = req.userId;
+  if (!userId) return res.status(401).json({ error: "Unauthorized" });
 
   try {
     const [userStatsResult, allQuestsResult, userQuestsResult] =
@@ -59,44 +18,58 @@ exports.getIncompleteQuests = async (req, res) => {
       ]);
 
     const userStats = userStatsResult.rows[0] || {};
-    const userQuests = Object.fromEntries(
-      userQuestsResult.rows.map((q) => [q.quest_id, q])
+    const userQuests = userQuestsResult.rows || [];
+    console.log("User Quests:", userQuests);
+    const completedQuestIds = new Set(
+      userQuests.filter((q) => q.is_completed).map((q) => q.quest_id)
     );
 
-    const quests = allQuestsResult.rows
+    const incompleteQuests = allQuestsResult.rows
+      .filter((quest) => !completedQuestIds.has(quest.quest_id))
       .map((quest) => {
-        const logic = QUEST_LOGIC[quest.title];
-        const progress = logic ? userStats[logic.type] || 0 : 0;
-        const isCompleted = logic ? progress >= logic.target : false;
-        const claimed = !!userQuests[quest.quest_id]?.claimed_at;
+        const progress = userStats[quest.target_type] || 0;
+        const claimed = !!userQuests.find(
+          (q) => q.quest_id === quest.quest_id && q.claimed_at
+        );
 
         return {
-          ...quest,
+          quest_id: quest.quest_id,
+          title: quest.title,
+          reward_points: quest.reward_points,
+          target_type: quest.target_type,
+          created_at: quest.created_at,
+          target: quest.target,
           progress,
-          is_completed: isCompleted,
+          is_completed: false,
           claimed,
         };
-      })
-      .filter((quest) => !quest.is_completed);
+      });
 
-    return res.json(quests);
+    return res.json(incompleteQuests);
   } catch (err) {
     console.error("Error fetching incomplete quests:", err);
     return res.status(500).json({ error: "Failed to load incomplete quests" });
   }
 };
 
+// Get completed quests
 exports.getCompletedQuests = async (req, res) => {
   const userId = req.userId;
-
-  if (!userId) {
-    return res.status(401).json({ error: "Unauthorized: User ID missing" });
-  }
+  if (!userId) return res.status(401).json({ error: "Unauthorized" });
 
   try {
     const result = await connection.query(
       `
-      SELECT q.*, uq.progress, uq.is_completed, uq.claimed_at
+      SELECT
+        q.quest_id,
+        q.title,
+        q.reward_points,
+        q.target_type,
+        q.target,
+        q.created_at,
+        uq.progress,
+        uq.is_completed,
+        uq.claimed_at AS claimed
       FROM quests q
       INNER JOIN user_quests uq ON q.quest_id = uq.quest_id AND uq.user_id = $1
       WHERE uq.is_completed = true
@@ -112,13 +85,13 @@ exports.getCompletedQuests = async (req, res) => {
   }
 };
 
-// -------------------------------------
-// Claim a reward for a completed quest
-// -------------------------------------
-
+// Claim quest reward
 exports.claimQuestReward = async (req, res) => {
   const userId = req.userId;
   const { quest_id } = req.body;
+
+  if (!userId) return res.status(401).json({ error: "Unauthorized" });
+  if (!quest_id) return res.status(400).json({ error: "quest_id is required" });
 
   try {
     const questRes = await connection.query(
@@ -129,18 +102,14 @@ exports.claimQuestReward = async (req, res) => {
       return res.status(404).json({ error: "Quest not found" });
 
     const quest = questRes.rows[0];
-    const logic = QUEST_LOGIC[quest.title];
-    if (!logic)
-      return res.status(400).json({ error: "Quest logic not defined" });
-
     const userStatRes = await connection.query(
       `SELECT * FROM user_stats WHERE user_id = $1`,
       [userId]
     );
     const userStats = userStatRes.rows[0] || {};
-    const progress = userStats[logic.type] || 0;
+    const progress = userStats[quest.target_type] || 0;
 
-    if (progress < logic.target) {
+    if (progress < quest.target) {
       return res.status(400).json({ error: "Quest not completed yet" });
     }
 
@@ -150,8 +119,13 @@ exports.claimQuestReward = async (req, res) => {
       VALUES ($1, $2, $3, true, NOW())
       ON CONFLICT (user_id, quest_id)
       DO UPDATE SET progress = $3, is_completed = true, claimed_at = NOW(), updated_at = NOW()
-    `,
+      `,
       [userId, quest_id, progress]
+    );
+
+    await connection.query(
+      `INSERT INTO user_rating (user_id, rating_point, earned_at) VALUES ($1, $2, NOW())`,
+      [userId, quest.reward_points || 0]
     );
 
     return res.json({
@@ -164,10 +138,7 @@ exports.claimQuestReward = async (req, res) => {
   }
 };
 
-// ----------------------------------
-// Update completed quests in record
-// ----------------------------------
-
+// Evaluate user quests (backend maintenance utility)
 exports.evaluateUserQuests = async (userId) => {
   try {
     const [userStatsRes, questsRes] = await Promise.all([
@@ -179,24 +150,33 @@ exports.evaluateUserQuests = async (userId) => {
     const quests = questsRes.rows;
 
     for (const quest of quests) {
-      const logic = QUEST_LOGIC[quest.title];
-      if (!logic) continue;
+      const progress = userStats[quest.target_type] || 0;
 
-      const progress = userStats[logic.type] || 0;
-
-      if (progress >= logic.target) {
+      if (progress >= quest.target) {
         await connection.query(
           `
           INSERT INTO user_quests (user_id, quest_id, progress, is_completed)
           VALUES ($1, $2, $3, true)
           ON CONFLICT (user_id, quest_id)
           DO UPDATE SET progress = $3, is_completed = true, updated_at = NOW()
-        `,
+          `,
           [userId, quest.quest_id, progress]
         );
       }
     }
   } catch (err) {
     console.error("Error evaluating quests:", err);
+  }
+};
+
+exports.evaluateUserQuestsHandler = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    await evaluateUserQuests(userId); // call the utility function
+    res.json({ status: `Quests evaluated for user ${userId}` });
+  } catch (error) {
+    console.error("Error evaluating quests:", error);
+    res.status(500).json({ error: "Failed to evaluate quests" });
   }
 };

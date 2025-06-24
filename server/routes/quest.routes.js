@@ -5,12 +5,13 @@ const {
   getIncompleteQuests,
   getCompletedQuests,
   claimQuestReward,
-  evaluateUserQuests,
+  evaluateUserQuestsHandler,
 } = require("../controllers/quest.controller");
 const verifyToken = require("../middlewares/verifyToken");
 
 router.get("/", verifyToken, getIncompleteQuests);
 router.get("/completed", verifyToken, getCompletedQuests);
 router.post("/claim", verifyToken, claimQuestReward);
-router.post("/evaluate", verifyToken, evaluateUserQuests);
+router.post("/evaluate/:userId", verifyToken, evaluateUserQuestsHandler);
+
 module.exports = router;

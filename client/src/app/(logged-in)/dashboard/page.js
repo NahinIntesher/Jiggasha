@@ -3,7 +3,7 @@ import QuestPreview from "@/components/Dashboard/QuestPreview";
 
 export default function Dashboard() {
   return (
-    <div className="p-6">
+    <div>
       <Header title="Dashboard" />
       <QuestPreview />
     </div>

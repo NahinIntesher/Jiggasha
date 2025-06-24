@@ -2,6 +2,7 @@ const { error } = require("console");
 const connection = require("../config/database");
 const multer = require("multer");
 const path = require("path");
+const { evaluateUserQuests } = require("../controllers/quest.controller");
 
 exports.getBlogs = async (req, res) => {
   const userId = req.userId;
@@ -121,35 +122,51 @@ exports.getSingleBlog = async (req, res) => {
 const upload = multer({ storage: multer.memoryStorage() });
 
 exports.addBlog = [
-  upload.single("coverImage"), // Middleware to handle file upload
+  upload.single("coverImage"),
   async (req, res) => {
     const userId = req.userId;
-
     const { title, content, classLevel, subject } = req.body;
-
-    const coverImageBuffer = req.file ? req.file.buffer : null; // Get binary buffer
+    const coverImageBuffer = req.file ? req.file.buffer : null;
 
     try {
       connection.query(
         `INSERT INTO blogs (title, class_level, subject, content, cover_image, author_id)
-        VALUES ($1, $2, $3, $4, $5, $6)`,
+         VALUES ($1, $2, $3, $4, $5, $6)`,
         [
           title,
           classLevel || null,
           subject || null,
           content,
-          coverImageBuffer || null,
+          coverImageBuffer,
           userId,
         ],
-        (err, results) => {
+        async (err, results) => {
           if (err) {
             return res.status(500).json({ error: err });
           }
+
+          try {
+            await connection.query(
+              `INSERT INTO user_stats (user_id, blog_posts_written)
+               VALUES ($1, 1)
+               ON CONFLICT (user_id)
+               DO UPDATE SET blog_posts_written = user_stats.blog_posts_written + 1`,
+              [userId]
+            );
+
+            await evaluateUserQuests(userId);
+          } catch (updateErr) {
+            console.error(
+              "Failed to update user stats or evaluate quests:",
+              updateErr
+            );
+          }
+
           return res.json({ status: "Success" });
         }
       );
     } catch (error) {
-      res.status(500).json({ error: error });
+      res.status(500).json({ error });
     }
   },
 ];
@@ -248,7 +265,6 @@ exports.image = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
 
 exports.searchBlogs = async (req, res) => {
   const userId = req.userId;

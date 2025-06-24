@@ -4,36 +4,11 @@ import { useState } from "react";
 import Header from "@/components/ui/Header";
 import BrowseQuests from "./BrowseQuest";
 import CompletedQuests from "./CompletedQuest";
+import { FaList, FaGripVertical } from "react-icons/fa";
 
 export default function QuestTabs({ allQuests, completedQuests }) {
   const [activeTab, setActiveTab] = useState("browse");
-
-  const handleClaim = async (questId) => {
-    try {
-      const res = await fetch("http://localhost:8000/quests/claim", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ quest_id: questId }),
-        credentials: "include",
-      });
-
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        throw new Error(err.error || "Claim failed");
-      }
-
-      // Use Next.js router to refresh quests
-      if (typeof window !== "undefined") {
-        const { useRouter } = await import("next/navigation");
-        const router = useRouter();
-        router.refresh();
-      }
-
-      // window.location.reload();
-    } catch (err) {
-      alert(err.message);
-    }
-  };
+  const [view, setView] = useState("grid");
 
   return (
     <div className="">
@@ -53,11 +28,32 @@ export default function QuestTabs({ allQuests, completedQuests }) {
         </div>
       </div>
 
+      <div className="filterContainer">
+        <div className="views">
+          <div
+            className={view === "list" ? "viewIcon activeIcon" : "viewIcon"}
+            onClick={() => setView("list")}
+          >
+            <FaList />
+          </div>
+          <div
+            className={view === "grid" ? "viewIcon activeIcon" : "viewIcon"}
+            onClick={() => setView("grid")}
+          >
+            <FaGripVertical />
+          </div>
+        </div>
+      </div>
+
       {activeTab === "browse" && (
-        <BrowseQuests quests={allQuests} onClaim={handleClaim} />
+        <BrowseQuests quests={allQuests} view={view} setView={setView} />
       )}
       {activeTab === "completed" && (
-        <CompletedQuests quests={completedQuests} />
+        <CompletedQuests
+          quests={completedQuests}
+          view={view}
+          setView={setView}
+        />
       )}
     </div>
   );

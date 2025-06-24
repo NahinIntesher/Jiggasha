@@ -1,144 +1,124 @@
 "use client";
 import { QUEST_STATUS } from "../../utils/Constant";
+import { useRouter } from "next/navigation";
 
-export default function QuestCard({ quest, onClaim, view = "grid" }) {
-  const status = quest.status;
-  const progressPercent = Math.min(
-    (quest.progress / quest.target_value) * 100,
-    100
-  );
+export default function QuestCard({ quest, view = "grid" }) {
+  const router = useRouter();
+  const {
+    progress = 0,
+    target_type: questGroup = "default",
+    target: targetValue = 0,
+    is_completed: isCompleted = false,
+    claimed = false,
+  } = quest;
+
+  const status = claimed
+    ? QUEST_STATUS.CLAIMED
+    : isCompleted
+    ? QUEST_STATUS.COMPLETED
+    : QUEST_STATUS.IN_PROGRESS;
+
+  // Only show 100% if quest is actually completed
+  const progressPercent = isCompleted
+    ? 100
+    : Math.min((progress / targetValue) * 100);
+
+  const handleClaim = async (questId) => {
+    try {
+      const res = await fetch("http://localhost:8000/quests/claim", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ quest_id: questId }),
+        credentials: "include",
+      });
+
+      if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.message || "Failed to claim reward");
+      }
+
+      // Refresh the page to update the quest status
+      router.refresh();
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  // Helper function for button configuration
+  const getButtonConfig = () => {
+    switch (status) {
+      case QUEST_STATUS.CLAIMED:
+        return {
+          text: "✓ Claimed",
+          className: "bg-gray-200 text-gray-600 cursor-not-allowed",
+          disabled: true,
+        };
+      case QUEST_STATUS.COMPLETED:
+        return {
+          text: "Claim Reward",
+          className: "bg-green-500 text-white hover:bg-green-600",
+          disabled: false,
+        };
+      default:
+        return {
+          text: "In Progress",
+          className: "bg-gray-200 text-gray-500 cursor-not-allowed",
+          disabled: true,
+        };
+    }
+  };
+
+  const buttonConfig = getButtonConfig();
 
   if (view === "list") {
     return (
-      <div className="border border-gray-300 rounded-xl shadow-sm bg-white text-black hover:shadow-md transition-shadow">
-        {/* Mobile Layout (stacked) */}
-        <div className="block sm:hidden p-4 space-y-3">
-          <div className="flex items-start justify-between">
+      <div className="border border-gray-200 rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow">
+        <div className="p-4">
+          <div className="flex items-center justify-between mb-3">
             <div className="flex items-center space-x-3">
               <div
-                className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                className={`w-2 h-2 rounded-full ${
                   status === QUEST_STATUS.CLAIMED
-                    ? "bg-green-100"
+                    ? "bg-green-500"
                     : status === QUEST_STATUS.COMPLETED
-                    ? "bg-blue-100"
-                    : "bg-orange-100"
+                    ? "bg-blue-500"
+                    : "bg-amber-500"
                 }`}
-              >
-                <div
-                  className={`w-5 h-5 rounded-full ${
-                    status === QUEST_STATUS.CLAIMED
-                      ? "bg-green-600"
-                      : status === QUEST_STATUS.COMPLETED
-                      ? "bg-blue-300"
-                      : "bg-orange-300"
-                  }`}
-                ></div>
-              </div>
-              <div className="flex-1 min-w-0">
-                <h3 className="text-base font-semibold truncate">
-                  {quest.title}
-                </h3>
-              </div>
+              />
+              <h3 className="text-sm font-medium text-gray-800">
+                {quest.title}
+              </h3>
             </div>
+            <span className="text-xs font-medium text-gray-500">
+              {progressPercent.toFixed(0)}%
+            </span>
           </div>
 
-          <div className="relative w-full bg-gray-200 rounded-full h-2 mt-10  overflow-hidden">
-            <div
-              className={`h-full rounded-full transition-all duration-300 ${
-                status === QUEST_STATUS.CLAIMED
-                  ? "bg-green-600"
-                  : status === QUEST_STATUS.COMPLETED
-                  ? "bg-blue-300"
-                  : "bg-orange-300"
-              }`}
-              style={{ width: `${progressPercent}%` }}
-            />
-          </div>
-
-          <div className="flex items-center justify-between">
-            <p className="text-xs text-gray-400">
-              {quest.progress} / {quest.target_value} (
-              {progressPercent.toFixed(0)}%)
-            </p>
-            <button
-              className={`px-4 py-2 rounded-lg text-white text-xs font-medium transition-colors ${
-                status === QUEST_STATUS.CLAIMED
-                  ? "bg-gray-500 cursor-not-allowed"
-                  : status === QUEST_STATUS.COMPLETED
-                  ? "bg-green-500 hover:bg-green-600"
-                  : "bg-gray-400 cursor-not-allowed"
-              }`}
-              onClick={() => onClaim(quest.quest_id)}
-              disabled={status !== QUEST_STATUS.COMPLETED}
-            >
-              {status === QUEST_STATUS.CLAIMED ? "Claimed" : "Claim"}
-            </button>
-          </div>
-        </div>
-
-        {/* Desktop/Tablet Layout (horizontal) */}
-        <div className="hidden sm:flex items-center p-4 lg:p-6 space-x-4 lg:space-x-6">
-          {/* Quest Icon/Status Indicator */}
-          <div
-            className={`w-12 h-12 lg:w-14 lg:h-14 rounded-full flex items-center justify-center flex-shrink-0 ${
-              status === QUEST_STATUS.CLAIMED
-                ? "bg-green-100"
-                : status === QUEST_STATUS.COMPLETED
-                ? "bg-blue-100"
-                : "bg-orange-100"
-            }`}
-          >
-            <div
-              className={`w-6 h-6 lg:w-7 lg:h-7 rounded-full ${
-                status === QUEST_STATUS.CLAIMED
-                  ? "bg-green-600"
-                  : status === QUEST_STATUS.COMPLETED
-                  ? "bg-blue-300"
-                  : "bg-orange-300"
-              }`}
-            ></div>
-          </div>
-
-          {/* Quest Details */}
-          <div className="flex-1 min-w-0">
-            <h3 className="text-lg lg:text-xl font-semibold mb-1 truncate">
-              {quest.title}
-            </h3>
-
-            {/* Progress Bar */}
-            <div className="relative w-full bg-gray-200 rounded-full h-2 lg:h-3 mb-2 overflow-hidden">
+          <div className="mb-3">
+            <div className="relative w-full bg-gray-100 rounded-full h-2 overflow-hidden">
               <div
-                className={`h-full rounded-full transition-all duration-300 ${
+                className={`h-full rounded-full ${
                   status === QUEST_STATUS.CLAIMED
-                    ? "bg-green-600"
+                    ? "bg-green-500"
                     : status === QUEST_STATUS.COMPLETED
-                    ? "bg-blue-300"
-                    : "bg-orange-200"
+                    ? "bg-blue-400"
+                    : "bg-amber-400"
                 }`}
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
-
-            <p className="text-xs lg:text-sm text-gray-400">
-              Progress: {quest.progress} / {quest.target_value} (
-              {progressPercent.toFixed(0)}%)
-            </p>
           </div>
 
-          {/* Action Button */}
-          <div className="flex-shrink-0">
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-gray-500">
+              {progress} / {targetValue}
+            </span>
             <button
-              className={`px-4 lg:px-6 py-2 lg:py-3 rounded-xl text-white text-sm lg:text-base font-medium transition-colors ${
-                status === QUEST_STATUS.CLAIMED
-                  ? "bg-gray-500 cursor-not-allowed"
-                  : status === QUEST_STATUS.COMPLETED
-                  ? "bg-green-500 hover:bg-green-600"
-                  : "bg-gray-400 cursor-not-allowed"
-              }`}
-              onClick={() => onClaim(quest.quest_id)}
-              disabled={status !== QUEST_STATUS.COMPLETED}
+              className={`px-3 py-1.5 rounded-md text-xs font-medium ${buttonConfig.className}`}
+              onClick={() => handleClaim(quest.quest_id)}
+              disabled={buttonConfig.disabled}
             >
-              {status === QUEST_STATUS.CLAIMED ? "Claimed" : "Claim Reward"}
+              {buttonConfig.text}
             </button>
           </div>
         </div>
@@ -146,18 +126,17 @@ export default function QuestCard({ quest, onClaim, view = "grid" }) {
     );
   }
 
-  // Grid view (default)
+  // Default grid view
   return (
-    <div className="border border-gray-300 p-4 sm:p-6 rounded-xl shadow-sm bg-white text-black hover:shadow-lg">
-      {/* Status Badge */}
-      <div className="flex justify-between items-start mb-3 sm:mb-4">
-        <div
-          className={`px-2 sm:px-3 py-1 rounded-full text-xs font-normal ${
+    <div className="border border-gray-200 rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow p-4">
+      <div className="flex justify-between items-start mb-3">
+        <span
+          className={`text-xs px-2 py-1 rounded-md ${
             status === QUEST_STATUS.CLAIMED
-              ? "bg-green-100 text-green-400"
+              ? "bg-green-50 text-green-600"
               : status === QUEST_STATUS.COMPLETED
-              ? "bg-blue-100 text-blue-400"
-              : "bg-orange-100 text-orange-300"
+              ? "bg-blue-50 text-blue-600"
+              : "bg-amber-50 text-amber-600"
           }`}
         >
           {status === QUEST_STATUS.CLAIMED
@@ -165,61 +144,44 @@ export default function QuestCard({ quest, onClaim, view = "grid" }) {
             : status === QUEST_STATUS.COMPLETED
             ? "Completed"
             : "In Progress"}
-        </div>
-        <div
-          className={`w-3 h-3 rounded-full ${
-            status === QUEST_STATUS.CLAIMED
-              ? "bg-green-500"
-              : status === QUEST_STATUS.COMPLETED
-              ? "bg-blue-300"
-              : "bg-orange-300"
-          }`}
-        ></div>
+        </span>
+        <span className="text-xs text-gray-500 bg-gray-50 px-2 py-1 rounded">
+          {questGroup}
+        </span>
       </div>
 
-      <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3 text-gray-800 leading-tight">
+      <h3 className="text-base font-medium text-gray-800 mb-3">
         {quest.title}
       </h3>
 
-      {/* Progress Section */}
-      <div className="mb-3 sm:mb-4">
-        <div className="flex justify-between items-center mb-2">
-          <span className="text-xs sm:text-sm font-medium text-gray-700">
-            Progress
-          </span>
-          <span className="text-xs sm:text-sm font-bold text-gray-400">
-            {progressPercent.toFixed(0)}%
-          </span>
+      <div className="mb-4">
+        <div className="flex justify-between text-xs text-gray-500 mb-1">
+          <span>Progress</span>
+          <span>{progressPercent.toFixed(0)}%</span>
         </div>
-        <div className="relative w-full bg-gray-200 rounded-full h-2 sm:h-3 mb-2 overflow-hidden">
+        <div className="relative w-full bg-gray-100 rounded-full h-2 overflow-hidden mb-1">
           <div
-            className={`h-full rounded-full transition-all duration-500 ${
+            className={`h-full rounded-full ${
               status === QUEST_STATUS.CLAIMED
-                ? "bg-gradient-to-r from-green-500 to-green-600"
+                ? "bg-green-500"
                 : status === QUEST_STATUS.COMPLETED
-                ? "bg-blue-500"
-                : "bg-orange-200"
+                ? "bg-blue-400"
+                : "bg-amber-400"
             }`}
             style={{ width: `${progressPercent}%` }}
           />
         </div>
-        <p className="text-xs sm:text-sm text-gray-500">
-          {quest.progress} / {quest.target_value} completed
+        <p className="text-xs text-gray-500">
+          {progress} of {targetValue} completed
         </p>
       </div>
 
       <button
-        className={`w-full mt-3 sm:mt-4 px-4 py-2 sm:py-3 rounded-xl text-white text-sm sm:text-base font-semibold transition-all duration-200 ${
-          status === QUEST_STATUS.CLAIMED
-            ? "bg-gray-500 cursor-not-allowed"
-            : status === QUEST_STATUS.COMPLETED
-            ? "bg-green-500 hover:bg-green-600 hover:shadow-lg"
-            : "bg-gray-400 cursor-not-allowed"
-        }`}
-        onClick={() => onClaim(quest.quest_id)}
-        disabled={status !== QUEST_STATUS.COMPLETED}
+        className={`w-full py-2 rounded-lg text-sm font-medium ${buttonConfig.className}`}
+        onClick={() => handleClaim(quest.quest_id)}
+        disabled={buttonConfig.disabled}
       >
-        {status === QUEST_STATUS.CLAIMED ? "✓ Claimed" : "Claim Reward"}
+        {buttonConfig.text}
       </button>
     </div>
   );
