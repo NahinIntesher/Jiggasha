@@ -2,7 +2,8 @@ import { cookies } from "next/headers";
 import CourseDetails from "@/components/Courses/CourseDetails";
 
 export default async function SingleCoursePage({ params }) {
-  const { courseId } = params;
+  const resolvedParams = await params;
+  const { courseId } = resolvedParams;
 
   const cookieStore = await cookies();
   const cookieHeader = cookieStore.get("userRegistered");
