@@ -61,10 +61,15 @@ exports.signup = (req, res) => {
       if (results.rows.length > 0) {
         const existingUser = results.rows[0];
         if (existingUser.username === username) {
-          return res.status(400).json({ Error: "Username already taken" });
+          return res.status(400).json({ error: "Username already taken" });
         }
         if (existingUser.email === email) {
-          return res.status(400).json({ Error: "Email already registered" });
+          return res.status(400).json({ error: "Email already registered" });
+        }
+        if (existingUser.mobile_no === mobile) {
+          return res
+            .status(400)
+            .json({ error: "Mobile number already registered" });
         }
       }
 
@@ -88,33 +93,61 @@ exports.signup = (req, res) => {
             (err, results) => {
               if (err) {
                 console.error("Database insertion error:", err);
+                console.log("User registered successfully:", results);
 
                 if (err.code === "23505") {
                   // Check which unique constraint failed
                   const detail = err.detail || "";
+                  const constraint = err.constraint || "";
 
-                  if (detail.includes("username")) {
-                    return res
-                      .status(400)
-                      .json({ error: "Username already taken" });
-                  } else if (detail.includes("email")) {
-                    return res
-                      .status(400)
-                      .json({ error: "Email already taken" });
-                  } else if (detail.includes("mobile")) {
-                    return res
-                      .status(400)
-                      .json({ error: "Mobile number already taken" });
-                  } else {
-                    return res.status(400).json({ error: "Duplicate entry" });
+                  // Check by constraint name (most reliable)
+                  if (constraint.includes("username")) {
+                    return res.status(400).json({
+                      error: "Username already exists",
+                    });
                   }
+
+                  if (constraint.includes("email")) {
+                    return res.status(400).json({
+                      error: "Email already registered",
+                    });
+                  }
+
+                  if (constraint.includes("mobile_no")) {
+                    return res.status(400).json({
+                      error: "Mobile number already registered",
+                    });
+                  }
+
+                  // Fallback: Check by error detail message
+                  if (detail.includes("username")) {
+                    return res.status(400).json({
+                      error: "Username already exists",
+                    });
+                  }
+
+                  if (detail.includes("email")) {
+                    return res.status(400).json({
+                      error: "Email already registered",
+                    });
+                  }
+
+                  if (detail.includes("mobile_no")) {
+                    return res.status(400).json({
+                      error: "Mobile number already registered",
+                    });
+                  }
+
+                  // Generic fallback
+                  return res.status(400).json({
+                    error: "Duplicate entry detected",
+                  });
                 }
 
                 return res
                   .status(500)
                   .json({ Error: "Error registering user" });
               }
-
               return res.status(201).json({
                 status: "Success",
                 message: "User registered successfully",

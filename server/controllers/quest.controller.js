@@ -19,7 +19,6 @@ exports.getIncompleteQuests = async (req, res) => {
 
     const userStats = userStatsResult.rows[0] || {};
     const userQuests = userQuestsResult.rows || [];
-    console.log("User Quests:", userQuests);
     const completedQuestIds = new Set(
       userQuests.filter((q) => q.is_completed).map((q) => q.quest_id)
     );

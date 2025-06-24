@@ -173,14 +173,16 @@ export default function AdminRegistrationPage() {
       newErrors.confirmPassword = "Passwords do not match.";
     }
 
+    // If validation errors exist, show them and return
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
 
+    // Clear errors and proceed with API call
     setErrors({});
+    console.log("Form data is valid");
 
-    // Simulate API call
     try {
       const response = await fetch("http://localhost:8000/signup", {
         method: "POST",
@@ -190,22 +192,33 @@ export default function AdminRegistrationPage() {
         body: JSON.stringify(formData),
         credentials: "include",
       });
+
       const result = await response.json();
-      if (
-        response.status === 400 &&
-        result.Error === "Username already taken"
-      ) {
-        newErrors.username = "Username already taken";
-        setErrors(newErrors);
-      } else if (result.status === "Success") {
+
+      if (response.ok && result.status === "Success") {
+        // Success case
         console.log("Signup successful.");
         router.push("/login");
       } else {
-        setErrors({ general: result.Error || "Signup failed." });
+        // Error case - map backend errors to form fields
+        const errorMessage = result.error || "Signup failed";
+        const apiErrors = {};
+
+        if (errorMessage.includes("Username already exists")) {
+          apiErrors.username = "Username already exists";
+        } else if (errorMessage.includes("Email already registered")) {
+          apiErrors.email = "Email already registered";
+        } else if (errorMessage.includes("Mobile number already registered")) {
+          apiErrors.mobile = "Mobile number already registered";
+        } else {
+          apiErrors.general = errorMessage;
+        }
+
+        setErrors(apiErrors);
       }
     } catch (error) {
       console.error("Error during signup:", error);
-      setErrors({ general: "An error occurred, please try again later." });
+      setErrors({ general: "Network error. Please try again later." });
     }
   };
 
