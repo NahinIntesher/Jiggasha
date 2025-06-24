@@ -72,10 +72,6 @@ export default function SrijonaAI() {
 
       const result = await response.json();
 
-      console.log(result);
-
-      // const result = JSON.parse(resultText);
-
       if (result.status === "Success") {
         setMessages((prevMessages) => [
           {
@@ -132,7 +128,7 @@ export default function SrijonaAI() {
   return (
     <div className="">
       <Header title="Jiggasha AI" />
-      <div className="messageContainer">{renderedMessages}</div>
+      <div className="messageContainer text-black">{renderedMessages}</div>
       <SenderBox
         handleSubmit={handleSubmit}
         handleChange={handleChange}
