@@ -58,17 +58,15 @@ export default function PostCard({
     return time.toLocaleString("en-US", { dateStyle: "long" });
   }
 
-  
-
   return (
-    <div className="postBox bg-white p-6 rounded-xl border-2 border-orange-100 shadow-lg hover:shadow-xl transition-all duration-300 mb-6">
+    <div className="postBox bg-white p-6 rounded-xl border-2 border-gray-300 shadow-md mb-6">
       <div className="profile flex items-center mb-5">
-        <Link href={"/profile/" + posterId} className="profilePicture">
+        <div className="profilePicture">
           <img
             src={posterPicture == null ? dp : posterPicture}
-            className="w-12 h-12 rounded-full object-cover border-3 border-orange-200 hover:border-orange-400 transition-colors"
+            className="w-12 h-12 rounded-full object-cover border-3 border-gray-200 hover:border-gray-400 transition-colors"
           />
-        </Link>
+        </div>
         <div className="profileDetail ml-4">
           <Link
             href={"/profile/" + posterId}
@@ -83,7 +81,7 @@ export default function PostCard({
       </div>
 
       <div className="postContentContainer">
-        <div className="postContent text-gray-700 mb-5 text-base leading-relaxed">
+        <div className="postContent text-black mb-5 text-base leading-relaxed">
           {content}
         </div>
         {postMediaArray && postMediaArray.length > 0 && (
@@ -92,13 +90,6 @@ export default function PostCard({
               <div className="">
                 {postMediaArray.map((media, index) => {
                   const url = media.media_url;
-
-                  const MediaContainer = ({ children }) => (
-                    <div className="media-container my-4 rounded-xl overflow-hidden shadow border-2 border-orange-200 bg-orange-50">
-                      {children}
-                    </div>
-                  );
-
                   if (!url) return null;
 
                   switch (media.media_type) {
@@ -134,11 +125,8 @@ export default function PostCard({
                                   {media.filename || "Audio File"}
                                 </span>
                               </div>
-                              <audio controls className="w-full">
-                                <source
-                                  src={url}
-                                  type={`audio/${url.split(".").pop()}`}
-                                />
+                              <audio controls preload="auto" className="w-full">
+                                <source src={url} type="audio/mpeg" />
                                 Your browser does not support the audio element.
                               </audio>
                             </div>
@@ -152,15 +140,14 @@ export default function PostCard({
                           <MediaContainer>
                             <video
                               controls
+                              preload="metadata"
+                              playsInline
                               className="w-full max-h-[500px] bg-black"
                               poster={
                                 media.thumbnail_url || "/video-thumbnail.jpg"
                               }
                             >
-                              <source
-                                src={url}
-                                type={`video/${url.split(".").pop()}`}
-                              />
+                              <source src={url} type="video/mp4" />
                               Your browser does not support the video tag.
                             </video>
                           </MediaContainer>
@@ -221,76 +208,40 @@ export default function PostCard({
         )}
       </div>
 
-      <div className="postDetails flex items-center text-sm text-orange-600  space-x-6 font-medium">
-        <div className="detail hover:text-orange-800 cursor-pointer transition-colors">
-          {reactionCount} Likes
-        </div>
-        <div className="detail hover:text-orange-800 cursor-pointer transition-colors">
+      <div className="postDetails flex items-center text-sm text-black  space-x-6 font-medium">
+        <div className="detail transition-colors">{reactionCount} Likes</div>
+        <div className="detail transition-colors">
           {postCommentCount} Comments
         </div>
         <div className="detail">{getDate(postTime)}</div>
         <div className="detail">{getPMTime(postTime)}</div>
       </div>
 
-      {/* <div className="postActionBoxContainer flex items-center space-x-3 pt-4 border-t-2 border-orange-100">
-        {isReacted ? (
-          <button
-            className="postActionBox flex items-center space-x-2 px-6 py-3 text-orange-600 bg-orange-50 hover:bg-orange-100 rounded-xl transition-all duration-200 font-semibold border-2 border-orange-200 hover:border-orange-300"
-            onClick={reactPost}
-          >
-            <FaHeart className="text-lg" />
-            <span className="text">Liked</span>
-          </button>
-        ) : (
-          <button
-            className=" flex items-center space-x-2 px-6 py-3 text-gray-600 bg-gray-50 hover:bg-orange-50 hover:text-orange-600 rounded-xl transition-all duration-200 font-semibold border-2 border-gray-200 hover:border-orange-200"
-            onClick={reactPost}
-          >
-            <FaRegHeart className="text-lg" />
-            <span className="text">Like</span>
-          </button>
-        )}
-        <Link
-          href={"/communities/post/" + postId}
-          className="postActionBox flex items-center space-x-2 px-6 py-3 text-gray-600 bg-gray-50 hover:bg-orange-50 hover:text-orange-600 rounded-xl transition-all duration-200 font-semibold border-2 border-gray-200 hover:border-orange-200"
-        >
-          <FaComment className="text-lg" />
-          <span className="text">Comment</span>
-        </Link>
-      </div> */}
-
       {commentators && commentators.length > 0 && (
-        <div className="commentsSection mt-4 pt-5 border-t-2 border-orange-100">
+        <div className="commentsSection mt-4 pt-5 border-t-2 border-gray-300">
           <h4 className="text-base font-bold text-orange-700 mb-4">
             Comments ({commentators.length})
           </h4>
           <div className="space-y-4">
-            {commentators.slice(0, 3).map((commentator, index) => (
+            {commentators.map((commentator, index) => (
               <div
                 key={index}
                 className="commentBox flex items-start space-x-3 hover:bg-orange-25 p-2 rounded-lg transition-colors"
               >
-                <Link
-                  href={"/profile/" + commentator.commentator_name}
-                  className="profilePicture flex-shrink-0"
-                >
-                  <img
-                    src={
-                      commentator.user_picture == null
-                        ? dp
-                        : commentator.user_picture
-                    }
-                    className="w-9 h-9 rounded-full object-cover border-2 border-orange-200 hover:border-orange-400 transition-colors"
-                  />
-                </Link>
+                <div className="profilePicture">
+                  {commentator?.user_picture ? (
+                    <img src={commentator.user_picture} alt="User" />
+                  ) : (
+                    <div className="psudoProfilePicture">
+                      <span>{commentator?.full_name?.[0] || "U"}</span>
+                    </div>
+                  )}
+                </div>
                 <div className="commentContentBox flex-1">
-                  <div className="bg-gradient-to-r from-orange-50 to-orange-100 rounded-xl px-4 py-3 border border-orange-200">
-                    <Link
-                      href={"/profile/" + commentator.commentator_name}
-                      className="name text-sm font-bold text-orange-800 hover:text-orange-600 transition-colors"
-                    >
+                  <div className="bg-orange-100 rounded-xl px-4 py-3 border border-orange-200">
+                    <div className="name text-sm font-bold text-orange-800 hover:text-orange-600 transition-colors">
                       {commentator.full_name}
-                    </Link>
+                    </div>
                     <div className="text text-sm text-gray-700 mt-1 leading-relaxed">
                       {commentator.comment}
                     </div>
@@ -307,3 +258,8 @@ export default function PostCard({
     </div>
   );
 }
+const MediaContainer = ({ children }) => (
+  <div className="media-container my-4 rounded-xl overflow-hidden shadow border-2 border-orange-200 bg-orange-50">
+    {children}
+  </div>
+);

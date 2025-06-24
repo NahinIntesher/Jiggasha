@@ -142,35 +142,60 @@ exports.getSingleCommunities = async (req, res) => {
   try {
     const { rows } = await connection.query(
       `SELECT
-        c.community_id,
-        c.name,
-        c.description,
-        c.created_at,
-        c.subject,
-        c.class_level,
-        c.approval_status,
-        c.admin_id,
-        u.full_name AS admin_name,
+          c.community_id,
+          c.name,
+          c.description,
+          c.created_at,
+          c.subject,
+          c.class_level,
+          c.admin_id,
+          
+          -- Admin Info
+          u.full_name AS admin_name,
+          u.username AS username,
           CASE 
-              WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/users/profile/', u.user_picture)
-              ELSE NULL
+            WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
+            ELSE NULL
           END AS admin_picture,
-        CASE
-          WHEN c.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/communities/image/', c.community_id)
-          ELSE NULL
-        END AS cover_image_url
-      FROM communities c
-      LEFT JOIN users u 
+
+          -- Cover Image
+          CASE 
+            WHEN c.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/communities/image/', c.community_id)
+            ELSE NULL
+          END AS cover_image_url,
+
+          -- Total Members
+          COALESCE(mc.total_members, 0) AS total_members,
+
+          -- Current User Info
+          cu.full_name AS current_user_name,
+          cu.username AS current_user_username,
+          CASE 
+            WHEN cu.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', cu.user_id)
+            ELSE NULL
+          END AS current_user_picture
+
+        FROM communities c
+
+        -- Admin Info Join
+        LEFT JOIN users u
           ON c.admin_id = u.user_id
-      LEFT JOIN (
-        SELECT community_id, COUNT(*) AS total_members
-        FROM community_members
-        GROUP BY community_id
-      ) AS member_count
-        ON c.community_id = member_count.community_id
-      WHERE c.community_id = $1;
+
+        -- Member Count Subquery
+        LEFT JOIN (
+          SELECT community_id, COUNT(*) AS total_members
+          FROM community_members
+          GROUP BY community_id
+        ) mc ON c.community_id = mc.community_id
+
+        -- Current User Info Join
+        LEFT JOIN users cu
+          ON cu.user_id = $2
+
+        WHERE c.community_id = $1;
+
       `,
-      [communityId]
+      [communityId, userId]
     );
 
     if (!rows.length) return res.status(404).json({ status: "404" });
@@ -413,7 +438,7 @@ exports.getSinglePost = async (req, res) => {
         -- Poster (Admin/User) information
         u.full_name AS author_name,
         CASE
-          WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/users/profile/', u.user_picture)
+          WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
           ELSE NULL
         END AS author_picture,
 
@@ -423,7 +448,7 @@ exports.getSinglePost = async (req, res) => {
             'full_name', uc.full_name,
             'commentator_name', uc.username,
             'user_picture', CASE
-              WHEN uc.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/users/profile/', uc.user_picture)
+              WHEN uc.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', uc.user_id)
               ELSE NULL
             END,
             'comment', cc.content,
@@ -440,7 +465,7 @@ exports.getSinglePost = async (req, res) => {
             'full_name', ur.full_name,
             'reactor_name', ur.username,
             'user_picture', CASE
-              WHEN ur.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/users/profile/', ur.user_picture)
+              WHEN ur.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', ur.user_id)
               ELSE NULL
             END,
             'reacted_at', cr.reacted_at
@@ -629,62 +654,82 @@ function getMimeTypeFromMediaType(mediaType) {
 }
 
 exports.postReaction = async function (req, res) {
-  const token = req.cookies.userRegistered;
-  if (token) {
-    const userId = req.userId;
-    let { postId } = req.body;
+  const userId = req.userId;
+  const { postId } = req.body;
 
-    console.log(postId);
-    console.log(userId);
-
-    connection.query(
-      `
-      SELECT * 
-      FROM community_post_reactions 
-      WHERE post_id = ? AND reactor_id = ?`,
-      [postId, userId],
-      function (error, result) {
-        if (error) throw error;
-        if (result.length <= 0) {
-          connection.query(
-            `INSERT INTO community_post_reactions(post_id, reactor_id) 
-          VALUES(?, ?)`,
-            [postId, userId],
-            function (error, result) {
-              if (error) throw error;
-              return res.json({ status: "Success", message: "Liked" });
-            }
-          );
-        } else {
-          connection.query(
-            `DELETE FROM community_post_reactions 
-            WHERE post_id = ? AND reactor_id = ?`,
-            [postId, userId],
-            function (error, result) {
-              if (error) throw error;
-              return res.json({ status: "Success", message: "Unliked" });
-            }
-          );
-        }
+  connection.query(
+    `SELECT * FROM community_post_reactions WHERE post_id = $1 AND reactor_id = $2`,
+    [postId, userId],
+    function (error, result) {
+      if (error) {
+        console.error("Error fetching reaction:", error);
+        return res
+          .status(500)
+          .json({ status: "Error", message: "Server error" });
       }
-    );
-  }
+
+      if (result.rows.length === 0) {
+        connection.query(
+          `INSERT INTO community_post_reactions (post_id, reactor_id) VALUES ($1, $2)`,
+          [postId, userId],
+          function (error, result) {
+            if (error) {
+              console.error("Error inserting reaction:", error);
+              return res
+                .status(500)
+                .json({ status: "Error", message: "Server error" });
+            }
+
+            return res.json({ status: "Success", message: "Liked" });
+          }
+        );
+      } else {
+        connection.query(
+          `DELETE FROM community_post_reactions WHERE post_id = $1 AND reactor_id = $2`,
+          [postId, userId],
+          function (error, result) {
+            if (error) {
+              console.error("Error deleting reaction:", error);
+              return res
+                .status(500)
+                .json({ status: "Error", message: "Server error" });
+            }
+
+            return res.json({ status: "Success", message: "Unliked" });
+          }
+        );
+      }
+    }
+  );
 };
 
 exports.postComment = async function (req, res) {
   const userId = req.userId;
   const { postId, commentContent } = req.body;
+  console.log(postId, commentContent, userId);
 
-  connection.query(
-    `INSERT INTO community_post_comments (comment_content, post_id, commentator_id)
-          VALUES (?, ?, ?)`,
-    [commentContent, postId, userId],
-    (err, results) => {
-      if (err) throw err;
+  try {
+    connection.query(
+      `INSERT INTO community_post_comments (content, post_id, commentator_id)
+       VALUES ($1, $2, $3)`,
+      [commentContent, postId, userId],
+      (err, results) => {
+        if (err) {
+          console.error("Insert error:", err);
+          return res
+            .status(500)
+            .json({ status: "Error", Error: "Failed to save comment" });
+        }
 
-      return res.json({ status: "Success" });
-    }
-  );
+        return res.json({ status: "Success" });
+      }
+    );
+  } catch (err) {
+    console.error("Unhandled exception:", err);
+    return res
+      .status(500)
+      .json({ status: "Error", Error: "Internal server error" });
+  }
 };
 
 exports.searchCommunities = async (req, res) => {

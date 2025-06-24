@@ -168,7 +168,6 @@ body {
   object-fit: cover;
 }
 
-
 .sidebar .profile .profilePicture .psudoProfilePicture {
   width: 100%;
   text-align: center;
@@ -404,7 +403,7 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.01), 0px 2px 6px rgba(0, 0, 0, 0.02),
     0px 4px 12px rgba(0, 0, 0, 0.04);
-    z-index: 500;
+  z-index: 500;
   padding: 4px;
 }
 
@@ -440,7 +439,12 @@ body {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.header .iconContainer .searchBox .searchResultContainer .searchResult .previewImage {
+.header
+  .iconContainer
+  .searchBox
+  .searchResultContainer
+  .searchResult
+  .previewImage {
   flex: 0 0 70px;
   width: 70px;
   height: 70px;
@@ -450,7 +454,12 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.header .iconContainer .searchBox .searchResultContainer .searchResult .psudoPreviewImage {
+.header
+  .iconContainer
+  .searchBox
+  .searchResultContainer
+  .searchResult
+  .psudoPreviewImage {
   flex: 0 0 70px;
   width: 70px;
   height: 70px;
@@ -463,14 +472,25 @@ body {
   color: rgb(250, 135, 0, 0.6);
   font-size: 40px;
 }
-.header .iconContainer .searchBox .searchResultContainer .searchResult .details {
+.header
+  .iconContainer
+  .searchBox
+  .searchResultContainer
+  .searchResult
+  .details {
   flex: 1;
   display: flex;
   flex-direction: column;
   margin: 4px;
 }
 
-.header .iconContainer .searchBox .searchResultContainer .searchResult .details .name {
+.header
+  .iconContainer
+  .searchBox
+  .searchResultContainer
+  .searchResult
+  .details
+  .name {
   font-size: 16px;
   font-weight: 600;
   margin: 0 4px;
@@ -482,7 +502,13 @@ body {
   text-overflow: ellipsis;
 }
 
-.header .iconContainer .searchBox .searchResultContainer .searchResult .details .description {
+.header
+  .iconContainer
+  .searchBox
+  .searchResultContainer
+  .searchResult
+  .details
+  .description {
   font-size: 13px;
   font-weight: 400;
   margin: 0 4px;
@@ -504,8 +530,6 @@ body {
   font-size: 100px;
   margin: 16px;
 }
-
-
 
 .header .iconContainer .searchBox .icon {
   font-size: 16px;
@@ -1305,7 +1329,7 @@ body {
   display: flex;
 }
 
-.messageSendBox .buttonContainer .attachButton, 
+.messageSendBox .buttonContainer .attachButton,
 .givePostBox .buttonContainer .attachButton {
   width: 38px;
   height: 38px;
@@ -1336,7 +1360,7 @@ body {
   background-color: rgb(0, 0, 0, 0.2);
 }
 
-.messageSendBox .buttonContainer .sendButton, 
+.messageSendBox .buttonContainer .sendButton,
 .givePostBox .buttonContainer .sendButton {
   border-radius: 8px;
   display: flex;
@@ -1352,7 +1376,7 @@ body {
   padding: 4px 12px;
 }
 
-.messageSendBox .buttonContainer .sendButton .icon, 
+.messageSendBox .buttonContainer .sendButton .icon,
 .givePostBox .buttonContainer .sendButton .icon {
   margin: 2px 4px;
   font-size: 16px;
@@ -1703,7 +1727,6 @@ body {
 
 .communityBox .information {
   margin: 0 4px;
-
 }
 
 .blogBox .information .icon,
@@ -2047,7 +2070,6 @@ body {
   flex-direction: column;
 }
 
-
 .leaderboardUserCard {
   display: flex;
   flex-direction: row;
@@ -2154,8 +2176,6 @@ body {
   margin: 0 2px;
 }
 
-
-
 .settingsContainer {
   background-color: var(--lightBackground);
   border-radius: 16px;
@@ -2196,7 +2216,7 @@ body {
 }
 
 .settingsContainer .delete {
-  color: #cc3333
+  color: #cc3333;
 }
 
 .settingOption .name {
@@ -2204,7 +2224,6 @@ body {
   font-weight: 500;
   margin: 8px;
 }
-
 
 /* Notification */
 
@@ -2220,17 +2239,15 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.01), 0px 2px 6px rgba(0, 0, 0, 0.02),
     0px 4px 12px rgba(0, 0, 0, 0.04);
-    z-index: 500;
+  z-index: 500;
   padding: 4px;
 }
 
 .notificationContainer .title {
   font-size: 20px;
   font-weight: 700;
-  padding: 12px 16px;  
+  padding: 12px 16px;
 }
-
-
 
 .ql-toolbar {
   border-radius: 12px 12px 0 0;
@@ -2399,7 +2416,6 @@ body {
 }
 
 @media (max-width: 600px) {
-
   .card,
   .gridBox {
     flex: 0 0 calc(100% - 16px);
@@ -2450,6 +2466,19 @@ body {
 .givePostBox .profilePicture {
   width: 60px;
   height: 60px;
+  border-radius: 50%;
+  margin: 2px 4px;
+  margin-right: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.commentBox .psudoProfilePicture {
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   margin: 2px 4px;
   margin-right: 8px;
@@ -2668,10 +2697,12 @@ body {
 .givePostBox .postButton {
   display: inline-block;
   vertical-align: middle;
-  background-image: radial-gradient(80px 30px at left top,
+  background-image: radial-gradient(
+      80px 30px at left top,
       rgba(var(--light), 0.8),
       rgba(var(--light), 0.6),
-      transparent),
+      transparent
+    ),
     linear-gradient(rgb(var(--dark)), rgb(var(--medium)));
   color: #ffffff;
   padding: 10px 28px;
@@ -2897,7 +2928,6 @@ body {
 }
 
 @media (max-width: 480px) {
-
   .givePostBox .profilePicture,
   .postBox .profilePicture {
     margin-bottom: 10px;
@@ -2927,7 +2957,6 @@ body {
 }
 
 @media (max-width: 768px) {
-
   .givePostBox,
   .postBox {
     max-width: 90%;
@@ -2973,6 +3002,3 @@ body {
     font-size: 14px;
   }
 }
-
-
-

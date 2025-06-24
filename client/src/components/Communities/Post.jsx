@@ -23,36 +23,53 @@ export default function Post() {
     setCommentContent(value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (commentContent == "") {
-      alert("Write something in comment box!");
+    if (!commentContent.trim()) {
+      alert("Write something in the comment box!");
       return;
     }
 
-    fetch("http://localhost:8000/communities/post/comment", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({
-        commentContent: commentContent,
-        postId: postId,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === "Success") {
-          console.log("Comment Success!");
-          setCommentContent("");
-          setUpdatePost((prevData) => prevData + 1);
-        } else {
-          alert(data.Error);
+    try {
+      const response = await fetch(
+        "http://localhost:8000/communities/post/comments",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            commentContent,
+            postId,
+          }),
         }
-      })
-      .catch((err) => console.error("Error submitting comment:", err));
+      );
+
+      const contentType = response.headers.get("content-type");
+
+      let data;
+      if (contentType && contentType.includes("application/json")) {
+        data = await response.json();
+      } else {
+        const text = await response.text();
+        console.error("Non-JSON response:", text);
+        alert("Unexpected response from server.");
+        return;
+      }
+
+      if (response.ok && data.status === "Success") {
+        console.log("Comment submitted successfully!");
+        setCommentContent("");
+        setUpdatePost((prev) => prev + 1);
+      } else {
+        alert(data?.Error || "Failed to submit comment.");
+      }
+    } catch (error) {
+      console.error("Error submitting comment:", error);
+      alert("Something went wrong while submitting your comment.");
+    }
   };
 
   useEffect(() => {
@@ -99,33 +116,25 @@ export default function Post() {
             commentators={commentators}
           />
         )}
-        <div className="giveCommentBox bg-white rounded-xl shadow-sm border border-orange-100 p-4 mt-6">
+        <div className="giveCommentBox bg-white rounded-xl shadow-sm border border-gray-300 p-4 mt-6">
           <form onSubmit={handleSubmit} className="flex items-start gap-3">
-            {/* Profile Picture */}
-            <div className="profilePicture shrink-0">
-              <img
-                src={post.author_picture == null ? dp : post.author_picture}
-                className="w-10 h-10 rounded-full object-cover border-2 border-orange-200"
-              />
-            </div>
-
             {/* Comment Input Area */}
-            <div className="flex-1 space-y-3">
+            <div className="flex-1">
               <textarea
                 id="content"
                 name="content"
                 placeholder="Share your thoughts..."
                 onChange={handleChange}
                 value={commentContent}
-                className="w-full p-3 text-gray-800 border border-orange-200 rounded-2xl  focus:ring-orange-300 focus:border-orange-300 outline-none"
+                className="w-full p-3 text-gray-800 border border-gray-300 rounded-lg  outline-none"
                 rows="3"
               />
 
               <div className="flex justify-end">
                 <button
-                  className={`px-5 py-2 rounded-xl font-medium transition-all ${
+                  className={`px-5 py-2 rounded-xl font-medium transition-all mt-6 ${
                     commentContent
-                      ? "bg-orange-400 hover:bg-orange-500 text-white shadow-md shadow-orange-200 transform hover:scale-105"
+                      ? "bg-orange-400 text-white hover:bg-orange-300"
                       : "bg-orange-100 text-orange-300 cursor-not-allowed"
                   }`}
                   type="submit"

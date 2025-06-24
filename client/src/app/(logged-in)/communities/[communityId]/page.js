@@ -31,6 +31,7 @@ import {
 } from "react-icons/fa6";
 import NotFound from "@/components/ui/NotFound";
 import Link from "next/link";
+import Loading from "@/components/ui/Loading";
 
 export default function SingleCommunity() {
   const { communityId } = useParams();
@@ -42,11 +43,14 @@ export default function SingleCommunity() {
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isReacted, setIsReacted] = useState(false);
+  const [reactionCount, setReactionCount] = useState(0);
+  const [updatePost, setUpdatePost] = useState(0);
 
   useEffect(() => {
     fetchCommunityData();
     fetchPosts();
-  }, [communityId]);
+  }, [communityId, isReacted]);
 
   const fetchCommunityData = () => {
     fetch("http://localhost:8000/communities/single/" + communityId, {
@@ -96,8 +100,6 @@ export default function SingleCommunity() {
         formData.append("media", file);
       });
 
-      console.log("Creating post for community:", formData);
-
       const response = await fetch(
         "http://localhost:8000/communities/newPost",
         {
@@ -138,27 +140,29 @@ export default function SingleCommunity() {
     alert("Report feature is not implemented yet.");
   };
 
-  function reactPost({ postId }) {
+  function reactPost(postId) {
     fetch("http://localhost:8000/communities/post/react", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ postId, commentContent }),
+      credentials: "include",
+      cache: "no-cache",
+      body: JSON.stringify({ postId }),
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.status === "Success") {
           if (data.message === "Liked") {
             setIsReacted(true);
-            setReactionCount((prevCount) => prevCount + 1);
+            setReactionCount((prev) => prev + 1);
           } else {
             setIsReacted(false);
-            setReactionCount((prevCount) => prevCount - 1);
+            setReactionCount((prev) => prev - 1);
           }
-          setUpdatePost((prevData) => prevData + 1);
+          setUpdatePost((prev) => prev + 1);
         } else {
-          alert(data.Error);
+          alert(data.message || "Something went wrong");
         }
       })
       .catch((err) => console.error("Error reacting to post:", err));
@@ -184,10 +188,7 @@ export default function SingleCommunity() {
     });
   };
 
-  if (loading)
-    return (
-      <div style={{ textAlign: "center", padding: "50px" }}>Loading...</div>
-    );
+  if (loading) return <Loading />;
 
   return (
     <>
@@ -270,11 +271,11 @@ export default function SingleCommunity() {
       {/* Give Post Box */}
       <div className="givePostBox">
         <div className="profilePicture">
-          {community?.admin_picture ? (
-            <img src={community.admin_picture} alt="Admin" />
+          {community?.current_user_picture ? (
+            <img src={community.current_user_picture} alt="User" />
           ) : (
             <div className="psudoProfilePicture">
-              {community?.admin_name?.[0]}
+              {community?.current_user_name?.[0]}
             </div>
           )}
         </div>
@@ -430,17 +431,15 @@ export default function SingleCommunity() {
       <div className="miniBreak" />
 
       {/* Posts List */}
-      <div className="postBoxContainer">
+      <div className="postBoxContainer ">
         {posts.length === 0 ? (
-          <NotFound
-            title={"No Posts Yet"}
-            description={
-              "This community is just getting started. Be the first to share something!"
-            }
-          />
+          <NotFound type="post" />
         ) : (
           posts.map((post) => (
-            <div key={post.post_id} className="postBox">
+            <div
+              key={post.post_id}
+              className="postBox border border-gray-300 rounded-lg shadow-sm"
+            >
               <div className="reportButton" onClick={handleReport}>
                 <FaFlag className="icon" />
                 <span className="text">Report</span>
@@ -486,13 +485,6 @@ export default function SingleCommunity() {
                     <div className="">
                       {post.media.map((media, index) => {
                         const url = media.media_url;
-
-                        const MediaContainer = ({ children }) => (
-                          <div className="media-container my-4 rounded-xl overflow-hidden shadow border-2 border-orange-200 bg-orange-50">
-                            {children}
-                          </div>
-                        );
-
                         if (!url) return null;
 
                         switch (media.media_type) {
@@ -528,11 +520,12 @@ export default function SingleCommunity() {
                                         {media.filename || "Audio File"}
                                       </span>
                                     </div>
-                                    <audio controls className="w-full">
-                                      <source
-                                        src={url}
-                                        type={`audio/${url.split(".").pop()}`}
-                                      />
+                                    <audio
+                                      controls
+                                      preload="auto"
+                                      className="w-full"
+                                    >
+                                      <source src={url} type="audio/mpeg" />
                                       Your browser does not support the audio
                                       element.
                                     </audio>
@@ -547,16 +540,15 @@ export default function SingleCommunity() {
                                 <MediaContainer>
                                   <video
                                     controls
+                                    preload="metadata"
+                                    playsInline
                                     className="w-full max-h-[500px] bg-black"
                                     poster={
                                       media.thumbnail_url ||
                                       "/video-thumbnail.jpg"
                                     }
                                   >
-                                    <source
-                                      src={url}
-                                      type={`video/${url.split(".").pop()}`}
-                                    />
+                                    <source src={url} type="video/mp4" />
                                     Your browser does not support the video tag.
                                   </video>
                                 </MediaContainer>
@@ -625,7 +617,7 @@ export default function SingleCommunity() {
               <div className="postActionBoxContainer">
                 {post.is_reacted ? (
                   <div
-                    className="postActionBox "
+                    className="postActionBox liked"
                     onClick={() => reactPost(post.post_id)}
                   >
                     <FaThumbsUp className="icon" />
@@ -655,3 +647,8 @@ export default function SingleCommunity() {
     </>
   );
 }
+const MediaContainer = ({ children }) => (
+  <div className="media-container my-4 rounded-xl overflow-hidden shadow border-2 border-orange-200 bg-orange-50">
+    {children}
+  </div>
+);
