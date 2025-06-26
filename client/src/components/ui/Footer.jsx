@@ -6,10 +6,10 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-white text-xl font-semibold mb-4">জিজ্ঞাসা</h3>
+            <h3 className="text-white text-xl font-bold mb-4">Jiggasha</h3>
             <p className="mb-4">
-              গেম-ভিত্তিক শেখার মাধ্যমে শিক্ষাকে উত্তেজনাপূর্ণ, গতিশীল এবং
-              প্রতিযোগিতামূলক করে তোলা
+              Making education exciting, dynamic, and competitive through
+              game-based learning
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-400 hover:text-white">
@@ -25,78 +25,80 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-white text-lg font-medium mb-4">গেম মোড</h4>
+            <h4 className="text-white text-lg font-medium mb-4">Game Modes</h4>
             <ul className="space-y-2">
               <li>
                 <a href="#" className="hover:text-white transition">
-                  ব্যাটল রয়্যাল
+                  Battle Royale
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-white transition">
-                  পেয়ার টু পেয়ার
+                  Pair To Pair Battle
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-white transition">
-                  ফ্রেন্ডলি ব্যাটল
+                  Friendly Battle
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-white transition">
-                  লিডারবোর্ড
+                  Leaderboard
                 </a>
               </li>
             </ul>
           </div>
 
           <div>
-            <h4 className="text-white text-lg font-medium mb-4">শিক্ষণ</h4>
+            <h4 className="text-white text-lg font-medium mb-4">Educational</h4>
             <ul className="space-y-2">
               <li>
                 <a href="#" className="hover:text-white transition">
-                  কোর্স
+                  Course
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-white transition">
-                  এআই সহকারী
+                  AI Assistant
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-white transition">
-                  দৈনিক কুইজ
+                  Daily Quizzes
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-white transition">
-                  জ্ঞান ব্লগ
+                  Knowledge Blogs
                 </a>
               </li>
             </ul>
           </div>
 
           <div>
-            <h4 className="text-white text-lg font-medium mb-4">কোম্পানি</h4>
+            <h4 className="text-white text-lg font-medium mb-4">
+              Organization
+            </h4>
             <ul className="space-y-2">
               <li>
                 <a href="#" className="hover:text-white transition">
-                  আমাদের সম্পর্কে
+                  About Us
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-white transition">
-                  যোগাযোগ
+                  Contact Us
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-white transition">
-                  ক্যারিয়ার
+                  Career
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-white transition">
-                  গোপনীয়তা নীতি
+                  Privacy Policy
                 </a>
               </li>
             </ul>
@@ -105,7 +107,7 @@ export default function Footer() {
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
           <p>
-            &copy; {new Date().getFullYear()} জিজ্ঞাসা। সর্বস্বত্ব সংরক্ষিত।
+            &copy; {new Date().getFullYear()} Jiggasha. All rights reserved.
           </p>
         </div>
       </div>

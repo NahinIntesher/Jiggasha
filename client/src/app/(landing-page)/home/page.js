@@ -86,8 +86,7 @@ export default function Home() {
       <section
         className="relative bg-gradient-to-r from-orange-600 to-orange-400 h-screen flex items-center justify-center text-center px-6 bg-cover bg-center"
         style={{
-          backgroundImage:
-            "url('/images/bgJiggasha.jpg')",
+          backgroundImage: "url('/images/bgJiggasha.jpg')",
           backgroundColor: "rgba(255, 140, 0, 0.3)",
           backgroundBlendMode: "multiply",
           backgroundSize: "cover",
@@ -103,7 +102,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            জিজ্ঞাসা
+            Jiggasha
           </motion.h1>
 
           <motion.p
@@ -112,7 +111,7 @@ export default function Home() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            যেখানে শেখা খেলার মতো আনন্দদায়ক
+            Where learning feels like playing
           </motion.p>
 
           <motion.p
@@ -121,8 +120,8 @@ export default function Home() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            প্রতিটি পাঠকে চ্যালেঞ্জে রূপান্তর করুন, প্রতিটি জয় হোক শিক্ষার নতুন
-            ধাপ
+            Turn every lesson into a challenge, and every victory into a new
+            step in learning
           </motion.p>
 
           <motion.div
@@ -137,7 +136,7 @@ export default function Home() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              বৈশিষ্ট্য দেখুন
+              View Features
               <ChevronRight className="ml-2" />
             </motion.a>
             <motion.a
@@ -146,7 +145,7 @@ export default function Home() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              এখনই যোগ দিন
+              Join Now
             </motion.a>
           </motion.div>
         </div>
@@ -172,18 +171,18 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6 text-center">
           <FadeIn>
             <h2 className="text-3xl font-bold text-gray-800 mb-4">
-              কেন <span className="text-orange-600">জিজ্ঞাসা</span>?
+              Why <span className="text-orange-600">Jiggasha</span>?
             </h2>
           </FadeIn>
 
           <FadeIn delay={0.2}>
             <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
-              জিজ্ঞাসা মানে{" "}
+              Jiggasha means{" "}
               <span className="font-semibold">
-                প্রশ্ন, কৌতূহল এবং শেখার ইচ্ছা
+                questions, curiosity, and the desire to learn
               </span>
-              । আমাদের প্ল্যাটফর্ম শিক্ষার্থীদের প্রশ্ন করতে, বিষয়গুলি অন্বেষণ
-              করতে এবং ইন্টারেক্টিভ শিখতে উৎসাহিত করে।
+              . Our platform encourages students to ask questions, explore
+              topics, and learn interactively.
             </p>
           </FadeIn>
 
@@ -200,10 +199,12 @@ export default function Home() {
                 <div className="h-16 w-16 bg-orange-100 rounded-full flex items-center justify-center mb-4 mx-auto">
                   <FaGamepad className="text-orange-600 text-2xl" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">গেম-ভিত্তিক শেখা</h3>
+                <h3 className="text-xl font-semibold mb-2">
+                  Game-Based Learning
+                </h3>
                 <p className="text-gray-600">
-                  প্রতিটি পাঠকে একটি উত্তেজনাপূর্ণ চ্যালেঞ্জে রূপান্তর করুন যা
-                  শিক্ষার্থীদের আরও শিখতে অনুপ্রাণিত করে
+                  Turn every lesson into an exciting challenge that inspires
+                  students to learn more.
                 </p>
               </motion.div>
             </SlideIn>
@@ -221,11 +222,11 @@ export default function Home() {
                   <Users className="text-orange-600 text-2xl" />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">
-                  প্রতিযোগিতামূলক মনোভাব
+                  Competitive Spirit
                 </h3>
                 <p className="text-gray-600">
-                  বন্ধুদের সাথে চ্যালেঞ্জ করুন, সহপাঠীদের সাথে প্রতিযোগিতা করুন
-                  এবং শিখার সময় লিডারবোর্ডে উঠুন
+                  Challenge friends, compete with classmates, and climb the
+                  leaderboard while learning.
                 </p>
               </motion.div>
             </FadeIn>
@@ -242,10 +243,10 @@ export default function Home() {
                 <div className="h-16 w-16 bg-orange-100 rounded-full flex items-center justify-center mb-4 mx-auto">
                   <BrainCircuit className="text-orange-600 text-2xl" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">এআই সহকারী</h3>
+                <h3 className="text-xl font-semibold mb-2">AI Assistant</h3>
                 <p className="text-gray-600">
-                  ব্যক্তিগতকৃত শিক্ষণ সহায়তা এবং আপনার প্রশ্নের তাৎক্ষণিক উত্তর
-                  পান
+                  Get personalized learning support and instant answers to your
+                  questions.
                 </p>
               </motion.div>
             </SlideIn>
@@ -258,7 +259,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6">
           <FadeIn>
             <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
-              উত্তেজনাপূর্ণ <span className="text-orange-600">গেম মোড</span>
+              Exciting <span className="text-orange-600">Game Modes</span>
             </h2>
           </FadeIn>
 
@@ -279,12 +280,12 @@ export default function Home() {
                   </motion.div>
                 </div>
                 <h3 className="text-2xl font-semibold text-center text-gray-800 mb-4">
-                  ব্যাটল রয়্যাল
+                  Battle Royale
                 </h3>
                 <p className="text-gray-700 text-center">
-                  ১০-১২ জন শিক্ষার্থী একাডেমিক বিষয়ে প্রতিযোগিতা করবে বহু
-                  রাউন্ডের মাধ্যমে। প্রতিটি রাউন্ডে শেষের দিকের শিক্ষার্থীরা বাদ
-                  পড়বে। শেষ পর্যন্ত যারা টিকে থাকবে তারা জয়ী হবে!
+                  10-12 students compete academically over multiple rounds.
+                  Students near the bottom get eliminated each round. Those who
+                  survive till the end win!
                 </p>
               </motion.div>
             </SlideIn>
@@ -311,12 +312,11 @@ export default function Home() {
                   </motion.div>
                 </div>
                 <h3 className="text-2xl font-semibold text-center text-gray-800 mb-4">
-                  পেয়ার টু পেয়ার ব্যাটল
+                  Pair-to-Pair Battle
                 </h3>
                 <p className="text-gray-700 text-center">
-                  দুইজন শিক্ষার্থী ৪ রাউন্ডে প্রতিযোগিতা করবে, প্রত্যেকে ২
-                  রাউন্ডের বিষয় নির্বাচন করবে। আপনার জ্ঞানকে সরাসরি পরীক্ষা
-                  করুন!
+                  Two students compete in 4 rounds, each selecting 2 subjects.
+                  Test your knowledge head-on!
                 </p>
               </motion.div>
             </FadeIn>
@@ -336,11 +336,11 @@ export default function Home() {
                   </motion.div>
                 </div>
                 <h3 className="text-2xl font-semibold text-center text-gray-800 mb-4">
-                  ফ্রেন্ডলি ব্যাটল
+                  Friendly Battle
                 </h3>
                 <p className="text-gray-700 text-center">
-                  রুম তৈরি করুন এবং বন্ধুদের নির্দিষ্ট একাডেমিক বিষয়ে চ্যালেঞ্জ
-                  করুন। একসাথে শেখা কখনও এত মজার ছিল না!
+                  Create a room and challenge your friends on specific academic
+                  topics. Learning together has never been this fun!
                 </p>
               </motion.div>
             </SlideIn>
@@ -353,7 +353,8 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6">
           <FadeIn>
             <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
-              সম্পূর্ণ <span className="text-orange-600">শিক্ষণ বৈশিষ্ট্য</span>
+              Complete{" "}
+              <span className="text-orange-600">Learning Features</span>
             </h2>
           </FadeIn>
 
@@ -374,12 +375,14 @@ export default function Home() {
                   >
                     <BookOpen className="text-orange-600 text-xl" />
                   </motion.div>
-                  <h3 className="text-xl font-semibold">এআই সহকারী সহ কোর্স</h3>
+                  <h3 className="text-xl font-semibold">
+                    Courses with AI Assistant
+                  </h3>
                 </div>
                 <p className="text-gray-600">
-                  ক্লাস ৬-১২, বিশ্ববিদ্যালয় ভর্তি এবং স্নাতক পর্যায়ের জন্য
-                  সম্পূর্ণ কোর্স। তাৎক্ষণিক প্রশ্নের জন্য ভিডিও পাশে এআই সহকারী
-                  উপলব্ধ।
+                  Complete courses for classes 6-12, university admission, and
+                  undergraduate level. AI assistant available alongside videos
+                  for instant questions.
                 </p>
               </motion.div>
             </ScaleIn>
@@ -406,12 +409,12 @@ export default function Home() {
                     <FaChartLine className="text-orange-600 text-xl" />
                   </motion.div>
                   <h3 className="text-xl font-semibold">
-                    দৈনিক অগ্রগতি ও কুইজ
+                    Daily Progress & Quizzes
                   </h3>
                 </div>
                 <p className="text-gray-600">
-                  আপনার ২৪ ঘন্টার পড়াশোনার অগ্রগতি ট্র্যাক করুন এবং সাম্প্রতিক
-                  পড়া বিষয়গুলির উপর ভিত্তি করে দৈনিক কুইজে অংশগ্রহণ করুন।
+                  Track your 24-hour study progress and participate in daily
+                  quizzes based on recently studied topics.
                 </p>
               </motion.div>
             </ScaleIn>
@@ -432,12 +435,11 @@ export default function Home() {
                   >
                     <Award className="text-orange-600 text-xl" />
                   </motion.div>
-                  <h3 className="text-xl font-semibold">কোয়েস্ট</h3>
+                  <h3 className="text-xl font-semibold">Quests</h3>
                 </div>
                 <p className="text-gray-600">
-                  পর্যায়ক্রমে নতুন কোয়েস্ট আসবে। নির্দিষ্ট শিক্ষণ লক্ষ্য
-                  সম্পূর্ণ করে এই চ্যালেঞ্জগুলি জয় করুন এবং পুরস্কার অর্জন
-                  করুন।
+                  New quests will arrive periodically. Complete these challenges
+                  by achieving specific learning goals and earn rewards.
                 </p>
               </motion.div>
             </ScaleIn>
@@ -458,12 +460,11 @@ export default function Home() {
                   >
                     <MessageSquare className="text-orange-600 text-xl" />
                   </motion.div>
-                  <h3 className="text-xl font-semibold">জ্ঞান ব্লগ</h3>
+                  <h3 className="text-xl font-semibold">Knowledge Blog</h3>
                 </div>
                 <p className="text-gray-600">
-                  ব্লগ পোস্টের মাধ্যমে জ্ঞান শেয়ার করুন (নোট, গাইডলাইন)। ভোটিং
-                  সিস্টেম (আপভোট/ডাউনভোট) এর মাধ্যমে সেরা উপাদানগুলি খুঁজে বের
-                  করুন।
+                  Share knowledge through blog posts (notes, guidelines).
+                  Discover the best content via voting system (upvote/downvote).
                 </p>
               </motion.div>
             </ScaleIn>
@@ -490,12 +491,11 @@ export default function Home() {
                   >
                     <FaChartLine className="text-orange-600 text-xl" />
                   </motion.div>
-                  <h3 className="text-xl font-semibold">লিডারবোর্ড</h3>
+                  <h3 className="text-xl font-semibold">Leaderboard</h3>
                 </div>
                 <p className="text-gray-600">
-                  ব্যাটল রয়্যাল এবং পেয়ার-টু-পেয়ার ব্যাটল জয় করে পয়েন্ট
-                  অর্জন করুন। র্যাঙ্ক বাড়ান এবং দেখুন আপনি অন্যদের তুলনায় কতটা
-                  ভালো!
+                  Earn points by winning Battle Royale and Pair-to-Pair battles.
+                  Increase your rank and see how you compare to others!
                 </p>
               </motion.div>
             </ScaleIn>
@@ -522,11 +522,11 @@ export default function Home() {
                   >
                     <Users className="text-orange-600 text-xl" />
                   </motion.div>
-                  <h3 className="text-xl font-semibold">কমিউনিটি</h3>
+                  <h3 className="text-xl font-semibold">Communities</h3>
                 </div>
                 <p className="text-gray-600">
-                  ক্লাস বা বিষয়ের ভিত্তিতে কমিউনিটি তৈরি করুন বা যোগ দিন।
-                  সহপাঠীদের সাথে প্রশ্ন আলোচনা করুন এবং সহযোগিতামূলকভাবে শিখুন।
+                  Create or join communities based on classes or subjects.
+                  Discuss questions with peers and learn collaboratively.
                 </p>
               </motion.div>
             </ScaleIn>
@@ -541,34 +541,32 @@ export default function Home() {
             <SlideIn direction="left">
               <div>
                 <h2 className="text-3xl font-bold mb-6">
-                  আপনার ব্যক্তিগত{" "}
-                  <span className="text-orange-200">এআই শিক্ষা সহকারী</span>
+                  Your Personal{" "}
+                  <span className="text-orange-200">AI Learning Assistant</span>
                 </h2>
                 <p className="text-lg mb-8">
-                  জিজ্ঞাসার এআই সহকারী আপনার অগ্রগতি পর্যবেক্ষণ করে,
-                  ব্যক্তিগতকৃত পরামর্শ দেয় এবং শুধু একাডেমিক নয়, জীবন
-                  উন্নয়নের জন্যও নির্দেশনা প্রদান করে।
+                  Jiggasha’s AI assistant monitors your progress, provides
+                  personalized advice, and guides not only academic but also
+                  life skills development.
                 </p>
                 <ul className="space-y-4">
                   <motion.li className="flex items-start" whileHover={{ x: 5 }}>
                     <ChevronRight className="h-6 w-6 text-orange-200 mr-2 flex-shrink-0" />
                     <span>
-                      আপনার শেখার ধরণ ট্র্যাক করে এবং বিষয়বস্তু কাস্টমাইজ করে
+                      Tracks your learning style and customizes content
                     </span>
                   </motion.li>
                   <motion.li className="flex items-start" whileHover={{ x: 5 }}>
                     <ChevronRight className="h-6 w-6 text-orange-200 mr-2 flex-shrink-0" />
-                    <span>একাডেমিক প্রশ্নের তাৎক্ষণিক উত্তর প্রদান করে</span>
+                    <span>Provides instant answers to academic questions</span>
                   </motion.li>
                   <motion.li className="flex items-start" whileHover={{ x: 5 }}>
                     <ChevronRight className="h-6 w-6 text-orange-200 mr-2 flex-shrink-0" />
-                    <span>ব্যক্তিগতকৃত পড়ার সুপারিশ প্রদান করে</span>
+                    <span>Offers personalized reading recommendations</span>
                   </motion.li>
                   <motion.li className="flex items-start" whileHover={{ x: 5 }}>
                     <ChevronRight className="h-6 w-6 text-orange-200 mr-2 flex-shrink-0" />
-                    <span>
-                      সময় ব্যবস্থাপনা এবং পড়ার পরিকল্পনায় সাহায্য করে
-                    </span>
+                    <span>Helps with time management and study planning</span>
                   </motion.li>
                 </ul>
               </div>
@@ -601,14 +599,14 @@ export default function Home() {
                         <BrainCircuit className="text-orange-600" />
                       </motion.div>
                       <h3 className="font-semibold text-gray-800">
-                        জিজ্ঞাসা এআই
+                        Jiggasha AI
                       </h3>
                     </div>
                     <div className="bg-gray-50 p-4 rounded-lg mb-4">
                       <p className="text-gray-800 text-sm">
-                        হ্যালো! আমি দেখছি আপনি আজকে বীজগণিত নিয়ে কাজ করছেন।
-                        আপনি কি আপনার দুর্বল এলাকাগুলির উপর ভিত্তি করে কিছু
-                        অনুশীলন সমস্যার পরামর্শ চান?
+                        Hello! I see you are working on algebra today. Would you
+                        like some practice problems recommended based on your
+                        weak areas?
                       </p>
                     </div>
                     <div className="flex space-x-2">
@@ -617,14 +615,14 @@ export default function Home() {
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                       >
-                        হ্যাঁ, দয়া করে!
+                        Yes, please!
                       </motion.button>
                       <motion.button
                         className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                       >
-                        পরে দেখব
+                        I'll see later
                       </motion.button>
                     </div>
                   </motion.div>
@@ -634,8 +632,8 @@ export default function Home() {
                     animate={{ scale: 1 }}
                     transition={{ delay: 0.5 }}
                   >
-                    <div className="text-xs">নতুন অর্জন!</div>
-                    <div className="font-bold">দ্রুত শিক্ষার্থী</div>
+                    <div className="text-xs">New Achievement!</div>
+                    <div className="font-bold">Fast Learner</div>
                   </motion.div>
                 </motion.div>
               </div>
@@ -649,7 +647,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6">
           <FadeIn>
             <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
-              সকল <span className="text-orange-600">শিক্ষার্থীদের জন্য</span>
+              For All <span className="text-orange-600">Students</span>
             </h2>
           </FadeIn>
 
@@ -660,11 +658,11 @@ export default function Home() {
               whileTap={{ scale: 0.95 }}
             >
               <div className="h-16 w-16 bg-orange-100 rounded-full flex items-center justify-center mb-4 mx-auto">
-                <span className="text-orange-600 font-bold text-xl">৬-১০</span>
+                <span className="text-orange-600 font-bold text-xl">6-10</span>
               </div>
-              <h3 className="text-xl font-semibold mb-2">স্কুল শিক্ষার্থী</h3>
+              <h3 className="text-xl font-semibold mb-2">School Students</h3>
               <p className="text-gray-600">
-                ক্লাস ৬-১০ এর জন্য সকল প্রধান বিষয়
+                All major subjects for classes 6-10
               </p>
             </motion.div>
 
@@ -674,11 +672,11 @@ export default function Home() {
               whileTap={{ scale: 0.95 }}
             >
               <div className="h-16 w-16 bg-orange-100 rounded-full flex items-center justify-center mb-4 mx-auto">
-                <span className="text-orange-600 font-bold text-xl">১১-১২</span>
+                <span className="text-orange-600 font-bold text-xl">11-12</span>
               </div>
-              <h3 className="text-xl font-semibold mb-2">এইচএসসি শিক্ষার্থী</h3>
+              <h3 className="text-xl font-semibold mb-2">HSC Students</h3>
               <p className="text-gray-600">
-                বোর্ড পরীক্ষার জন্য সম্পূর্ণ প্রস্তুতি
+                Complete preparation for board exams
               </p>
             </motion.div>
 
@@ -690,9 +688,11 @@ export default function Home() {
               <div className="h-16 w-16 bg-orange-100 rounded-full flex items-center justify-center mb-4 mx-auto">
                 <FaUniversity className="text-orange-600 text-xl" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">ভর্তি প্রার্থী</h3>
+              <h3 className="text-xl font-semibold mb-2">
+                Admission Candidates
+              </h3>
               <p className="text-gray-600">
-                বিশ্ববিদ্যালয় ভর্তি পরীক্ষার প্রস্তুতি
+                Preparation for university admission tests
               </p>
             </motion.div>
 
@@ -704,9 +704,11 @@ export default function Home() {
               <div className="h-16 w-16 bg-orange-100 rounded-full flex items-center justify-center mb-4 mx-auto">
                 <FaGraduationCap className="text-orange-600 text-xl" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">স্নাতক শিক্ষার্থী</h3>
+              <h3 className="text-xl font-semibold mb-2">
+                Undergraduate Students
+              </h3>
               <p className="text-gray-600">
-                বিশ্ববিদ্যালয় শিক্ষার্থীদের জন্য কোর্স উপাদান
+                Course materials for university students
               </p>
             </motion.div>
           </div>
@@ -718,7 +720,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6">
           <FadeIn>
             <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
-              শিক্ষার্থীদের <span className="text-orange-600">মতামত</span>
+              Student <span className="text-orange-600">Testimonials</span>
             </h2>
           </FadeIn>
 
@@ -741,13 +743,13 @@ export default function Home() {
                     />
                   </motion.div>
                   <div>
-                    <h4 className="font-semibold text-gray-800">রাহিম খান</h4>
-                    <p className="text-sm text-gray-500">ক্লাস ৯ শিক্ষার্থী</p>
+                    <h4 className="font-semibold text-gray-800">Rahim Khan</h4>
+                    <p className="text-sm text-gray-500">Class 9 Student</p>
                   </div>
                 </div>
                 <p className="text-gray-600">
-                  "আমি গণিতকে ঘৃণা করতাম, কিন্তু জিজ্ঞাসার ব্যাটল মোড এটাকে এত
-                  মজাদার করে তুলেছে! আমি এখন আসলে অনুশীলনের জন্য উন্মুখ হই।"
+                  "I used to hate math, but Jiggasha’s battle mode has made it
+                  so fun! Now I actually look forward to practicing."
                 </p>
                 <div className="flex mt-4 text-orange-400">
                   {[...Array(5)].map((_, i) => (
@@ -778,16 +780,17 @@ export default function Home() {
                   </motion.div>
                   <div>
                     <h4 className="font-semibold text-gray-800">
-                      তাহমিনা আক্তার
+                      Tahmina Akter
                     </h4>
                     <p className="text-sm text-gray-500">
-                      মেডিকেল ভর্তি প্রার্থী
+                      Medical Admission Candidate
                     </p>
                   </div>
                 </div>
                 <p className="text-gray-600">
-                  "এআই সহকারী অবিশ্বাস্য! এটি বিভিন্নভাবে ধারণাগুলি ব্যাখ্যা করে
-                  যতক্ষণ না আমি বুঝতে পারি। আমার স্কোর এতটাই উন্নত হয়েছে।"
+                  "The AI assistant is amazing! It explains concepts in
+                  different ways until I understand. My scores have improved a
+                  lot."
                 </p>
                 <div className="flex mt-4 text-orange-400">
                   {[...Array(5)].map((_, i) => (
@@ -817,16 +820,13 @@ export default function Home() {
                     />
                   </motion.div>
                   <div>
-                    <h4 className="font-semibold text-gray-800">আরিফ হাসান</h4>
-                    <p className="text-sm text-gray-500">
-                      বিশ্ববিদ্যালয় শিক্ষার্থী
-                    </p>
+                    <h4 className="font-semibold text-gray-800">Arif Hasan</h4>
+                    <p className="text-sm text-gray-500">University Student</p>
                   </div>
                 </div>
                 <p className="text-gray-600">
-                  "আমি পেয়ার-টু-পেয়ার ব্যাটলে আমার বন্ধুদের চ্যালেঞ্জ করতে
-                  ভালোবাসি! আমরা যখন একে অপরের বিরুদ্ধে প্রতিযোগিতা করি তখন আমরা
-                  আরও শিখি!"
+                  "I love challenging my friends in peer-to-peer battles! We
+                  learn more when we compete against each other!"
                 </p>
                 <div className="flex mt-4 text-orange-400">
                   {[...Array(5)].map((_, i) => (
@@ -849,14 +849,14 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-6">
           <FadeIn>
             <h2 className="text-4xl font-bold mb-6">
-              আপনার শিক্ষার অভিজ্ঞতা রূপান্তর করতে প্রস্তুত?
+              Ready to Transform Your Learning Experience?
             </h2>
           </FadeIn>
 
           <FadeIn delay={0.2}>
             <p className="text-lg mb-8">
-              হাজার হাজার শিক্ষার্থীর সাথে যোগ দিন যারা জিজ্ঞাসার সাথে শিক্ষাকে
-              মজাদার এবং প্রতিযোগিতামূলক করে তুলছে
+              Join thousands of students who are making learning fun and
+              competitive with Jiggasha
             </p>
           </FadeIn>
 
@@ -871,7 +871,7 @@ export default function Home() {
                 }}
                 whileTap={{ scale: 0.95 }}
               >
-                বিনামূল্যে নিবন্ধন
+                Register for Free
               </motion.a>
               <motion.a
                 href="#"
@@ -882,7 +882,7 @@ export default function Home() {
                 }}
                 whileTap={{ scale: 0.95 }}
               >
-                ডেমো দেখুন
+                Watch Demo
               </motion.a>
             </div>
           </FadeIn>

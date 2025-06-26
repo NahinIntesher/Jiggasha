@@ -11,30 +11,30 @@ export default function OurServices() {
   const services = [
     {
       icon: FaChalkboardTeacher,
-      title: "ইন্টারঅ্যাক্টিভ শিক্ষা",
+      title: "Interactive Learning",
       description:
-        "আপনার বৃদ্ধি এবং শেখার ধরন অনুযায়ী বিশেষভাবে তৈরি ইন্টারঅ্যাক্টিভ কোর্স এবং শিক্ষা উপকরণ অন্বেষণ করুন।",
+        "Explore interactive courses and learning materials tailored to your growth and learning style.",
       features: [
-        "ব্যক্তিগত পাঠ্যক্রম",
-        "রিয়েল-টাইম প্রতিক্রিয়া",
-        "অগ্রগতি ট্র্যাকিং",
+        "Personalized Curriculum",
+        "Real-Time Feedback",
+        "Progress Tracking",
       ],
       color: "from-orange-400 to-red-500",
     },
     {
       icon: FaGamepad,
-      title: "গেমিফাইড অভিজ্ঞতা",
+      title: "Gamified Experience",
       description:
-        "আপনার অগ্রগতি ট্র্যাক করুন, পুরস্কার অর্জন করুন এবং রোমাঞ্চকর গেমের মতো চ্যালেঞ্জ ও প্রতিযোগিতার মাধ্যমে শেখার আনন্দ নিন।",
-      features: ["অর্জন ব্যবস্থা", "লিডারবোর্ড", "দক্ষতা চ্যালেঞ্জ"],
+        "Track your progress, earn rewards, and enjoy the thrill of game-like challenges and competitions.",
+      features: ["Achievement System", "Leaderboard", "Skill Challenges"],
       color: "from-orange-500 to-amber-600",
     },
     {
       icon: FaUsers,
-      title: "কমিউনিটি এনগেজমেন্ট",
+      title: "Community Engagement",
       description:
-        "শিক্ষার্থী, পরামর্শদাতা এবং শিল্প বিশেষজ্ঞদের একটি প্রাণবন্ত কমিউনিটির সাথে সংযুক্ত হন, সহযোগিতা করুন এবং বৃদ্ধি পান।",
-      features: ["সহকর্মী সহযোগিতা", "বিশেষজ্ঞ পরামর্শ", "অধ্যয়ন গ্রুপ"],
+        "Connect, collaborate, and grow with a vibrant community of learners, mentors, and industry experts.",
+      features: ["Peer Collaboration", "Expert Mentorship", "Study Groups"],
       color: "from-amber-500 to-orange-600",
     },
   ];
@@ -49,21 +49,18 @@ export default function OurServices() {
       <div className="relative text-center mb-20">
         <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-700 px-6 py-3 rounded-full text-sm font-semibold mb-6 border border-orange-200">
           <FaStar className="text-xs" />
-          আমাদের সেবা
+          Our Services
         </div>
         <h1 className="text-xl md:text-5xl font-bold bg-gradient-to-r from-orange-800 via-orange-600 to-red-600 bg-clip-text text-transparent mb-6 leading-tight">
-          আমাদের সেবাসমূহ
+          What We Offer
         </h1>
         <p className="text-lg text-gray-700 max-w-4xl mx-auto leading-relaxed">
-          <span className="text-orange-600 font-bold text-2xl">জিজ্ঞাসায়</span>{" "}
-          আমরা অত্যাধুনিক শিক্ষামূলক সেবা প্রদান করি যা শেখাকে
-          <span className="text-orange-500 font-semibold"> মজাদার</span>,
-          <span className="text-red-500 font-semibold"> আকর্ষণীয়</span> এবং
-          <span className="text-amber-600 font-semibold">
-            {" "}
-            প্রতিযোগিতামূলক
-          </span>{" "}
-          করে তোলে।
+          At{" "}
+          <span className="text-orange-600 font-bold text-2xl">Jiggasha</span>,
+          we offer cutting-edge educational services that make learning{" "}
+          <span className="text-orange-500 font-semibold">fun</span>,{" "}
+          <span className="text-red-500 font-semibold">engaging</span>, and{" "}
+          <span className="text-amber-600 font-semibold">competitive</span>.
         </p>
       </div>
 
@@ -121,7 +118,7 @@ export default function OurServices() {
               <button
                 className={`group/btn relative w-full bg-gradient-to-r ${service.color} text-white py-4 px-6 rounded-2xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2`}
               >
-                আরও জানুন
+                Learn More
                 <FaArrowRight className="text-sm group-hover/btn:translate-x-1 transition-transform" />
                 <div className="absolute inset-0 bg-white/20 rounded-2xl opacity-0 group-hover/btn:opacity-100 transition-opacity"></div>
               </button>
@@ -142,14 +139,14 @@ export default function OurServices() {
       <div className="relative text-center mt-20">
         <div className="bg-gradient-to-r from-orange-500 via-red-500 to-amber-500 rounded-3xl p-12 max-w-5xl mx-auto text-white shadow-2xl">
           <h3 className="text-4xl font-bold mb-4">
-            আপনার শিক্ষাকে রূপান্তরিত করতে প্রস্তুত?
+            Ready to Transform Your Learning?
           </h3>
           <p className="text-orange-100 mb-8 text-xl leading-relaxed">
-            হাজার হাজার শিক্ষার্থীর সাথে যোগ দিন যারা ইতিমধ্যে শিক্ষার ভবিষ্যৎ
-            অনুভব করছেন।
+            Join thousands of students already experiencing the future of
+            education.
           </p>
           <button className="bg-white text-orange-600 px-10 py-5 rounded-2xl font-bold text-xl hover:bg-orange-50 transition-colors shadow-lg hover:shadow-xl hover:scale-105 transform duration-200">
-            আজই শুরু করুন
+            Get Started Today
           </button>
         </div>
       </div>
