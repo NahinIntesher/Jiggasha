@@ -31,7 +31,7 @@ export default function NewBlog() {
       formDataToSend.append("profilePicture", formData.coverImage);
 
       const response = await fetch(
-        "http://localhost:8000/profile/update/picture",
+        "https://jiggasha.onrender.com/profile/update/picture",
         {
           method: "POST",
           body: formDataToSend,

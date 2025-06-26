@@ -15,7 +15,7 @@ export default function UserBox({
   const [deleteBoxActive, setDeleteBoxActive] = useState(false);
 
   function handleDeleteProfile() {
-    fetch(`http://localhost:8000/profile/delete/${id}`, {
+    fetch(`https://jiggasha.onrender.com/profile/delete/${id}`, {
       method: "DELETE",
     })
       .then((response) => {

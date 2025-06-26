@@ -54,7 +54,7 @@ export default function SingleCommunity() {
   }, [communityId, isReacted]);
 
   const fetchCommunityData = () => {
-    fetch("http://localhost:8000/communities/single/" + communityId, {
+    fetch("https://jiggasha.onrender.com/communities/single/" + communityId, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -65,7 +65,7 @@ export default function SingleCommunity() {
   };
 
   const fetchPosts = () => {
-    fetch("http://localhost:8000/communities/allPosts/" + communityId, {
+    fetch("https://jiggasha.onrender.com/communities/allPosts/" + communityId, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -102,7 +102,7 @@ export default function SingleCommunity() {
       });
 
       const response = await fetch(
-        "http://localhost:8000/communities/newPost",
+        "https://jiggasha.onrender.com/communities/newPost",
         {
           method: "POST",
           credentials: "include",
@@ -136,7 +136,6 @@ export default function SingleCommunity() {
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + " " + sizes[i];
   }
-
 
   const getMediaDuration = (file) => {
     return new Promise((resolve) => {
@@ -407,18 +406,17 @@ export default function SingleCommunity() {
         ) : (
           posts.map((post) => (
             <PostBox
-            key={post.post_id}
-
-            post_id={post.post_id}
-            author_picture={post.author_picture}
-            author_name={post.author_name}
-            created_at={post.created_at}
-            content={post.content}
-            media={post.media}
-            comment_count={post.comment_count}
-            reaction_count={post.reaction_count}
-            is_reacted={post.is_reacted}
-            communityId= {communityId}
+              key={post.post_id}
+              post_id={post.post_id}
+              author_picture={post.author_picture}
+              author_name={post.author_name}
+              created_at={post.created_at}
+              content={post.content}
+              media={post.media}
+              comment_count={post.comment_count}
+              reaction_count={post.reaction_count}
+              is_reacted={post.is_reacted}
+              communityId={communityId}
             />
           ))
         )}

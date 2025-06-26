@@ -3,11 +3,7 @@
 import HeaderAlt from "@/components/ui/HeaderAlt";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
-import {
-  classLevel,
-  group,
-  department
-} from "@/utils/Constant";
+import { classLevel, group, department } from "@/utils/Constant";
 import { FaImages, FaXmark } from "react-icons/fa6";
 
 export default function NewBlog() {
@@ -18,7 +14,7 @@ export default function NewBlog() {
   const [formData, setFormData] = useState({
     currentPassword: "",
     newPassword: "",
-    repeatNewPassword: ""
+    repeatNewPassword: "",
   });
 
   const handleChange = (e) => {
@@ -33,14 +29,17 @@ export default function NewBlog() {
       const formDataToSend = new FormData();
       formDataToSend.append("newPassword", formData.newPassword);
 
-      const response = await fetch("http://localhost:8000/update-profile-details", {
-        method: "POST",
-        mode: "cors",
-        body: formDataToSend,
-        credentials: "include",
-      });
+      const response = await fetch(
+        "https://jiggasha.onrender.com/update-profile-details",
+        {
+          method: "POST",
+          mode: "cors",
+          body: formDataToSend,
+          credentials: "include",
+        }
+      );
 
-      console.log(response)
+      console.log(response);
 
       const result = await response.json();
 

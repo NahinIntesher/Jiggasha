@@ -10,7 +10,7 @@ export default async function Page() {
 
   try {
     const res = await fetch(
-      "http://localhost:8000/communities/allReportedPosts/",
+      "https://jiggasha.onrender.com/communities/allReportedPosts/",
       {
         headers: {
           "Content-Type": "application/json",

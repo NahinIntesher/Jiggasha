@@ -67,26 +67,39 @@ export default function Header({ title, subtitle }) {
 
     const fetchData = async () => {
       try {
-        const blogResponse = await fetch("http://localhost:8000/blogs/search/" + (value ? value : "_"), {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-        });
+        const blogResponse = await fetch(
+          "https://jiggasha.onrender.com/blogs/search/" + (value ? value : "_"),
+          {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+          }
+        );
 
-        const courseResponse = await fetch("http://localhost:8000/courses/search/" + (value ? value : "_"), {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-        });
+        const courseResponse = await fetch(
+          "https://jiggasha.onrender.com/courses/search/" +
+            (value ? value : "_"),
+          {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+          }
+        );
 
-        const communityResponse = await fetch("http://localhost:8000/communities/search/" + (value ? value : "_"), {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-        });
+        const communityResponse = await fetch(
+          "https://jiggasha.onrender.com/communities/search/" +
+            (value ? value : "_"),
+          {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+          }
+        );
 
         if (!blogResponse.ok || !courseResponse.ok || !communityResponse.ok) {
-          throw new Error(`HTTP error! Status: ${blogResponse.status}, ${courseResponse.status}, ${communityResponse.status}`);
+          throw new Error(
+            `HTTP error! Status: ${blogResponse.status}, ${courseResponse.status}, ${communityResponse.status}`
+          );
         }
 
         const blogsData = await blogResponse.json();
@@ -122,7 +135,9 @@ export default function Header({ title, subtitle }) {
             {title ? (
               <h1 className="title text-lg font-bold text-gray-800">{title}</h1>
             ) : (
-              <h1 className="metaTitle text-lg font-bold text-gray-800">{meta.title}</h1>
+              <h1 className="metaTitle text-lg font-bold text-gray-800">
+                {meta.title}
+              </h1>
             )}
           </div>
         </div>
@@ -155,7 +170,9 @@ export default function Header({ title, subtitle }) {
               searchShow ? "" : "hidden"
             }`}
           >
-            {blogs.length == 0 && communities.length == 0 && courses.length == 0 ? (
+            {blogs.length == 0 &&
+            communities.length == 0 &&
+            courses.length == 0 ? (
               <div className="notFound flex flex-col items-center py-6 text-gray-400">
                 <FaSearch className="icon text-2xl mb-2" />
                 <div className="text">Nothing Found!</div>
@@ -164,7 +181,9 @@ export default function Header({ title, subtitle }) {
               <>
                 {blogs.length > 0 && (
                   <>
-                    <div className="segmentName px-4 py-1 text-xs font-semibold text-gray-500">Blogs</div>
+                    <div className="segmentName px-4 py-1 text-xs font-semibold text-gray-500">
+                      Blogs
+                    </div>
                     {blogs.map((blog) => (
                       <SearchResult
                         key={blog.blog_id}
@@ -178,7 +197,9 @@ export default function Header({ title, subtitle }) {
                 )}
                 {communities.length > 0 && (
                   <>
-                    <div className="segmentName px-4 py-1 text-xs font-semibold text-gray-500">Communities</div>
+                    <div className="segmentName px-4 py-1 text-xs font-semibold text-gray-500">
+                      Communities
+                    </div>
                     {communities.map((community) => (
                       <SearchResult
                         key={community.community_id}
@@ -192,7 +213,9 @@ export default function Header({ title, subtitle }) {
                 )}
                 {courses.length > 0 && (
                   <>
-                    <div className="segmentName px-4 py-1 text-xs font-semibold text-gray-500">Courses</div>
+                    <div className="segmentName px-4 py-1 text-xs font-semibold text-gray-500">
+                      Courses
+                    </div>
                     {courses.map((course) => (
                       <SearchResult
                         key={course.course_id}
@@ -212,7 +235,9 @@ export default function Header({ title, subtitle }) {
           className="iconButton relative p-2 rounded-md hover:bg-gray-100 cursor-pointer"
           onClick={() => setToggleNotification(!toggelNotification)}
         >
-          <div className="count absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1.5 py-0.5">0</div>
+          <div className="count absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1.5 py-0.5">
+            0
+          </div>
           <FaBell className="icon" />
         </div>
         <Link
@@ -227,27 +252,41 @@ export default function Header({ title, subtitle }) {
           toggelNotification ? "" : "hidden"
         }`}
       >
-        <div className="title px-4 py-2 border-b border-b-gray-400 font-semibold text-gray-700">Notification</div>
+        <div className="title px-4 py-2 border-b border-b-gray-400 font-semibold text-gray-700">
+          Notification
+        </div>
         <div className="notificationList max-h-60 overflow-y-auto">
           <div className="notificationItem flex items-start gap-3 px-4 py-3 hover:bg-gray-100">
             <FaBell className="icon text-lg text-orange-500 mt-1" />
             <div className="notificationContent">
-              <div className="notificationTitle font-medium text-gray-800">Nahin Intesher comment on your post in your community</div>
-              <div className="notificationTime text-xs text-gray-400">1 days ago</div>
+              <div className="notificationTitle font-medium text-gray-800">
+                Nahin Intesher comment on your post in your community
+              </div>
+              <div className="notificationTime text-xs text-gray-400">
+                1 days ago
+              </div>
             </div>
           </div>
           <div className="notificationItem flex items-start gap-3 px-4 py-3 hover:bg-gray-50">
             <FaBell className="icon text-lg text-orange-500 mt-1" />
             <div className="notificationContent">
-              <div className="notificationTitle font-medium text-gray-800">Mueen Ishraq Ananta upvoted your blogs</div>
-              <div className="notificationTime text-xs text-gray-400">1 days ago</div>
+              <div className="notificationTitle font-medium text-gray-800">
+                Mueen Ishraq Ananta upvoted your blogs
+              </div>
+              <div className="notificationTime text-xs text-gray-400">
+                1 days ago
+              </div>
             </div>
           </div>
           <div className="notificationItem flex items-start gap-3 px-4 py-3 hover:bg-gray-50">
             <FaBell className="icon text-lg text-orange-500 mt-1" />
             <div className="notificationContent">
-              <div className="notificationTitle font-medium text-gray-800">Nahin Intesher upvoted your blogs</div>
-              <div className="notificationTime text-xs text-gray-400">23 hours ago</div>
+              <div className="notificationTitle font-medium text-gray-800">
+                Nahin Intesher upvoted your blogs
+              </div>
+              <div className="notificationTime text-xs text-gray-400">
+                23 hours ago
+              </div>
             </div>
           </div>
         </div>
@@ -255,7 +294,6 @@ export default function Header({ title, subtitle }) {
     </div>
   );
 }
-
 
 function SearchResult({ name, imageUrl, link, description }) {
   return (

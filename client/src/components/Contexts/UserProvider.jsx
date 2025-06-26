@@ -15,7 +15,7 @@ export function UserProvider({ children }) {
 
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:8000/", {
+      const response = await fetch("https://jiggasha.onrender.com/", {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -44,7 +44,7 @@ export function UserProvider({ children }) {
 
   const logout = async () => {
     try {
-      const response = await fetch("http://localhost:8000/logout", {
+      const response = await fetch("https://jiggasha.onrender.com/logout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
