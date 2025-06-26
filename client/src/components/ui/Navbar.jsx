@@ -7,25 +7,14 @@ import logo from "../../../public/images/JiggashaLogo.png";
 import SearchBox from "./SearchBar";
 import ThemeSwitcher from "../ThemeSwitcherButton";
 
-const navItems = {
-  en: ["Home", "About Us", "Contact Us", "Our Services"],
-  bn: ["হোম", "আমাদের সম্পর্কে", "যোগাযোগ করুন", "আমাদের সেবা"],
-};
+const navItems = ["Home", "About Us", "Contact Us", "Our Services"];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeItem, setActiveItem] = useState("Home");
-  const [language, setLanguage] = useState("en");
   const [scrolled, setScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const hasLogged = useRef(false);
-
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem("preferredLanguage");
-    if (savedLanguage) {
-      setLanguage(savedLanguage);
-    }
-  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -52,22 +41,12 @@ export default function Navbar() {
     setIsOpen(false);
   };
 
-  const handleLanguageChange = (e) => {
-    const newLanguage = e.target.value;
-    setLanguage(newLanguage);
-    localStorage.setItem("preferredLanguage", newLanguage);
-  };
-
   const getLink = (item) => {
     const linkMap = {
       Home: "/",
       "About Us": "/about-us",
       "Contact Us": "/contact-us",
       "Our Services": "/our-services",
-      হোম: "/",
-      "আমাদের সম্পর্কে": "/about-us",
-      "যোগাযোগ করুন": "/contact-us",
-      "আমাদের সেবা": "/our-services",
     };
 
     const link = linkMap[item] || "/";
@@ -92,13 +71,15 @@ export default function Navbar() {
               alt="Jiggasha"
               className="h-11 w-11 rounded-full transition-transform duration-300 group-hover:scale-105"
             />
-            <span className="hidden font-extrabold text-xl md:inline-block">Jiggasha</span>
+            <span className="hidden font-extrabold text-xl md:inline-block">
+              Jiggasha
+            </span>
           </Link>
         </div>
 
         {/* Desktop Navigation */}
         <ul className="hidden md:flex space-x-4 lg:space-x-6 text-gray-700 font-medium mr-4">
-          {navItems[language].map((item) => {
+          {navItems.map((item) => {
             const link = getLink(item);
             return (
               <li key={item} className="relative group">
@@ -121,33 +102,14 @@ export default function Navbar() {
           })}
         </ul>
 
-        <ThemeSwitcher />
-        <SearchBox
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          language={language}
-          setLanguage={setLanguage}
-        />
+        <SearchBox searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         {/* Right Side Controls */}
-        <div className="hidden md:flex items-center space-x-4">
-          <select
-            value={language}
-            onChange={handleLanguageChange}
-            className="border border-gray-300 rounded-lg px-2 py-2 text-sm text-black transition-all duration-300 hover:border-orange-500 focus:border-orange-500 focus:outline-none"
-          >
-            <option value="en">English</option>
-            <option value="bn">বাংলা</option>
-          </select>
-
-          <Link
-            href={"/login"}
-            className="bg-orange-500 text-white text-sm px-4 py-2 rounded-lg hover:bg-orange-600 transition-all duration-300 transform"
-            aria-label={language === "en" ? "Get Started" : "শুরু করুন"}
-          >
-            {language === "en" ? "Get Started" : "শুরু করুন"}
-          </Link>
-        </div>
-
+        <Link
+          href={"/login"}
+          className="bg-orange-500 text-white text-sm px-4 py-2 rounded-lg hover:bg-orange-600 transition-all duration-300 transform"
+        >
+          Get Started
+        </Link>
         {/* Mobile Menu Button */}
         <button
           onClick={toggleMenu}
@@ -166,7 +128,7 @@ export default function Navbar() {
             : "-translate-y-full opacity-0 invisible"
         }`}
       >
-        {navItems[language].map((item) => (
+        {navItems.map((item) => (
           <Link
             key={item}
             href={getLink(item)}
@@ -179,20 +141,11 @@ export default function Navbar() {
           </Link>
         ))}
 
-        <select
-          value={language}
-          onChange={handleLanguageChange}
-          className="border border-gray-300 rounded-md px-2 py-1 text-gray-700 mt-3 transition-all duration-300 focus:border-orange-500 focus:outline-none"
-        >
-          <option value="en">English</option>
-          <option value="bn">বাংলা</option>
-        </select>
-
         <button
           className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-all duration-300 mt-3 transform hover:scale-105"
-          aria-label={language === "en" ? "Get Started" : "শুরু করুন"}
+          aria-label="Get Started"
         >
-          {language === "en" ? "Get Started" : "শুরু করুন"}
+          Get Started"
         </button>
       </div>
     </nav>

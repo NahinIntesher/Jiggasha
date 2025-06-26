@@ -1,5 +1,4 @@
 const connection = require("../config/database");
-const { options } = require("../routes");
 
 // In-memory room tracking
 const pairRooms = {};
@@ -10,7 +9,7 @@ let royaleRoomCounter = 1;
 // Game state tracking
 const gameStates = {};
 
-// Helper to get random questions (replace with DB fetch)
+// Helper to get random questions from database
 async function getRandomMCQ(count) {
     const { rows } = await connection.query(
         'SELECT question_id, content, option_a, option_b, option_c, option_d, correct_option FROM questions ORDER BY RANDOM() LIMIT $1',
@@ -23,18 +22,8 @@ async function getRandomMCQ(count) {
         optionA: row.option_a,
         optionB: row.option_b,
         optionC: row.option_c,
-        optionD: row.option_d
-    }));
-}
-
-async function getRandomMatching(count) {
-    // TODO: Replace with DB query from battle_questions
-    // Example static questions for now
-    return Array.from({ length: count }, (_, i) => ({
-        id: i + 1,
-        questionOptions: ["Question A", "Question B", "Question C", "Question D"],
-        answerOptions: ["Answer A", "Answer B", "Answer C", "Answer D"],
-        correctMatches: { "Question A": "Answer A", "Question B": "Answer B", "Question C": "Answer C", "Question D": "Answer D" }
+        optionD: row.option_d,
+        correctAnswer: row.correct_option // Store correct answer for server validation
     }));
 }
 
@@ -49,12 +38,47 @@ function initializeGameState(roomId, players, mode) {
         })),
         currentRound: 0,
         roundActive: false,
+        roundTimer: null, // Add timer reference
         questions: {
             round1: [],
             round2: [],
             round3: []
+        },
+        // NEW: Track player answers for each round
+        playerAnswers: {
+            round1: {}, // { userId: { questionId: answer, questionId2: answer2 } }
+            round2: {},
+            round3: {}
         }
     };
+}
+
+// NEW: Check if all players have answered all questions in current round
+function checkAllPlayersAnswered(roomId, roundNumber) {
+    const gameState = gameStates[roomId];
+    if (!gameState || !gameState.roundActive) return false;
+
+    const currentRoundKey = `round${roundNumber}`;
+    const questions = gameState.questions[currentRoundKey];
+    const playerAnswers = gameState.playerAnswers[currentRoundKey];
+    
+    if (!questions || questions.length === 0) return false;
+
+    // Check if every player has answered every question
+    for (const player of gameState.players) {
+        const userId = player.user_id;
+        const userAnswers = playerAnswers[userId] || {};
+        
+        // Check if this player has answered all questions
+        for (const question of questions) {
+            if (!userAnswers[question.id]) {
+                return false; // This player hasn't answered this question
+            }
+        }
+    }
+    
+    console.log(`All players have answered all questions in round ${roundNumber} for room ${roomId}`);
+    return true;
 }
 
 // Start a specific round
@@ -65,29 +89,39 @@ async function startRound(io, roomId, roundNumber) {
     gameState.currentRound = roundNumber;
     gameState.roundActive = true;
 
+    // Clear any existing timer
+    if (gameState.roundTimer) {
+        clearTimeout(gameState.roundTimer);
+    }
+
+    // Initialize player answers for this round
+    const currentRoundKey = `round${roundNumber}`;
+    gameState.playerAnswers[currentRoundKey] = {};
+    gameState.players.forEach(player => {
+        gameState.playerAnswers[currentRoundKey][player.user_id] = {};
+    });
+
     let questions = [];
     let roundType = '';
 
-    // Determine question type based on round
-    if (roundNumber === 1 || roundNumber === 3) {
-        questions = await getRandomMCQ(5); // 5 MCQ questions per round
-        roundType = 'mcq';
-        gameState.questions[`round${roundNumber}`] = questions;
-    } else if (roundNumber === 2) {
-        questions = await getRandomMatching(3); // 3 matching questions
-        roundType = 'matching';
-        gameState.questions.round2 = questions;
-    }
+    questions = await getRandomMCQ(5); // 5 MCQ questions per round
+    roundType = 'mcq';
+    gameState.questions[currentRoundKey] = questions;
 
-    // Emit round start to all players in room
+    // Emit round start to all players in room (don't send correct answers to clients)
+    const questionsForClient = questions.map(q => {
+        const { correctAnswer, ...questionWithoutAnswer } = q;
+        return questionWithoutAnswer;
+    });
+
     io.to(roomId).emit(`startRound${roundNumber}`, {
         roomId,
         roundNumber,
         roundType,
-        questions,
+        questions: questionsForClient,
         players: gameState.players.map(p => ({
-            username: p.username, 
-            full_name: p.full_name, 
+            user_id: p.user_id,
+            full_name: p.full_name,
             user_picture_url: p.user_picture_url,
             points: p.points
         }))
@@ -96,7 +130,7 @@ async function startRound(io, roomId, roundNumber) {
     console.log(`Started Round ${roundNumber} for room ${roomId}, type: ${roundType}`);
 
     // Set round end timer (1 minute)
-    setTimeout(() => {
+    gameState.roundTimer = setTimeout(() => {
         endRound(io, roomId, roundNumber);
     }, 60000); // 1 minute
 }
@@ -108,12 +142,18 @@ function endRound(io, roomId, roundNumber) {
 
     gameState.roundActive = false;
 
+    // Clear the timer
+    if (gameState.roundTimer) {
+        clearTimeout(gameState.roundTimer);
+        gameState.roundTimer = null;
+    }
+
     // Emit round end
     io.to(roomId).emit(`endRound${roundNumber}`, {
         roomId,
         roundNumber,
         players: gameState.players.map(p => ({
-            username: p.username,
+            user_id: p.user_id,
             full_name: p.full_name,
             user_picture_url: p.user_picture_url,
             points: p.points,
@@ -123,16 +163,16 @@ function endRound(io, roomId, roundNumber) {
 
     console.log(`Ended Round ${roundNumber} for room ${roomId}`);
 
-    // Start next round after 1 minute delay, or end game
+    // Start next round after 5 second delay, or end game
     if (roundNumber < 3) {
         setTimeout(() => {
             startRound(io, roomId, roundNumber + 1);
-        }, 60000); // 1 minute delay
+        }, 5000); // 5 second delay - increased for better UX
     } else {
         // End game after round 3
         setTimeout(() => {
             endGame(io, roomId);
-        }, 60000); // 1 minute delay before showing results
+        }, 5000); // 5 second delay before showing results
     }
 }
 
@@ -146,9 +186,9 @@ function endGame(io, roomId) {
 
     // Determine winners
     const results = sortedPlayers.map((player, index) => ({
-        userId: player.userId,
-        name: player.name,
-        avatar: player.avatar,
+        user_id: player.user_id,
+        full_name: player.full_name,
+        user_picture_url: player.user_picture_url,
         points: player.points,
         roundScores: player.roundScores,
         rank: index + 1
@@ -164,27 +204,71 @@ function endGame(io, roomId) {
 
     console.log(`Game ended for room ${roomId}. Results:`, results);
 
-    // Clean up game state
-    delete gameStates[roomId];
+    // Clean up game state after a delay to allow clients to receive the results
+    setTimeout(() => {
+        delete gameStates[roomId];
 
-    // Clean up room data
-    if (gameState.mode === 'pair-to-pair') {
-        delete pairRooms[roomId];
-    } else {
-        delete royaleRooms[roomId];
-    }
+        // Clean up room data
+        if (gameState.mode === 'pair-to-pair') {
+            delete pairRooms[roomId];
+        } else {
+            delete royaleRooms[roomId];
+        }
+    }, 1000);
 }
 
 // Update player points
-function updatePlayerPoints(roomId, userId, points, roundNumber) {
+function updatePlayerPoints(roomId, user_id, points, roundNumber) {
     const gameState = gameStates[roomId];
-    if (!gameState) return;
+    if (!gameState) {
+        console.log(`Game state not found for room ${roomId}`);
+        return false;
+    }
 
-    const player = gameState.players.find(p => p.username === username);
+    const player = gameState.players.find(p => p.user_id === user_id);
     if (player) {
         player.roundScores[roundNumber - 1] += points;
         player.points += points;
+        console.log(`Updated points for user ${user_id}: +${points} (total: ${player.points})`);
+        return true;
+    } else {
+        console.log(`Player ${user_id} not found in room ${roomId}`);
+        return false;
     }
+}
+
+// Validate answer and calculate points
+function validateAnswer(roomId, questionId, answer, roundNumber) {
+    const gameState = gameStates[roomId];
+    if (!gameState) {
+        console.log(`Game state not found for room ${roomId}`);
+        return { isCorrect: false, points: 0 };
+    }
+    
+    if (!gameState.roundActive) {
+        console.log(`Round not active for room ${roomId}`);
+        return { isCorrect: false, points: 0 };
+    }
+
+    const questions = gameState.questions[`round${roundNumber}`];
+    if (!questions) {
+        console.log(`Questions not found for round ${roundNumber} in room ${roomId}`);
+        return { isCorrect: false, points: 0 };
+    }
+
+    const question = questions.find(q => q.id === questionId);
+    
+    if (!question) {
+        console.log(`Question ${questionId} not found in round ${roundNumber}`);
+        return { isCorrect: false, points: 0 };
+    }
+
+    const isCorrect = question.correctAnswer.toLowerCase() === answer.toLowerCase();
+    const points = isCorrect ? 10 : 0; // 10 points for correct answer
+
+    console.log(`Answer validation: Question ${questionId}, Answer: ${answer}, Correct: ${question.correctAnswer}, IsCorrect: ${isCorrect}, Points: ${points}`);
+    
+    return { isCorrect, points, correctAnswer: question.correctAnswer };
 }
 
 module.exports = function (io) {
@@ -195,7 +279,6 @@ module.exports = function (io) {
         socket.on('joinPairBattle', async (userInfo) => {
             console.log('User joining pair battle:', userInfo, 'Socket:', socket.id);
 
-            // userInfo: { userId, name, avatar }
             let roomId = null;
             for (const [id, users] of Object.entries(pairRooms)) {
                 if (users.length === 1) {
@@ -213,12 +296,8 @@ module.exports = function (io) {
 
             console.log(`User ${socket.id} joined room ${roomId}. Current players:`, pairRooms[roomId]);
 
-            // First emit to the joining user
             socket.emit('joinedPairBattle', { roomId });
-
-            // Then emit updated player list to ALL users in room (including the one who just joined)
             io.to(roomId).emit('playerListUpdate', pairRooms[roomId]);
-            console.log(`Emitted playerListUpdate to room ${roomId}:`, pairRooms[roomId]);
 
             if (pairRooms[roomId].length === 2) {
                 const players = pairRooms[roomId];
@@ -249,7 +328,6 @@ module.exports = function (io) {
         socket.on('joinBattleRoyale', async (userInfo) => {
             console.log('User joining battle royale:', userInfo, 'Socket:', socket.id);
 
-            // userInfo: { userId, name, avatar }
             let roomId = null;
             for (const [id, users] of Object.entries(royaleRooms)) {
                 if (users.length < 5) {
@@ -267,12 +345,8 @@ module.exports = function (io) {
 
             console.log(`User ${socket.id} joined room ${roomId}. Current players:`, royaleRooms[roomId]);
 
-            // First emit to the joining user
             socket.emit('joinedBattleRoyale', { roomId });
-
-            // Then emit updated player list to ALL users in room (including the one who just joined)
             io.to(roomId).emit('playerListUpdate', royaleRooms[roomId]);
-            console.log(`Emitted playerListUpdate to room ${roomId}:`, royaleRooms[roomId]);
 
             if (royaleRooms[roomId].length === 5) {
                 const players = royaleRooms[roomId];
@@ -299,27 +373,112 @@ module.exports = function (io) {
             }
         });
 
-        // Handle player answers and update points
+        // Handle player answers and update points - ENHANCED VERSION WITH AUTO ROUND END
         socket.on('submitAnswer', (data) => {
-            const { roomId, userId, answer, questionId, roundNumber, isCorrect, points } = data;
+            console.log('Received submitAnswer:', data);
+            
+            const { roomId, userId, answer, questionId, roundNumber } = data;
 
-            if (isCorrect) {
-                updatePlayerPoints(roomId, userId, points, roundNumber);
+            console.log("Ador", roundNumber);
+            
+            // Basic validation
+            if (!roomId || !userId || !answer || !questionId || !roundNumber) {
+                console.log('Missing required fields in submitAnswer:', data);
+                socket.emit('answerResult', {
+                    questionId,
+                    isCorrect: false,
+                    points: 0,
+                    error: 'Missing required fields'
+                });
+                return;
+            }
 
-                // Emit updated scores to all players in room
-                const gameState = gameStates[roomId];
-                if (gameState) {
+            const gameState = gameStates[roomId];
+            if (!gameState || !gameState.roundActive) {
+                console.log('Game not active or room not found:', roomId);
+                socket.emit('answerResult', {
+                    questionId,
+                    isCorrect: false,
+                    points: 0,
+                    error: 'Game not active'
+                });
+                return;
+            }
+
+            // NEW: Record the player's answer
+            const currentRoundKey = `round${roundNumber}`;
+            if (!gameState.playerAnswers[currentRoundKey]) {
+                gameState.playerAnswers[currentRoundKey] = {};
+            }
+            if (!gameState.playerAnswers[currentRoundKey][userId]) {
+                gameState.playerAnswers[currentRoundKey][userId] = {};
+            }
+            
+            // Check if player already answered this question
+            if (gameState.playerAnswers[currentRoundKey][userId][questionId]) {
+                console.log(`Player ${userId} already answered question ${questionId}`);
+                socket.emit('answerResult', {
+                    questionId,
+                    isCorrect: false,
+                    points: 0,
+                    error: 'Already answered this question'
+                });
+                return;
+            }
+
+            // Record the answer
+            gameState.playerAnswers[currentRoundKey][userId][questionId] = answer;
+
+            // Validate the answer on server side
+            const validation = validateAnswer(roomId, questionId, answer, roundNumber);
+            
+            console.log('Validation result:', validation);
+            
+            if (validation.isCorrect) {
+                const updateSuccess = updatePlayerPoints(roomId, userId, validation.points, roundNumber);
+                
+                if (updateSuccess) {
+                    // Emit updated scores to all players in room
                     io.to(roomId).emit('scoreUpdate', {
                         roomId,
                         players: gameState.players.map(p => ({
-                            username: p.username,
+                            user_id: p.user_id,
                             full_name: p.full_name,
                             user_picture_url: p.user_picture_url,
                             points: p.points,
                             roundScores: p.roundScores
                         }))
                     });
+                    
+                    console.log('Score update emitted for room:', roomId);
+                } else {
+                    console.log('Failed to update points for user:', userId);
                 }
+            }
+
+            // Send answer result back to the specific player
+            socket.emit('answerResult', {
+                questionId,
+                isCorrect: validation.isCorrect,
+                points: validation.points,
+                correctAnswer: validation.correctAnswer
+            });
+
+            // NEW: Check if all players have answered all questions
+            if (checkAllPlayersAnswered(roomId, roundNumber)) {
+                console.log(`All players completed round ${roundNumber} in room ${roomId} - ending round early`);
+                
+                // Emit notification that round is ending early
+                io.to(roomId).emit('roundEndingEarly', {
+                    roomId,
+                    roundNumber,
+                    reason: 'All players completed'
+                });
+                
+                // End the round after a short delay to let players see their final answer
+                setTimeout(() => {
+                    endRound(io, roomId, roundNumber);
+                }, 2000); // 2 second delay for better UX
             }
         });
 
@@ -342,8 +501,13 @@ module.exports = function (io) {
                 pairRooms[id] = users.filter(u => u.socketId !== socket.id);
                 if (pairRooms[id].length === 0) {
                     delete pairRooms[id];
-                    // Also clean up game state
-                    delete gameStates[id];
+                    // Clean up game state and timers
+                    if (gameStates[id]) {
+                        if (gameStates[id].roundTimer) {
+                            clearTimeout(gameStates[id].roundTimer);
+                        }
+                        delete gameStates[id];
+                    }
                     console.log(`Deleted empty pair room: ${id}`);
                 } else if (before !== pairRooms[id].length) {
                     console.log(`Updated pair room ${id}, players:`, pairRooms[id]);
@@ -357,8 +521,13 @@ module.exports = function (io) {
                 royaleRooms[id] = users.filter(u => u.socketId !== socket.id);
                 if (royaleRooms[id].length === 0) {
                     delete royaleRooms[id];
-                    // Also clean up game state
-                    delete gameStates[id];
+                    // Clean up game state and timers
+                    if (gameStates[id]) {
+                        if (gameStates[id].roundTimer) {
+                            clearTimeout(gameStates[id].roundTimer);
+                        }
+                        delete gameStates[id];
+                    }
                     console.log(`Deleted empty royale room: ${id}`);
                 } else if (before !== royaleRooms[id].length) {
                     console.log(`Updated royale room ${id}, players:`, royaleRooms[id]);

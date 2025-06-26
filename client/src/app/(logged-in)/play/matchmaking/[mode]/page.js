@@ -25,6 +25,8 @@ const Page = () => {
   const [hasAnswered, setHasAnswered] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [roundTimeLeft, setRoundTimeLeft] = useState(60);
+  const [currentCorrectAnswer, setCurrentCorrectAnswer] = useState("");
+  const [waitingForOtherEnd, setWaitingForOtherEnd] = useState(false);
 
   const onGameStart = (gameData) => {
     // Example: navigate to the game page with roomId or gameData
@@ -71,23 +73,10 @@ const Page = () => {
         } else {
           // All questions answered for this round
           console.log("All questions answered for round", round);
+          setWaitingForOtherEnd(true);
         }
       }, 1500); // 1.5 second delay to show the selected answer
     };
-  };
-
-  const nextQuestion = () => {
-    if (pivot < questions.length - 1) {
-      setPivot((prev) => prev + 1);
-      setHasAnswered(false);
-      setSelectedAnswer(null);
-    }
-  };
-
-  const skipQuestion = () => {
-    if (!hasAnswered) {
-      nextQuestion();
-    }
   };
 
   useEffect(() => {
@@ -166,6 +155,7 @@ const Page = () => {
         setRoundType(data.roundType);
         setQuestions(data.questions);
         setPivot(0);
+        setWaitingForOtherEnd(false);
         setHasAnswered(false);
         setSelectedAnswer(null);
         setRoundTimeLeft(60);
@@ -179,6 +169,7 @@ const Page = () => {
         setRoundType(data.roundType);
         setQuestions(data.questions);
         setPivot(0);
+        setWaitingForOtherEnd(false);
         setHasAnswered(false);
         setSelectedAnswer(null);
         setRoundTimeLeft(60);
@@ -192,6 +183,7 @@ const Page = () => {
         setRoundType(data.roundType);
         setQuestions(data.questions);
         setPivot(0);
+        setWaitingForOtherEnd(false);
         setHasAnswered(false);
         setSelectedAnswer(null);
         setRoundTimeLeft(60);
@@ -223,6 +215,7 @@ const Page = () => {
         setRoundType(data.roundType);
         setQuestions(data.questions);
         setPivot(0);
+        setWaitingForOtherEnd(false);
         setHasAnswered(false);
         setSelectedAnswer(null);
         setRoundTimeLeft(60);
@@ -236,6 +229,7 @@ const Page = () => {
         setRoundType(data.roundType);
         setQuestions(data.questions);
         setPivot(0);
+        setWaitingForOtherEnd(false);
         setHasAnswered(false);
         setSelectedAnswer(null);
         setRoundTimeLeft(60);
@@ -249,6 +243,7 @@ const Page = () => {
         setRoundType(data.roundType);
         setQuestions(data.questions);
         setPivot(0);
+        setWaitingForOtherEnd(false);
         setHasAnswered(false);
         setSelectedAnswer(null);
         setRoundTimeLeft(60);
@@ -271,6 +266,7 @@ const Page = () => {
     // Add listener for answer results
     newSocket.on("answerResult", (data) => {
       console.log("✅ Answer result received:", data);
+      setCurrentCorrectAnswer(data.correctAnswer);
       // You can show feedback to user here if needed
     });
 
@@ -340,7 +336,7 @@ const Page = () => {
   if (status == "matchmaking")
     return (
       <div className="min-h-[100dvh] flex items-center justify-center bg-[#fffaf3]">
-        <div className="bg-white rounded-xl shadow-md border border-gray-300 px-10 pt-10 pb-8 min-w-[600px] max-w-[900px] w-[80%] text-center">
+        <div className="bg-white rounded-xl shadow-md border border-gray-300 px-10 pt-10 pb-8 max-w-[900px] w-[90%] text-center">
           <h2 className="text-[#ff7a1a] font-extrabold text-3xl mb-2 tracking-tight">
             Matchmaking
           </h2>
@@ -361,14 +357,14 @@ const Page = () => {
           </div>
           <div className="mb-6">
             {players.length > 0 && (
-              <div className="overflow-x-auto">
+              <div className="">
                 <ul
-                  className={`list-none p-0 m-0 flex flex-row gap-3 items-center flex-nowrap min-w-[520px] transition-all duration-300 justify-center`}
+                  className={`list-none p-0 m-0 flex flex-row gap-3 items-center flex-nowrap transition-all duration-300 justify-center`}
                 >
                   {players.map((p, index) => (
                     <li
                       key={p.username || p.socketId || index}
-                      className="flex flex-col items-center bg-[#f5f5f7] rounded-lg px-4 py-2 min-w-[120px] border border-gray-200"
+                      className="flex flex-col items-center bg-[#f5f5f7] rounded-lg px-4 py-2 border border-gray-200"
                     >
                       {p.user_picture_url && (
                         <img
@@ -401,7 +397,7 @@ const Page = () => {
   if (status == "countdown")
     return (
       <div className="min-h-[100dvh] flex items-center justify-center bg-[#fffaf3]">
-        <div className="bg-white rounded-xl shadow-md border border-gray-300 px-10 pt-10 pb-8 min-w-[600px] max-w-[900px] w-[80%] text-center">
+        <div className="bg-white rounded-xl shadow-md border border-gray-300 px-10 pt-10 pb-8 max-w-[900px] w-[90%] text-center m-8">
           <h2 className="text-[#ff7a1a] font-extrabold text-3xl mb-2 tracking-tight">
             Game Starting Soon!
           </h2>
@@ -420,12 +416,12 @@ const Page = () => {
           </div>
           <div className="mb-6">
             {players.length > 0 && (
-              <div className="overflow-x-auto">
-                <ul className="list-none p-0 m-0 flex flex-row gap-3 items-center flex-nowrap min-w-[520px] transition-all duration-300 justify-center">
+              <div className="">
+                <ul className="list-none p-0 m-0 flex flex-row gap-3 items-center flex-nowrap transition-all duration-300 justify-center">
                   {players.map((p, index) => (
                     <li
                       key={p.username || p.socketId || index}
-                      className="flex flex-col items-center bg-[#f5f5f7] rounded-lg px-4 py-2 min-w-[120px] border border-gray-200"
+                      className="flex flex-col items-center bg-[#f5f5f7] rounded-lg px-4 py-2 border border-gray-200"
                     >
                       {p.user_picture_url && (
                         <img
@@ -454,8 +450,8 @@ const Page = () => {
 
   if (status == "gameRunning")
     return (
-      <div className="min-h-[100dvh] bg-[#fffaf3] p-4">
-        <div className="max-w-4xl mx-auto">
+      <div className="min-h-[100dvh] bg-[#fffaf3] p-4 flex items-center justify-center">
+        <div className="max-w-[1000px] w-[90%]">
           {/* Header */}
           <div className="bg-white rounded-xl shadow-md border border-gray-300 p-6 mb-4">
             <div className="flex justify-between items-center">
@@ -494,8 +490,20 @@ const Page = () => {
             </div>
           </div>
 
+          {
+            waitingForOtherEnd && (
+              <div className="bg-white rounded-xl shadow-md border border-gray-300 p-8 text-center space-y-4">
+                <div className="flex justify-center">
+                  <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-200 border-t-orange-500"></div>
+                </div>
+                <div className="text-2xl font-semibold text-gray-800">Please Wait...</div>
+                <div className="text-gray-500 text-md">Other players are completing their round</div>
+              </div>
+            )
+          }
+
           {/* Question Section */}
-          {roundType == "mcq" && questions[pivot] && (
+          {roundType == "mcq" && questions[pivot] && !waitingForOtherEnd && (
             <div className="bg-white rounded-xl shadow-md border border-gray-300 p-6">
               <div className="mb-6">
                 <h3 className="text-xl font-bold mb-4">
@@ -504,23 +512,36 @@ const Page = () => {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {["A", "B", "C", "D"].map((option) => {
+                {['A', 'B', 'C', 'D'].map((option) => {
                   const optionText = questions[pivot][`option${option}`];
                   const isSelected = selectedAnswer === option.toLowerCase();
                   const isDisabled = hasAnswered;
-
+                  // Determine correctness if answered
+                  let buttonClass = "p-4 rounded-lg border-2 text-left transition-all duration-200 ";
+                  if (isDisabled && isSelected) {
+                    if (selectedAnswer != currentCorrectAnswer.toLowerCase()) {
+                      buttonClass += 'border-red-500 bg-red-100 text-red-700';
+                    }
+                    else if (selectedAnswer == currentCorrectAnswer.toLowerCase()) {
+                      buttonClass += 'border-green-500 bg-green-100 text-green-700';
+                    }
+                  }
+                  else if (isDisabled && option.toLowerCase() == currentCorrectAnswer.toLowerCase()) {
+                    buttonClass += 'border-green-500 bg-green-100 text-green-700';
+                  }
+                  else if (isSelected) {
+                    buttonClass += 'border-[#ff7a1a] bg-orange-100 text-[#ff7a1a]';
+                  } else if (isDisabled) {
+                    buttonClass += 'border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed';
+                  } else {
+                    buttonClass += 'border-gray-300 hover:border-[#ff7a1a] hover:bg-orange-50';
+                  }
                   return (
                     <button
                       key={option}
                       onClick={submitAnswer(option.toLowerCase())}
                       disabled={isDisabled}
-                      className={`p-4 rounded-lg border-2 text-left transition-all duration-200 ${
-                        isSelected
-                          ? "border-[#ff7a1a] bg-orange-100 text-[#ff7a1a]"
-                          : isDisabled
-                          ? "border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed"
-                          : "border-gray-300 hover:border-[#ff7a1a] hover:bg-orange-50"
-                      }`}
+                      className={buttonClass}
                     >
                       <span className="font-semibold mr-2">{option}.</span>
                       {optionText}
@@ -532,9 +553,9 @@ const Page = () => {
               {/* Skip button */}
               <div className="mt-6 text-center">
                 <button
-                  onClick={skipQuestion}
+                  onClick={submitAnswer("skip")}
                   disabled={hasAnswered}
-                  className="px-6 py-2 text-gray-500 hover:text-gray-700 disabled:text-gray-300"
+                  className="px-6 py-2 text-gray-500 hover:text-gray-700 hover:bg-gray-200 cursor-pointer rounded-lg disabled:text-gray-300"
                 >
                   Skip Question →
                 </button>
@@ -548,7 +569,7 @@ const Page = () => {
   if (status == "roundEnded")
     return (
       <div className="min-h-[100dvh] flex items-center justify-center bg-[#fffaf3]">
-        <div className="bg-white rounded-xl shadow-md border border-gray-300 px-10 pt-10 pb-8 min-w-[600px] max-w-[900px] w-[80%] text-center">
+        <div className="bg-white rounded-xl shadow-md border border-gray-300 px-10 pt-10 pb-8 max-w-[900px] w-[90%] text-center">
           <h2 className="text-[#ff7a1a] font-extrabold text-3xl mb-2 tracking-tight">
             Round {round} Completed!
           </h2>
@@ -580,7 +601,7 @@ const Page = () => {
   if (status == "gameResults")
     return (
       <div className="min-h-[100dvh] flex items-center justify-center bg-[#fffaf3]">
-        <div className="bg-white rounded-xl shadow-md border border-gray-300 px-10 pt-10 pb-8 min-w-[600px] max-w-[900px] w-[80%] text-center">
+        <div className="bg-white rounded-xl shadow-md border border-gray-300 px-10 pt-10 pb-8 min-w-[600px] max-w-[900px] w-[90%] text-center">
           <h2 className="text-[#ff7a1a] font-extrabold text-3xl mb-2 tracking-tight">
             Game Results
           </h2>
@@ -594,15 +615,14 @@ const Page = () => {
             {playerScores.map((player, index) => (
               <div
                 key={player.user_id}
-                className={`rounded-lg p-4 mb-3 flex justify-between items-center ${
-                  index === 0
-                    ? "bg-yellow-100 border-2 border-yellow-400"
-                    : "bg-gray-100"
-                }`}
+                className={`rounded-lg p-4 mb-3 flex justify-between items-center ${index === 0
+                  ? "bg-yellow-100 border-2 border-yellow-400"
+                  : "bg-gray-100"
+                  }`}
               >
                 <div className="flex items-center">
-                  <span className="text-2xl mr-3">{player.rank}</span>
-                  <span className="font-semibold">
+                  <span className="text-2xl mr-3 font-bold w-8 text-center ">{player.rank}</span>
+                  <span className="font-semibold m-2">
                     {player.full_name} {index === 0 ? "🏆" : ``}
                   </span>
                 </div>

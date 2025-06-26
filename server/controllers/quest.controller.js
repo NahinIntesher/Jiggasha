@@ -139,6 +139,8 @@ exports.claimQuestReward = async (req, res) => {
 
 // Evaluate user quests (backend maintenance utility)
 exports.evaluateUserQuests = async (userId) => {
+  console.log("hello");
+  console.log("userId: ", userId);
   try {
     const [userStatsRes, questsRes] = await Promise.all([
       connection.query(`SELECT * FROM user_stats WHERE user_id = $1`, [userId]),
