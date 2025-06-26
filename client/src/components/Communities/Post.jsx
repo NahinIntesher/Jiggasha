@@ -33,7 +33,7 @@ export default function Post() {
 
     try {
       const response = await fetch(
-        "https://jiggasha.onrender.com/communities/post/comments",
+        "http://localhost:8000/communities/post/comments",
         {
           method: "POST",
           headers: {
@@ -73,7 +73,7 @@ export default function Post() {
   };
 
   useEffect(() => {
-    fetch("https://jiggasha.onrender.com/communities/singlePost/" + postId, {
+    fetch("http://localhost:8000/communities/singlePost/" + postId, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

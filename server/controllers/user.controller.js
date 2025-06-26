@@ -18,7 +18,7 @@ exports.getUserProfile = async (req, res) => {
           u.user_group,
           u.user_department,
           COALESCE(CAST(ROUND(SUM(ur.rating_point)::numeric, 2) AS TEXT), '0.00') AS user_rating,
-          CONCAT('https://jiggasha.onrender.com/profile/image/', u.user_id) AS user_picture_url
+          CONCAT('http://localhost:8000/profile/image/', u.user_id) AS user_picture_url
       FROM 
           users u
       LEFT JOIN 
@@ -74,7 +74,7 @@ exports.leaderboard = async (req, res) => {
     const { rows } = await connection.query(
       `SELECT full_name, username, level, user_rating,
       CASE
-        WHEN user_picture IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/profile/image/', user_id)
+        WHEN user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', user_id)
         ELSE NULL
       END AS user_picture_url 
       FROM users
@@ -99,7 +99,7 @@ exports.getAllTimeLeaderboard = async (req, res) => {
         COUNT(ur.rating_id) AS rating_count,
 
       CASE
-        WHEN user_picture IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/profile/image/', u.user_id)
+        WHEN user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
         ELSE NULL
       END AS user_picture_url 
 
@@ -131,7 +131,7 @@ exports.getWeeklyLeaderboard = async (req, res) => {
         COUNT(ur.rating_id) AS rating_count,
 
       CASE
-        WHEN user_picture IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/profile/image/', u.user_id)
+        WHEN user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
         ELSE NULL
       END AS user_picture_url 
       
@@ -164,7 +164,7 @@ exports.getMonthlyLeaderboard = async (req, res) => {
         COUNT(ur.rating_id) AS rating_count,
 
       CASE
-        WHEN user_picture IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/profile/image/', u.user_id)
+        WHEN user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
         ELSE NULL
       END AS user_picture_url 
       
@@ -243,7 +243,7 @@ exports.getAllUsers = async (req, res) => {
         u.user_department,
         u.mobile_no, 
         CASE 
-            WHEN u.user_picture IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/profile/image/', u.user_id)
+            WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
             ELSE NULL
         END AS user_picture
     FROM users u 

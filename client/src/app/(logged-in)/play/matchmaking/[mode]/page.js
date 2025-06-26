@@ -96,13 +96,10 @@ const Page = () => {
     if (!user || !mode) return;
 
     // Create socket connection
-    console.log(
-      "Creating socket connection to https://jiggasha.onrender.com..."
-    );
     console.log("User info:", user);
     console.log("Mode:", mode);
 
-    const newSocket = io("https://jiggasha.onrender.com", {
+    const newSocket = io("http://localhost:8000/", {
       withCredentials: true,
       transports: ["websocket", "polling"], // Add polling as fallback
       forceNew: true, // Force new connection each time

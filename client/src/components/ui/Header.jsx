@@ -68,7 +68,7 @@ export default function Header({ title, subtitle }) {
     const fetchData = async () => {
       try {
         const blogResponse = await fetch(
-          "https://jiggasha.onrender.com/blogs/search/" + (value ? value : "_"),
+          "http://localhost:8000/blogs/search/" + (value ? value : "_"),
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -77,8 +77,7 @@ export default function Header({ title, subtitle }) {
         );
 
         const courseResponse = await fetch(
-          "https://jiggasha.onrender.com/courses/search/" +
-            (value ? value : "_"),
+          "http://localhost:8000/courses/search/" + (value ? value : "_"),
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -87,8 +86,7 @@ export default function Header({ title, subtitle }) {
         );
 
         const communityResponse = await fetch(
-          "https://jiggasha.onrender.com/communities/search/" +
-            (value ? value : "_"),
+          "http://localhost:8000/communities/search/" + (value ? value : "_"),
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },

@@ -77,18 +77,15 @@ export default function SingleCourse() {
       const formDataToSend = new FormData();
       formDataToSend.append("message", inputMessage);
 
-      const response = await fetch(
-        "https://jiggasha.onrender.com/ai/response",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          mode: "cors",
-          body: JSON.stringify(formData),
-          credentials: "include",
-        }
-      );
+      const response = await fetch("http://localhost:8000/ai/response", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        body: JSON.stringify(formData),
+        credentials: "include",
+      });
 
       const result = await response.json();
 
@@ -128,7 +125,7 @@ export default function SingleCourse() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://jiggasha.onrender.com/courses/single/" + courseId,
+          "http://localhost:8000/courses/single/" + courseId,
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -242,7 +239,7 @@ function CourseContentBox({ isActive }) {
 
 //   // Fetch course info
 //   const courseRes = await fetch(
-//     `https://jiggasha.onrender.com/courses/single/${courseId}`,
+//     `http://localhost:8000/courses/single/${courseId}`,
 //     {
 //       headers: {
 //         "Content-Type": "application/json",

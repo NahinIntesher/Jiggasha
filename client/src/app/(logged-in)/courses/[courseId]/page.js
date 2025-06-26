@@ -12,7 +12,7 @@ export default async function SingleCoursePage({ params }) {
     : "";
 
   const courseRes = await fetch(
-    `https://jiggasha.onrender.com/courses/single/${courseId}`,
+    `http://localhost:8000/courses/single/${courseId}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +29,7 @@ export default async function SingleCoursePage({ params }) {
   const course = await courseRes.json();
 
   // Optional: If you plan to get lectures/materials in future
-  // const lecturesRes = await fetch(`https://jiggasha.onrender.com/courses/${courseId}/lectures`, { ... });
+  // const lecturesRes = await fetch(`http://localhost:8000/courses/${courseId}/lectures`, { ... });
   // const lectures = await lecturesRes.json();
 
   return <CourseDetails course={course} />;

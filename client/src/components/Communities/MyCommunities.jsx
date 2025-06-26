@@ -62,14 +62,11 @@ export default function MyCommunities() {
   useEffect(() => {
     const fetchMyCommunities = async () => {
       try {
-        const response = await fetch(
-          "https://jiggasha.onrender.com/communities/my",
-          {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-            credentials: "include",
-          }
-        );
+        const response = await fetch("http://localhost:8000/communities/my", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+        });
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);

@@ -14,13 +14,10 @@ const Matchmaking = ({ mode, userInfo, onGameStart }) => {
     if (!mode) return;
 
     // Create socket connection
-    console.log(
-      "Creating socket connection to https://jiggasha.onrender.com..."
-    );
     console.log("User info:", userInfo);
     console.log("Mode:", mode);
 
-    const newSocket = io("http://localhost:8000", {
+    const newSocket = io("http://localhost:8000/", {
       withCredentials: true,
       transports: ["websocket", "polling"], // Add polling as fallback
       forceNew: true, // Force new connection each time

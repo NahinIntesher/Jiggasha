@@ -38,16 +38,13 @@ const CommunityCard = ({
   const handleConfirmJoin = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(
-        "https://jiggasha.onrender.com/communities/join",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          mode: "cors",
-          body: JSON.stringify({ community_id }),
-        }
-      );
+      const response = await fetch("http://localhost:8000/communities/join", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        mode: "cors",
+        body: JSON.stringify({ community_id }),
+      });
       const data = await response.json();
 
       if (response.ok && data.success) {

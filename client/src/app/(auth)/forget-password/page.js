@@ -35,17 +35,14 @@ export default function ForgetPasswordPage() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(
-        "https://jiggasha.onrender.com/forgot-password",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({ email }),
-        }
-      );
+      const response = await fetch("http://localhost:8000/forgot-password", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ email }),
+      });
 
       const result = await response.json();
 

@@ -60,18 +60,15 @@ export default function SrijonaAI() {
       const formDataToSend = new FormData();
       formDataToSend.append("message", inputMessage);
 
-      const response = await fetch(
-        "https://jiggasha.onrender.com/ai/response",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          mode: "cors",
-          body: JSON.stringify(formData),
-          credentials: "include",
-        }
-      );
+      const response = await fetch("http://localhost:8000/ai/response", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        body: JSON.stringify(formData),
+        credentials: "include",
+      });
 
       const result = await response.json();
 
@@ -106,14 +103,11 @@ export default function SrijonaAI() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "https://jiggasha.onrender.com/ai/messages",
-          {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-            credentials: "include",
-          }
-        );
+        const response = await fetch("http://localhost:8000/ai/messages", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+        });
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
