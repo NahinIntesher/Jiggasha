@@ -7,6 +7,7 @@ exports.getUserProfile = async (req, res) => {
   try {
     const { rows } = await connection.query(
       `SELECT 
+          u.user_id,
           u.full_name,
           u.level,
           u.username,

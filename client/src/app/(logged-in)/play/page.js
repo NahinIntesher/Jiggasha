@@ -11,13 +11,13 @@ export default function Play() {
       <Header title="Learn Through Play" />
       <div className="flex gap-3 items-center justify-center h-screen">
         <Link
-          href={`/${battleId}`}
+          href={`/play/matchmaking/royale`}
           className="bg-orange-200 border p-4 mb-4 border-gray-500 text-black  rounded-xl"
         >
           <span>Battle Royal</span>
         </Link>
         <Link
-          href={`/${PairToPairbattleId}`}
+          href={`/play/matchmaking/pair`}
           className="bg-orange-50 border p-4 mb-4 border-gray-500 text-black  rounded-xl"
         >
           <span>Pair To Pair Battle</span>

@@ -1,7 +1,7 @@
 const http = require("http");
 const { Server } = require("socket.io");
 const app = require("./app"); // the express app
-const registerSockets = require("./socket");
+// const registerSockets = require("./socketAlt");
 
 const server = http.createServer(app);
 
@@ -13,8 +13,11 @@ const io = new Server(server, {
   },
 });
 
-// Attach socket events
-registerSockets(io);
+require("./socket/battle")(io);
+
+
+// // Attach socket events
+// registerSockets(io);
 
 // Start server
 const PORT = process.env.PORT || 8000;
