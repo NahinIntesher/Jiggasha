@@ -7,7 +7,7 @@ import CompletedQuests from "./CompletedQuest";
 import { FaList, FaGripVertical } from "react-icons/fa";
 
 export default function QuestTabs({ allQuests, completedQuests }) {
-  const [activeTab, setActiveTab] = useState("browse");
+  const [activeTab, setActiveTab] = useState("completed");
   const [view, setView] = useState("grid");
 
   return (

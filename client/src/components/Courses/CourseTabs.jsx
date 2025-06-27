@@ -6,7 +6,7 @@ import EnrolledCourses from "./EnrolledCourses";
 import Header from "../ui/Header";
 
 export default function CourseTabs({ allCourses, enrolledCourses }) {
-  const [activeTab, setActiveTab] = useState("browseCourses");
+  const [activeTab, setActiveTab] = useState("enrolledCourses");
 
   return (
     <div>
@@ -15,6 +15,7 @@ export default function CourseTabs({ allCourses, enrolledCourses }) {
         <div
           onClick={() => setActiveTab("enrolledCourses")}
           className={activeTab === "enrolledCourses" ? "tab tabActive" : "tab"}
+          id="enrolledCourses"
         >
           Enrolled Courses
         </div>
