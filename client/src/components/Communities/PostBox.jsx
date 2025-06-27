@@ -34,7 +34,7 @@ const PostBox = ({
     console.log("hu.lo");
     try {
       const response = await fetch(
-        "http://localhost:8000/communities/post/react",
+        "https://jiggasha.onrender.com/communities/post/react",
         {
           method: "POST",
           headers: {
@@ -65,7 +65,7 @@ const PostBox = ({
       console.error("Error:", error);
     }
 
-    // fetch("http://localhost:8000/communities/post/react", {
+    // fetch("https://jiggasha.onrender.com/communities/post/react", {
     //     method: "POST",
     //     headers: {
     //         "Content-Type": "application/json",

@@ -25,7 +25,7 @@ export default function QuestCard({ quest, view = "grid" }) {
 
   const handleClaim = async (questId) => {
     try {
-      const res = await fetch("http://localhost:8000/quests/claim", {
+      const res = await fetch("https://jiggasha.onrender.com/quests/claim", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ quest_id: questId }),

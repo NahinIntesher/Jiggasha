@@ -63,7 +63,7 @@ export default function BrowseBlogs() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/blogs", {
+        const response = await fetch("https://jiggasha.onrender.com/blogs", {
           method: "GET",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
