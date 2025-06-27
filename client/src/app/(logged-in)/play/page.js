@@ -7,8 +7,8 @@ export default function Play() {
   let PairToPairbattleId = "pair-to-pair-battle-12345";
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-orange-50">
-      <Header title="Learn Through Play" />
+    <div className="min-h-screen">
+      <Header title="Play" />
 
       {/* Hero Section */}
       <div className="px-6 py-12">

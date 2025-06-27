@@ -22,11 +22,13 @@ const Page = () => {
   const [round, setRound] = useState(null);
   const [roundType, setRoundType] = useState(null);
   const [playerScores, setPlayerScores] = useState([]);
+  const [eliminatedPlayers, setEliminatedPlayers] = useState([]);
   const [hasAnswered, setHasAnswered] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [roundTimeLeft, setRoundTimeLeft] = useState(60);
   const [currentCorrectAnswer, setCurrentCorrectAnswer] = useState("");
   const [waitingForOtherEnd, setWaitingForOtherEnd] = useState(false);
+  const [isEliminated, setIsEliminated] = useState(false);
 
   const onGameStart = (gameData) => {
     // Example: navigate to the game page with roomId or gameData
@@ -250,6 +252,27 @@ const Page = () => {
         setPlayerScores(data.players);
         setStatus("gameRunning"); // Ensure status is set correctly
       });
+
+      newSocket.on("startRound4", (data) => {
+        console.log("✅ Starting round 4:", data);
+        setRound(data.roundNumber);
+        setRoundType(data.roundType);
+        setQuestions(data.questions);
+        setPivot(0);
+        setWaitingForOtherEnd(false);
+        setHasAnswered(false);
+        setSelectedAnswer(null);
+        setRoundTimeLeft(60);
+        setPlayerScores(data.players);
+        setStatus("gameRunning"); // Ensure status is set correctly
+      });
+
+      newSocket.on("eliminated", (data) => {
+        console.log("✅ You are eliminated:", data);
+        setPlayerScores(data.players);
+        setEliminatedPlayers(data.eliminatedPlayers);
+        setIsEliminated(true);
+      });
     }
 
     // Common event listeners
@@ -274,24 +297,28 @@ const Page = () => {
       console.log("✅ Game results:", data);
       setStatus("gameResults");
       setPlayerScores(data.results);
+      setEliminatedPlayers(data.eliminatedPlayers);
     });
 
     newSocket.on("endRound1", (data) => {
       console.log("✅ Round 1 ended:", data);
       setStatus("roundEnded");
       setPlayerScores(data.players);
+      setEliminatedPlayers(data.eliminatedPlayers);
     });
 
     newSocket.on("endRound2", (data) => {
       console.log("✅ Round 2 ended:", data);
       setStatus("roundEnded");
       setPlayerScores(data.players);
+      setEliminatedPlayers(data.eliminatedPlayers);
     });
 
     newSocket.on("endRound3", (data) => {
       console.log("✅ Round 3 ended:", data);
       setStatus("roundEnded");
       setPlayerScores(data.players);
+      setEliminatedPlayers(data.eliminatedPlayers);
     });
 
     // Cleanup function
@@ -359,21 +386,27 @@ const Page = () => {
             {players.length > 0 && (
               <div className="">
                 <ul
-                  className={`list-none p-0 m-0 flex flex-row gap-3 items-center flex-nowrap transition-all duration-300 justify-center`}
+                  className={`list-none p-0 m-0 flex flex-row gap-3 items-stretch flex-nowrap transition-all duration-300 justify-center`}
                 >
                   {players.map((p, index) => (
                     <li
                       key={p.username || p.socketId || index}
                       className="flex flex-col items-center bg-[#f5f5f7] rounded-lg px-4 py-2 border border-gray-200"
                     >
-                      {p.user_picture_url && (
+                      {p.user_picture_url ? (
                         <img
                           src={p.user_picture_url}
                           alt="avatar"
                           width={36}
                           height={36}
-                          className="rounded-full mb-1 border-2 border-gray-400 bg-white"
+                          className="rounded-full h-[36px] object-cover mb-1 border-2 border-gray-400 bg-white"
                         />
+                      ) : (
+                        <div className="rounded-full mb-1 border-2 border-gray-400 bg-gray-200 flex items-center justify-center" style={{ width: 36, height: 36 }}>
+                          <span className="text-gray-600 font-bold text-lg">
+                            {(p.full_name || p.username || "?")[0]?.toUpperCase()}
+                          </span>
+                        </div>
                       )}
                       <div className="font-bold text-gray-900 text-sm">
                         {p.full_name || p.username}
@@ -417,20 +450,26 @@ const Page = () => {
           <div className="mb-6">
             {players.length > 0 && (
               <div className="">
-                <ul className="list-none p-0 m-0 flex flex-row gap-3 items-center flex-nowrap transition-all duration-300 justify-center">
+                <ul className="list-none p-0 m-0 flex flex-row gap-3 items-stretch flex-nowrap transition-all duration-300 justify-center">
                   {players.map((p, index) => (
                     <li
                       key={p.username || p.socketId || index}
                       className="flex flex-col items-center bg-[#f5f5f7] rounded-lg px-4 py-2 border border-gray-200"
                     >
-                      {p.user_picture_url && (
+                      {p.user_picture_url ? (
                         <img
                           src={p.user_picture_url}
                           alt="avatar"
                           width={36}
                           height={36}
-                          className="rounded-full mb-1 border-2 border-gray-400 bg-white"
+                          className="rounded-full h-[36px] object-cover mb-1 border-2 border-gray-400 bg-white"
                         />
+                      ) : (
+                        <div className="rounded-full mb-1 border-2 border-gray-400 bg-gray-200 flex items-center justify-center" style={{ width: 36, height: 36 }}>
+                          <span className="text-gray-600 font-bold text-lg">
+                            {(p.full_name || p.username || "?")[0]?.toUpperCase()}
+                          </span>
+                        </div>
                       )}
                       <div className="font-bold text-gray-900 text-sm">
                         {p.full_name || p.username}
@@ -448,7 +487,7 @@ const Page = () => {
       </div>
     );
 
-  if (status == "gameRunning")
+  if (status == "gameRunning" && !isEliminated)
     return (
       <div className="min-h-[100dvh] bg-[#fffaf3] p-4 flex items-center justify-center">
         <div className="max-w-[1000px] w-[90%]">
@@ -479,12 +518,22 @@ const Page = () => {
               {playerScores.map((player, index) => (
                 <div
                   key={player.user_id}
-                  className="bg-gray-100 rounded-lg p-3 flex-1"
+                  className="bg-gray-100 rounded-lg p-3 flex-1 flex flex-col items-center"
                 >
-                  <div className="font-semibold">{player.full_name}</div>
-                  <div className="text-[#ff7a1a] font-bold">
+                  <div className="font-semibold text-sm">{player.full_name}</div>
+                  <div className="text-[#ff7a1a] font-bold text-xl mt-1">
                     {player.points} pts
                   </div>
+                </div>
+              ))}
+
+              {eliminatedPlayers.map((player, index) => (
+                <div
+                  key={player.user_id}
+                  className="bg-gray-100 rounded-lg p-3 flex-1 flex flex-col items-center opacity-75"
+                >
+                  <div className="font-semibold text-sm">{player.full_name}</div>
+                  <span className="bg-red-400 text-white py-1 px-3 mt-2 rounded-md text-xs">Eliminated</span>
                 </div>
               ))}
             </div>
@@ -566,14 +615,14 @@ const Page = () => {
       </div>
     );
 
-  if (status == "roundEnded")
+  if (status == "roundEnded" && !isEliminated)
     return (
       <div className="min-h-[100dvh] flex items-center justify-center bg-[#fffaf3]">
         <div className="bg-white rounded-xl shadow-md border border-gray-300 px-10 pt-10 pb-8 max-w-[900px] w-[90%] text-center">
           <h2 className="text-[#ff7a1a] font-extrabold text-3xl mb-2 tracking-tight">
             Round {round} Completed!
           </h2>
-          {round !== 3 && (
+          {(round < 3 || mode == "royale") && (
             <div className="text-gray-500 text-base mb-6 font-medium">
               Waiting for next round...
             </div>
@@ -585,9 +634,24 @@ const Page = () => {
             {playerScores.map((player, index) => (
               <div
                 key={player.user_id}
-                className="bg-gray-100 rounded-lg p-3 mb-2 flex justify-between items-center"
+                className="bg-gray-100 rounded-lg p-4 px-5 mb-2 flex justify-between items-center"
               >
                 <span className="font-semibold">{player.full_name}</span>
+                <span className="text-[#ff7a1a] font-bold">
+                  {player.points} pts
+                </span>
+              </div>
+            ))}
+
+            {eliminatedPlayers.map((player, index) => (
+              <div
+                key={player.user_id}
+                className="bg-gray-100 rounded-lg p-4 px-5 mb-2 flex justify-between items-center opacity-75"
+              >
+                <span className="font-semibold">
+                  {player.full_name}
+                  <span className="bg-red-400 text-white py-1 px-3 mx-4 rounded-md text-xs">Eliminated</span>
+                </span>
                 <span className="text-[#ff7a1a] font-bold">
                   {player.points} pts
                 </span>
@@ -598,7 +662,59 @@ const Page = () => {
       </div>
     );
 
-  if (status == "gameResults")
+  if (isEliminated)
+    return (
+      <div className="min-h-[100dvh] flex items-center justify-center bg-[#fffaf3]">
+        <div className="bg-white rounded-xl shadow-md border border-gray-300 px-10 pt-10 pb-8 min-w-[600px] max-w-[900px] w-[90%] text-center">
+          <h2 className="text-[#ff7a1a] font-extrabold text-3xl mb-2 tracking-tight">
+            Eliminated!
+          </h2>
+          <div className="text-gray-500 text-base mb-6 font-medium">
+            You are Eliminated from Battle Royale!
+          </div>
+
+          {/* Final Results */}
+          <div className="mb-6">
+            <h3 className="font-bold text-lg mb-4">Current Scores</h3>
+            {playerScores.map((player, index) => (
+              <div
+                key={player.user_id}
+                className="bg-gray-100 rounded-lg p-4 px-5 mb-2 flex justify-between items-center"
+              >
+                <span className="font-semibold">{player.full_name}</span>
+                <span className="text-[#ff7a1a] font-bold">
+                  {player.points} pts
+                </span>
+              </div>
+            ))}
+
+            {eliminatedPlayers.map((player, index) => (
+              <div
+                key={player.user_id}
+                className="bg-gray-100 rounded-lg p-4 px-5 mb-2 flex justify-between items-center opacity-75"
+              >
+                <span className="font-semibold">
+                  {player.full_name}
+                  <span className="bg-red-400 text-white py-1 px-3 mx-4 rounded-md text-xs">Eliminated</span>
+                </span>
+                <span className="text-[#ff7a1a] font-bold">
+                  {player.points} pts
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <button
+            onClick={() => router.push("/play")}
+            className="bg-[#ff7a1a] text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors"
+          >
+            Back to Play
+          </button>
+        </div>
+      </div>
+    );
+
+  if (status == "gameResults" && !isEliminated)
     return (
       <div className="min-h-[100dvh] flex items-center justify-center bg-[#fffaf3]">
         <div className="bg-white rounded-xl shadow-md border border-gray-300 px-10 pt-10 pb-8 min-w-[600px] max-w-[900px] w-[90%] text-center">
@@ -615,7 +731,7 @@ const Page = () => {
             {playerScores.map((player, index) => (
               <div
                 key={player.user_id}
-                className={`rounded-lg p-4 mb-3 flex justify-between items-center ${index === 0
+                className={`rounded-lg py-2 px-4 mb-3 flex justify-between items-center ${index === 0
                   ? "bg-yellow-100 border-2 border-yellow-400"
                   : "bg-gray-100"
                   }`}
@@ -623,7 +739,25 @@ const Page = () => {
                 <div className="flex items-center">
                   <span className="text-2xl mr-3 font-bold w-8 text-center ">{player.rank}</span>
                   <span className="font-semibold m-2">
-                    {player.full_name} {index === 0 ? "🏆" : ``}
+                    {player.full_name} <span className="px-2">{index === 0 ? "🏆" : ``}</span>
+                  </span>
+                </div>
+                <span className="text-[#ff7a1a] font-bold text-lg">
+                  {player.points} pts
+                </span>
+              </div>
+            ))}
+
+            {eliminatedPlayers.map((player, index) => (
+              <div
+                key={player.user_id}
+                className={`rounded-lg py-2 px-4 mb-3 flex justify-between items-center bg-gray-100 opacity-75`}
+              >
+                <div className="flex items-center">
+                  <span className="text-2xl mr-3 font-bold w-8 text-center ">{player.rank}</span>
+                  <span className="font-semibold m-2">
+                    {player.full_name}
+                  <span className="bg-red-400 text-white py-1 px-3 mx-4 rounded-md text-xs">Eliminated</span>
                   </span>
                 </div>
                 <span className="text-[#ff7a1a] font-bold text-lg">

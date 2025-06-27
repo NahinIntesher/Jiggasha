@@ -1,3 +1,4 @@
+import { subjectName } from "@/utils/Constant";
 import Link from "next/link";
 import React from "react";
 import {
@@ -38,8 +39,8 @@ export default function Dashboard({ data }) {
   const winRate =
     data.battle_stats.total_battles > 0
       ? Math.round(
-          (data.battle_stats.pair_wins / data.battle_stats.total_battles) * 100
-        )
+        (data.battle_stats.pair_wins / data.battle_stats.total_battles) * 100
+      )
       : 0;
 
   // Calculate accuracy from improvement areas
@@ -50,8 +51,8 @@ export default function Dashboard({ data }) {
   const averageAccuracy =
     data.improvement_areas?.length > 0
       ? Math.round(
-          100 - (totalWrongAnswers / data.improvement_areas.length) * 25
-        )
+        100 - (totalWrongAnswers / data.improvement_areas.length) * 25
+      )
       : 100;
 
   return (
@@ -62,7 +63,7 @@ export default function Dashboard({ data }) {
           {/* Left Column - Main Dashboard */}
           <div className="lg:col-span-2 space-y-6">
             {/* Top Row - Profile and Performance */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* User Profile Card */}
               <div className="bg-white border border-gray-300 rounded-lg shadow-sm p-6">
                 {/* Greeting */}
@@ -81,7 +82,7 @@ export default function Dashboard({ data }) {
                   </p>
                 </div>
 
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col items-center justify-between">
                   <div className="flex items-center space-x-4">
                     <div className="relative">
                       {data.profile.user_picture ? (
@@ -96,23 +97,30 @@ export default function Dashboard({ data }) {
                         </div>
                       )}
                     </div>
-                    <div>
+                    <div className="flex flex-col">
                       <h2 className="font-bold text-gray-800 text-lg">
                         {data.profile.full_name}
                       </h2>
+                      <div className="flex items-center justify-center lg:justify-start gap-2">
+                        <div className="flex items-center gap-1">
+                          <FaStar className="text-orange-400 text-md" />
+                        </div>
+                        <span className="text-md font-bold text-orange-600">
+                          {420.50}
+                        </span>
+                        <span className="text-gray-500 text-sm">rating</span>
+                      </div>
                     </div>
                   </div>
 
                   {/* View Profile Button */}
-                  <div className="flex-1">
-                    <Link
-                      href="/profile"
-                      className="bg-orange-500 hover:bg-orange-600 text-white px-4 w-full py-2 rounded-lg text-sm font-medium transition-colors duration-200 flex items-center justify-center space-x-3"
-                    >
-                      <FaUser className="text-2xl" />
-                      <span className="text-xs">View Profile</span>
-                    </Link>
-                  </div>
+                  <Link
+                    href="/profile"
+                    className="bg-orange-500 hover:bg-orange-600 text-white px-4 w-full py-2 rounded-lg text-sm font-medium transition-colors duration-200 flex items-center justify-center space-x-3 mt-3"
+                  >
+                    <FaUser className="text-md" />
+                    <span className="text-md">View Profile</span>
+                  </Link>
                 </div>
               </div>
 
@@ -280,7 +288,7 @@ export default function Dashboard({ data }) {
                             )}
                           </span>
                           <span className="bg-orange-100 text-orange-600 px-2 py-1 rounded-lg">
-                            Subject: {classItem.subject}
+                            Subject: {subjectName[classItem.subject]}
                           </span>
                         </div>
                       </div>
@@ -376,12 +384,12 @@ export default function Dashboard({ data }) {
                           {/* Show crown if current streak equals record */}
                           {data.battle_streak.current_streak ===
                             data.battle_streak.record_streak && (
-                            <div className="absolute -top-1 -right-1">
-                              <span className="text-yellow-400 text-xs">
-                                👑
-                              </span>
-                            </div>
-                          )}
+                              <div className="absolute -top-1 -right-1">
+                                <span className="text-yellow-400 text-xs">
+                                  👑
+                                </span>
+                              </div>
+                            )}
                         </div>
                       ) : (
                         <div className="w-8 h-8 border-2 border-gray-200 rounded-lg"></div>
@@ -406,7 +414,7 @@ export default function Dashboard({ data }) {
                       width: `${Math.min(
                         (data.battle_streak.current_streak /
                           (data.battle_streak.record || 19)) *
-                          100,
+                        100,
                         100
                       )}%`,
                     }}

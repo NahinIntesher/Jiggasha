@@ -121,65 +121,50 @@ export default function Header({ title, subtitle }) {
   return (
     <div className="header">
       {/* Title and Subtitle */}
-      <div className="mobileViewContainer flex items-center justify-between md:justify-start w-full md:w-auto">
-        <div className="titleButtonContainer flex items-center gap-2">
-          <div
-            className="menuButton p-2 rounded-md hover:bg-gray-100 cursor-pointer md:hidden"
-            onClick={toggleMenu}
-          >
-            <FaBars className="icon text-xl text-gray-700" />
+      <div className="mobileViewContainer">
+        <div className="titleButtonContainer">
+          <div className="menuButton" onClick={toggleMenu}>
+            <FaBars className="icon" />
           </div>
           <div className="titleContainer">
             {title ? (
-              <h1 className="title text-lg font-bold text-gray-800">{title}</h1>
+              <h1 className="title">{title}</h1>
             ) : (
-              <h1 className="metaTitle text-lg font-bold text-gray-800">
-                {meta.title}
-              </h1>
+              <h1 className="metaTitle">{meta.title}</h1>
             )}
           </div>
         </div>
         <div
           onClick={toggleSecondaryMenu}
-          className={`secondaryMenuButton ml-2 p-2 rounded-md hover:bg-gray-100 cursor-pointer transition-transform duration-200 ${
-            secondaryMenu ? "rotate-180" : ""
-          } md:hidden`}
+          className={
+            secondaryMenu ? "secondaryMenuButton rotate" : "secondaryMenuButton"
+          }
         >
-          <FaAngleDown className="icon text-lg text-gray-700" />
+          <FaAngleDown className="icon" />
         </div>
       </div>
 
       {/* Search and Icons */}
-      <div
-        className={`iconContainer flex items-center gap-3 transition-all duration-200 ${
-          secondaryMenu ? "block" : "hidden"
-        } md:flex`}
-      >
-        <div className="searchBox relative flex items-center bg-gray-100 rounded-md px-2 py-1 w-48 md:w-64">
-          <FaSearch className="icon text-gray-400 mr-2" />
-          <input
-            type="text"
-            placeholder="Search"
-            onChange={handleSearch}
-            className="bg-transparent outline-none w-full text-sm"
-          />
+      <div className={secondaryMenu ? "iconContainer active" : "iconContainer"}>
+        <div className="searchBox">
+          <FaSearch className="icon" />
+          <input type="text" placeholder="Search" onChange={handleSearch}/>
           <div
-            className={`searchResultContainer absolute left-0 top-10 w-full bg-white shadow-lg rounded-md z-20 ${
-              searchShow ? "" : "hidden"
-            }`}
+            className={`searchResultContainer ${searchShow ? "" : "hidden"
+              }`}
           >
             {blogs.length == 0 &&
-            communities.length == 0 &&
-            courses.length == 0 ? (
-              <div className="notFound flex flex-col items-center py-6 text-gray-400">
-                <FaSearch className="icon text-2xl mb-2" />
+              communities.length == 0 &&
+              courses.length == 0 ? (
+              <div className="notFound ">
+                <FaSearch className="icon" />
                 <div className="text">Nothing Found!</div>
               </div>
             ) : (
               <>
                 {blogs.length > 0 && (
                   <>
-                    <div className="segmentName px-4 py-1 text-xs font-semibold text-gray-500">
+                    <div className="segmentName">
                       Blogs
                     </div>
                     {blogs.map((blog) => (
@@ -195,7 +180,7 @@ export default function Header({ title, subtitle }) {
                 )}
                 {communities.length > 0 && (
                   <>
-                    <div className="segmentName px-4 py-1 text-xs font-semibold text-gray-500">
+                    <div className="segmentName">
                       Communities
                     </div>
                     {communities.map((community) => (
@@ -211,7 +196,7 @@ export default function Header({ title, subtitle }) {
                 )}
                 {courses.length > 0 && (
                   <>
-                    <div className="segmentName px-4 py-1 text-xs font-semibold text-gray-500">
+                    <div className="segmentName">
                       Courses
                     </div>
                     {courses.map((course) => (
@@ -229,26 +214,17 @@ export default function Header({ title, subtitle }) {
             )}
           </div>
         </div>
-        <div
-          className="iconButton relative p-2 rounded-md hover:bg-gray-100 cursor-pointer"
-          onClick={() => setToggleNotification(!toggelNotification)}
-        >
-          <div className="count absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1.5 py-0.5">
-            0
-          </div>
+        <div className="iconButton" onClick={() => setToggleNotification(!toggelNotification)}>
+          <div className="count">4</div>
           <FaBell className="icon" />
         </div>
-        <Link
-          href={"/settings"}
-          className="iconButton p-2 rounded-md hover:bg-gray-100 cursor-pointer"
-        >
-          <FaGear className="icon text-xl text-gray-700" />
+        <Link href={"/settings"} className="iconButton">
+          <FaGear className="icon" />
         </Link>
       </div>
       <div
-        className={`notificationContainer absolute right-4 top-16 w-80 bg-white shadow-lg rounded-md z-30 ${
-          toggelNotification ? "" : "hidden"
-        }`}
+        className={`notificationContainer absolute right-4 top-16 w-80 bg-white shadow-lg rounded-md z-30 ${toggelNotification ? "" : "hidden"
+          }`}
       >
         <div className="title px-4 py-2 border-b border-b-gray-400 font-semibold text-gray-700">
           Notification

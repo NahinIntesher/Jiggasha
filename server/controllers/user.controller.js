@@ -18,7 +18,10 @@ exports.getUserProfile = async (req, res) => {
           u.user_group,
           u.user_department,
           COALESCE(CAST(ROUND(SUM(ur.rating_point)::numeric, 2) AS TEXT), '0.00') AS user_rating,
-          CONCAT('http://localhost:8000/profile/image/', u.user_id) AS user_picture_url
+          CASE
+            WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
+            ELSE NULL
+          END AS user_picture_url
       FROM 
           users u
       LEFT JOIN 
