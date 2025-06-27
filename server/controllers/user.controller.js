@@ -19,7 +19,7 @@ exports.getUserProfile = async (req, res) => {
           u.user_department,
           COALESCE(CAST(ROUND(SUM(ur.rating_point)::numeric, 2) AS TEXT), '0.00') AS user_rating,
           CASE
-            WHEN u.user_picture IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/profile/image/', u.user_id)
+            WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
             ELSE NULL
           END AS user_picture_url
       FROM 
@@ -77,7 +77,7 @@ exports.leaderboard = async (req, res) => {
     const { rows } = await connection.query(
       `SELECT full_name, username, level, user_rating,
       CASE
-        WHEN user_picture IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/profile/image/', user_id)
+        WHEN user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', user_id)
         ELSE NULL
       END AS user_picture_url 
       FROM users
@@ -102,7 +102,7 @@ exports.getAllTimeLeaderboard = async (req, res) => {
         COUNT(ur.rating_id) AS rating_count,
 
       CASE
-        WHEN user_picture IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/profile/image/', u.user_id)
+        WHEN user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
         ELSE NULL
       END AS user_picture_url 
 
@@ -110,6 +110,8 @@ exports.getAllTimeLeaderboard = async (req, res) => {
         users u
       LEFT JOIN 
         user_rating ur ON u.user_id = ur.user_id
+      WHERE
+        u.user_role = 'student'
       GROUP BY 
         u.user_id, u.username
       ORDER BY 
@@ -134,7 +136,7 @@ exports.getWeeklyLeaderboard = async (req, res) => {
         COUNT(ur.rating_id) AS rating_count,
 
       CASE
-        WHEN user_picture IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/profile/image/', u.user_id)
+        WHEN user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
         ELSE NULL
       END AS user_picture_url 
       
@@ -143,6 +145,8 @@ exports.getWeeklyLeaderboard = async (req, res) => {
       LEFT JOIN 
         user_rating ur ON u.user_id = ur.user_id
         AND ur.earned_at >= (NOW() - INTERVAL '7 days')
+      WHERE
+        u.user_role = 'student'
       GROUP BY 
         u.user_id, u.username
       ORDER BY 
@@ -167,7 +171,7 @@ exports.getMonthlyLeaderboard = async (req, res) => {
         COUNT(ur.rating_id) AS rating_count,
 
       CASE
-        WHEN user_picture IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/profile/image/', u.user_id)
+        WHEN user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
         ELSE NULL
       END AS user_picture_url 
       
@@ -176,6 +180,8 @@ exports.getMonthlyLeaderboard = async (req, res) => {
       LEFT JOIN 
         user_rating ur ON u.user_id = ur.user_id
         AND ur.earned_at >= (NOW() - INTERVAL '30 days')
+      WHERE
+        u.user_role = 'student'
       GROUP BY 
         u.user_id, u.username
       ORDER BY 
@@ -246,7 +252,7 @@ exports.getAllUsers = async (req, res) => {
         u.user_department,
         u.mobile_no, 
         CASE 
-            WHEN u.user_picture IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/profile/image/', u.user_id)
+            WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
             ELSE NULL
         END AS user_picture
     FROM users u 

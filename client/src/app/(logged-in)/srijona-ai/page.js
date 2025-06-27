@@ -60,7 +60,7 @@ export default function SrijonaAI() {
       const formDataToSend = new FormData();
       formDataToSend.append("message", inputMessage);
 
-      const response = await fetch("https://jiggasha.onrender.com/ai/response", {
+      const response = await fetch("http://localhost:8000/ai/response", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -103,7 +103,7 @@ export default function SrijonaAI() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://jiggasha.onrender.com/ai/messages", {
+        const response = await fetch("http://localhost:8000/ai/messages", {
           method: "GET",
           headers: { "Content-Type": "application/json" },
           credentials: "include",

@@ -184,7 +184,7 @@ export default function AdminRegistrationPage() {
     console.log("Form data is valid");
 
     try {
-      const response = await fetch("https://jiggasha.onrender.com/signup", {
+      const response = await fetch("http://localhost:8000/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

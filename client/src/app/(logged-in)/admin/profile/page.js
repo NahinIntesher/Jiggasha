@@ -27,7 +27,7 @@ export default function Profile() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch("https://jiggasha.onrender.com/", {
+        const response = await fetch("http://localhost:8000/", {
           method: "GET",
           headers: { "Content-Type": "application/json" },
           credentials: "include",

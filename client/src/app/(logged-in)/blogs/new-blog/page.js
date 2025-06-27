@@ -82,7 +82,7 @@ export default function NewBlog() {
       formDataToSend.append("content", html);
       formDataToSend.append("subject", formData.subject);
 
-      const response = await fetch("https://jiggasha.onrender.com/blogs/add", {
+      const response = await fetch("http://localhost:8000/blogs/add", {
         method: "POST",
         body: formDataToSend,
         credentials: "include",
