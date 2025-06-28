@@ -6,24 +6,16 @@ import {
   FaTrophy,
   FaClipboardCheck,
   FaBookOpen,
-  FaChartLine,
-  FaBullseye,
   FaRankingStar,
-  FaUsers,
   FaCalendarDay,
-  FaGraduationCap,
   FaLightbulb,
   FaAward,
   FaFire,
   FaGamepad,
-  FaClock,
-  FaCheckCircle,
   FaPlay,
-  FaArrowRight,
-  FaCalendar,
   FaStar,
-  FaX,
 } from "react-icons/fa6";
+import LoginStreakCalendar from "./LoginStreakCalendar";
 
 export default function Dashboard({ data }) {
   if (!data) {
@@ -39,8 +31,8 @@ export default function Dashboard({ data }) {
   const winRate =
     data.battle_stats.total_battles > 0
       ? Math.round(
-        (data.battle_stats.pair_wins / data.battle_stats.total_battles) * 100
-      )
+          (data.battle_stats.pair_wins / data.battle_stats.total_battles) * 100
+        )
       : 0;
 
   // Calculate accuracy from improvement areas
@@ -51,10 +43,9 @@ export default function Dashboard({ data }) {
   const averageAccuracy =
     data.improvement_areas?.length > 0
       ? Math.round(
-        100 - (totalWrongAnswers / data.improvement_areas.length) * 25
-      )
+          100 - (totalWrongAnswers / data.improvement_areas.length) * 25
+        )
       : 100;
-
   return (
     <div className="min-h-screen bg-[#fffaf3e6] p-6">
       <div className="max-w-7xl mx-auto">
@@ -82,7 +73,7 @@ export default function Dashboard({ data }) {
                   </p>
                 </div>
 
-                <div className="flex flex-col items-center justify-between">
+                <div className="flex flex-col items-start justify-between">
                   <div className="flex items-center space-x-4">
                     <div className="relative">
                       {data.profile.user_picture ? (
@@ -106,7 +97,7 @@ export default function Dashboard({ data }) {
                           <FaStar className="text-orange-400 text-md" />
                         </div>
                         <span className="text-md font-bold text-orange-600">
-                          {420.50}
+                          {420.5}
                         </span>
                         <span className="text-gray-500 text-sm">rating</span>
                       </div>
@@ -215,7 +206,7 @@ export default function Dashboard({ data }) {
                     <FaFire className="text-red-600 text-lg" />
                   </div>
                   <span className="text-2xl font-bold text-gray-800">
-                    {data.battle_streak.current_streak}
+                    {data.login_streak?.current_streak}
                   </span>
                 </div>
                 <div>
@@ -339,89 +330,10 @@ export default function Dashboard({ data }) {
 
           {/* Right Column - Sidebar */}
           <div className="space-y-6 ">
-            {/* Battle Streak Calendar */}
-            <div className="bg-white rounded-lg border border-gray-300 shadow-sm p-6">
-              <h2 className="text-lg font-semibold text-gray-800 mb-2">
-                Complete a <span className="text-orange-400">Battle</span> or{" "}
-                <span className="text-orange-400">Lecture</span> to{" "}
-                {data.battle_streak.current_streak ? "continue" : "start"} your
-                streak
-              </h2>
-              <div className="flex items-center justify-between mb-4">
-                <p className="text-sm text-gray-600">
-                  Current streak: {data.battle_streak.current_streak} days
-                </p>
-                <p className="text-sm text-orange-600 font-medium">
-                  🏆 Record: {data.battle_streak.record_streak} days
-                </p>
-              </div>
+            {/* Login Streak Calendar */}
 
-              {/* Calendar Grid */}
-              <div className="grid grid-cols-7 gap-2 mb-4">
-                {["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"].map(
-                  (day) => (
-                    <div
-                      key={day}
-                      className="text-center text-xs font-medium text-gray-600 py-2"
-                    >
-                      {day}
-                    </div>
-                  )
-                )}
-                {Array(7)
-                  .fill(0)
-                  .map((_, index) =>
-                    index >= 7 - data.battle_streak.current_streak ? 1 : 0
-                  )
-                  .map((active, index) => (
-                    <div
-                      key={index}
-                      className="aspect-square flex items-center justify-center"
-                    >
-                      {active ? (
-                        <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center relative">
-                          <FaFire className="text-white text-xs" />
-                          {/* Show crown if current streak equals record */}
-                          {data.battle_streak.current_streak ===
-                            data.battle_streak.record_streak && (
-                              <div className="absolute -top-1 -right-1">
-                                <span className="text-yellow-400 text-xs">
-                                  👑
-                                </span>
-                              </div>
-                            )}
-                        </div>
-                      ) : (
-                        <div className="w-8 h-8 border-2 border-gray-200 rounded-lg"></div>
-                      )}
-                    </div>
-                  ))}
-              </div>
+            <LoginStreakCalendar login_streak={data?.login_streak} />
 
-              {/* Progress bar showing current vs record */}
-              <div className="mt-4">
-                <div className="flex justify-between text-xs text-gray-600 mb-1">
-                  <span>Progress to record</span>
-                  <span>
-                    {data.battle_streak.current_streak}/
-                    {data.battle_streak.record || 19}
-                  </span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div
-                    className="bg-orange-500 h-2 rounded-full transition-all duration-300"
-                    style={{
-                      width: `${Math.min(
-                        (data.battle_streak.current_streak /
-                          (data.battle_streak.record || 19)) *
-                        100,
-                        100
-                      )}%`,
-                    }}
-                  ></div>
-                </div>
-              </div>
-            </div>
             {/* Improvement Areas */}
             <div className="bg-white rounded-lg border border-gray-300 shadow-sm p-6">
               <div className="flex items-center mb-6">

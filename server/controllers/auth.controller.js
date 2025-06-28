@@ -292,6 +292,12 @@ exports.login = async (req, res) => {
       });
     }
 
+    // ✅ LOGIN STREAK UPDATE
+    await connection.query(
+      `INSERT INTO user_logins (user_id, login_time) VALUES ($1, NOW())`,
+      [user.user_id]
+    );
+
     // JWT token generation with error handling
     let token;
     try {

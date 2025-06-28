@@ -195,39 +195,50 @@ exports.getAllInformations = async (req, res) => {
         ) t
       ),
 
-      'battle_streak', (
-        SELECT row_to_json(t) FROM (
-          WITH streak_data AS (
-            SELECT 
-              COALESCE(us.current_streak, 0) AS current_streak,
-              COALESCE(us.record_streak, 0) AS record_streak
-            FROM users u
-            LEFT JOIN user_streaks us ON u.user_id = us.user_id
-            WHERE u.user_id = $1
-          ),
-          battle_days AS (
-            SELECT DISTINCT DATE(bp.joined_at) AS battle_date
-            FROM battle_participants bp
-            WHERE bp.participant_id = $1
-          ),
-          streak_calc AS (
-            SELECT 
-              COUNT(*) AS calculated_streak
-            FROM (
+      'login_streak', (
+          SELECT row_to_json(t) FROM (
+            WITH user_days AS (
+              SELECT DISTINCT DATE(login_time) AS login_date
+              FROM user_logins
+              WHERE user_id = $1
+                AND login_time >= CURRENT_DATE - INTERVAL '30 days'
+            ),
+            consecutive_groups AS (
+              SELECT
+                login_date,
+                login_date - (ROW_NUMBER() OVER (ORDER BY login_date)) * INTERVAL '1 day' AS grp
+              FROM user_days
+            ),
+            streak_group AS (
               SELECT 
-                battle_date - ROW_NUMBER() OVER (ORDER BY battle_date DESC) * INTERVAL '1 day' AS grp
-              FROM battle_days
-              WHERE battle_date >= CURRENT_DATE - INTERVAL '30 days'
-            ) t 
-            GROUP BY grp 
-            ORDER BY COUNT(*) DESC 
-            LIMIT 1
-          )
-          SELECT 
-            COALESCE((SELECT calculated_streak FROM streak_calc), 0) AS current_streak,
-            (SELECT record_streak FROM streak_data) AS record_streak
-        ) t
-      )
+                grp, 
+                COUNT(*) AS streak_length, 
+                MIN(login_date) AS start_date, 
+                MAX(login_date) AS end_date
+              FROM consecutive_groups
+              GROUP BY grp
+              ORDER BY end_date DESC
+              LIMIT 1
+            ),
+            record_streak AS (
+              SELECT MAX(streak_length) AS record_streak
+              FROM (
+                SELECT 
+                  COUNT(*) AS streak_length
+                FROM consecutive_groups
+                GROUP BY grp
+              ) AS all_streaks
+            )
+            SELECT 
+              COALESCE(start_date, NULL) AS start_date,
+              COALESCE(end_date, NULL) AS end_date,
+              COALESCE(streak_length, 0) AS current_streak,
+              COALESCE(record_streak, 0) AS record_streak
+            FROM streak_group, record_streak
+          ) t
+        )
+
+
     ) AS dashboard;
 
   `;
