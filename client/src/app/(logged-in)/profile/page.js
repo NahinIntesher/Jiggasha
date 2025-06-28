@@ -72,7 +72,7 @@ export default function Profile() {
 
   if (!user) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+      <div className="flex items-center justify-center min-h-screen bg-orange-50">
         <div className="text-center p-10 bg-white rounded-xl shadow-lg max-w-md mx-4 border border-gray-300">
           <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <span className="text-orange-500 text-3xl">⚠</span>

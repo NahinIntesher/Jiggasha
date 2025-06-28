@@ -45,7 +45,6 @@ function generateActiveDays(startDateStr, endDateStr) {
 }
 
 export default function LoginStreakCalendar({ login_streak = {} }) {
-  console.log("Login streak data:", login_streak);
   const {
     current_streak: current = 0,
     record_streak: record = 0,
@@ -54,7 +53,6 @@ export default function LoginStreakCalendar({ login_streak = {} }) {
   } = login_streak;
 
   const activeDays = generateActiveDays(start_date, end_date);
-  console.log("Active days:", activeDays);
   const todayIdx = getDayIndex(new Date().getDay());
 
   return (

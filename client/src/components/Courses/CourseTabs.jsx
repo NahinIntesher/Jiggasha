@@ -4,6 +4,7 @@ import { useState } from "react";
 import BrowseCourses from "./BrowseCourses";
 import EnrolledCourses from "./EnrolledCourses";
 import Header from "../ui/Header";
+import NotFoundPage from "../ui/NotFound";
 
 export default function CourseTabs({ allCourses, enrolledCourses }) {
   const [activeTab, setActiveTab] = useState("enrolledCourses");
@@ -30,9 +31,12 @@ export default function CourseTabs({ allCourses, enrolledCourses }) {
       {activeTab === "browseCourses" && (
         <BrowseCourses coursesData={allCourses} />
       )}
-      {activeTab === "enrolledCourses" && (
-        <EnrolledCourses coursesData={enrolledCourses} />
-      )}
+      {activeTab === "enrolledCourses" &&
+        (enrolledCourses.length === 0 ? (
+          <NotFoundPage type="course" />
+        ) : (
+          <EnrolledCourses coursesData={enrolledCourses} />
+        ))}
     </div>
   );
 }
