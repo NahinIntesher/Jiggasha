@@ -237,8 +237,6 @@ exports.getAllInformations = async (req, res) => {
             FROM streak_group, record_streak
           ) t
         )
-
-
     ) AS dashboard;
 
   `;

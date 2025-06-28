@@ -294,7 +294,10 @@ exports.login = async (req, res) => {
 
     // ✅ LOGIN STREAK UPDATE
     await connection.query(
-      `INSERT INTO user_logins (user_id, login_time) VALUES ($1, NOW())`,
+      `INSERT INTO user_logins (user_id, login_time)
+      VALUES ($1, NOW())
+      ON CONFLICT (user_id) DO UPDATE
+      SET login_time = EXCLUDED.login_time`,
       [user.user_id]
     );
 
