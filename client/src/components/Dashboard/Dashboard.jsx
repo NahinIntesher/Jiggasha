@@ -97,7 +97,7 @@ export default function Dashboard({ data }) {
                           <FaStar className="text-orange-400 text-md" />
                         </div>
                         <span className="text-md font-bold text-orange-600">
-                          {420.5}
+                          {data.profile.user_rating}
                         </span>
                         <span className="text-gray-500 text-sm">rating</span>
                       </div>

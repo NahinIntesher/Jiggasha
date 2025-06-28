@@ -4,7 +4,7 @@ import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
 
 const quicksand = localFont({
-  src: "../../../public/fonts/Quicksand-Regular.ttf",
+  src: "../../../public/fonts/Quicksand-Variable.ttf",
   variable: "--font-quicksand",
   display: "swap",
 });

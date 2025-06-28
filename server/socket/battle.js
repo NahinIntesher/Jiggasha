@@ -215,7 +215,7 @@ async function startRound(io, roomId, roundNumber) {
 
     const sortedPlayers = [...gameState.players].sort((a, b) => b.points - a.points);
 
-    io.to(roomId).emit(`startRound${roundNumber}`, {
+    io.to(roomId).emit(`startRound`, {
         roomId,
         roundNumber,
         roundType,
@@ -241,7 +241,7 @@ async function startRound(io, roomId, roundNumber) {
     // Set round end timer (1 minute)
     gameState.roundTimer = setTimeout(() => {
         endRound(io, roomId, roundNumber);
-    }, 25000); // 1 minute
+    }, 60000); // 1 minute
 }
 
 // End a specific round
@@ -271,12 +271,11 @@ function endRound(io, roomId, roundNumber) {
 
         // Remove eliminated players from the game state
         if (newEliminatedPlayers.length !== gameState.players.length) {
-            // Sort newEliminatedPlayers by points (descending) before adding
-            const sortedEliminated = [...newEliminatedPlayers].sort((a, b) => b.points - a.points);
+            // Merge and sort all eliminated players by points (descending)
             gameState.eliminatedPlayers = [
                 ...gameState.eliminatedPlayers,
-                ...sortedEliminated
-            ];
+                ...newEliminatedPlayers
+            ].sort((a, b) => b.points - a.points);
 
             gameState.players = gameState.players.filter(p => p.points !== minPoints);
 
@@ -319,7 +318,7 @@ function endRound(io, roomId, roundNumber) {
     const sortedPlayers = [...gameState.players].sort((a, b) => b.points - a.points);
 
     // Emit round end
-    io.to(roomId).emit(`endRound${roundNumber}`, {
+    io.to(roomId).emit(`endRound`, {
         roomId,
         roundNumber,
         players: sortedPlayers.map((p) => ({
@@ -392,10 +391,46 @@ async function endGame(io, roomId) {
     });
 
     try {
-        await connection.query(
-            "INSERT INTO user_rating (user_id, rating_point) VALUES ($1, $2)",
-            [results[0].user_id, 3]
+        // Insert battle and get generated id
+        const battleResult = await connection.query(
+            "INSERT INTO battles (battle_type) VALUES ($1) RETURNING battle_id",
+            [gameState.mode]
         );
+        const battleId = battleResult.rows[0].battle_id;
+
+        results.forEach(async (player, index) => {
+            if (index == 0) {
+                await connection.query(
+                    "INSERT INTO user_rating (user_id, rating_point) VALUES ($1, $2)",
+                    [player.user_id, 3]
+                );
+                await connection.query(
+                    "INSERT INTO battle_participants (battle_id, participant_id, score, rank, is_won) VALUES ($1, $2, $3, $4, $5)",
+                    [battleId, player.user_id, player.points, index + 1, true]
+                );
+            }
+            else {
+                await connection.query(
+                    "INSERT INTO user_rating (user_id, rating_point) VALUES ($1, $2)",
+                    [player.user_id, -1.5]
+                );
+                await connection.query(
+                    "INSERT INTO battle_participants (battle_id, participant_id, score, rank, is_won) VALUES ($1, $2, $3, $4, $5)",
+                    [battleId, player.user_id, player.points, index + 1, false]
+                );
+            }
+        });
+
+        gameState.eliminatedPlayers.forEach(async (player, index) => {
+            await connection.query(
+                "INSERT INTO user_rating (user_id, rating_point) VALUES ($1, $2)",
+                [player.user_id, -1.5]
+            );
+            await connection.query(
+                "INSERT INTO battle_participants (battle_id, participant_id, score, rank, is_won) VALUES ($1, $2, $3, $4, $5)",
+                [battleId, player.user_id, player.points, (results.length+index+1), false]
+            );
+        });
 
         await connection.query(
             `INSERT INTO user_stats (user_id, pair_battles_won)
@@ -434,6 +469,7 @@ function updatePlayerPoints(roomId, user_id, points, roundNumber) {
     }
 
     const player = gameState.players.find((p) => p.user_id === user_id);
+    console.log("updatePlayerPoints", points);
     if (player) {
         player.roundScores[roundNumber - 1] += points;
         player.points += points;
@@ -477,7 +513,10 @@ function validateAnswer(roomId, questionId, answer, roundNumber) {
 
     const isCorrect =
         question.correctAnswer.toLowerCase() === answer.toLowerCase();
-    const points = isCorrect ? 10 : 0; // 10 points for correct answer
+
+    const points = isCorrect ? 10 : answer == "skip" ? 0 : -5; // 10 points for correct answer
+
+    console.log("Point: ", points);
 
     console.log(
         `Answer validation: Question ${questionId}, Answer: ${answer}, Correct: ${question.correctAnswer}, IsCorrect: ${isCorrect}, Points: ${points}`
@@ -675,7 +714,8 @@ module.exports = function (io) {
 
             console.log("Validation result:", validation);
 
-            if (validation.isCorrect) {
+            // if (validation.isCorrect) {
+            if (true) {
                 const updateSuccess = updatePlayerPoints(
                     roomId,
                     userId,

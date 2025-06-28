@@ -5,6 +5,7 @@ import { useUser } from "@/components/Contexts/UserProvider";
 import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import Loading from "@/components/ui/Loading";
+import { FaStar } from "react-icons/fa6";
 
 const Page = () => {
   const { user } = useUser();
@@ -29,6 +30,8 @@ const Page = () => {
   const [currentCorrectAnswer, setCurrentCorrectAnswer] = useState("");
   const [waitingForOtherEnd, setWaitingForOtherEnd] = useState(false);
   const [isEliminated, setIsEliminated] = useState(false);
+  const [pointGot, setPointGot] = useState(0);
+  const [showPointPopup, setShowPointPopup] = useState(false);
 
   const onGameStart = (gameData) => {
     // Example: navigate to the game page with roomId or gameData
@@ -151,36 +154,8 @@ const Page = () => {
         onGameStart(data);
       });
 
-      newSocket.on("startRound1", (data) => {
-        console.log("✅ Starting round 1:", data);
-        setRound(data.roundNumber);
-        setRoundType(data.roundType);
-        setQuestions(data.questions);
-        setPivot(0);
-        setWaitingForOtherEnd(false);
-        setHasAnswered(false);
-        setSelectedAnswer(null);
-        setRoundTimeLeft(60);
-        setPlayerScores(data.players);
-        setStatus("gameRunning"); // Ensure status is set correctly
-      });
-
-      newSocket.on("startRound2", (data) => {
-        console.log("✅ Starting round 2:", data);
-        setRound(data.roundNumber);
-        setRoundType(data.roundType);
-        setQuestions(data.questions);
-        setPivot(0);
-        setWaitingForOtherEnd(false);
-        setHasAnswered(false);
-        setSelectedAnswer(null);
-        setRoundTimeLeft(60);
-        setPlayerScores(data.players);
-        setStatus("gameRunning"); // Ensure status is set correctly
-      });
-
-      newSocket.on("startRound3", (data) => {
-        console.log("✅ Starting round 3:", data);
+      newSocket.on("startRound", (data) => {
+        console.log(`✅ Starting round ${data.roundNumber}:`, data);
         setRound(data.roundNumber);
         setRoundType(data.roundType);
         setQuestions(data.questions);
@@ -211,50 +186,8 @@ const Page = () => {
       });
 
       // Add round listeners for battle royale too
-      newSocket.on("startRound1", (data) => {
-        console.log("✅ Starting round 1:", data);
-        setRound(data.roundNumber);
-        setRoundType(data.roundType);
-        setQuestions(data.questions);
-        setPivot(0);
-        setWaitingForOtherEnd(false);
-        setHasAnswered(false);
-        setSelectedAnswer(null);
-        setRoundTimeLeft(60);
-        setPlayerScores(data.players);
-        setStatus("gameRunning"); // Ensure status is set correctly
-      });
-
-      newSocket.on("startRound2", (data) => {
-        console.log("✅ Starting round 2:", data);
-        setRound(data.roundNumber);
-        setRoundType(data.roundType);
-        setQuestions(data.questions);
-        setPivot(0);
-        setWaitingForOtherEnd(false);
-        setHasAnswered(false);
-        setSelectedAnswer(null);
-        setRoundTimeLeft(60);
-        setPlayerScores(data.players);
-        setStatus("gameRunning"); // Ensure status is set correctly
-      });
-
-      newSocket.on("startRound3", (data) => {
-        console.log("✅ Starting round 3:", data);
-        setRound(data.roundNumber);
-        setRoundType(data.roundType);
-        setQuestions(data.questions);
-        setPivot(0);
-        setWaitingForOtherEnd(false);
-        setHasAnswered(false);
-        setSelectedAnswer(null);
-        setRoundTimeLeft(60);
-        setPlayerScores(data.players);
-        setStatus("gameRunning"); // Ensure status is set correctly
-      });
-
-      newSocket.on("startRound4", (data) => {
-        console.log("✅ Starting round 4:", data);
+      newSocket.on("startRound", (data) => {
+        console.log(`✅ Starting round ${data.roundNumber}:`, data);
         setRound(data.roundNumber);
         setRoundType(data.roundType);
         setQuestions(data.questions);
@@ -290,6 +223,9 @@ const Page = () => {
     newSocket.on("answerResult", (data) => {
       console.log("✅ Answer result received:", data);
       setCurrentCorrectAnswer(data.correctAnswer);
+      setPointGot(data.points);
+      setShowPointPopup(true);
+      setTimeout(() => setShowPointPopup(false), 1200);
       // You can show feedback to user here if needed
     });
 
@@ -300,22 +236,8 @@ const Page = () => {
       setEliminatedPlayers(data.eliminatedPlayers);
     });
 
-    newSocket.on("endRound1", (data) => {
-      console.log("✅ Round 1 ended:", data);
-      setStatus("roundEnded");
-      setPlayerScores(data.players);
-      setEliminatedPlayers(data.eliminatedPlayers);
-    });
-
-    newSocket.on("endRound2", (data) => {
-      console.log("✅ Round 2 ended:", data);
-      setStatus("roundEnded");
-      setPlayerScores(data.players);
-      setEliminatedPlayers(data.eliminatedPlayers);
-    });
-
-    newSocket.on("endRound3", (data) => {
-      console.log("✅ Round 3 ended:", data);
+    newSocket.on("endRound", (data) => {
+      console.log(`✅ Round ${data.roundNumber} ended:`, data);
       setStatus("roundEnded");
       setPlayerScores(data.players);
       setEliminatedPlayers(data.eliminatedPlayers);
@@ -335,12 +257,8 @@ const Page = () => {
       newSocket.off("scoreUpdate");
       newSocket.off("answerResult");
       newSocket.off("gameResults");
-      newSocket.off("startRound1");
-      newSocket.off("startRound2");
-      newSocket.off("startRound3");
-      newSocket.off("endRound1");
-      newSocket.off("endRound2");
-      newSocket.off("endRound3");
+      newSocket.off("startRound");
+      newSocket.off("endRound");
       newSocket.disconnect();
     };
   }, [user]);
@@ -362,7 +280,7 @@ const Page = () => {
 
   if (status == "matchmaking")
     return (
-      <div className="min-h-[100dvh] flex items-center justify-center bg-[#fffaf3]">
+      <div className="min-h-[100dvh] flex items-center justify-center">
         <div className="bg-white rounded-xl shadow-md border border-gray-300 px-10 pt-10 pb-8 max-w-[900px] w-[90%] text-center">
           <h2 className="text-[#ff7a1a] font-extrabold text-3xl mb-2 tracking-tight">
             Matchmaking
@@ -429,7 +347,7 @@ const Page = () => {
 
   if (status == "countdown")
     return (
-      <div className="min-h-[100dvh] flex items-center justify-center bg-[#fffaf3]">
+      <div className="min-h-[100dvh] flex items-center justify-center">
         <div className="bg-white rounded-xl shadow-md border border-gray-300 px-10 pt-10 pb-8 max-w-[900px] w-[90%] text-center m-8">
           <h2 className="text-[#ff7a1a] font-extrabold text-3xl mb-2 tracking-tight">
             Game Starting Soon!
@@ -489,7 +407,7 @@ const Page = () => {
 
   if (status == "gameRunning" && !isEliminated)
     return (
-      <div className="min-h-[100dvh] bg-[#fffaf3] p-4 flex items-center justify-center">
+      <div className="min-h-[100dvh] p-4 flex items-center justify-center">
         <div className="max-w-[1000px] w-[90%]">
           {/* Header */}
           <div className="bg-white rounded-xl shadow-md border border-gray-300 p-6 mb-4">
@@ -563,19 +481,19 @@ const Page = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {['A', 'B', 'C', 'D'].map((option) => {
                   const optionText = questions[pivot][`option${option}`];
-                  const isSelected = selectedAnswer === option.toLowerCase();
+                  const isSelected = selectedAnswer === option?.toLowerCase();
                   const isDisabled = hasAnswered;
                   // Determine correctness if answered
-                  let buttonClass = "p-4 rounded-lg border-2 text-left transition-all duration-200 ";
+                  let buttonClass = "p-4 rounded-lg border-2 text-left transition-all duration-200 relative ";
                   if (isDisabled && isSelected) {
-                    if (selectedAnswer != currentCorrectAnswer.toLowerCase()) {
+                    if (selectedAnswer != currentCorrectAnswer?.toLowerCase()) {
                       buttonClass += 'border-red-500 bg-red-100 text-red-700';
                     }
-                    else if (selectedAnswer == currentCorrectAnswer.toLowerCase()) {
+                    else if (selectedAnswer == currentCorrectAnswer?.toLowerCase()) {
                       buttonClass += 'border-green-500 bg-green-100 text-green-700';
                     }
                   }
-                  else if (isDisabled && option.toLowerCase() == currentCorrectAnswer.toLowerCase()) {
+                  else if (isDisabled && option?.toLowerCase() == currentCorrectAnswer?.toLowerCase()) {
                     buttonClass += 'border-green-500 bg-green-100 text-green-700';
                   }
                   else if (isSelected) {
@@ -588,12 +506,25 @@ const Page = () => {
                   return (
                     <button
                       key={option}
-                      onClick={submitAnswer(option.toLowerCase())}
+                      onClick={submitAnswer(option?.toLowerCase())}
                       disabled={isDisabled}
                       className={buttonClass}
+                      style={{ position: 'relative' }}
                     >
                       <span className="font-semibold mr-2">{option}.</span>
                       {optionText}
+                      {/* Point Popup Animation */}
+                      {showPointPopup && isSelected && (
+                        <span
+                          className={`absolute left-1/2 -translate-x-1/2 -top-8 px-3 py-1 rounded-full text-white font-bold text-base z-20 pointer-events-none point-popup-anim ${pointGot > 0 ? 'bg-green-500' : 'bg-red-500'}`}
+                          style={{
+                            opacity: showPointPopup ? 1 : 0,
+                            transition: 'opacity 0.5s',
+                          }}
+                        >
+                          {pointGot > 0 ? `+${pointGot}` : pointGot}
+                        </span>
+                      )}
                     </button>
                   );
                 })}
@@ -612,12 +543,36 @@ const Page = () => {
             </div>
           )}
         </div>
+        {/* Point Popup Animation CSS */}
+        <style jsx>{`
+          .point-popup-anim {
+            animation: pointPopupFadeUp 1.2s cubic-bezier(0.4,0,0.2,1);
+          }
+          @keyframes pointPopupFadeUp {
+            0% {
+              opacity: 0;
+              transform: translate(-50%, 0) scale(0.8);
+            }
+            20% {
+              opacity: 1;
+              transform: translate(-50%, -10px) scale(1.1);
+            }
+            60% {
+              opacity: 1;
+              transform: translate(-50%, -24px) scale(1.1);
+            }
+            100% {
+              opacity: 0;
+              transform: translate(-50%, -40px) scale(0.8);
+            }
+          }
+        `}</style>
       </div>
     );
 
   if (status == "roundEnded" && !isEliminated)
     return (
-      <div className="min-h-[100dvh] flex items-center justify-center bg-[#fffaf3]">
+      <div className="min-h-[100dvh] flex items-center justify-center">
         <div className="bg-white rounded-xl shadow-md border border-gray-300 px-10 pt-10 pb-8 max-w-[900px] w-[90%] text-center">
           <h2 className="text-[#ff7a1a] font-extrabold text-3xl mb-2 tracking-tight">
             Round {round} Completed!
@@ -664,7 +619,7 @@ const Page = () => {
 
   if (isEliminated)
     return (
-      <div className="min-h-[100dvh] flex items-center justify-center bg-[#fffaf3]">
+      <div className="min-h-[100dvh] flex items-center justify-center">
         <div className="bg-white rounded-xl shadow-md border border-gray-300 px-10 pt-10 pb-8 min-w-[600px] max-w-[900px] w-[90%] text-center">
           <h2 className="text-[#ff7a1a] font-extrabold text-3xl mb-2 tracking-tight">
             Eliminated!
@@ -716,7 +671,7 @@ const Page = () => {
 
   if (status == "gameResults" && !isEliminated)
     return (
-      <div className="min-h-[100dvh] flex items-center justify-center bg-[#fffaf3]">
+      <div className="min-h-[100dvh] flex items-center justify-center">
         <div className="bg-white rounded-xl shadow-md border border-gray-300 px-10 pt-10 pb-8 min-w-[600px] max-w-[900px] w-[90%] text-center">
           <h2 className="text-[#ff7a1a] font-extrabold text-3xl mb-2 tracking-tight">
             Game Results
@@ -742,9 +697,15 @@ const Page = () => {
                     {player.full_name} <span className="px-2">{index === 0 ? "🏆" : ``}</span>
                   </span>
                 </div>
-                <span className="text-[#ff7a1a] font-bold text-lg">
-                  {player.points} pts
-                </span>
+                <div className="flex items-center justify-center gap-2 mx-2">
+                  <div className="flex items-center gap-1">
+                    <FaStar className="text-orange-400 text-md" />
+                  </div>
+                  <span className="text-xl font-bold text-orange-600">
+                    {index === 0 ? "+3.00" : "–1.50"}
+                  </span>
+                  <span className="text-gray-500 text-sm">Rating</span>
+                </div>
               </div>
             ))}
 
@@ -757,12 +718,18 @@ const Page = () => {
                   <span className="text-2xl mr-3 font-bold w-8 text-center ">{player.rank}</span>
                   <span className="font-semibold m-2">
                     {player.full_name}
-                  <span className="bg-red-400 text-white py-1 px-3 mx-4 rounded-md text-xs">Eliminated</span>
+                    <span className="bg-red-400 text-white py-1 px-3 mx-4 rounded-md text-xs">Eliminated</span>
                   </span>
                 </div>
-                <span className="text-[#ff7a1a] font-bold text-lg">
-                  {player.points} pts
-                </span>
+                <div className="flex items-center justify-center gap-2 mx-2">
+                  <div className="flex items-center gap-1">
+                    <FaStar className="text-orange-400 text-md" />
+                  </div>
+                  <span className="text-xl font-bold text-orange-600">
+                    –1.50
+                  </span>
+                  <span className="text-gray-500 text-sm">Rating</span>
+                </div>
               </div>
             ))}
           </div>

@@ -3,7 +3,7 @@ import "./globals.css";
 import Providers from "@/components/Providers";
 
 const quicksand = localFont({
-  src: "../../public/fonts/Quicksand-Regular.ttf",
+  src: "../../public/fonts/Quicksand-Variable.ttf",
   variable: "--font-quicksand",
   display: "swap",
 });

@@ -59,7 +59,6 @@ exports.getRecentBattles = async (req, res) => {
     const query = `
       SELECT 
         b.battle_id,
-        b.title,
         b.topic,
         b.battle_type,
         b.start_time,
@@ -95,16 +94,29 @@ exports.getAllInformations = async (req, res) => {
   const query = `
     SELECT json_build_object(
       'profile', (
-        SELECT row_to_json(t) FROM (
-          SELECT 
-            user_id, full_name, username, user_class_level, user_group, user_department, level,
-            CASE 
-              WHEN user_picture IS NOT NULL 
-              THEN CONCAT('http://localhost:8000/profile/image/', user_id)
-              ELSE NULL 
-            END AS user_picture
-          FROM users WHERE user_id = $1
-        ) t
+          SELECT row_to_json(t) FROM (
+            SELECT 
+              users.user_id, 
+              users.full_name, 
+              users.username, 
+              users.user_class_level, 
+              users.user_group, 
+              users.user_department, 
+              users.level, 
+              COALESCE(SUM(ur.rating_point), 0) AS user_rating,
+              CASE 
+                WHEN users.user_picture IS NOT NULL 
+                THEN CONCAT('http://localhost:8000/profile/image/', users.user_id)
+                ELSE NULL 
+              END AS user_picture
+            FROM users 
+            LEFT JOIN user_rating ur ON ur.user_id = users.user_id
+            WHERE users.user_id = $1
+            GROUP BY 
+              users.user_id, users.full_name, users.username,
+              users.user_class_level, users.user_group,
+              users.user_department, users.level, users.user_picture
+          ) t
       ),
 
       'battle_stats', (
@@ -171,7 +183,6 @@ exports.getAllInformations = async (req, res) => {
         SELECT json_agg(t) FROM (
           SELECT 
             b.battle_id, 
-            b.title, 
             'Battle Royale Champion' AS achievement_name,
             brr.ranks[ARRAY_POSITION(brr.user_ids, $1)] AS rank
           FROM battle_royale_result brr
@@ -183,7 +194,6 @@ exports.getAllInformations = async (req, res) => {
 
           SELECT 
             b.battle_id, 
-            b.title, 
             'Pair Battle Victor' AS achievement_name,
             1 AS rank
           FROM pair_to_pair_results ppr
