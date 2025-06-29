@@ -11,7 +11,7 @@ export default async function SingleCoursePage({ params }) {
     : "";
 
   const courseRes = await fetch(
-    `https://jiggasha.onrender.com/courses/single/${courseId}`,
+    `http://localhost:8000/courses/single/${courseId}`,
     {
       headers: {
         "Content-Type": "application/json",

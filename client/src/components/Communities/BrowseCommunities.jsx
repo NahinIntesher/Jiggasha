@@ -62,7 +62,7 @@ export default function BrowseCommunities() {
   useEffect(() => {
     const fetchCommunities = async () => {
       try {
-        const response = await fetch("https://jiggasha.onrender.com/communities", {
+        const response = await fetch("http://localhost:8000/communities", {
           method: "GET",
           headers: { "Content-Type": "application/json" },
           credentials: "include",

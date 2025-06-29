@@ -7,7 +7,7 @@ export default async function DashboardPage() {
   const cookieStore = await cookies();
   const cookieHeader = cookieStore.get("userRegistered");
   const response = await fetch(
-    `https://jiggasha.onrender.com/dashboard/allInformations`,
+    `http://localhost:8000/dashboard/allInformations`,
     {
       headers: {
         "Content-Type": "application/json",

@@ -29,7 +29,7 @@ const BlogCard = ({
       e.stopPropagation();
       e.preventDefault();
 
-      const response = await fetch("https://jiggasha.onrender.com/blogs/vote", {
+      const response = await fetch("http://localhost:8000/blogs/vote", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -62,7 +62,7 @@ const BlogCard = ({
       e.stopPropagation();
       e.preventDefault();
 
-      const response = await fetch("https://jiggasha.onrender.com/blogs/unvote", {
+      const response = await fetch("http://localhost:8000/blogs/unvote", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

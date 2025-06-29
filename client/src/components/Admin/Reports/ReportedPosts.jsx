@@ -26,7 +26,7 @@ export default function ReportedPosts({ posts }) {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://jiggasha.onrender.com/communities/deleteReportedPost/${postId}`,
+        `http://localhost:8000/communities/deleteReportedPost/${postId}`,
         {
           method: "DELETE",
           headers: {

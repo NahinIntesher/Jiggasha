@@ -14,7 +14,7 @@ export default function MonthlyLeaderboard() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://jiggasha.onrender.com/leaderboard/monthly",
+          "http://localhost:8000/leaderboard/monthly",
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },

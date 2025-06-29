@@ -101,7 +101,7 @@ export default function NewMaterial() {
       const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 seconds timeout
 
       const response = await fetch(
-        "https://jiggasha.onrender.com/courses/material/add",
+        "http://localhost:8000/courses/material/add",
         {
           method: "POST",
           body: formDataToSend,
