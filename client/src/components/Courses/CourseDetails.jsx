@@ -143,7 +143,7 @@ export default function CourseDetails({ course }) {
 
 function MaterialBox({ material, action, icon, index }) {
   return (
-    <div onClick={action} className="courseContentBox cursor-default">
+    <div onClick={action} className="courseContentBox">
       <div className="iconContainer">{icon}</div>
       <div className="contentDetails">
         <div className="contentDetails">

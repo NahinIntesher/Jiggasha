@@ -2296,6 +2296,11 @@ body {
   line-height: 180%;
 }
 
+.courseContentBoxContainer {
+  overflow: auto;
+  height: 100%;
+}
+
 @media (max-width: 1300px) {
   .gridBox {
     flex: 0 0 calc(50% - 16px);
@@ -3014,3 +3019,4 @@ body {
     font-size: 14px;
   }
 }
+
