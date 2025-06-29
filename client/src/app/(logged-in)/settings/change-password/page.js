@@ -30,7 +30,7 @@ export default function NewBlog() {
       formDataToSend.append("newPassword", formData.newPassword);
 
       const response = await fetch(
-        "http://localhost:8000/update-profile-details",
+        "https://jiggasha.onrender.com/update-profile-details",
         {
           method: "POST",
           mode: "cors",

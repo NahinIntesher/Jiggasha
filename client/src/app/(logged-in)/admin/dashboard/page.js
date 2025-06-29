@@ -6,7 +6,7 @@ async function fetchDashboardData() {
   const cookieHeader = cookieStore.get("userRegistered");
   try {
     const response = await fetch(
-      "http://localhost:8000/admin/dashboard/allInformations",
+      "https://jiggasha.onrender.com/admin/dashboard/allInformations",
       {
         headers: {
           "Content-Type": "application/json",

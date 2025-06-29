@@ -17,14 +17,14 @@ exports.getRecentCourses = async (req, res) => {
           c.class_level,
 
           CASE 
-            WHEN c.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/courses/image/', c.course_id)
+            WHEN c.cover_image IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/courses/image/', c.course_id)
             ELSE NULL
           END AS cover_image_url,
 
           u.full_name AS instructor_name,
 
           CASE
-            WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
+            WHEN u.user_picture IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/profile/image/', u.user_id)
             ELSE NULL
           END AS instructor_picture_url,
 
@@ -106,7 +106,7 @@ exports.getAllInformations = async (req, res) => {
               COALESCE(SUM(ur.rating_point), 0) AS user_rating,
               CASE 
                 WHEN users.user_picture IS NOT NULL 
-                THEN CONCAT('http://localhost:8000/profile/image/', users.user_id)
+                THEN CONCAT('https://jiggasha.onrender.com/profile/image/', users.user_id)
                 ELSE NULL 
               END AS user_picture
             FROM users 

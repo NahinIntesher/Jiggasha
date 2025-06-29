@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 export default async function page() {
   const cookieStore = await cookies();
   const cookieHeader = cookieStore.get("userRegistered");
-  const response = await fetch("http://localhost:8000/allUsers/", {
+  const response = await fetch("https://jiggasha.onrender.com/allUsers/", {
     headers: {
       "Content-Type": "application/json",
       cookie: cookieHeader ? `userRegistered=${cookieHeader.value}` : "",

@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 export default async function CoursePage() {
   const cookieStore = await cookies();
   const cookieHeader = cookieStore.get("userRegistered");
-  const allCoursesResponse = await fetch("http://localhost:8000/courses", {
+  const allCoursesResponse = await fetch("https://jiggasha.onrender.com/courses", {
     headers: {
       "Content-Type": "application/json",
       cookie: cookieHeader ? `userRegistered=${cookieHeader.value}` : "",
@@ -14,7 +14,7 @@ export default async function CoursePage() {
   const allCoursesData = await allCoursesResponse.json();
 
   const enrolledCoursesResponse = await fetch(
-    "http://localhost:8000/courses/enrolled",
+    "https://jiggasha.onrender.com/courses/enrolled",
     {
       headers: {
         "Content-Type": "application/json",

@@ -99,7 +99,7 @@ const Page = () => {
     console.log("User info:", user);
     console.log("Mode:", mode);
 
-    const newSocket = io("http://localhost:8000/", {
+    const newSocket = io("https://jiggasha.onrender.com/", {
       withCredentials: true,
       transports: ["websocket", "polling"], // Add polling as fallback
       forceNew: true, // Force new connection each time

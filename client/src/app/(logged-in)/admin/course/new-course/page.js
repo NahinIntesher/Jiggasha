@@ -64,7 +64,7 @@ export default function NewCommunity() {
 
       console.log("Form Data to Send:", formDataToSend);
 
-      const response = await fetch("http://localhost:8000/course/add", {
+      const response = await fetch("https://jiggasha.onrender.com/course/add", {
         method: "POST",
         body: formDataToSend,
         credentials: "include",

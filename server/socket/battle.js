@@ -13,7 +13,7 @@ const gameStates = {};
 // Helper to get random questions from database
 async function getRandomMCQ(count) {
     const { rows } = await connection.query(
-        "SELECT question_id, content, option_a, option_b, option_c, option_d, correct_option FROM questions ORDER BY RANDOM() LIMIT $1",
+        "SELECT question_id, content, option_a, option_b, option_c, option_d, correct_option FROM questions WHERE group_name = 'Science' OR subject = 'Bangla' OR subject = 'English' ORDER BY RANDOM() LIMIT $1",
         [count]
     );
 

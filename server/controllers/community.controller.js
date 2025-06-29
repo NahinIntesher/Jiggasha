@@ -47,12 +47,12 @@ exports.getCommunities = async (req, res) => {
           c.created_at AS created_at,
           u.full_name AS admin_name,
           CASE 
-              WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
+              WHEN u.user_picture IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/profile/image/', u.user_id)
               ELSE NULL
           END AS admin_picture,
 
           CASE 
-              WHEN c.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/communities/image/', c.community_id)
+              WHEN c.cover_image IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/communities/image/', c.community_id)
               ELSE NULL
           END AS cover_image_url,
 
@@ -102,11 +102,11 @@ exports.getMyCommunities = async (req, res) => {
         c.admin_id,
         u.full_name AS admin_name,
           CASE 
-              WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/users/profile/', u.user_picture)
+              WHEN u.user_picture IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/users/profile/', u.user_picture)
               ELSE NULL
           END AS admin_picture,
         CASE
-          WHEN c.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/communities/image/', c.community_id)
+          WHEN c.cover_image IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/communities/image/', c.community_id)
           ELSE NULL
         END AS cover_image_url,
         CASE
@@ -154,13 +154,13 @@ exports.getSingleCommunities = async (req, res) => {
           u.full_name AS admin_name,
           u.username AS username,
           CASE 
-            WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
+            WHEN u.user_picture IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/profile/image/', u.user_id)
             ELSE NULL
           END AS admin_picture,
 
           -- Cover Image
           CASE 
-            WHEN c.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/communities/image/', c.community_id)
+            WHEN c.cover_image IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/communities/image/', c.community_id)
             ELSE NULL
           END AS cover_image_url,
 
@@ -171,7 +171,7 @@ exports.getSingleCommunities = async (req, res) => {
           cu.full_name AS current_user_name,
           cu.username AS current_user_username,
           CASE 
-            WHEN cu.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', cu.user_id)
+            WHEN cu.user_picture IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/profile/image/', cu.user_id)
             ELSE NULL
           END AS current_user_picture
 
@@ -347,7 +347,7 @@ exports.getAllPosts = async (req, res) => {
         -- Poster (Admin/User) information
         u.full_name AS author_name,
         CASE
-          WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
+          WHEN u.user_picture IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/profile/image/', u.user_id)
           ELSE NULL
         END AS author_picture
 
@@ -374,7 +374,7 @@ exports.getAllPosts = async (req, res) => {
           JSON_AGG(JSON_BUILD_OBJECT(
             'media_id', media_id,
             'media_type', media_type,
-            'media_url', CONCAT('http://localhost:8000/communities/postMedia/', media_id),
+            'media_url', CONCAT('https://jiggasha.onrender.com/communities/postMedia/', media_id),
             'created_at', created_at
           ) ORDER BY created_at) AS media
         FROM community_post_media
@@ -438,7 +438,7 @@ exports.getSinglePost = async (req, res) => {
         -- Poster (Admin/User) information
         u.full_name AS author_name,
         CASE
-          WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
+          WHEN u.user_picture IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/profile/image/', u.user_id)
           ELSE NULL
         END AS author_picture,
 
@@ -448,7 +448,7 @@ exports.getSinglePost = async (req, res) => {
             'full_name', uc.full_name,
             'commentator_name', uc.username,
             'user_picture', CASE
-              WHEN uc.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', uc.user_id)
+              WHEN uc.user_picture IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/profile/image/', uc.user_id)
               ELSE NULL
             END,
             'comment', cc.content,
@@ -465,7 +465,7 @@ exports.getSinglePost = async (req, res) => {
             'full_name', ur.full_name,
             'reactor_name', ur.username,
             'user_picture', CASE
-              WHEN ur.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', ur.user_id)
+              WHEN ur.user_picture IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/profile/image/', ur.user_id)
               ELSE NULL
             END,
             'reacted_at', cr.reacted_at
@@ -498,7 +498,7 @@ exports.getSinglePost = async (req, res) => {
           JSON_AGG(JSON_BUILD_OBJECT(
             'media_id', media_id,
             'media_type', media_type,
-            'media_url', CONCAT('http://localhost:8000/communities/postMedia/', media_id),
+            'media_url', CONCAT('https://jiggasha.onrender.com/communities/postMedia/', media_id),
             'created_at', created_at
           ) ORDER BY created_at) AS media
         FROM community_post_media
@@ -751,12 +751,12 @@ exports.searchCommunities = async (req, res) => {
           c.created_at AS created_at,
           u.full_name AS admin_name,
           CASE 
-              WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/users/profile/', u.user_picture)
+              WHEN u.user_picture IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/users/profile/', u.user_picture)
               ELSE NULL
           END AS admin_picture,
 
           CASE 
-              WHEN c.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/communities/image/', c.community_id)
+              WHEN c.cover_image IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/communities/image/', c.community_id)
               ELSE NULL
           END AS cover_image_url,
 
@@ -821,7 +821,7 @@ exports.getAllReportedPosts = async (req, res) => {
         -- Poster (Admin/User) information
         u.full_name AS author_name,
         CASE
-          WHEN u.user_picture IS NOT NULL THEN CONCAT('http://localhost:8000/profile/image/', u.user_id)
+          WHEN u.user_picture IS NOT NULL THEN CONCAT('https://jiggasha.onrender.com/profile/image/', u.user_id)
           ELSE NULL
         END AS author_picture
       FROM community_posts p
@@ -853,7 +853,7 @@ exports.getAllReportedPosts = async (req, res) => {
           JSON_AGG(JSON_BUILD_OBJECT(
             'media_id', media_id,
             'media_type', media_type,
-            'media_url', CONCAT('http://localhost:8000/communities/postMedia/', media_id),
+            'media_url', CONCAT('https://jiggasha.onrender.com/communities/postMedia/', media_id),
             'created_at', created_at
           ) ORDER BY created_at) AS media
         FROM community_post_media

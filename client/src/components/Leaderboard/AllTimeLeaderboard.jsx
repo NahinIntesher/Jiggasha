@@ -14,7 +14,7 @@ export default function AllTimeLeaderboard() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://localhost:8000/leaderboard/all-time",
+          "https://jiggasha.onrender.com/leaderboard/all-time",
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
