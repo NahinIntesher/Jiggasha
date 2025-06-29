@@ -230,6 +230,7 @@ export default function BrowseCourses({ coursesData }) {
               totalStudent={course.total_student}
               isJoined={course.is_joined}
               totalMaterial={course.total_material}
+              completed={null}
               view={view}
             />
           ))}

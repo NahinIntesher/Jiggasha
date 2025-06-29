@@ -25,7 +25,7 @@ const CourseCard = ({
   instructorName,
   instructorPicture,
   totalStudent,
-  isJoined,
+  completed,
   view,
 }) => {
   const [enrollStatus, setEnrollStatus] = useState(false);
@@ -78,6 +78,23 @@ const CourseCard = ({
             </div>
           </div>
         </div>
+        {completed &&
+          <>
+            <hr />
+            <div className="w-full p-1">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-xs font-medium text-gray-400">Progress</span>
+                <span className="text-xs font-semibold text-green-700">{completed}%</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2.5">
+                <div
+                  className="bg-green-500 h-2.5 rounded-full transition-all duration-300"
+                  style={{ width: `${completed}%` }}
+                ></div>
+              </div>
+            </div>
+          </>
+        }
       </div>
     </Link>
   );

@@ -112,7 +112,22 @@ exports.getEnrolledCourses = async (req, res) => {
           WHEN c.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/courses/image/', c.course_id)
           ELSE NULL
         END AS cover_image_url,
-
+        (
+          SELECT 
+            CASE 
+              WHEN COUNT(*) = 0 THEN 0
+              ELSE ROUND(
+          100.0 * (
+            SELECT COUNT(*) 
+            FROM completed_material cmpl 
+            JOIN course_material cmat ON cmpl.material_id = cmat.material_id 
+            WHERE cmpl.user_id = $1 AND cmat.course_id = c.course_id
+          )::numeric / COUNT(*), 2
+              )
+            END
+          FROM course_material cm 
+          WHERE cm.course_id = c.course_id
+        ) AS completed,
         u.full_name AS instructor_name,
 
         CASE
@@ -188,6 +203,11 @@ exports.getSingleCourse = async (req, res) => {
                   'material_id', cm.material_id,
                   'name', cm.name,
                   'type', cm.material_type,
+                  'is_completed', EXISTS (
+            SELECT 1 FROM completed_material 
+            WHERE completed_material.material_id = cm.material_id 
+              AND completed_material.user_id = $1
+            ),
                   'url', CONCAT('http://localhost:8000/courses/courseMaterial/', cm.material_id)
                 )
               ),
@@ -524,13 +544,13 @@ function getMaterialType(mime) {
   if (
     mime === "application/msword" ||
     mime ===
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
   )
     return "doc";
   if (
     mime === "application/vnd.ms-powerpoint" ||
     mime ===
-      "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+    "application/vnd.openxmlformats-officedocument.presentationml.presentation"
   )
     return "ppt";
   return "other";
@@ -552,7 +572,9 @@ function getMimeTypeFromMediaType(mediaType) {
 }
 
 exports.getCourseMaterial = async (req, res) => {
-  const { materialId } = req.params;
+  const userId = req.userId;
+  const { courseId, materialId } = req.params;
+
   console.log("Fetching course material for ID:", materialId);
 
   if (!materialId) {
@@ -589,6 +611,21 @@ exports.getCourseMaterial = async (req, res) => {
   } catch (error) {
     console.error("Error fetching course material:", error);
     res.status(500).json({ error: "Internal Server Error: " + error.message });
+  }
+  finally {
+    try {
+      await connection.query(
+        `INSERT INTO completed_material(user_id, course_id, material_id)
+       SELECT $1, $2, $3
+       WHERE NOT EXISTS (
+       SELECT 1 FROM completed_material WHERE user_id = $1 AND course_id = $2 AND material_id = $3
+       );`,
+        [userId, courseId, materialId]);
+    }
+    catch (error) {
+      console.error("Error fetching course material:", error);
+      res.status(500).json({ error: "Internal Server Error: " + error.message });
+    }
   }
 };
 
@@ -629,3 +666,42 @@ exports.addCourse = [
     }
   },
 ];
+
+
+
+exports.material = async (req, res) => {
+  const userId = req.userId;
+
+  const { courseId, materialId } = req.params;
+
+  try {
+    connection.query(
+      `SELECT material, material_type, name FROM course_material WHERE material_id = $1`,
+      [materialId],
+      (err, results) => {
+        if (err) {
+          return res.status(500).json({ error: err.message });
+        }
+        if (!results.rows.length) {
+          return res.status(404).json({ error: "Material not found" });
+        }
+
+        const { material, material_type, name } = results.rows[0];
+
+        let contentType = "application/octet-stream";
+        if (material_type === "image") contentType = "image/jpeg";
+        else if (material_type === "video") contentType = "video/mp4";
+        else if (material_type === "pdf") contentType = "application/pdf";
+
+        res.setHeader("Content-Type", contentType);
+        res.setHeader(
+          "Content-Disposition",
+          `inline; filename="${name || "material"}"`
+        );
+        res.send(material);
+      }
+    );
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

@@ -231,6 +231,7 @@ export default function EnrolledCourses({ coursesData }) {
               totalStudent={course.total_student}
               isJoined={course.is_joined}
               totalMaterial={course.total_material}
+              completed={course.completed}
               view={view}
             />
           ))}

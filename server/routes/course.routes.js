@@ -17,6 +17,7 @@ const verifyToken = require("../middlewares/verifyToken");
 router.get("/", verifyToken, getCourses);
 router.get("/enrolled", verifyToken, getEnrolledCourses);
 router.get("/image/:courseId", verifyToken, image);
+router.get("/material/:courseId/:materialId", verifyToken, getCourseMaterial);
 router.get("/single/:courseId", verifyToken, getSingleCourse);
 router.get("/search/:keyword", verifyToken, searchCourses);
 router.get("/course/add", verifyToken, addCourse);

@@ -11,14 +11,16 @@ import {
 } from "react-icons/fa6";
 import { subjectName } from "@/utils/Constant";
 import { classLevelName, dateFormat } from "@/utils/Functions";
-import { FaBook, FaCalendarAlt } from "react-icons/fa";
+import { FaBook, FaCalendarAlt, FaCheck, FaVideo } from "react-icons/fa";
 import SenderBox from "@/components/AI/SenderBox";
 import ComprehensiveFormatter from "@/components/ui/ComprehensiveFormatter";
+import Link from "next/link";
 
 export default function SingleCourse() {
-  const { courseId } = useParams();
+  const { courseId, materialId } = useParams();
 
   const [course, setCourse] = useState();
+  const [currentMaterial, setCurrentMaterial] = useState();
   const [loading, setLoading] = useState(true);
 
   const [isReady, setIsReady] = useState(true);
@@ -139,6 +141,11 @@ export default function SingleCourse() {
 
         const courseData = await response.json();
         setCourse(courseData);
+
+        const foundMaterial = courseData.course_materials.find(
+          (material) => material.material_id == materialId
+        );
+        setCurrentMaterial(foundMaterial);
       } catch (error) {
         console.error("Error fetching user data:", error);
       } finally {
@@ -162,7 +169,7 @@ export default function SingleCourse() {
             <div className="scrollContainer">
               <div className="courseVideoBox">
                 <video
-                  src="http://localhost:3000/images/demo.mp4"
+                  src={"http://localhost:8000/courses/material/"+course.course_id+"/"+currentMaterial.material_id}
                   controls
                   className="videoPlayer"
                 />
@@ -171,17 +178,25 @@ export default function SingleCourse() {
                     <FaPlay className="icon" />
                   </div>
                   <div className="contentDetails">
-                    <div className="semiTitle">Lecture 1</div>
-                    <div className="title">Introduction to the Course</div>
+                    <div className="semiTitle">Video Lecture</div>
+                    <div className="title">{currentMaterial.name}</div>
                   </div>
                 </div>
               </div>
               <div className="courseContentsBox">
                 <div className="title">Course Contents</div>
                 <div className="courseContentBoxContainer">
-                  <CourseContentBox isActive={true} />
-                  <CourseContentBox isActive={false} />
-                  <CourseContentBox isActive={false} />
+                  {
+                    course?.course_materials.map((material, index) => (
+                      <MaterialBox
+                        index={index}
+                        courseId={course.course_id}
+                        key={material.material_id}
+                        material={material}
+                        isActive={material.material_id == currentMaterial.material_id}
+                      />
+                    ))
+                  }
                 </div>
               </div>
             </div>
@@ -216,12 +231,45 @@ function CourseContentBox({ isActive }) {
         <FaPlay className="icon" />
       </div>
       <div className="contentDetails">
-        <div className="semiTitle">Lecture 1</div>
+        <div className="semiTitle">Video Lecture</div>
         <div className="title">Introduction to the Course</div>
       </div>
     </div>
   );
 }
+
+function MaterialBox({ material, courseId, index, isActive}) {
+  return (
+    <Link href={"/courses/"+courseId+"/"+material.material_id} className={`courseContentBox ${isActive ? "bg-gray-200" : ""}`} replace>
+      <div
+        className={`flex items-center justify-center w-12 h-12 mx-1 ml-3 rounded-full ${material.is_completed ? "bg-green-500" : "bg-gray-200"
+          }`}
+      >
+        {material.is_completed ? (
+          <FaCheck className="text-white text-xl" />
+        ) : (
+          <FaVideo className="text-gray-400 text-xl" />
+        )}
+      </div>
+
+      <div className="contentDetails">
+        <div className="contentDetails">
+          <div className="semiTitle">
+            Lecture {index+1}{isActive ? <span className="font-bold"><span className="mx-2">•</span>Now Playing</span> : ""}
+          </div>
+          <div className="title">
+            {material.name ? material.name : "Untitled"}
+          </div>
+        </div>
+
+        {/* <div className="text-xs text-gray-500">
+          Uploaded at: {new Date(material.created_at).toLocaleString()}
+        </div> */}
+      </div>
+    </Link>
+  );
+}
+
 
 // File: app/courses/[courseId]/page.js
 
