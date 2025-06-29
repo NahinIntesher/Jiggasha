@@ -20,7 +20,7 @@ const CourseCard = ({
   subject,
   classLevel,
   description,
-  createdAt,
+  totalMaterial,
   coverImage,
   instructorName,
   instructorPicture,
@@ -74,7 +74,7 @@ const CourseCard = ({
             </div>
             <div className="information">
               <FaChalkboardUser className="icon" />
-              <div className="text">{3} Lectures</div>
+              <div className="text">{totalMaterial} Lectures</div>
             </div>
           </div>
         </div>

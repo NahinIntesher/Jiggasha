@@ -230,6 +230,7 @@ export default function EnrolledCourses({ coursesData }) {
               instructorPicture={course.instructor_picture_url}
               totalStudent={course.total_student}
               isJoined={course.is_joined}
+              totalMaterial={course.total_material}
               view={view}
             />
           ))}

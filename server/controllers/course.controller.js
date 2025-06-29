@@ -49,7 +49,11 @@ exports.getCourses = async (req, res) => {
         c.created_at, 
         c.subject, 
         c.class_level,
-
+        (
+          SELECT COUNT(*) 
+          FROM course_material cm 
+          WHERE cm.course_id = c.course_id
+        ) AS total_material,
         CASE 
           WHEN c.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/courses/image/', c.course_id)
           ELSE NULL
@@ -99,7 +103,11 @@ exports.getEnrolledCourses = async (req, res) => {
         c.created_at, 
         c.subject, 
         c.class_level,
-
+        (
+          SELECT COUNT(*) 
+          FROM course_material cm 
+          WHERE cm.course_id = c.course_id
+        ) AS total_material,
         CASE 
           WHEN c.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/courses/image/', c.course_id)
           ELSE NULL
@@ -151,7 +159,11 @@ exports.getSingleCourse = async (req, res) => {
           c.created_at, 
           c.subject, 
           c.class_level,
-          
+        (
+          SELECT COUNT(*) 
+          FROM course_material cm 
+          WHERE cm.course_id = c.course_id
+        ) AS total_material,
           CASE 
             WHEN c.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/courses/image/', c.course_id)
             ELSE NULL
