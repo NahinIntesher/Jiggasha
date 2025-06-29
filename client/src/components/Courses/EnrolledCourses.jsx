@@ -14,6 +14,8 @@ import {
   FaList,
   FaArrowUpWideShort,
   FaGrip,
+  FaCertificate,
+  FaAward,
 } from "react-icons/fa6";
 import Loading from "../ui/Loading";
 
@@ -95,16 +97,16 @@ export default function EnrolledCourses({ coursesData }) {
                       {level == "admission"
                         ? "Admission"
                         : level == "undergraduate"
-                        ? "Undergraduate"
-                        : `Class ${level}`}
+                          ? "Undergraduate"
+                          : `Class ${level}`}
                     </option>
                   ))}
                 </select>
                 <FaAngleDown className="downIcon" />
               </div>
               {sorting.classLevel == "9-10" ||
-              sorting.classLevel == "11-12" ||
-              sorting.classLevel == "admission" ? (
+                sorting.classLevel == "11-12" ||
+                sorting.classLevel == "admission" ? (
                 <div className="selectContainer">
                   <select
                     name="group"
@@ -140,9 +142,9 @@ export default function EnrolledCourses({ coursesData }) {
                 <></>
               )}
               {sorting.classLevel == "9-10" ||
-              sorting.classLevel == "11-12" ||
-              sorting.classLevel == "admission" ||
-              sorting.classLevel == "undergraduate" ? (
+                sorting.classLevel == "11-12" ||
+                sorting.classLevel == "admission" ||
+                sorting.classLevel == "undergraduate" ? (
                 sorting.group != "" && (
                   <div className="selectContainer">
                     <select
@@ -236,6 +238,15 @@ export default function EnrolledCourses({ coursesData }) {
             />
           ))}
         </div>
+        <div className="bigSpacing"></div>
+        <a
+          href="/certifications"
+          className="fixed bottom-6 right-6 flex items-center gap-3 bg-orange-400 text-white px-6 hover:bg-orange-500 py-4 rounded-xl shadow-lg transition-colors z-50"
+        >
+          <FaAward className="h-7 w-7"/>
+          <span className="font-bold font-lg">Certification</span>
+        </a>
+        
       </>
     );
   }
