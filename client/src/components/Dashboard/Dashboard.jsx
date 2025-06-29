@@ -31,8 +31,8 @@ export default function Dashboard({ data }) {
   const winRate =
     data.battle_stats.total_battles > 0
       ? Math.round(
-          (data.battle_stats.pair_wins / data.battle_stats.total_battles) * 100
-        )
+        (data.battle_stats.pair_wins / data.battle_stats.total_battles) * 100
+      )
       : 0;
 
   // Calculate accuracy from improvement areas
@@ -43,8 +43,8 @@ export default function Dashboard({ data }) {
   const averageAccuracy =
     data.improvement_areas?.length > 0
       ? Math.round(
-          100 - (totalWrongAnswers / data.improvement_areas.length) * 25
-        )
+        100 - (totalWrongAnswers / data.improvement_areas.length) * 25
+      )
       : 100;
   return (
     <div className="min-h-screen bg-[#fffaf3e6] p-6">
@@ -333,6 +333,82 @@ export default function Dashboard({ data }) {
             {/* Login Streak Calendar */}
 
             <LoginStreakCalendar login_streak={data?.login_streak} />
+
+            {/* Model Test for HSC Student Box */}
+            {
+              data?.profile.user_class_level == "9-10" &&
+              <div className="relative bg-gradient-to-br from-orange-500 via-orange-500 to-orange-600 border border-orange-300/30 rounded-xl shadow-lg hover:shadow-xl p-6 flex flex-col justify-between min-h-[200px] transition-all duration-300 group overflow-hidden">
+                {/* Decorative background elements */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
+                <div className="absolute bottom-0 left-0 w-24 h-24 bg-orange-600/30 rounded-full translate-y-12 -translate-x-12"></div>
+
+                <div className="relative z-10">
+                  <div className="flex items-center mb-3">
+                    <div className="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></div>
+                    <span className="text-orange-100 text-sm font-medium uppercase tracking-wider">Live Now</span>
+                  </div>
+
+                  <h3 className="text-lg text-white leading-tight mb-2">
+                    Model Test for <span className="font-bold text-white drop-shadow-sm">SSC Students</span>
+                  </h3>
+
+                  <div className="flex items-baseline mb-6">
+                    <p className="text-white text-3xl font-bold mr-2">Is Opened!</p>
+                    <div className="w-3 h-3 bg-green-400 rounded-full animate-bounce"></div>
+                  </div>
+                </div>
+
+                <Link
+                  href="/model-tests"
+                  className="relative mt-auto bg-white hover:bg-orange-50 text-orange-600 font-semibold px-6 py-3 rounded-lg flex items-center justify-center transition-all duration-200 hover:shadow-md group-hover:scale-[1.02] border border-orange-200/50"
+                >
+                  <span className="mr-3">Attempt Model Tests</span>
+                  <div className="flex items-center justify-center w-6 h-6 bg-orange-100 rounded-full transition-transform duration-200 group-hover:translate-x-1">
+                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" className="text-orange-600">
+                      <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </div>
+                </Link>
+              </div>
+            }
+
+{
+              data?.profile.user_class_level == "11-12" &&
+              <div className="relative bg-gradient-to-br from-orange-500 via-orange-500 to-orange-600 border border-orange-300/30 rounded-xl shadow-lg hover:shadow-xl p-6 flex flex-col justify-between min-h-[200px] transition-all duration-300 group overflow-hidden">
+                {/* Decorative background elements */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
+                <div className="absolute bottom-0 left-0 w-24 h-24 bg-orange-600/30 rounded-full translate-y-12 -translate-x-12"></div>
+
+                <div className="relative z-10">
+                  <div className="flex items-center mb-3">
+                    <div className="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></div>
+                    <span className="text-orange-100 text-sm font-medium uppercase tracking-wider">Live Now</span>
+                  </div>
+
+                  <h3 className="text-lg text-white leading-tight mb-2">
+                    Model Test for <span className="font-bold text-white drop-shadow-sm">HSC Students</span>
+                  </h3>
+
+                  <div className="flex items-baseline mb-6">
+                    <p className="text-white text-3xl font-bold mr-2">Is Opened!</p>
+                    <div className="w-3 h-3 bg-green-400 rounded-full animate-bounce"></div>
+                  </div>
+                </div>
+
+                <Link
+                  href="/model-tests"
+                  className="relative mt-auto bg-white hover:bg-orange-50 text-orange-600 font-semibold px-6 py-3 rounded-lg flex items-center justify-center transition-all duration-200 hover:shadow-md group-hover:scale-[1.02] border border-orange-200/50"
+                >
+                  <span className="mr-3">Attempt Model Tests</span>
+                  <div className="flex items-center justify-center w-6 h-6 bg-orange-100 rounded-full transition-transform duration-200 group-hover:translate-x-1">
+                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" className="text-orange-600">
+                      <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </div>
+                </Link>
+              </div>
+            }
+
 
             {/* Improvement Areas */}
             <div className="bg-white rounded-lg border border-gray-300 shadow-sm p-6">

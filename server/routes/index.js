@@ -11,6 +11,7 @@ const communityRoutes = require("./community.routes");
 const aiRoutes = require("./ai.routes");
 const courseRoutes = require("./course.routes");
 const questRoutes = require("./quest.routes");
+const modelTestRoutes = require('./model-test.routes');
 
 router.use("/", userRoutes);
 router.use("/", authRoutes);
@@ -21,5 +22,7 @@ router.use("/courses", courseRoutes);
 router.use("/communities", communityRoutes);
 router.use("/ai", aiRoutes);
 router.use("/quests", questRoutes);
+router.use("/model-tests", modelTestRoutes);
+
 
 module.exports = router;
