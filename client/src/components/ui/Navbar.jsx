@@ -6,6 +6,7 @@ import { Menu, X } from "lucide-react";
 import logo from "../../../public/images/JiggashaLogo.png";
 import SearchBox from "./SearchBar";
 import ThemeSwitcher from "../ThemeSwitcherButton";
+import { FaBookOpen } from "react-icons/fa6";
 
 const navItems = ["Home", "About Us", "Contact Us", "Our Services"];
 
@@ -64,14 +65,16 @@ export default function Navbar() {
         <div className="relative group flex flex-1">
           <Link
             href="/"
-            className="group flex items-center gap-2 text-sm font-extrabold text-orange-500 transition-all duration-300"
+            className="group flex items-center gap-2 text-sm font-extrabold transition-all duration-300"
           >
-            <Image
+            {/* <Image
               src={logo}
               alt="Jiggasha"
               className="h-11 w-11 rounded-full transition-transform duration-300 group-hover:scale-105"
-            />
-            <span className="hidden font-extrabold text-xl md:inline-block">
+            /> */}
+            <FaBookOpen className="text-orange-500 h-7 w-7"/>
+            
+            <span className="my-3 mx-1 hidden font-extrabold text-xl md:inline-block">
               Jiggasha
             </span>
           </Link>

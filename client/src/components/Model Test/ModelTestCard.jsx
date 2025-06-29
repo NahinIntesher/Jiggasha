@@ -12,7 +12,7 @@ const ModelTestCard = ({ test }) => {
   const isLocked = !test.isAttempted;
 
   return (
-    <div className="border border-gray-300 rounded-xl p-6 bg-white shadow-sm hover:shadow-md transition-shadow">
+    <div className="border border-gray-300 rounded-xl p-6 bg-white shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
       <div className="flex justify-between items-start mb-3">
         <h3 className="text-xl font-bold text-gray-800">{test.subject}</h3>
         <span className="bg-orange-100 text-orange-600 text-xs font-medium px-2.5 py-0.5 rounded-full">
@@ -21,22 +21,22 @@ const ModelTestCard = ({ test }) => {
       </div>
 
       <div className="space-y-2 mb-4">
-        <div className="flex items-center text-gray-600">
+        <div className="flex items-center text-gray-500">
           <FaClock className="w-4 h-4 mr-2" />
-          <span className="text-sm">{test.test_duration} mins</span>
+          <span className="text-sm font-medium">{test.test_duration} mins</span>
         </div>
-        <div className="flex items-center text-gray-600">
+        <div className="flex items-center text-gray-500">
           <FaCheck className="w-4 h-4 mr-2" />
-          <span className="text-sm">Total marks: {test.total_mark}</span>
+          <span className="text-sm font-medium">Total marks: {test.total_mark}</span>
         </div>
-        <div className="flex items-center text-gray-600">
+        <div className="flex items-center text-gray-500">
           <FaCircleQuestion className="w-4 h-4 mr-2" />
-          <span className="text-sm">{test.total_questions} questions</span>
+          <span className="text-sm font-medium">{test.total_questions} questions</span>
         </div>
       </div>
 
       {test.is_attempted ? (
-        <div className="mt-4 md:mt-0 md:ml-6 flex flex-col items-center justifiy-center">
+        <div className="mt-4 md:mt-0 flex flex-col items-center justifiy-center">
           <div className="text-sm text-gray-500">Obtained Mark</div>
           <div className="text-xl font-bold text-orange-400">
             {test.mark_obtained} / {test.total_mark}

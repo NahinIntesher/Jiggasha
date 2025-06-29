@@ -95,7 +95,7 @@ const Page = () => {
       }),
     });
 
-    router.push("/model-tests/");
+    router.replace("/model-tests/");
   };
 
   const formatTime = (s) =>
@@ -164,7 +164,7 @@ const Page = () => {
 
         {/* Timer Card - Only show when test started - Sticky */}
         {started && (
-          <div className="sticky top-13 z-10 bg-white rounded-2xl shadow-lg p-6 border-l-4 border-orange-500">
+          <div className="sticky top-18 z-10 bg-white rounded-2xl shadow-lg p-6 border-l-4 border-orange-500">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <FaClock className={`text-2xl ${getTimeWarningStyle()}`} />

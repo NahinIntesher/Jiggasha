@@ -66,11 +66,13 @@ export default function Page() {
           </div>
         ) : (
           <section>
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-between mb-8 border border-orange-400 bg-orange-100 rounded-md py-3 px-4">
               <div className="flex items-center text-lg text-gray-600">
-                <FaCircleInfo className="w-4 h-4 mr-2" />
+                <FaCircleInfo className="w-4 h-4 mr-2 text-orange-400" />
+                <div className="text-sm font-medium text-orange-600 px-2">
                 You can attempt each model test only once. After attempting, you
                 can view your results.
+                </div>
               </div>
             </div>
 
