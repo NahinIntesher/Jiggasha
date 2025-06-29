@@ -87,12 +87,12 @@ const Page = () => {
       ).length;
 
       const userTakenTime = modelTest.test_duration * 60 - timeLeft;
-
       await fetch("http://localhost:8000/model-tests/model-test-attempt/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({
           model_test_id: modelTestId,
           mark_obtained: correct,
@@ -191,7 +191,7 @@ const Page = () => {
 
         {/* Pre-Test State */}
         {!started && (
-          <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-300 text-center">
+          <div className=" bg-white rounded-xl shadow-sm p-8 border border-gray-300 text-center">
             <div className="max-w-md mx-auto">
               <div className="w-20 h-20 bg-orange-500 rounded-xl flex items-center justify-center mx-auto mb-6">
                 <FaPlay className="text-white text-2xl ml-1" />
