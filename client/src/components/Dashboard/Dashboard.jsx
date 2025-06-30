@@ -14,6 +14,7 @@ import {
   FaGamepad,
   FaPlay,
   FaStar,
+  FaBook,
 } from "react-icons/fa6";
 import LoginStreakCalendar from "./LoginStreakCalendar";
 
@@ -31,8 +32,8 @@ export default function Dashboard({ data }) {
   const winRate =
     data.battle_stats.total_battles > 0
       ? Math.round(
-        (data.battle_stats.pair_wins / data.battle_stats.total_battles) * 100
-      )
+          (data.battle_stats.pair_wins / data.battle_stats.total_battles) * 100
+        )
       : 0;
 
   // Calculate accuracy from improvement areas
@@ -43,8 +44,8 @@ export default function Dashboard({ data }) {
   const averageAccuracy =
     data.improvement_areas?.length > 0
       ? Math.round(
-        100 - (totalWrongAnswers / data.improvement_areas.length) * 25
-      )
+          100 - (totalWrongAnswers / data.improvement_areas.length) * 25
+        )
       : 100;
   return (
     <div className="min-h-screen bg-[#fffaf3e6] p-6">
@@ -335,8 +336,7 @@ export default function Dashboard({ data }) {
             <LoginStreakCalendar login_streak={data?.login_streak} />
 
             {/* Model Test for HSC Student Box */}
-            {
-              data?.profile.user_class_level == "9-10" &&
+            {data?.profile.user_class_level == "9-10" && (
               <div className="relative bg-gradient-to-br from-orange-500 via-orange-500 to-orange-600 border border-orange-300/30 rounded-xl shadow-lg hover:shadow-xl p-6 flex flex-col justify-between min-h-[200px] transition-all duration-300 group overflow-hidden">
                 {/* Decorative background elements */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
@@ -345,15 +345,22 @@ export default function Dashboard({ data }) {
                 <div className="relative z-10">
                   <div className="flex items-center mb-3">
                     <div className="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></div>
-                    <span className="text-orange-100 text-sm font-medium uppercase tracking-wider">Live Now</span>
+                    <span className="text-orange-100 text-sm font-medium uppercase tracking-wider">
+                      Live Now
+                    </span>
                   </div>
 
                   <h3 className="text-lg text-white leading-tight mb-2">
-                    Model Test for <span className="font-bold text-white drop-shadow-sm">SSC Students</span>
+                    Model Test for{" "}
+                    <span className="font-bold text-white drop-shadow-sm">
+                      SSC Students
+                    </span>
                   </h3>
 
                   <div className="flex items-baseline mb-6">
-                    <p className="text-white text-3xl font-bold mr-2">Is Opened!</p>
+                    <p className="text-white text-3xl font-bold mr-2">
+                      Is Opened!
+                    </p>
                     <div className="w-3 h-3 bg-green-400 rounded-full animate-bounce"></div>
                   </div>
                 </div>
@@ -364,16 +371,27 @@ export default function Dashboard({ data }) {
                 >
                   <span className="mr-3">Attempt Model Tests</span>
                   <div className="flex items-center justify-center w-6 h-6 bg-orange-100 rounded-full transition-transform duration-200 group-hover:translate-x-1">
-                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" className="text-orange-600">
-                      <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <svg
+                      width="14"
+                      height="14"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      className="text-orange-600"
+                    >
+                      <path
+                        d="M9 18l6-6-6-6"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
                     </svg>
                   </div>
                 </Link>
               </div>
-            }
+            )}
 
-{
-              data?.profile.user_class_level == "11-12" &&
+            {data?.profile.user_class_level == "11-12" && (
               <div className="relative bg-gradient-to-br from-orange-500 via-orange-500 to-orange-600 border border-orange-300/30 rounded-xl shadow-lg hover:shadow-xl p-6 flex flex-col justify-between min-h-[200px] transition-all duration-300 group overflow-hidden">
                 {/* Decorative background elements */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
@@ -382,15 +400,22 @@ export default function Dashboard({ data }) {
                 <div className="relative z-10">
                   <div className="flex items-center mb-3">
                     <div className="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></div>
-                    <span className="text-orange-100 text-sm font-medium uppercase tracking-wider">Live Now</span>
+                    <span className="text-orange-100 text-sm font-medium uppercase tracking-wider">
+                      Live Now
+                    </span>
                   </div>
 
                   <h3 className="text-lg text-white leading-tight mb-2">
-                    Model Test for <span className="font-bold text-white drop-shadow-sm">HSC Students</span>
+                    Model Test for{" "}
+                    <span className="font-bold text-white drop-shadow-sm">
+                      HSC Students
+                    </span>
                   </h3>
 
                   <div className="flex items-baseline mb-6">
-                    <p className="text-white text-3xl font-bold mr-2">Is Opened!</p>
+                    <p className="text-white text-3xl font-bold mr-2">
+                      Is Opened!
+                    </p>
                     <div className="w-3 h-3 bg-green-400 rounded-full animate-bounce"></div>
                   </div>
                 </div>
@@ -401,14 +426,25 @@ export default function Dashboard({ data }) {
                 >
                   <span className="mr-3">Attempt Model Tests</span>
                   <div className="flex items-center justify-center w-6 h-6 bg-orange-100 rounded-full transition-transform duration-200 group-hover:translate-x-1">
-                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" className="text-orange-600">
-                      <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <svg
+                      width="14"
+                      height="14"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      className="text-orange-600"
+                    >
+                      <path
+                        d="M9 18l6-6-6-6"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
                     </svg>
                   </div>
                 </Link>
               </div>
-            }
-
+            )}
 
             {/* Improvement Areas */}
             <div className="bg-white rounded-lg border border-gray-300 shadow-sm p-6">
@@ -476,6 +512,13 @@ export default function Dashboard({ data }) {
                 Quick Actions
               </h3>
               <div className="space-y-3">
+                <Link
+                  href="/certifications"
+                  className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 rounded-lg font-medium transition-colors flex items-center justify-center"
+                >
+                  <FaAward className="mr-2" />
+                  View Certifications
+                </Link>
                 <Link
                   href="/play"
                   className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 rounded-lg font-medium transition-colors flex items-center justify-center"

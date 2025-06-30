@@ -287,3 +287,53 @@ exports.deleteUser = (req, res) => {
     });
   });
 };
+
+
+exports.allCertifications = async (req, res) => {
+  const userId = req.userId;
+
+  const query = `
+        SELECT *
+          FROM (
+            SELECT 
+                c.course_id, 
+                c.name, 
+                c.description, 
+                c.subject, 
+                c.class_level,
+                CASE 
+                  WHEN c.cover_image IS NOT NULL THEN CONCAT('http://localhost:8000/courses/image/', c.course_id)
+                  ELSE NULL
+                END AS cover_image_url,
+                (
+                  SELECT 
+                    CASE 
+                      WHEN COUNT(*) = 0 THEN 0
+                      ELSE ROUND(
+                        100.0 * (
+                          SELECT COUNT(*) 
+                          FROM completed_material cmpl 
+                          JOIN course_material cmat ON cmpl.material_id = cmat.material_id 
+                          WHERE cmpl.user_id = '7c786cfa-c729-4cdd-8db8-22bf54fc43a1' AND cmat.course_id = c.course_id
+                        )::numeric / COUNT(*), 2
+                      )
+                    END
+                  FROM course_material cm 
+                  WHERE cm.course_id = c.course_id
+                ) AS completed
+              FROM courses c
+              JOIN course_participants cp_user ON cp_user.course_id = c.course_id AND cp_user.user_id = '7c786cfa-c729-4cdd-8db8-22bf54fc43a1'
+              GROUP BY 
+                c.course_id 
+          ) AS sub
+      WHERE completed = 100.0;
+    `;
+
+  try {
+    const result = await connection.query(query);
+    res.json({ certifications: result.rows });
+  } catch (error) {
+    console.error("Error fetching certifications:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+};
