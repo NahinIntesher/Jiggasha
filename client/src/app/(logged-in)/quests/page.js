@@ -5,7 +5,7 @@ export default async function QuestPage() {
   const cookieStore = await cookies();
   const cookieHeader = cookieStore.get("userRegistered");
 
-  const questsResponse = await fetch("http://localhost:8000/quests", {
+  const questsResponse = await fetch("https://jiggasha.onrender.com/quests", {
     headers: {
       "Content-Type": "application/json",
       cookie: cookieHeader ? `userRegistered=${cookieHeader.value}` : "",
@@ -15,7 +15,7 @@ export default async function QuestPage() {
   const questsData = await questsResponse.json();
 
   const completedQuestsResponse = await fetch(
-    "http://localhost:8000/quests/completed",
+    "https://jiggasha.onrender.com/quests/completed",
     {
       headers: {
         "Content-Type": "application/json",

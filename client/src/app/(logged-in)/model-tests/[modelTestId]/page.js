@@ -43,7 +43,7 @@ const Page = () => {
   const fetchModelTest = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/model-tests/single/${modelTestId}`,
+        `https://jiggasha.onrender.com/model-tests/single/${modelTestId}`,
         {
           method: "GET",
           headers: {
@@ -81,7 +81,7 @@ const Page = () => {
 
     const userTakenTime = modelTest.test_duration * 60 - timeLeft;
 
-    await fetch("http://localhost:8000/model-tests/model-test-attempt/", {
+    await fetch("https://jiggasha.onrender.com/model-tests/model-test-attempt/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

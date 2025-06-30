@@ -39,7 +39,7 @@ export default function NewBlog() {
 
       console.log("Form Data to Send:", formDataToSend);
       const response = await fetch(
-        "http://localhost:8000/update-profile-details",
+        "https://jiggasha.onrender.com/update-profile-details",
         {
           method: "POST",
           headers: {
@@ -68,7 +68,7 @@ export default function NewBlog() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch("http://localhost:8000/", {
+        const response = await fetch("https://jiggasha.onrender.com/", {
           method: "GET",
           headers: { "Content-Type": "application/json" },
           credentials: "include",

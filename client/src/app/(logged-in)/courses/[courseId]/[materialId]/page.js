@@ -79,7 +79,7 @@ export default function SingleCourse() {
       const formDataToSend = new FormData();
       formDataToSend.append("message", inputMessage);
 
-      const response = await fetch("http://localhost:8000/ai/response", {
+      const response = await fetch("https://jiggasha.onrender.com/ai/response", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -127,7 +127,7 @@ export default function SingleCourse() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://localhost:8000/courses/single/" + courseId,
+          "https://jiggasha.onrender.com/courses/single/" + courseId,
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -169,7 +169,7 @@ export default function SingleCourse() {
             <div className="scrollContainer">
               <div className="courseVideoBox">
                 <video
-                  src={"http://localhost:8000/courses/material/"+course.course_id+"/"+currentMaterial.material_id}
+                  src={"https://jiggasha.onrender.com/courses/material/"+course.course_id+"/"+currentMaterial.material_id}
                   controls
                   className="videoPlayer"
                 />
@@ -287,7 +287,7 @@ function MaterialBox({ material, courseId, index, isActive}) {
 
 //   // Fetch course info
 //   const courseRes = await fetch(
-//     `http://localhost:8000/courses/single/${courseId}`,
+//     `https://jiggasha.onrender.com/courses/single/${courseId}`,
 //     {
 //       headers: {
 //         "Content-Type": "application/json",

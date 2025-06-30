@@ -93,7 +93,7 @@ const Page = () => {
     console.log("User info:", user);
     console.log("Mode:", mode);
 
-    const newSocket = io("http://localhost:8000/", {
+    const newSocket = io("https://jiggasha.onrender.com/", {
       withCredentials: true,
       transports: ["websocket", "polling"], // Add polling as fallback
       forceNew: true, // Force new connection each time
@@ -274,7 +274,7 @@ const Page = () => {
   }, [roundTimeLeft, status]);
 
   // Show how many players are found (for UI feedback)
-  const requiredPlayers = mode === "pair" ? 2 : 5;
+  const requiredPlayers = mode === "pair" ? 2 : 4;
 
   if (status == "connecting") return <Loading />;
 

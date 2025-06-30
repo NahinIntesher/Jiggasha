@@ -12,7 +12,7 @@ export default function page() {
   useEffect(() => {
     const fetchCertifications = async () => {
       try {
-        const res = await fetch("http://localhost:8000/certifications", {
+        const res = await fetch("https://jiggasha.onrender.com/certifications", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

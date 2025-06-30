@@ -21,7 +21,7 @@ export default function Page() {
   const fetchModelTests = async (user_class_level) => {
     try {
       const response = await fetch(
-        `http://localhost:8000/model-tests/${user_class_level}`,
+        `https://jiggasha.onrender.com/model-tests/${user_class_level}`,
         {
           method: "GET",
           headers: {

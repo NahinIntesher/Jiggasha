@@ -74,7 +74,7 @@ export default function SingleCourse(course) {
       const formDataToSend = new FormData();
       formDataToSend.append("message", inputMessage);
 
-      const response = await fetch("http://localhost:8000/ai/response", {
+      const response = await fetch("https://jiggasha.onrender.com/ai/response", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
