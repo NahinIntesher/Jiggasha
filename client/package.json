@@ -11,8 +11,10 @@
   "dependencies": {
     "chart.js": "^4.5.0",
     "framer-motion": "^12.9.2",
+    "html2canvas": "^1.4.1",
     "jose": "^6.0.10",
     "jsonwebtoken": "^9.0.2",
+    "jspdf": "^3.0.1",
     "katex": "^0.16.22",
     "lucide-react": "^0.475.0",
     "next": "15.2.1",

@@ -323,6 +323,7 @@ exports.allCertifications = async (req, res) => {
                 ) AS completed
               FROM courses c
               JOIN course_participants cp_user ON cp_user.course_id = c.course_id AND cp_user.user_id = '7c786cfa-c729-4cdd-8db8-22bf54fc43a1'
+              
               GROUP BY 
                 c.course_id 
           ) AS sub

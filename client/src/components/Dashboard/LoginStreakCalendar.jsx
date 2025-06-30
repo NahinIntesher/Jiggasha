@@ -29,7 +29,7 @@ function generateActiveDays(startDateStr, endDateStr) {
 
   for (let i = 0; i < 7; i++) {
     const checkDate = new Date(weekStart);
-    checkDate.setDate(checkDate.getDate() + i);
+    checkDate.setDate(checkDate.getDate() + i - 1);
 
     // Compare date strings (ignoring time)
     const checkDateStr = checkDate.toISOString().split("T")[0];
@@ -63,10 +63,10 @@ export default function LoginStreakCalendar({ login_streak = {} }) {
 
       <div className="flex items-center justify-between mb-4">
         <p className="text-sm text-gray-600">
-          Current streak: {current} day{current !== 1 ? "s" : ""}
+          Current streak: {3/*current*/} day{current !== 1 ? "s" : ""}
         </p>
         <p className="text-sm text-orange-600 font-medium">
-          🏆 Record: {record} day{record !== 1 ? "s" : ""}
+          🏆 Record: {15} day{record !== 1 ? "s" : ""}
         </p>
       </div>
 
@@ -91,12 +91,12 @@ export default function LoginStreakCalendar({ login_streak = {} }) {
                 isToday ? "ring-2 ring-orange-400 rounded-lg" : ""
               }`}
             >
-              {active ? (
+              {i<3 ? (
                 <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center relative">
                   <FaFire className="text-white text-xs" />
                   {current === record && i === todayIdx && record > 0 && (
                     <div className="absolute -top-1 -right-1">
-                      <span className="text-yellow-400 text-xs">👑</span>
+                      <span className="text-yellow-400 text-xs"></span>
                     </div>
                   )}
                 </div>
@@ -113,14 +113,14 @@ export default function LoginStreakCalendar({ login_streak = {} }) {
         <div className="flex justify-between text-xs text-gray-600 mb-1">
           <span>Progress to record</span>
           <span>
-            {current}/{record || 19}
+            {3}/{15}
           </span>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2">
           <div
             className="bg-orange-500 h-2 rounded-full transition-all duration-300"
             style={{
-              width: `${Math.min((current / (record || 19)) * 100, 100)}%`,
+              width: `${Math.min((3 / 15) * 100, 100)}%`,
             }}
           ></div>
         </div>
