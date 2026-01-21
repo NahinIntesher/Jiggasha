@@ -1,0 +1,211 @@
+battle_participants (
+    battle_participant_id,
+    battle_id,
+    participant_id,
+    score,
+    rank,
+    completion_percentage,
+    joined_at,
+    updated_at
+);
+
+battle_questions (
+    battle_question_id,
+    battle_id,
+    question_id,
+    sequence_order,
+    time_limit_seconds
+);
+
+battles (
+    battle_id,
+    title,
+    battle_type,
+    topic,
+    subject,
+    start_time,
+    end_time,
+    max_participants,
+    created_at,
+    updated_at
+);
+
+blog_votes (
+    blog_id,
+    voter_id,
+    vote,
+    voted_at
+);
+
+blogs (
+    blog_id,
+    title,
+    content,
+    cover_image,
+    subject,
+    author_id,
+    view_count,
+    reading_time_minutes,
+    tags,
+    is_featured,
+    published_at,
+    created_at,
+    updated_at,
+    class_level
+);
+
+communities (
+    community_id,
+    name,
+    description,
+    class_level,
+    subject,
+    cover_image,
+    admin_id,
+    created_at,
+    updated_at
+);
+
+community_members (
+    membership_id,
+    community_id,
+    member_id,
+    role,
+    joined_at,
+    last_activity_at
+);
+
+community_post_comments (
+    comment_id,
+    post_id,
+    commentator_id,
+    content,
+    is_edited,
+    commented_at
+);
+
+community_post_media (
+    media_id,
+    post_id,
+    media_blob,
+    media_type,
+    created_at
+);
+
+community_post_reactions (
+    reaction_id,
+    post_id,
+    reactor_id,
+    reacted_at
+);
+
+community_posts (
+    post_id,
+    content,
+    member_id,
+    community_id,
+    view_count,
+    created_at,
+    updated_at
+);
+
+course_material (
+    material_id,
+    course_id,
+    material_type,
+    material,
+    name
+);
+
+course_participants (
+    enrollment_id,
+    course_id,
+    user_id,
+    created_at,
+    accessed_at
+);
+
+courses (
+    course_id,
+    name,
+    description,
+    subject,
+    cover_image,
+    price,
+    instructor_id,
+    created_at,
+    updated_at,
+    class_level
+);
+
+participant_answers (
+    participant_answers_id,
+    participant_id,
+    battle_id,
+    question_id,
+    selected_option,
+    is_correct,
+    response_time_ms,
+    answered_at
+);
+
+post_reports (
+    report_id,
+    post_id,
+    reporter_id,
+    reason,
+    status,
+    reviewed_by,
+    reviewed_at,
+    reported_at
+);
+
+questions (
+    question_id,
+    content,
+    class_level,
+    group_name,
+    department,
+    subject,
+    topic,
+    option_a,
+    option_b,
+    option_c,
+    option_d,
+    correct_option,
+    difficulty,
+    explanation,
+    created_at,
+    updated_at
+);
+
+reset_tokens (
+    id,
+    user_id,
+    token,
+    expires_at,
+    created_at
+);
+
+user_rating (
+    rating_id,
+    user_id,
+    rating_point,
+    earned_at
+);
+
+users (
+    user_id,
+    full_name,
+    username,
+    email,
+    password,
+    mobile_no,
+    user_role,
+    user_class_level,
+    user_group,
+    user_department,
+    user_picture,
+    created_at,
+    level
+);

@@ -1,0 +1,862 @@
+-- Insert 30 hard MCQ Questions for each subject
+-- Class 9-10 Subjects
+
+-- Bangla 1st Paper (9-10) - 30 Questions
+INSERT INTO questions (question_id, content, subject, class_level, group_name, department, topic, option_a, option_b, option_c, option_d, correct_option, difficulty, created_at, updated_at) VALUES
+(gen_random_uuid(), 'কোন ছন্দে মাত্রার সংখ্যা নির্দিষ্ট কিন্তু স্বরবর্ণের উচ্চারণকাল অনির্দিষ্ট?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'Prosody', 'স্বরবৃত্ত', 'মাত্রাবৃত্ত', 'অক্ষরবৃত্ত', 'গদ্যছন্দ', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'মধ্যযুগের বাংলা সাহিত্যের শ্রেষ্ঠ কবি কে?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'Literature', 'চণ্ডীদাস', 'বিদ্যাপতি', 'জ্ঞানদাস', 'গোবিন্দদাস', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন বাক্যে কর্তৃকারক প্রকাশ পায় না?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'Grammar', 'কর্তৃবাচ্য', 'কর্মবাচ্য', 'ভাববাচ্য', 'উভয়ে', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা ভাষার মূল উৎস কোন ভাষা?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'Language Origin', 'সংস্কৃত', 'পালি', 'প্রাকৃত', 'অপভ্রংশ', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন সন্ধি নিত্য সন্ধি?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'Grammar', 'স্বরসন্ধি', 'ব্যঞ্জনসন্ধি', 'বিসর্গসন্ধি', 'সবগুলো', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'রবীন্দ্রনাথের কোন কাব্যে প্রকৃতি ও প্রেমের মিলন ঘটেছে?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'Literature', 'সোনার তরী', 'চিত্রা', 'চৈতালি', 'কল্পনা', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা ভাষার প্রথম ব্যাকরণ কে রচনা করেন?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'Grammar', 'রামরাম বসু', 'মৃত্যুঞ্জয় বিদ্যালঙ্কার', 'রাজা রামমোহন রায়', 'ঈশ্বরচন্দ্র বিদ্যাসাগর', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা সাহিত্যের প্রথম সার্থক ট্র্যাজেডি কোনটি?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'Literature', 'শর্মিষ্ঠা', 'পদ্মাবতী', 'কীর্তিবিলাস', 'বিদ্যাসুন্দর', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন পদাশ্রিত নির্দেশক বিশেষণ?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'Grammar', 'এই', 'ওই', 'সেই', 'সবগুলো', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা সাহিত্যের প্রথম মহাকাব্য কোনটি?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'Literature', 'মেঘনাদবধ কাব্য', 'বৃত্রসংহার', 'শকুন্তলা', 'সাবিত্রী সত্যবান', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা ভাষার কোন রূপ লেখ্য ভাষা হিসেবে ব্যবহৃত হয়?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'Language', 'আঞ্চলিক ভাষা', 'কথ্য ভাষা', 'সাধু ভাষা', 'চলিত ভাষা', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন কারকে অধিকরণ কারক বলে?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'Grammar', 'কর্তৃকারক', 'কর্মকারক', 'আধারাধিকরণ', 'করণকারক', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'মাইকেল মধুসূদন দত্তের প্রথম কাব্য কোনটি?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'Literature', 'তিলোত্তমাসম্ভব কাব্য', 'মেঘনাদবধ কাব্য', 'বীরাঙ্গনা কাব্য', 'চতুর্দশপদী কবিতাবলী', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা ভাষার সর্বপ্রথম ছাপাখানা কোথায় স্থাপিত হয়?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'History', 'কলকাতা', 'ঢাকা', 'শ্রীরামপুর', 'চট্টগ্রাম', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন উপসর্গ দিয়ে ভবিষ্যৎ কাল বোঝায়?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'Grammar', 'অনা', 'আ', 'উপ', 'পরা', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা সাহিত্যের অন্ধকার যুগের কাল কোনটি?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'Literature', '১২০১-১৩৫০', '১৩৫১-১৪০০', '১৪০১-১৫০০', '১৫০১-১৬০০', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন ধাতুর সাধারণ অতীত কাল হয় না?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'Grammar', 'সমাপিকা ধাতু', 'অসমাপিকা ধাতু', 'সকর্মক ধাতু', 'অকর্মক ধাতু', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা সাহিত্যের প্রথম নাটক কোনটি?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'Literature', 'ভদ্রার্জুন', 'কিরাতার্জুনীয়', 'রুক্মিণী হরণ', 'রত্নাবলী', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন ছন্দের মূল পর্ব ৮ মাত্রার?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'Prosody', 'স্বরবৃত্ত', 'মাত্রাবৃত্ত', 'অক্ষরবৃত্ত', 'গদ্যছন্দ', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা ভাষার প্রথম পত্রিকা কোনটি?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'History', 'দিগদর্শন', 'সমাচার দর্পণ', 'তত্ত্ববোধিনী', 'বাঙ্গালী', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন প্রত্যয়ে গুণবাচক বিশেষণ গঠিত হয়?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'Grammar', 'আল', 'ইল', 'উল', 'সবগুলো', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা সাহিত্যের প্রথম রোমান্টিক কবি কে?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'Literature', 'বিহারীলাল চক্রবর্তী', 'মাইকেল মধুসূদন দত্ত', 'রবীন্দ্রনাথ ঠাকুর', 'কৃষ্ণচন্দ্র মজুমদার', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা ভাষার প্রথম অভিধান কোনটি?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'History', 'ভাষা প্রকাশ বাঙ্গালা ব্যাকরণ', 'বাঙ্গালা ভাষার অভিধান', 'হরিচরণ বন্দ্যোপাধ্যায়ের অভিধান', 'জ্ঞানেন্দ্রমোহন দাসের অভিধান', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন সমাসে উত্তর পদের অর্থ প্রাধান্য পায়?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'Grammar', 'তৎপুরুষ', 'বহুব্রীহি', 'কর্মধারয়', 'দ্বিগু', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা সাহিত্যের প্রথম সনেট কে রচনা করেন?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'Literature', 'মাইকেল মধুসূদন দত্ত', 'রবীন্দ্রনাথ ঠাকুর', 'বিহারীলাল চক্রবর্তী', 'হেমচন্দ্র বন্দ্যোপাধ্যায়', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন পদাশ্রিত নির্দেশক সংখ্যাবাচক?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'Grammar', 'টা', 'টি', 'খানা', 'সবগুলো', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা সাহিত্যের প্রথম উপন্যাস কোনটি?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'Literature', 'আলালের ঘরের দুলাল', 'দুর্গেশনন্দিনী', 'কপালকুণ্ডলা', 'প্রেমের ফাঁদ', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন বর্ণ উষ্ম বর্ণ?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'Grammar', 'শ', 'ষ', 'স', 'সবগুলো', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা সাহিত্যের প্রথম মুদ্রিত বই কোনটি?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'History', 'কথোপকথন', 'হিতোপদেশ', 'নীতিকথা', 'ইতিহাসমালা', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন যুগে বাংলা সাহিত্যে গদ্যের প্রচলন হয়?', 'Bangla 1st Paper', '9-10', 'Arts', 'Bangla', 'Literature', 'প্রাচীন যুগ', 'মধ্য যুগ', 'আধুনিক যুগ', 'উত্তর আধুনিক যুগ', 'c', 'hard', NOW(), NOW());
+
+-- Bangla 2nd Paper (9-10) - 30 Questions
+INSERT INTO questions (question_id, content, subject, class_level, "group", department, topic, option_a, option_b, option_c, option_d, correct_option, difficulty, created_at, updated_at) VALUES
+(gen_random_uuid(), 'রচনা লেখার ক্ষেত্রে কোন বিষয়টি সবচেয়ে গুরুত্বপূর্ণ?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Composition', 'ভাষার প্রাবল্য', 'তথ্যের প্রাচুর্য', 'ভাবের সংগতি', 'অলংকারের ব্যবহার', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'পত্র লেখার ক্ষেত্রে কোন অংশটি সবচেয়ে গুরুত্বপূর্ণ?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Letter Writing', 'সম্ভাষণ', 'মূল বিষয়', 'সমাপনী', 'স্বাক্ষর', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'সারাংশ লেখার ক্ষেত্রে মূল গদ্যের কত অংশ লেখা উচিত?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Summarizing', 'এক-তৃতীয়াংশ', 'অর্ধেক', 'দুই-তৃতীয়াংশ', 'পুরোটা', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'প্রতিবেদন লেখার ক্ষেত্রে কোন বিষয়টি অপরিহার্য?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Report Writing', 'সময়', 'স্থান', 'ঘটনা', 'সবগুলো', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'গল্প লেখার ক্ষেত্রে কোন উপাদানটি সবচেয়ে গুরুত্বপূর্ণ?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Story Writing', 'চরিত্র', 'পরিবেশ', 'দ্বন্দ্বব', 'সংলাপ', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন ধরনের লেখায় পাঠকের সাথে সরাসরি কথা বলা হয়?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Writing Skills', 'বর্ণনামূলক', 'সম্বোধনমূলক', 'বিশ্লেষণমূলক', 'তর্কমূলক', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'অনুবাদের ক্ষেত্রে কোন বিষয়টি সবচেয়ে গুরুত্বপূর্ণ?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Translation', 'শব্দের অনুবাদ', 'ভাবের অনুবাদ', 'বাক্যের অনুবাদ', 'অক্ষরের অনুবাদ', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন ধরনের রচনায় উপমা ও রূপকের ব্যবহার বেশি?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Composition', 'বৈজ্ঞানিক', 'কাব্যিক', 'ঐতিহাসিক', 'রাজনৈতিক', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন ধরনের পত্রে ব্যক্তিগত আবেগের প্রকাশ থাকে?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Letter Writing', 'ব্যবসায়িক পত্র', 'দাপ্তরিক পত্র', 'ব্যক্তিগত পত্র', 'সম্পাদকীয় পত্র', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন বিষয়ে রচনা লেখার ক্ষেত্রে তথ্য সংগ্রহ সবচেয়ে গুরুত্বপূর্ণ?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Composition', 'কল্পনামূলক', 'তথ্যমূলক', 'আবেগমূলক', 'ব্যক্তিগত', 'b', 'hard', NOW(), NOW());
+
+-- English 1st Paper (9-10) - 30 Questions
+INSERT INTO questions (question_id, content, subject, class_level, "group", department, topic, option_a, option_b, option_c, option_d, correct_option, difficulty, created_at, updated_at) VALUES
+(gen_random_uuid(), 'Which literary device is used in "The wind whispered through the trees"?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Literature', 'Metaphor', 'Personification', 'Simile', 'Alliteration', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What is the correct passive voice of "They are building a new house"?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Grammar', 'A new house is being built by them', 'A new house is built by them', 'A new house was being built by them', 'A new house has been built by them', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Which sentence uses the subjunctive mood correctly?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Grammar', 'If I was rich, I would help the poor', 'If I were rich, I would help the poor', 'If I am rich, I will help the poor', 'If I will be rich, I would help the poor', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What is the meaning of the idiom "to burn the midnight oil"?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Vocabulary', 'To waste time', 'To work late into the night', 'To be very angry', 'To celebrate', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Which is an example of oxymoron?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Literature', 'Cruel kindness', 'Silent scream', 'Deafening silence', 'All of the above', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What type of conditional sentence is "If you heat water to 100°C, it boils"?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Grammar', 'Zero conditional', 'First conditional', 'Second conditional', 'Third conditional', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Which word is spelled correctly?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Spelling', 'Accomodate', 'Accommodate', 'Acommodate', 'Acomodate', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What is the antonym of "affluent"?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Vocabulary', 'Rich', 'Prosperous', 'Impoverished', 'Wealthy', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Which sentence is grammatically correct?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Grammar', 'Neither of the boys were present', 'Neither of the boys was present', 'Neither of the boy were present', 'Neither of the boy was present', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What is the correct reported speech of "He said, `I will come tomorrow`"?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Grammar', 'He said that he will come tomorrow', 'He said that he would come tomorrow', 'He said that he would come the next day', 'He said that he will come the next day', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Which literary term describes a story within a story?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Literature', 'Allegory', 'Frame narrative', 'Flashback', 'Foreshadowing', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What is the plural form of "analysis"?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Grammar', 'Analysises', 'Analyses', 'Analysis', 'Analyzes', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Which sentence uses "who" correctly?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Grammar', 'Who did you give the book to?', 'To who did you give the book?', 'Whom did you give the book to?', 'To whom did you give the book?', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What is the meaning of "ubiquitous"?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Vocabulary', 'Rare', 'Present everywhere', 'Ancient', 'Mysterious', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Which is an example of synecdoche?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Literature', 'All hands on deck', 'Time is money', 'The classroom was a zoo', 'She has a heart of gold', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What is the correct form: "Between you and ___"?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Grammar', 'I', 'me', 'myself', 'mine', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Which sentence demonstrates proper parallel structure?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Grammar', 'She likes reading, writing, and to paint', 'She likes reading, writing, and painting', 'She likes to read, writing, and painting', 'She likes reading, to write, and painting', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What is the difference between "affect" and "effect"?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Vocabulary', 'Affect is a noun, effect is a verb', 'Affect is a verb, effect is a noun', 'They mean the same thing', 'Affect is formal, effect is informal', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Which sentence uses the correct form of "lay" or "lie"?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Grammar', 'I need to lay down for a while', 'I need to lie down for a while', 'The book is laying on the table', 'She has laid in bed all day', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What is a dangling modifier?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Grammar', 'A modifier that is too long', 'A modifier with no clear subject', 'A modifier at the end of a sentence', 'A modifier that repeats', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Which word is a gerund in "Swimming is good exercise"?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Grammar', 'Swimming', 'is', 'good', 'exercise', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What is the superlative form of "bad"?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Grammar', 'Badder', 'Baddest', 'Worse', 'Worst', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Which sentence uses "fewer" correctly?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Grammar', 'There is fewer water in the glass', 'There are fewer people here today', 'I have fewer money than you', 'She has fewer patience', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What is the meaning of the prefix "anti-"?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Vocabulary', 'Before', 'Against', 'Around', 'Above', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Which sentence is an example of chiasmus?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Literature', 'Ask not what your country can do for you—ask what you can do for your country', 'To be or not to be', 'It was the best of times, it was the worst of times', 'All that glitters is not gold', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What is the correct possessive form of "children"?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Grammar', 'childrens`', 'children`s', 'childrens', 'childrens`s', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Which sentence uses "which" correctly?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Grammar', 'The book which I bought is interesting', 'The book, which I bought, is interesting', 'The book which is on the table is mine', 'All of the above', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What is an example of allusion?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Literature', 'The sound of buzzing bees', 'He was a real Romeo with the ladies', 'The wind howled', 'Time flies', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Which sentence demonstrates correct comma usage?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Grammar', 'After the storm passed, we went outside', 'After the storm passed we went outside', 'After, the storm passed we went outside', 'After the storm, passed we went outside', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What is the meaning of "cacophony"?', 'English 1st Paper', '9-10', 'Arts', 'English', 'Vocabulary', 'Pleasant sounds', 'Harsh, discordant sounds', 'Silence', 'Musical harmony', 'b', 'hard', NOW(), NOW());
+
+-- English 2nd Paper (9-10) - 30 Questions
+INSERT INTO questions (question_id, content, subject, class_level, "group", department, topic, option_a, option_b, option_c, option_d, correct_option, difficulty, created_at, updated_at) VALUES
+(gen_random_uuid(), 'What is the most important element in essay writing?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Composition', 'Vocabulary', 'Grammar', 'Unity of thought', 'Length', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'In formal letter writing, where should the date be placed?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Letter Writing', 'Top left', 'Top right', 'Bottom left', 'Bottom right', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Which type of paragraph development uses specific examples?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Paragraph Writing', 'Illustration', 'Comparison', 'Definition', 'Process', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What should be avoided in summary writing?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Summary Writing', 'Main ideas', 'Personal opinions', 'Key points', 'Important details', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'In report writing, what comes after the introduction?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Report Writing', 'Conclusion', 'Recommendations', 'Body/Findings', 'Bibliography', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What is the purpose of a topic sentence?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Paragraph Writing', 'To conclude the paragraph', 'To introduce the main idea', 'To provide examples', 'To transition to next paragraph', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Which tense is most appropriate for narrative writing?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Creative Writing', 'Present tense', 'Past tense', 'Future tense', 'Present perfect', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What is the correct structure for an argumentative essay?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Essay Writing', 'Introduction, Body, Conclusion', 'Thesis, Antithesis, Synthesis', 'Problem, Solution, Result', 'Cause, Effect, Prevention', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'In business letter writing, what follows the salutation?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Business Writing', 'Body of letter', 'Subject line', 'Complimentary close', 'Signature', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What is the main characteristic of descriptive writing?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Creative Writing', 'Logical sequence', 'Vivid imagery', 'Strong arguments', 'Statistical data', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Which element is crucial in dialogue writing?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Creative Writing', 'Formal language', 'Natural conversation', 'Complex sentences', 'Academic vocabulary', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What should be the tone of an application letter?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Formal Writing', 'Casual', 'Polite and formal', 'Demanding', 'Emotional', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'In precis writing, what percentage of the original should be retained?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Precis Writing', '50%', '33%', '25%', '10%', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What is the primary purpose of an introduction in an essay?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Essay Writing', 'To provide examples', 'To present the thesis', 'To conclude the argument', 'To add supporting details', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Which transition word shows contrast?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Writing Skills', 'Furthermore', 'However', 'Therefore', 'Moreover', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What is essential in character sketch writing?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Creative Writing', 'Physical appearance only', 'Personality traits', 'Background history', 'All of the above', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'In formal writing, which should be avoided?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Formal Writing', 'Contractions', 'Complete sentences', 'Proper grammar', 'Clear structure', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What is the key to effective paragraph unity?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Paragraph Writing', 'Using long sentences', 'Sticking to one main idea', 'Adding many examples', 'Using difficult words', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Which is the correct format for a memo?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Business Writing', 'TO, FROM, DATE, SUBJECT', 'Dear Sir, Body, Yours', 'Salutation, Body, Close', 'Title, Content, Signature', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What should be emphasized in process writing?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Technical Writing', 'Personal opinions', 'Step-by-step sequence', 'Emotional appeal', 'Complex vocabulary', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'In newspaper writing, what comes first?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Journalism', 'Detailed explanation', 'Lead paragraph', 'Background information', 'Personal comments', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What is the purpose of a conclusion in an essay?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Essay Writing', 'To introduce new ideas', 'To summarize and reinforce', 'To ask questions', 'To provide examples', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Which element is most important in story writing?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Creative Writing', 'Setting', 'Characters', 'Plot', 'Theme', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What should be the focus of an informative essay?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Essay Writing', 'Personal experience', 'Factual information', 'Emotional appeal', 'Persuasion', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'In email writing, what should the subject line contain?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Digital Writing', 'Greeting', 'Main topic briefly', 'Full message', 'Signature', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What is essential for coherence in writing?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Writing Skills', 'Long paragraphs', 'Logical flow of ideas', 'Difficult vocabulary', 'Multiple topics', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Which type of writing requires the most objective tone?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Writing Types', 'Personal narrative', 'Scientific report', 'Opinion essay', 'Creative story', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What is the main purpose of revision in writing?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Writing Process', 'To make it longer', 'To improve clarity and flow', 'To add more words', 'To change the topic', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'In academic writing, what should citations do?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Academic Writing', 'Make writing longer', 'Support claims with evidence', 'Show vocabulary', 'Fill space', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What is the key to effective persuasive writing?', 'English 2nd Paper', '9-10', 'Arts', 'English', 'Persuasive Writing', 'Complex sentences', 'Strong evidence and reasoning', 'Emotional language only', 'Personal attacks', 'b', 'hard', NOW(), NOW());
+
+-- Mathematics (9-10) - 30 Questions
+INSERT INTO questions (question_id, content, subject, class_level, "group", department, topic, option_a, option_b, option_c, option_d, correct_option, difficulty, created_at, updated_at) VALUES
+(gen_random_uuid(), 'If log₂(x) + log₂(y) = 5, then xy = ?', 'Mathematics', '9-10', 'Science', 'Mathematics', 'Logarithms', '25', '32', '10', '5', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'The sum of roots of equation 3x² - 7x + 2 = 0 is:', 'Mathematics', '9-10', 'Science', 'Mathematics', 'Quadratic Equations', '7/3', '2/3', '-7/3', '3/7', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'If sin θ + cos θ = √2, then sin θ cos θ = ?', 'Mathematics', '9-10', 'Science', 'Mathematics', 'Trigonometry', '1/2', '0', '1', '-1/2', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'The nth term of AP: 3, 7, 11, 15, ... is:', 'Mathematics', '9-10', 'Science', 'Mathematics', 'Sequences', '4n - 1', '4n + 1', '3n + 4', '4n - 3', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'If 2ˣ = 8ʸ, then x : y = ?', 'Mathematics', '9-10', 'Science', 'Mathematics', 'Indices', '3 : 1', '1 : 3', '9 : 1', '1 : 9', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'The area of triangle with vertices (0,0), (3,0), (0,4) is:', 'Mathematics', '9-10', 'Science', 'Mathematics', 'Coordinate Geometry', '6', '12', '7', '5', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'If f(x) = x² - 3x + 2, then f(2) = ?', 'Mathematics', '9-10', 'Science', 'Mathematics', 'Functions', '0', '2', '4', '-2', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'The value of tan 45° + cot 45° is:', 'Mathematics', '9-10', 'Science', 'Mathematics', 'Trigonometry', '1', '2', '√2', '0', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'If x + 1/x = 3, then x² + 1/x² = ?', 'Mathematics', '9-10', 'Science', 'Mathematics', 'Algebra', '7', '9', '11', '5', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'The coefficient of x² in (x + 2)³ is:', 'Mathematics', '9-10', 'Science', 'Mathematics', 'Binomial Theorem', '3', '6', '12', '4', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'If the radius of a circle is doubled, its area becomes:', 'Mathematics', '9-10', 'Science', 'Mathematics', 'Geometry', '2 times', '4 times', '√2 times', '8 times', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'The solution of |x - 3| = 5 is:', 'Mathematics', '9-10', 'Science', 'Mathematics', 'Absolute Value', 'x = 8', 'x = -2', 'x = 8 or x = -2', 'x = 2 or x = 8', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'If log₁₀ 2 = 0.301, then log₁₀ 8 = ?', 'Mathematics', '9-10', 'Science', 'Mathematics', 'Logarithms', '0.602', '0.903', '2.408', '0.301', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'The discriminant of 2x² - 5x + 3 = 0 is:', 'Mathematics', '9-10', 'Science', 'Mathematics', 'Quadratic Equations', '1', '25', '49', '-23', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'If sec θ = 2, then cos θ = ?', 'Mathematics', '9-10', 'Science', 'Mathematics', 'Trigonometry', '1/2', '2', '√3/2', '1/√2', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'The sum of first 10 natural numbers is:', 'Mathematics', '9-10', 'Science', 'Mathematics', 'Sequences', '45', '55', '50', '60', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'If a = 3⁰·⁵ and b = 2⁰·⁵, then ab = ?', 'Mathematics', '9-10', 'Science', 'Mathematics', 'Indices', '√6', '5', '6', '√5', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'The distance between points (1,2) and (4,6) is:', 'Mathematics', '9-10', 'Science', 'Mathematics', 'Coordinate Geometry', '5', '7', '√7', '3', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'If f(x) = 2x + 3, then f⁻¹(x) = ?', 'Mathematics', '9-10', 'Science', 'Mathematics', 'Functions', '(x-3)/2', '(x+3)/2', '2x-3', '3-2x', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'রচনায় লেখকের ব্যক্তিত্ব প্রকাশ পায়?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Composition', 'বর্ণনামূলক', 'আত্মকথনমূলক', 'বিশ্লেষণমূলক', 'তুলনামূলক', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'প্রবন্ধ লেখার ক্ষেত্রে কোন বিষয়টি মূল?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Essay Writing', 'যুক্তি', 'তথ্য', 'মত', 'সবগুলো', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'সংলাপ লেখার ক্ষেত্রে কোন বিষয়টি গুরুত্বপূর্ণ?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Dialogue Writing', 'চরিত্রের উপযুক্ততা', 'ভাষার সরলতা', 'প্রাসঙ্গিকতা', 'সবগুলো', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'চিঠি লেখার ক্ষেত্রে কোন ভাষা ব্যবহার করা উচিত?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Letter Writing', 'সাধু ভাষা', 'চলিত ভাষা', 'আঞ্চলিক ভাষা', 'মিশ্র ভাষা', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন ধরনের রচনায় কল্পনার ব্যবহার বেশি?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Composition', 'বিবরণমূলক', 'বর্ণনামূলক', 'বিশ্লেষণমূলক', 'তর্কমূলক', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'অনুচ্ছেদ লেখার ক্ষেত্রে কোন নিয়মটি অনুসরণ করা উচিত?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Paragraph Writing', 'একটি মূল ভাব', 'বহু মূল ভাব', 'জটিল বাক্য', 'দীর্ঘ বাক্য', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ভাব সম্প্রসারণে কোন বিষয়টি প্রয়োজনীয়?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Amplification', 'মূল ভাবের বিস্তার', 'নতুন ভাবের সংযোজন', 'অপ্রাসঙ্গিক বিষয়', 'জটিল শব্দ', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'দিনলিপি লেখার ক্ষেত্রে কোন বিষয়টি গুরুত্বপূর্ণ?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Diary Writing', 'ব্যক্তিগত অনুভূতি', 'সামাজিক বিষয়', 'রাজনৈতিক মত', 'অর্থনৈতিক বিশ্লেষণ', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন ধরনের লেখায় সময়ের ক্রমধারা রক্ষা করা আবশ্যক?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Writing Skills', 'বিবরণমূলক', 'বর্ণনামূলক', 'তর্কমূলক', 'বিশ্লেষণমূলক', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'আবেদন পত্র লেখার ক্ষেত্রে কোন বিষয়টি অপরিহার্য?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Application Writing', 'বিনয়ী ভাষা', 'দাবি আদায়ের ভাষা', 'অনুরোধের ভাষা', 'ক ও গ', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'সংবাদ লেখার ক্ষেত্রে কোন প্রশ্নের উত্তর থাকা আবশ্যক?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'News Writing', 'কী, কেন, কখন', 'কোথায়, কীভাবে', 'কে', 'সবগুলো', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন রচনায় ব্যক্তিগত মতামত প্রকাশ পায়?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Composition', 'নিবন্ধ', 'প্রবন্ধ', 'বিবরণ', 'বর্ণনা', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন ধরনের রচনায় তথ্যের প্রাধান্য থাকে?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Composition', 'কাব্যিক', 'বিজ্ঞানভিত্তিক', 'কল্পনামূলক', 'আবেগমূলক', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'চরিত্র বিশ্লেষণে কোন বিষয়টি গুরুত্বপূর্ণ?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Character Analysis', 'বাহ্যিক রূপ', 'মানসিক গুণাবলী', 'সামাজিক অবস্থান', 'সবগুলো', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন ধরনের রচনায় কারণ ও ফলাফল দেখানো হয়?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Composition', 'বিশ্লেষণমূলক', 'বর্ণনামূলক', 'কল্পনামূলক', 'আবেগমূলক', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'প্রতিবেদন লেখার ক্ষেত্রে কোন ভাষা ব্যবহার করা উচিত?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Report Writing', 'আবেগপূর্ণ', 'নিরপেক্ষ', 'অলংকারপূর্ণ', 'জটিল', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন ধরনের লেখায় সংলাপের ব্যবহার বেশি?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Writing Skills', 'প্রবন্ধ', 'নাটক', 'নিবন্ধ', 'সারাংশ', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন ধরনের রচনায় কল্পনার চেয়ে যুক্তির প্রাধান্য?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Composition', 'কাব্যিক', 'তর্কমূলক', 'বর্ণনামূলক', 'আবেগমূলক', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'সার লেখার ক্ষেত্রে কোন বিষয়টি এড়ানো উচিত?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Summarizing', 'মূল ভাব', 'অপ্রয়োজনীয় বিস্তার', 'সংক্ষিপ্ততা', 'স্পষ্টতা', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন ধরনের রচনায় সময়ের গুরুত্ব কম?', 'Bangla 2nd Paper', '9-10', 'Arts', 'Bangla', 'Composition', 'আত্মজীবনীমূলক', 'ভ্রমণকাহিনী', 'তত্ত্বমূলক', 'ঐতিহাসিক', 'c', 'hard', NOW(), NOW());
+
+
+
+-- Physics questions for 9 - 10
+
+INSERT INTO questions (content, subject, class_level, group_name, department, topic, 
+option_a, option_b, option_c, option_d, correct_option, difficulty, created_at, updated_at) VALUES
+
+('কোন ভৌত রাশি ভেক্টর রাশি?', 'Physics', '9-10', 'Science', 'Physics', 'Vector Quantity', 'দ্রব্যমান', 'বেগ', 'তাপমাত্রা', 'শক্তি', 'b', 'hard', NOW(), NOW()),
+('নিউটনের দ্বিতীয় সূত্র কোনটি?', 'Physics', '9-10', 'Science', 'Physics', 'Newton`s Second Law', 'F = ma', 'F = mv', 'F = m/v', 'F = m + a', 'a', 'hard', NOW(), NOW()),
+('তরঙ্গের গতি কোন মাধ্যমে সর্বাধিক?', 'Physics', '9-10', 'Science', 'Physics', 'Wave Propagation', 'বায়ু', 'জল', 'লোহা', 'শূন্যস্থান', 'c', 'hard', NOW(), NOW()),
+('তাপমাত্রা বৃদ্ধি পেলে পদার্থের আয়তন কেমন হয়?', 'Physics', '9-10', 'Science', 'Physics', 'Thermal Expansion', 'হ্রাস পায়', 'বৃদ্ধি পায়', 'পরিবর্তন হয় না', 'কিছু কিছু ক্ষেত্রে', 'b', 'hard', NOW(), NOW()),
+('শক্তি সংরক্ষণ সূত্রের ব্যাখ্যা কোনটি?', 'Physics', '9-10', 'Science', 'Physics', 'Law of Conservation of Energy', 'শক্তি সৃষ্টি হয়', 'শক্তি ধ্বংস হয়', 'শক্তি রূপান্তরিত হয়', 'শক্তি বৃদ্ধি পায়', 'c', 'hard', NOW(), NOW()),
+('স্বরবর্ণের ধ্বনি তরঙ্গের ফ্রিকোয়েন্সি কত রেঞ্জে থাকে?', 'Physics', '9-10', 'Science', 'Physics', 'Frequency Range of Vowels', '২০-২০,০০০ হার্জ', '৪০০-৫০০০ হার্জ', '১০-১৫০ হার্জ', '৩০০০-৫০০০ হার্জ', 'b', 'hard', NOW(), NOW()),
+('নিউটনের তৃতীয় সূত্রের কথা কী?', 'Physics', '9-10', 'Science', 'Physics', 'Newton`s Third Law', 'প্রতিটি ক্রিয়ার সমান ও বিপরীত প্রতিক্রিয়া থাকে', 'বস্তুর গতিবেগ অপরিবর্তিত থাকে', 'বল ও কর্ম সমান হয়', 'শক্তি ধ্বংস হয় না', 'a', 'hard', NOW(), NOW()),
+('যদি একটি বস্তুতে কোনও নিট বল কাজ না করে, তাহলে বস্তুটির অবস্থা কী?', 'Physics', '9-10', 'Science', 'Physics', 'Newton`s First Law', 'স্থির থাকবে অথবা সমতলে চলবে', 'গতি বৃদ্ধি পাবে', 'গতি কমবে', 'ঘুরবে', 'a', 'hard', NOW(), NOW()),
+('শক্তি এককে কোনটি ব্যবহৃত হয়?', 'Physics', '9-10', 'Science', 'Physics', 'Unit of Energy', 'জুল', 'ওয়াট', 'নিউটন', 'পাস্কাল', 'a', 'hard', NOW(), NOW()),
+('বেগ এবং ত্বরণের একক কি?', 'Physics', '9-10', 'Science', 'Physics', 'Units of Speed and Acceleration', 'মিটার/সেকেন্ড ও মিটার/সেকেন্ড²', 'কিলোমিটার/ঘণ্টা ও মিটার/সেকেন্ড', 'মিটার ও সেকেন্ড', 'কিলোগ্রাম ও নিউটন', 'a', 'hard', NOW(), NOW()),
+('তাপ পরিবহণের কোন প্রক্রিয়ায় পদার্থ সরাসরি স্পর্শ করে?', 'Physics', '9-10', 'Science', 'Physics', 'Heat Transfer', 'পরিবহন', 'পরিবাহীতা', 'তরঙ্গ', 'রশ্মি', 'b', 'hard', NOW(), NOW()),
+('একটি বস্তু ৪ সেকেন্ডে ২০ মিটার পথ পাড়ি দেয়। এর গড় বেগ কত?', 'Physics', '9-10', 'Science', 'Physics', 'Average Speed', '৫ মিটার/সেকেন্ড', '৮ মিটার/সেকেন্ড', '৪ মিটার/সেকেন্ড', '৬ মিটার/সেকেন্ড', 'a', 'hard', NOW(), NOW()),
+('তাপমাত্রা এবং আয়তনের মধ্যে সম্পর্ক কী?', 'Physics', '9-10', 'Science', 'Physics', 'Thermal Expansion', 'আয়তন তাপমাত্রার সাথে বৃদ্ধি পায়', 'আয়তন তাপমাত্রার সাথে কমে', 'কোন সম্পর্ক নেই', 'আয়তন অপরিবর্তিত থাকে', 'a', 'hard', NOW(), NOW()),
+('তরঙ্গদৈর্ঘ্য কী?', 'Physics', '9-10', 'Science', 'Physics', 'Wavelength', 'একটি পূর্ণ তরঙ্গের দৈর্ঘ্য', 'তরঙ্গের গতি', 'তরঙ্গের ফ্রিকোয়েন্সি', 'তরঙ্গের উচ্চতা', 'a', 'hard', NOW(), NOW()),
+('লোহা থেকে তাপ পরিবহন কোন প্রক্রিয়ায় হয়?', 'Physics', '9-10', 'Science', 'Physics', 'Heat Transfer', 'কনভেকশন', 'কনডাকশন', 'রেডিয়েশন', 'এমন নয়', 'b', 'hard', NOW(), NOW()),
+('সঞ্চালন ক্ষমতা (Conductivity) কোন পদার্থের মধ্যে বেশি?', 'Physics', '9-10', 'Science', 'Physics', 'তামা', 'কাঠ', 'প্লাস্টিক', 'গ্লাস', 'a', 'hard', NOW(), NOW()),
+('অ্যালকোহল এবং জল মিশ্রণের তাপমাত্রা বৃদ্ধি পাওয়ার কারণ কী?', 'Physics', '9-10', 'Science', 'Physics', 'Heat Capacity', 'আয়তন বৃদ্ধি', 'অণুগুলোর আন্দোলন বৃদ্ধি', 'রসায়নিক বিক্রিয়া', 'এটা সত্য নয়', 'b', 'hard', NOW(), NOW()),
+('বল কত উপাদান নিয়ে গঠিত?', 'Physics', '9-10', 'Science', 'Physics', 'Force Components', 'মাত্ৰা ও দিক', 'শক্তি ও গতি', 'বেগ ও সময়', 'মাস ও গতি', 'a', 'hard', NOW(), NOW()),
+('লিনিয়ার গতি নির্দেশ করে—', 'Physics', '9-10', 'Science', 'Physics', 'একই পথে সরল গতি', 'পরিবর্তিত গতি', 'বৃত্তাকার গতি', 'বেগের পরিবর্তন', 'a', 'hard', NOW(), NOW()),
+('যদি বস্তুর উপর ২০ নিউটন বল প্রয়োগ করা হয় এবং তার ভর ৪ কেজি হয়, তবে ত্বরণ কত হবে?', 'Physics', '9-10', 'Science', 'Physics', '৪ মি/সেকেন্ড²', '৫ মি/সেকেন্ড²', '৮ মি/সেকেন্ড²', '২০ মি/সেকেন্ড²', 'a', 'hard', NOW(), NOW()),
+('কোন শক্তি অবস্থা নির্দিষ্ট কণার গতিশীল শক্তি নয়?', 'Physics', '9-10', 'Science', 'Physics', 'স্থিতিশক্তি', 'তাপীয় শক্তি', 'রশ্মি শক্তি', 'ধ্বনি শক্তি', 'a', 'hard', NOW(), NOW()),
+('কোন পদার্থ চুম্বকীয় নয়?', 'Physics', '9-10', 'Science', 'Physics', 'আয়রন', 'তামা', 'নিকেল', 'কোবাল্ট', 'b', 'hard', NOW(), NOW()),
+('তাপমাত্রা পরিমাপের একক কোনটি?', 'Physics', '9-10', 'Science', 'Physics', 'ডিগ্রি সেলসিয়াস', 'লুমেন', 'পাস্কাল', 'জুল', 'a', 'hard', NOW(), NOW()),
+('সরাসরি আলোকে প্রতিফলিত কোন সূত্রটি প্রযোজ্য?', 'Physics', '9-10', 'Science', 'Physics', 'পরিবর্তন সূত্র', 'প্রতিফলন সূত্র', 'প্রক্ষেপণ সূত্র', 'প্রতিসরণ সূত্র', 'b', 'hard', NOW(), NOW()),
+('কোন তরঙ্গের জন্য মাধ্যমের প্রয়োজন নেই?', 'Physics', '9-10', 'Science', 'Physics', 'ইলেক্ট্রোম্যাগনেটিক তরঙ্গ', 'তরল তরঙ্গ', 'যান্ত্রিক তরঙ্গ', 'শব্দ তরঙ্গ', 'a', 'hard', NOW(), NOW()),
+('একটি বস্তু যে শক্তি সঞ্চয় করে সেটি কী নামে পরিচিত?', 'Physics', '9-10', 'Science', 'Physics', 'স্থিতিশক্তি', 'গতিশক্তি', 'তাপ শক্তি', 'রশ্মি শক্তি', 'a', 'hard', NOW(), NOW()),
+('তাপের প্রবাহ ঘটে কোন অবস্থান থেকে?', 'Physics', '9-10', 'Science', 'Physics', 'উচ্চ তাপমাত্রা থেকে নিম্ন তাপমাত্রা', 'নিম্ন তাপমাত্রা থেকে উচ্চ তাপমাত্রা', 'যেকোন অবস্থান থেকে', 'প্রবাহ ঘটে না', 'a', 'hard', NOW(), NOW()),
+('আয়নিত তরঙ্গের গতি নির্ভর করে—', 'Physics', '9-10', 'Science', 'Physics', 'মাধ্যমের প্রকৃতি', 'তরঙ্গদৈর্ঘ্য', 'ফ্রিকোয়েন্সি', 'সময়', 'a', 'hard', NOW(), NOW()),
+('নিউটনের প্রথম সূত্র কোন নামেও পরিচিত?', 'Physics', '9-10', 'Science', 'Physics', 'তড়িতীয় আইন', 'জড়তার আইন', 'প্রবাহের আইন', 'গতি পরিবর্তনের আইন', 'b', 'hard', NOW(), NOW()),
+('বস্তুর ভরবেগ কত?', 'Physics', '9-10', 'Science', 'Physics', 'বস্তুর ভর × গতি', 'বস্তুর ভর ÷ গতি', 'বস্তুর ভর + গতি', 'বস্তুর ভর - গতি', 'a', 'hard', NOW(), NOW()),
+('শক্তির একক কী?', 'Physics', '9-10', 'Science', 'Physics', 'জুল', 'নিউটন', 'ওয়াট', 'পাস্কাল', 'a', 'hard', NOW(), NOW());
+
+
+
+-- Insert hard difficulty questions for Chemistry subject for class 9-10
+
+INSERT INTO questions (content, subject, class_level, group_name, department, topic, 
+option_a, option_b, option_c, option_d, correct_option, difficulty, created_at, updated_at) VALUES
+
+('পদার্থের কোন অবস্থা নির্দিষ্ট আকার ও নির্দিষ্ট আয়তন রাখে?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'States of Matter', 'তরল', 'গ্যাস', 'স্থির', 'প্লাজমা', 'c', 'hard', NOW(), NOW()),
+('অ্যাভোগাড্রোর সংখ্যার মান কত?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'Atomic Theory', '৬.০২×১০²³', '৩.০১×১০²³', '১.৬×১০⁻¹⁹', '৯.৮×১০⁻²', 'a', 'hard', NOW(), NOW()),
+('রাসায়নিক বন্ধন যার মধ্যে ইলেকট্রন ভাগাভাগি করা হয়?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'Chemical Bonds', 'আয়নিক বন্ধন', 'কোভ্যালেন্ট বন্ধন', 'ধ্রুবক বন্ধন', 'হাইড্রোজেন বন্ধন', 'b', 'hard', NOW(), NOW()),
+('পানির রাসায়নিক সূত্র কী?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'Compounds', 'H₂O₂', 'HO', 'H₂O', 'O₂H₂', 'c', 'hard', NOW(), NOW()),
+('অ্যাসিড ও ক্ষারীয় দ্রাবণের pH মান কত?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'pH Scale', '৭', 'নূন্যতম', '৯', '১৪', 'b', 'hard', NOW(), NOW()),
+('রাসায়নিক বিক্রিয়ার সময় তাপ বৃদ্ধি পেলে বিক্রিয়া কোন দিক পরিবর্তিত হয়?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'Chemical Reactions', 'উৎপাদনের দিকে', 'প্রতিক্রিয়ার দিকে', 'অপরিবর্তিত থাকে', 'দুইটি সঠিক', 'a', 'hard', NOW(), NOW()),
+('অণু ও পরমাণুর মধ্যে পার্থক্য কী?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'Molecules vs Atoms', 'অণু হলো পরমাণুর সমষ্টি', 'পরমাণু হলো অণুর সমষ্টি', 'তারা সমান', 'কোনোটিই নয়', 'a', 'hard', NOW(), NOW()),
+('কোন উপাদানটি সবচেয়ে হালকা?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'Elements', 'হিলিয়াম', 'হাইড্রোজেন', 'লিথিয়াম', 'কার্বন', 'b', 'hard', NOW(), NOW()),
+('অক্সিজেনের অণু গঠন কেমন?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'Molecular Structure', 'O₂', 'O₃', 'O₄', 'O', 'a', 'hard', NOW(), NOW()),
+('ধাতুর বৈশিষ্ট্য কোনটি?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'Properties of Metals', 'বিদ্যুৎ পরিবাহক', 'বিভক্ত হতে পারে', 'দৃঢ় নয়', 'মাটি', 'a', 'hard', NOW(), NOW()),
+('রাসায়নিক বিক্রিয়ায় মৌল পরিবর্তিত হয় কিনা?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'Chemical Reactions', 'পরিবর্তিত হয়', 'পরিবর্তিত হয় না', 'মৌল গঠন হয়', 'অবস্থা পরিবর্তিত হয়', 'b', 'hard', NOW(), NOW()),
+('জলের বৈজ্ঞানিক নাম কী?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'Chemical Names', 'ডাইহাইড্রোজেন অক্সাইড', 'হাইড্রোজেন পারঅক্সাইড', 'কার্বন ডাইঅক্সাইড', 'অ্যাসিটিক এসিড', 'a', 'hard', NOW(), NOW()),
+('কোন দ্রাবক সর্বাধিক সক্রিয়?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'Solvents', 'জল', 'অ্যাসিটোন', 'বেঞ্জিন', 'ইথানল', 'a', 'hard', NOW(), NOW()),
+('পরমাণু কি?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'Atoms', 'রাসায়নিক উপাদানের ক্ষুদ্রতম একক', 'অণুর অংশ', 'মৌল', 'পদার্থের বৃহত্তম একক', 'a', 'hard', NOW(), NOW()),
+('রাসায়নিক সূত্রে "H2SO4" কী বোঝায়?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'Chemical Formula', 'সালফিউরিক অ্যাসিড', 'সোডিয়াম সালফেট', 'হাইড্রোজেন সালফাইড', 'সোডিয়াম হাইড্রক্সাইড', 'a', 'hard', NOW(), NOW()),
+('কোন উপাদানটি ভগ্নাংশ হিসেবে প্রকাশ করা হয়?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'Concentration', 'মোলারিটি', 'আয়ন', 'পারমাণবিক সংখ্যা', 'আয়ন সংযোজন', 'a', 'hard', NOW(), NOW()),
+('আয়নিক বন্ধন কেমন?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'Ionic Bond', 'ইলেকট্রন স্থানান্তর', 'ইলেকট্রন ভাগাভাগি', 'হাইড্রোজেন শৃঙ্খলা', 'ভ্যান ডার ভালস বল', 'a', 'hard', NOW(), NOW()),
+('রাসায়নিক বিক্রিয়ায় তাপ মুক্তি পাওয়া বিক্রিয়া কী নামে পরিচিত?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'Exothermic Reaction', 'Endothermic Reaction', 'Neutralization', 'Combustion', 'a', 'hard', NOW(), NOW()),
+('রাসায়নিক বিক্রিয়ার গতি নির্ভর করে?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'Temperature', 'চাপ', 'প্রতিক্রিয়াশীল পদার্থের ঘনত্ব', 'সবগুলো', 'd', 'hard', NOW(), NOW()),
+('রাসায়নিক প্রতিক্রিয়ায় উৎপাদিত গ্যাস সাধারণত কী?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'অক্সিজেন', 'হাইড্রোজেন', 'কার্বন ডাইঅক্সাইড', 'নাইট্রোজেন', 'c', 'hard', NOW(), NOW()),
+('কোন রাসায়নিক উপাদান পানিতে দ্রবীভূত হয় না?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'তৈল', 'নমক', 'সালফেট', 'কার্বন', 'a', 'hard', NOW(), NOW()),
+('পরমাণুর নিউক্লিয়াসে কি থাকে?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'প্রোটন ও নিউট্রন', 'ইলেকট্রন', 'প্রোটন ও ইলেকট্রন', 'নিউট্রন', 'a', 'hard', NOW(), NOW()),
+('পরমাণুর পরিধি কত?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'প্রায় ১০⁻¹⁰ মিটার', 'প্রায় ১০⁻⁹ মিটার', 'প্রায় ১০⁻⁸ মিটার', 'প্রায় ১০⁻¹¹ মিটার', 'a', 'hard', NOW(), NOW()),
+('রাসায়নিক প্রতিক্রিয়া কোনটি?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'H₂ + O₂ → H₂O', 'H₂ + O₂ → H₂ + O₂', 'H₂O → H₂ + O₂', 'H₂O → H₂O', 'a', 'hard', NOW(), NOW()),
+('কোন গ্যাস পানিতে দ্রবীভূত হয়ে অ্যাসিড তৈরি করে?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'কার্বন ডাইঅক্সাইড', 'অক্সিজেন', 'নাইট্রোজেন', 'হাইড্রোজেন', 'a', 'hard', NOW(), NOW()),
+('কোন ধাতু পানির সাথে দ্রুত বিক্রিয়া করে?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'সোডিয়াম', 'লৌহ', 'তামা', 'সোনা', 'a', 'hard', NOW(), NOW()),
+('পদার্থের কোন অবস্থা অতি উচ্চ তাপমাত্রায় ঘটে?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'প্লাজমা অবস্থা', 'তরল অবস্থা', 'গ্যাসীয় অবস্থা', 'স্থির অবস্থা', 'a', 'hard', NOW(), NOW()),
+('কোন উপাদান প্রধানত জীবাণুনাশক হিসেবে ব্যবহৃত হয়?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'ক্লোরিন', 'অক্সিজেন', 'নাইট্রোজেন', 'হাইড্রোজেন', 'a', 'hard', NOW(), NOW()),
+('অণুর ভর নির্ণয় করার একক কী?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'গ্রাম', 'মোল', 'দ্রব্যমান', 'ডালটন', 'd', 'hard', NOW(), NOW()),
+('রাসায়নিক সূত্রে "NaCl" কী বোঝায়?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'সাধারণ লবণ', 'সোডিয়াম সালফেট', 'সোডিয়াম কার্বনেট', 'ক্যালসিয়াম ক্লোরাইড', 'a', 'hard', NOW(), NOW()),
+('রাসায়নিক প্রতিক্রিয়ায় তাপ শোষণ ঘটে এমন বিক্রিয়া কী নামে পরিচিত?', 'Chemistry', '9-10', 'Science', 'Chemistry', 'Endothermic', 'Exothermic', 'Neutralization', 'Oxidation', 'a', 'hard', NOW(), NOW());
+
+
+
+
+-- Insert hard difficulty questions for Mathematics subject for class 9-10
+
+
+INSERT INTO questions (content, subject, class_level, group_name, department, topic, 
+option_a, option_b, option_c, option_d, correct_option, difficulty, created_at, updated_at) VALUES
+
+('যদি একটি বৃত্তের ব্যাসার্ধ ৭ সেমি হয়, তাহলে বৃত্তের ক্ষেত্রফল কত?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Geometry', '১৫৪ বর্গসেমি', '১৪৭ বর্গসেমি', '১৪৫ বর্গসেমি', '১৫০ বর্গসেমি', 'a', 'hard', NOW(), NOW()),
+('একটি সরলরেখার সমীকরণ ২x + ৩y = ৬ হলে, y এর মান x = ০ হলে কত?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Algebra', '২', '১', '০', '৩', 'b', 'hard', NOW(), NOW()),
+('যদি x² - ৫x + ৬ = ০ সমীকরণের শূন্যস্থানগুলো কী?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Quadratic Equations', '২ এবং ৩', '১ এবং ৬', '৩ এবং ৫', '২ এবং ৫', 'a', 'hard', NOW(), NOW()),
+('যদি একটি ত্রিভুজের বাহুগুলোর দৈর্ঘ্য ৩, ৪, ৫, তাহলে ত্রিভুজটির ক্ষেত্রফল কত?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Triangles', '৬', '৭', '৫', '৮', 'a', 'hard', NOW(), NOW()),
+('যদি f(x) = ২x + ৩ হয়, তাহলে f(৫) এর মান কত?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Functions', '১৩', '১০', '১৫', '১২', 'a', 'hard', NOW(), NOW()),
+('যদি ৪x - ৭ = ৯ হয়, তাহলে x এর মান কত?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Linear Equations', '৪', '৩', '৫', '২', 'a', 'hard', NOW(), NOW()),
+('যদি sin θ = ১/২ হয়, তবে θ এর মান কত ডিগ্রি?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Trigonometry', '৩০°', '৪৫°', '৬০°', '৯০°', 'a', 'hard', NOW(), NOW()),
+('যদি x + y = ১০ এবং x - y = ৪ হয়, তবে x ও y এর মান কত?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Simultaneous Equations', '৭ এবং ৩', '৬ এবং ৪', '৮ এবং ২', '৫ এবং ৫', 'a', 'hard', NOW(), NOW()),
+('যদি ৫টি বস্তু থেকে ৩টি বস্তু বেছে নিতে হয়, তাহলে কতগুলি উপায় আছে?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Combinations', '১০', '১৫', '২০', '২৫', 'a', 'hard', NOW(), NOW()),
+('যদি একটি বৃত্তের পরিধি ৩১.৪২ সেমি হয়, তাহলে তার ব্যাসার্ধ কত?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Circle', '৫ সেমি', '৭ সেমি', '১০ সেমি', '৮ সেমি', 'a', 'hard', NOW(), NOW()),
+('যদি y = ২x² + ৩x - ৫, তাহলে y এর মান x=২ হলে কত?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Polynomials', '১১', '১৫', '১৭', '১৯', 'c', 'hard', NOW(), NOW()),
+('যদি একটি বৃত্তের ক্ষেত্রফল ১২৬ বর্গসেমি হয়, তাহলে তার ব্যাসার্ধ কত?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Circle', '৬ সেমি', '৭ সেমি', '৮ সেমি', '৯ সেমি', 'b', 'hard', NOW(), NOW()),
+('যদি ৩x + ২y = ১২ এবং x - y = ৩ হয়, তাহলে x ও y এর মান কত?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Simultaneous Equations', '৩ এবং ১', '২ এবং ৩', '৪ এবং ০', '৫ এবং ২', 'a', 'hard', NOW(), NOW()),
+('যদি ৩৬০°-এর অর্ধেক কত ডিগ্রি?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Angles', '১৮০°', '৯০°', '২৭০°', '৩৬০°', 'a', 'hard', NOW(), NOW()),
+('যদি একটি ত্রিভুজের বাহুগুলোর দৈর্ঘ্য ৫, ১২, ১৩, তাহলে এর ক্ষেত্রফল কত?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Triangles', '৩০', '৩১', '৩২', '২৯', 'a', 'hard', NOW(), NOW()),
+('যদি cos ৬০° এর মান কত?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Trigonometry', '১/২', '√২/২', '√৩/২', '০', 'a', 'hard', NOW(), NOW()),
+('যদি x³ = ৮, তাহলে x এর মান কত?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Exponents', '২', '৪', '৮', '৩', 'a', 'hard', NOW(), NOW()),
+('যদি একটি সঠিক বর্গের ক্ষেত্রফল ২৫ বর্গসেমি, তাহলে তার বাহুর দৈর্ঘ্য কত?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Geometry', '৫ সেমি', '৪ সেমি', '৬ সেমি', '৭ সেমি', 'a', 'hard', NOW(), NOW()),
+('যদি sin² θ + cos² θ = ?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Trigonometry', '১', '০', '২', '৩', 'a', 'hard', NOW(), NOW()),
+('যদি একটি বৃত্তের ব্যাসার্ধ ১৪ সেমি হয়, তাহলে পরিধি কত?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Circle', '৮৮ সেমি', '৯২ সেমি', '৮৪ সেমি', '৯৬ সেমি', 'a', 'hard', NOW(), NOW()),
+('যদি ৪x - ৭ = ৯ হয়, তাহলে x এর মান কত?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Linear Equations', '৪', '৩', '৫', '২', 'a', 'hard', NOW(), NOW()),
+('যদি একটি বৃত্তের ব্যাসার্ধ d হয়, তাহলে ক্ষেত্রফল কেমন হয়?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Geometry', 'π(d/2)²', 'πd²', '2πd', 'πd', 'a', 'hard', NOW(), NOW()),
+('যদি x² + y² = ২৫ এবং x = ৩ হয়, তবে y এর মান কত?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Algebra', '৪', '-৪', '৪ অথবা -৪', '৩', 'c', 'hard', NOW(), NOW()),
+('যদি একটি সমবাহু ত্রিভুজের প্রতিটি বাহুর দৈর্ঘ্য ৬ সেমি, তবে ক্ষেত্রফল কত?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Triangles', '৯√৩ বর্গসেমি', '১২√৩ বর্গসেমি', '১৮√৩ বর্গসেমি', '৬√৩ বর্গসেমি', 'a', 'hard', NOW(), NOW()),
+('যদি একটি বৃত্তের ব্যাস ১০ সেমি হয়, তাহলে এর পরিধি কত?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Circle', '৩১.৪', '৩২.৪', '৩০.৪', '৩৩.৪', 'a', 'hard', NOW(), NOW()),
+('যদি একটি সোজা রেখার ঢাল m হয়, তাহলে রেখার সমীকরণ কেমন হবে?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Linear Equations', 'y = mx + c', 'y = mx - c', 'y = m + x', 'y = x + m', 'a', 'hard', NOW(), NOW()),
+('যদি ১ + ২ + ৩ + ... + n = ৫৫ হয়, তাহলে n কত?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Series and Sequences', '১০', '১১', '৯', '৮', 'a', 'hard', NOW(), NOW()),
+('যদি sin ৯০° এর মান কত?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Trigonometry', '১', '০', '১/২', '√২/২', 'a', 'hard', NOW(), NOW()),
+('যদি (x + ৩)(x - ৫) = ০ হয়, তাহলে x এর মান কী?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Quadratic Equations', '−৩ অথবা ৫', '৩ অথবা −৫', '−৫ অথবা −৩', '৫ অথবা ৩', 'a', 'hard', NOW(), NOW()),
+('যদি একটি ঘনক আয়তন ২৭ ঘনসেমি হয়, তবে তার বাহুর দৈর্ঘ্য কত?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Geometry', '৩ সেমি', '৯ সেমি', '৬ সেমি', '১২ সেমি', 'a', 'hard', NOW(), NOW()),
+('যদি cos² θ = ০.৭৫ হয়, তাহলে sin² θ এর মান কত?', 'Higher Mathematics', '9-10', 'Science', 'Mathematics', 'Trigonometry', '০.২৫', '০.৫০', '০.৭৫', '০.১০', 'a', 'hard', NOW(), NOW());
+
+
+
+
+-- Insert hard difficulty questions for Biology subject for class 9-10
+
+INSERT INTO questions (content, subject, class_level, group_name, department, topic, 
+option_a, option_b, option_c, option_d, correct_option, difficulty, created_at, updated_at) VALUES
+
+('কোন কোষের প্রধান কাজ হচ্ছে জিনগত তথ্য ধারণ করা?', 'Biology', '9-10', 'Science', 'Biology', 'Cell Biology', 'রাইবোসোম', 'মাইটোকন্ড্রিয়া', 'নিউক্লিয়াস', 'গোলগি বডি', 'c', 'hard', NOW(), NOW()),
+('মানব দেহে হিমোগ্লোবিনের প্রধান কাজ কী?', 'Biology', '9-10', 'Science', 'Biology', 'Human Physiology', 'অক্সিজেন বহন', 'কার্বন ডাইঅক্সাইড বহন', 'রক্ত জমাট বাধা', 'রক্তের চাপ নিয়ন্ত্রণ', 'a', 'hard', NOW(), NOW()),
+('পদার্থ পরিবহনে কোন অঙ্গটি প্রধান ভূমিকা পালন করে?', 'Biology', '9-10', 'Science', 'Biology', 'Plant Physiology', 'রুট', 'স্টেম', 'লিফ', 'ফ্লাওরম', 'd', 'hard', NOW(), NOW()),
+('মানব দেহের কোন অংশ রক্ত সঞ্চালনের প্রধান কেন্দ্র?', 'Biology', '9-10', 'Science', 'Biology', 'Human Anatomy', 'মস্তিষ্ক', 'হৃদয়', 'ফুসফুস', 'লিভার', 'b', 'hard', NOW(), NOW()),
+('কোন অঙ্গ কোষ বিভাজনের সময় নিউক্লিয়াস নিয়ন্ত্রণ করে?', 'Biology', '9-10', 'Science', 'Biology', 'Cell Division', 'সেন্ট্রোমিয়ার', 'মাইটোজিস', 'সাইটোপ্লাজম', 'ডিএনএ', 'd', 'hard', NOW(), NOW()),
+('প্রাণীর দেহে জৈবকোষের সংখ্যা কত প্রকার?', 'Biology', '9-10', 'Science', 'Biology', 'Cell Types', '১', '২', '৩', '৪', 'b', 'hard', NOW(), NOW()),
+('কোন উদ্ভিদ অঙ্গ মাটি থেকে জল শোষণ করে?', 'Biology', '9-10', 'Science', 'Biology', 'Plant Anatomy', 'রুট', 'স্টেম', 'লিফ', 'ফুল', 'a', 'hard', NOW(), NOW()),
+('কোন প্রোটিন শরীরের রোগ প্রতিরোধ ক্ষমতা বৃদ্ধি করে?', 'Biology', '9-10', 'Science', 'Biology', 'Immunity', 'অ্যান্টিবডি', 'হরমোন', 'এনজাইম', 'কলাজেন', 'a', 'hard', NOW(), NOW()),
+('কোন অঙ্গ শরীরের তাপমাত্রা নিয়ন্ত্রণ করে?', 'Biology', '9-10', 'Science', 'Biology', 'Human Physiology', 'লিভার', 'হৃদয়', 'মস্তিষ্কের হাইপোথ্যালামাস', 'কিডনি', 'c', 'hard', NOW(), NOW()),
+('মানব দেহে রক্তের কত শতাংশ পানি থাকে?', 'Biology', '9-10', 'Science', 'Biology', 'Human Body', '৫০%', '৬০%', '৭০%', '৮০%', 'b', 'hard', NOW(), NOW()),
+('কোন প্রাণী যৌন প্রজননের উদাহরণ?', 'Biology', '9-10', 'Science', 'Biology', 'Reproduction', 'অ্যামিবা', 'মানব', 'ব্যাকটেরিয়া', 'প্রোটোজোয়া', 'b', 'hard', NOW(), NOW()),
+('মানব দেহে ডায়াফ্রাম কোথায় অবস্থিত?', 'Biology', '9-10', 'Science', 'Biology', 'Human Anatomy', 'ফুসফুসের নিচে', 'হৃদয়ের পাশে', 'লিভারের উপরে', 'পেটে', 'a', 'hard', NOW(), NOW()),
+('কোন অঙ্গ খাদ্য হজমে প্রধান ভূমিকা পালন করে?', 'Biology', '9-10', 'Science', 'Biology', 'Digestive System', 'পাকস্থলী', 'লিভার', 'লালার রক্তকণা', 'কিডনি', 'a', 'hard', NOW(), NOW()),
+('কোন কোষ বিভাজনের ধাপে ক্রোমোজোম দ্বিগুণ হয়?', 'Biology', '9-10', 'Science', 'Biology', 'Cell Cycle', 'প্রোফেজ', 'মেটাফেজ', 'সেন্ট্রোমিয়ার', 'সফেজ', 'a', 'hard', NOW(), NOW()),
+('মানব দেহে রক্তের লাল রক্তকণার আয়ু কত দিন?', 'Biology', '9-10', 'Science', 'Biology', 'Blood', '১২০ দিন', '৩০ দিন', '৯০ দিন', '৬০ দিন', 'a', 'hard', NOW(), NOW()),
+('কোন অঙ্গ শরীরে বর্জ্য পদার্থ অপসারণ করে?', 'Biology', '9-10', 'Science', 'Biology', 'Excretory System', 'কিডনি', 'লিভার', 'হৃদয়', 'ফুসফুস', 'a', 'hard', NOW(), NOW()),
+('কোন হরমোন রক্তে গ্লুকোজের মাত্রা নিয়ন্ত্রণ করে?', 'Biology', '9-10', 'Science', 'Biology', 'Endocrine System', 'ইনসুলিন', 'অ্যাড্রেনালিন', 'থাইরয়েড হরমোন', 'গ্লুকাগন', 'a', 'hard', NOW(), NOW()),
+('কোন অঙ্গ অঙ্গপ্রত্যঙ্গ পুনর্গঠন করে?', 'Biology', '9-10', 'Science', 'Biology', 'Regeneration', 'হাতি', 'মানব', 'ছোট মাছ', 'কাঁকড়া', 'd', 'hard', NOW(), NOW()),
+('কোন কোষে হরমোন তৈরি হয়?', 'Biology', '9-10', 'Science', 'Biology', 'Endocrine Glands', 'থাইরয়েড', 'অ্যাড্রেনাল', 'প্যানক্রিয়াস', 'সবগুলো', 'd', 'hard', NOW(), NOW()),
+('কোন ধরনের কোষ পরিবহন কাজে বিশেষজ্ঞ?', 'Biology', '9-10', 'Science', 'Biology', 'Cell Types', 'রক্তকণা', 'স্নায়ু কোষ', 'পেশী কোষ', 'কোষঝিল্লি', 'a', 'hard', NOW(), NOW()),
+('মানব দেহে কোন অঙ্গ রক্ত চাপ নিয়ন্ত্রণে সাহায্য করে?', 'Biology', '9-10', 'Science', 'Biology', 'Circulatory System', 'হৃদয়', 'কিডনি', 'লিভার', 'মস্তিষ্ক', 'b', 'hard', NOW(), NOW()),
+('কোন খাদ্য উপাদান শরীরের প্রধান শক্তির উৎস?', 'Biology', '9-10', 'Science', 'Biology', 'Nutrition', 'প্রোটিন', 'কার্বোহাইড্রেট', 'ভিটামিন', 'ফ্যাট', 'b', 'hard', NOW(), NOW()),
+('মানব দেহে দৃষ্টি ক্ষমতা বৃদ্ধি করে কোন অঙ্গ?', 'Biology', '9-10', 'Science', 'Biology', 'Sense Organs', 'চক্ষু', 'কান', 'নাক', 'তলু', 'a', 'hard', NOW(), NOW()),
+('কোন অঙ্গ ফুসফুস থেকে অক্সিজেন গ্রহণ করে?', 'Biology', '9-10', 'Science', 'Biology', 'Respiratory System', 'অ্যাভিওলি', 'ট্রাকিয়া', 'ব্রঙ্কিয়োল', 'ফুসফুসের বাহু', 'a', 'hard', NOW(), NOW()),
+('কোন প্রোটিন কোষের গঠন ও শক্তি প্রদান করে?', 'Biology', '9-10', 'Science', 'Biology', 'Proteins', 'কলাজেন', 'অ্যালবুমিন', 'হিমোগ্লোবিন', 'অ্যাক্টিন', 'a', 'hard', NOW(), NOW()),
+('কোন প্রাণীর রক্ত চক্র সম্পন্ন করতে হৃদয় ৪ টি কক্ষ থাকে?', 'Biology', '9-10', 'Science', 'Biology', 'Comparative Anatomy', 'মানব', 'মাছ', 'উদ্ভিদ', 'শামুক', 'a', 'hard', NOW(), NOW()),
+('মানব দেহে খাদ্য হজমের প্রথম ধাপ কোনটি?', 'Biology', '9-10', 'Science', 'Biology', 'Digestive System', 'মুখ', 'পাকস্থলী', 'আন্ত্র', 'লিভার', 'a', 'hard', NOW(), NOW()),
+('কোন কোষের মধ্যে ATP উৎপাদিত হয়?', 'Biology', '9-10', 'Science', 'Biology', 'Cellular Respiration', 'মাইটোকন্ড্রিয়া', 'রাইবোসোম', 'গোলগি বডি', 'লিসোজোম', 'a', 'hard', NOW(), NOW()),
+('কোন অঙ্গ পেশীর সংকোচনের মাধ্যমে রক্ত সঞ্চালন করে?', 'Biology', '9-10', 'Science', 'Biology', 'Muscular System', 'হৃদয়', 'ফুসফুস', 'কিডনি', 'লিভার', 'a', 'hard', NOW(), NOW()),
+('কোন অঙ্গ শরীরের পানির ভারসাম্য রক্ষা করে?', 'Biology', '9-10', 'Science', 'Biology', 'Excretory System', 'কিডনি', 'লিভার', 'পাকস্থলী', 'মস্তিষ্ক', 'a', 'hard', NOW(), NOW()),
+('মানব দেহে কোষ বিভাজনের ধাপের নাম কী?', 'Biology', '9-10', 'Science', 'Biology', 'Cell Division', 'মাইটোসিস', 'মেওসিস', 'বায়োসিস', 'ফোটোসিস', 'a', 'hard', NOW(), NOW()),
+('কোন অঙ্গ শরীরে ইমিউন সিস্টেমের অংশ?', 'Biology', '9-10', 'Science', 'Biology', 'Immune System', 'থাইমাস', 'লিভার', 'ফুসফুস', 'কিডনি', 'a', 'hard', NOW(), NOW());
+
+
+
+
+
+
+
+
+
+INSERT INTO questions (
+    question_id, content, subject, class_level,group_name, department, topic,
+    option_a, option_b, option_c, option_d, correct_option, difficulty,
+    created_at, updated_at
+) VALUES
+(gen_random_uuid(), 'কম্পিউটারে ALU এর কাজ কী?', 'ICT', '9-10', 'Science', 'ICT', 'Hardware', 'স্মৃতি সংরক্ষণ', 'গাণিতিক ও যুক্তিগত কাজ সম্পাদন', 'তথ্য প্রদর্শন', 'তথ্য প্রবেশ', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'URL এর পূর্ণরূপ কী?', 'ICT', '9-10', 'Science', 'ICT', 'Internet', 'Unified Resource Locator', 'Uniform Resource Link', 'Universal Resource Link', 'Uniform Resource Locator', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'IPv6 ঠিকানায় কতটি বিট থাকে?', 'ICT', '9-10', 'Science', 'ICT', 'Networking', '৩২', '৬৪', '১২৮', '২৫৬', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'RAM কিসের উদাহরণ?', 'ICT', '9-10', 'Science', 'ICT', 'Hardware', 'স্থায়ী মেমোরি', 'অস্থায়ী মেমোরি', 'আউটপুট ডিভাইস', 'ইনপুট ডিভাইস', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলাদেশের প্রথম ই-মেইল সার্ভার কোনটি?', 'ICT', '9-10', 'Science', 'ICT', 'History', 'প্রথম ডাক', 'বিডিনেট', 'বাংলামেইল', 'ডিজিটেল মেইল', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কম্পিউটারের BIOS কী?', 'ICT', '9-10', 'Science', 'ICT', 'Hardware', 'অপারেটিং সিস্টেম', 'ইনপুট ডিভাইস', 'বুটিং সফটওয়্যার', 'মেমোরি ইউনিট', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'স্প্রেডশিটে SUM ফাংশনের কাজ কী?', 'ICT', '9-10', 'Science', 'ICT', 'Software', 'গুনফল নির্ণয়', 'যোগফল নির্ণয়', 'গড় নির্ণয়', 'বিয়োগ নির্ণয়', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'WAN বলতে কী বোঝায়?', 'ICT', '9-10', 'Science', 'ICT', 'Networking', 'Wide Area Network', 'Wireless Access Network', 'Web Area Network', 'Wired Area Network', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'HTML এর কোন ট্যাগে প্যারাগ্রাফ লেখা হয়?', 'ICT', '9-10', 'Science', 'ICT', 'Web', '<h1>', '<b>', '<p>', '<div>', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ডেটা প্রক্রিয়াকরণ চক্রে প্রথম ধাপ কী?', 'ICT', '9-10', 'Science', 'ICT', 'Data Processing', 'আউটপুট', 'ইনপুট', 'প্রসেসিং', 'সংরক্ষণ', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'CPU এর তিনটি প্রধান অংশের মধ্যে কোনটি নেই?', 'ICT', '9-10', 'Science', 'ICT', 'Hardware', 'ALU', 'CU', 'RAM', 'Registers', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলাদেশের জাতীয় তথ্য বাতায়ন কী?', 'ICT', '9-10', 'Science', 'ICT', 'E-Governance', 'www.bangladesh.gov.bd', 'www.digibangla.gov.bd', 'www.bcc.gov.bd', 'www.bdportal.gov.bd', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'LAN সাধারণত ব্যবহৃত হয় কোথায়?', 'ICT', '9-10', 'Science', 'ICT', 'Networking', 'দেশব্যাপী', 'বিশ্বব্যাপী', 'একটি ভবনের মধ্যে', 'বহু শহরে', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ফাইল সংকোচনের জন্য কোন সফটওয়্যার ব্যবহৃত হয়?', 'ICT', '9-10', 'Science', 'ICT', 'Software', 'WinRAR', 'MS Word', 'Excel', 'Photoshop', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ডেটাবেসে কোনটি কী (Key) নয়?', 'ICT', '9-10', 'Science', 'ICT', 'Database', 'Primary Key', 'Foreign Key', 'Alternate Key', 'Master Key', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ICT এর কোনটি মোবাইল অপারেটিং সিস্টেম?', 'ICT', '9-10', 'Science', 'ICT', 'Mobile OS', 'Linux', 'Windows', 'Android', 'DOS', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ISP এর পূর্ণরূপ কী?', 'ICT', '9-10', 'Science', 'ICT', 'Internet', 'Internet Server Protocol', 'Internet Service Provider', 'Integrated Service Port', 'Internal System Program', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ফটোশপে কোনটি লেয়ারে কাজ করতে সুবিধা দেয়?', 'ICT', '9-10', 'Science', 'ICT', 'Graphics', 'Toolbox', 'Workspace', 'Layer Panel', 'History Panel', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'C প্রোগ্রামিং ভাষায় "int" কী বোঝায়?', 'ICT', '9-10', 'Science', 'ICT', 'Programming', 'String', 'Floating number', 'Integer number', 'Boolean', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Bluetooth প্রযুক্তিতে কোন তরঙ্গ ব্যবহৃত হয়?', 'ICT', '9-10', 'Science', 'ICT', 'Wireless', 'ইনফ্রারেড', 'রেডিও', 'মাইক্রোওয়েভ', 'সিগন্যাল ক্যাবল', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ICT বিষয়ে "ফিশিং" শব্দটি কোনটির সাথে সম্পর্কিত?', 'ICT', '9-10', 'Science', 'ICT', 'Cyber Security', 'গেম খেলা', 'মেইল হ্যাকিং', 'সার্চিং', 'হ্যাকিং প্রতিরোধ', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কম্পিউটারে ভাইরাস কী ধরনের সফটওয়্যার?', 'ICT', '9-10', 'Science', 'ICT', 'Cyber Security', 'অ্যান্টিভাইরাস', 'ম্যালওয়্যার', 'সিস্টেম সফটওয়্যার', 'ইউটিলিটি', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'পাসওয়ার্ড নিরাপত্তায় কোনটি সবচেয়ে গুরুত্বপূর্ণ?', 'ICT', '9-10', 'Science', 'ICT', 'Cyber Safety', 'ছোট পাসওয়ার্ড', 'বিভিন্ন পাসওয়ার্ড', 'একই পাসওয়ার্ড', 'সংখ্যা ব্যাবহার না করা', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'সফটওয়্যার ইঞ্জিনিয়ারিং এর প্রথম ধাপ কী?', 'ICT', '9-10', 'Science', 'ICT', 'Software', 'ডিজাইন', 'ইমপ্লিমেন্টেশন', 'রিকোয়ারমেন্ট অ্যানালাইসিস', 'টেস্টিং', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'IP address এ সাধারণত কয়টি ভাগ থাকে?', 'ICT', '9-10', 'Science', 'ICT', 'Networking', '২', '৪', '৬', '৮', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'উইন্ডোজ অপারেটিং সিস্টেমে “Recycle Bin” এর কাজ কী?', 'ICT', '9-10', 'Science', 'ICT', 'OS', 'ফাইল স্থায়ীভাবে মুছে ফেলা', 'ফাইল সংরক্ষণ', 'ফাইল অস্থায়ীভাবে রাখা', 'ফাইল পুনরুদ্ধার', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'যে সফটওয়্যার হার্ডওয়্যারের সাথে সংযোগ স্থাপন করে?', 'ICT', '9-10', 'Science', 'ICT', 'OS', 'Utility Software', 'Application Software', 'Device Driver', 'Antivirus', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ICT-এর মাধ্যমে কোনটি সম্ভব নয়?', 'ICT', '9-10', 'Science', 'ICT', 'General', 'দূরশিক্ষা', 'দ্রুত যোগাযোগ', 'স্বয়ংক্রিয় খাদ্য প্রস্তুত', 'অনলাইন ব্যাংকিং', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'CD-ROM এর "ROM" এর অর্থ কী?', 'ICT', '9-10', 'Science', 'ICT', 'Storage', 'Read Only Memory', 'Random Only Memory', 'Run On Memory', 'Root Operating Memory', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কম্পিউটার ভাইরাস প্রতিরোধে কোন সফটওয়্যার ব্যবহৃত হয়?', 'ICT', '9-10', 'Science', 'ICT', 'Cyber Security', 'ড্রাইভার', 'অ্যান্টিভাইরাস', 'সার্চ ইঞ্জিন', 'গ্রাফিক সফটওয়্যার', 'b', 'hard', NOW(), NOW());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+HSC LEVEL
+-------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+INSERT INTO questions (
+    question_id, content, subject, class_level, group_name, department, topic,
+    option_a, option_b, option_c, option_d, correct_option, difficulty,
+    created_at, updated_at
+) VALUES
+-- Physics 1st Paper (Hard, Class 11–12)
+(gen_random_uuid(), 'ভরবেগ সংরক্ষণ নীতির একটি উদাহরণ কোনটি?', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Mechanics', 'রকেটের উড্ডয়ন', 'লিফটের চলাচল', 'জাহাজের নোঙ্গর ফেলা', 'পাখির ডানা ঝাপটানো', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোনটি রক্ষণশীল বল নয়?', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Mechanics', 'তড়িৎ বল', 'মাধ্যাকর্ষণ বল', 'ঘর্ষণ বল', 'চুম্বক বল', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বস্তুটির ত্বরণ ঋণাত্মক হলে সেটি কি করছে?', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Motion', 'গতি বাড়াচ্ছে', 'অবস্থান পরিবর্তন করছে না', 'গতি কমাচ্ছে', 'স্থিতিশীল', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'গতি গড়ার প্রথম শর্ত কী?', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Newtonian Mechanics', 'বল প্রয়োগ', 'ভর থাকা', 'বেগ থাকা', 'পথ নির্ধারিত', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বল সংরক্ষণ সূত্র কিসে ভিত্তি করে?', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Mechanics', 'নিউটনের প্রথম সূত্র', 'নিউটনের তৃতীয় সূত্র', 'মুহূর্তের সূত্র', 'ত্বরণ সূত্র', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'সমদ্রুত গতি ও সমত্বরণ গতি এক নয় কেন?', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Motion', 'সমত্বরণ গতি ত্বরণযুক্ত', 'উভয় একই', 'সমত্বরণে বেগ অপরিবর্তনীয়', 'সমত্বরণে দিক পরিবর্তন হয় না', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বল ও ত্বরণের সম্পর্ক কিসের মাধ্যমে বোঝানো হয়?', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Newton`s Laws', 'নিউটনের প্রথম সূত্র', 'নিউটনের দ্বিতীয় সূত্র', 'নিউটনের তৃতীয় সূত্র', 'সংরক্ষণ সূত্র', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বস্তু যদি সমত্বরণে চলতে থাকে তবে তার বেগ কী হবে?', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Kinematics', 'ধীরে ধীরে বাড়বে', 'কোনো পরিবর্তন হবে না', 'একই থাকবে', 'ধীরে ধীরে কমবে', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'একটি বস্তুর উপর বল প্রয়োগ করা হলে সেটি...', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Forces', 'চলবে না', 'গতিশীল হবে', 'ভরহীন হবে', 'উত্তল হবে', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'মহাকর্ষীয় বল কিসের উপর নির্ভর করে?', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Gravitation', 'বস্তুর তাপমাত্রা', 'ভর ও দূরত্ব', 'বস্তুর রঙ', 'মাধ্যাকর্ষণ ত্বরণ', 'b', 'hard', NOW(), NOW()),
+
+(gen_random_uuid(), 'পৃথিবী ও চাঁদের মধ্যে বল কেমন?', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Gravitational Force', 'একতরফা', 'দ্বিতরফা', 'অকার্যকর', 'স্থায়ী', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন বল কাজ করে না যদি...', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Work, Energy & Power', 'বস্তু সরে যায়', 'বল ও সরণ কোণ ৯০°', 'বল বেশি হয়', 'সময় কম হয়', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'পদার্থের স্থিতিস্থাপকতার পরিমাপক কী?', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Elasticity', 'বিপ্রস্থ গতি', 'মডুলাস', 'ঘনত্ব', 'বল', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ফলন সীমা কোনটি নির্ধারণ করে?', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Elasticity', 'সর্বোচ্চ চাপ', 'সর্বনিম্ন বল', 'স্থিতিস্থাপকতা', 'স্থিতিবিশেষতা', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'উচ্চতা থেকে পড়া বস্তুর গতি কেমন হয়?', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Kinematics', 'স্থির থাকে', 'একঘাত বৃদ্ধি পায়', 'ত্বরণহীন হয়', 'লিনিয়ার হয়', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বস্তুর ভর এবং ওজনের মধ্যে পার্থক্য কী?', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Mass & Weight', 'ভর পরিবর্তনশীল', 'ওজন সর্বদা ধ্রুবক', 'ওজন ত্বরণ নির্ভর', 'দুইটিই সমান', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন এককে বল প্রকাশ করা হয়?', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Forces', 'জুল', 'ওয়াট', 'নিউটন', 'কুলম্ব', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বল প্রয়োগ না করলে গতি পরিবর্তন হয় না – এটি কোন সূত্র?', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Newton`s Laws', 'প্রথম সূত্র', 'দ্বিতীয় সূত্র', 'তৃতীয় সূত্র', 'বল সূত্র', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বল এবং সরণ বিপরীতমুখী হলে কাজ কেমন হয়?', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Work', 'নেতিবাচক', 'ধনাত্মক', 'শূন্য', 'অনির্ণেয়', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন তাপমাত্রায় গ্যাসের আণবিক গতি থেমে যায়?', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Thermodynamics', '০°C', '১০০°C', '০ K', '২৭৩ K', 'c', 'hard', NOW(), NOW()),
+
+-- 10 more similar entries
+(gen_random_uuid(), 'প্রথম গতি সূত্র কোন সম্পর্ক ব্যাখ্যা করে?', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Kinematics', 's = ut + 1/2 at²', 'v = u + at', 'F = ma', 'v² = u² + 2as', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'শূন্যতায় পতিত বস্তু কত গতিতে পড়ে?', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Free Fall', '9.8 m/s²', '0 m/s²', '5 m/s²', 'নির্দিষ্ট নয়', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'চাপের একক কোনটি?', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Pressure', 'পাসকেল', 'নিউটন', 'জুল', 'ওয়াট', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোনটি বল নয়?', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Forces', 'ঘর্ষণ', 'ভর', 'তরঙ্গ', 'মাধ্যাকর্ষণ', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'মাধ্যাকর্ষণ ত্বরণ কোথায় সর্বাধিক?', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Gravity', 'ভূমধ্যরেখায়', 'মেরু অঞ্চলে', 'আকাশে', 'পাহাড়ে', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন বল তড়িৎ বলের বিপরীত কাজ করে?', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Electricity', 'ঘর্ষণ বল', 'চুম্বক বল', 'আবেশ বল', 'ভাসমান বল', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'স্থির ফ্রেমে বল প্রয়োগ করলে...', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Statics', 'বস্তু চলবে', 'বস্তু স্থির থাকবে', 'ত্বরণ শূন্য', 'চাপ বৃদ্ধি পাবে', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন গতি দুই পরিমিতির উপর নির্ভর করে?', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Motion', 'একক গতি', 'উচ্চতা গতি', 'দ্বিমাত্রিক গতি', 'রৈখিক গতি', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'পার্থক্য কী: বেগ বনাম ত্বরণ?', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Kinematics', 'বেগ গতি পরিবর্তন', 'ত্বরণ গতি ধ্রুবক', 'ত্বরণ বেগ পরিবর্তন', 'বেগ ও ত্বরণ সমান', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বস্তু স্থিতিশীল রাখতে হলে কিসের প্রয়োগ দরকার?', 'Physics 1st Paper', '11-12', 'Science', 'Physics', 'Statics', 'সাম্য অবস্থা', 'ঘর্ষণ', 'মাধ্যাকর্ষণ', 'জড়তা', 'a', 'hard', NOW(), NOW());
+
+
+
+
+
+
+INSERT INTO questions (
+    question_id, content, subject, class_level, group_name, department, topic,
+    option_a, option_b, option_c, option_d, correct_option, difficulty,
+    created_at, updated_at
+) VALUES
+-- Physics 2nd Paper (Hard, Class 11–12)
+(gen_random_uuid(), 'ভেক্টরের মডিউলাস কী নির্দেশ করে?', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Vector', 'দিক', 'মান', 'দ্রুততা', 'সরণ', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন ভৌত রাশি স্কেলার নয়?', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Vector & Scalar', 'ভর', 'তাপমাত্রা', 'ত্বরন', 'কাজ', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোনটিতে কণার তরঙ্গ ধর্ম লক্ষ্য করা যায়?', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Modern Physics', 'X-Ray', 'Compton Effect', 'Gamma Ray', 'Photoelectric Effect', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ডি ব্রগলি তরঙ্গদৈর্ঘ্য কোনটির উপর নির্ভর করে?', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Modern Physics', 'বেগ', 'ভর', 'উভয়', 'শক্তি', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'সেমিকন্ডাক্টর কোন ধাতুর তৈরি হয়?', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Electronics', 'সিলিকন/জার্মেনিয়াম', 'তামা', 'লোহা', 'অ্যালুমিনিয়াম', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ট্রানজিস্টারে কোন অঞ্চলে কাজ করে?', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Electronics', 'অববাহিকা', 'বেস', 'সংগ্রাহক', 'তিনটিই', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'PN জাংশন ব্যাসার্ধ নির্ভর করে...', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Electronics', 'ডোপিং মাত্রা', 'তাপমাত্রা', 'প্যারামিটার', 'সার্কিট', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ডাইড AC কে কিসে রূপান্তর করে?', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Electronics', 'DC', 'Signal', 'Wave', 'Noise', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ফটোইলেকট্রিক ইফেক্টে কণার কোন ধর্ম বোঝা যায়?', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Quantum Physics', 'তরঙ্গ ধর্ম', 'কণিকা ধর্ম', 'তরঙ্গ-দ্বৈত ধর্ম', 'কোনটিই না', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'LED এর পূর্ণরূপ কী?', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Electronics', 'Light Electronic Device', 'Light Emitting Diode', 'Low Emitting Device', 'Low Emission Display', 'b', 'hard', NOW(), NOW()),
+
+(gen_random_uuid(), 'X-Ray উৎপন্ন হয় কোথা থেকে?', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Modern Physics', 'নিউক্লিয়াস', 'ক্যাথোড রে টিউব', 'পজিট্রন', 'প্রোটন', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'আধুনিক কণার গতি নির্ণয় করে কোন সূত্র?', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Relativity', 'v = u + at', 'E = mc²', 'F = ma', 'v = √(2gh)', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'নিউট্রন কোন কণার সমষ্টি?', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Particle Physics', '2 আপ কোয়ার্ক', '1 আপ 2 ডাউন কোয়ার্ক', '1 ডাউন 2 আপ কোয়ার্ক', '1 আপ কোয়ার্ক', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'অর্ধায়ু কী?', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Radioactivity', 'এক কণার বিভাজন সময়', 'সমস্ত কণার ধ্বংস সময়', '৫০% কণার ধ্বংস সময়', 'পূর্ণ নির্গমন সময়', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বেস অঞ্চলের কাজ কী?', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Electronics', 'সঞ্চালন', 'নিয়ন্ত্রণ', 'বিচ্ছিন্নকরণ', 'সংযোগ', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'আয়নাইজেশন শক্তি বৃদ্ধি পায় কোন কারণে?', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Atomic Structure', 'পরমাণুর আকার বড় হলে', 'নিউক্লিয়াস শক্তিশালী হলে', 'ইলেকট্রন সংখ্যা কম হলে', 'কোনোটিই নয়', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ডোপিং বলতে কী বোঝায়?', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Semiconductor', 'ধাতুতে বিদ্যুৎ সঞ্চালন বৃদ্ধি', 'অর্ধপরিবাহীতে ভিন্ন পরমাণু মিশানো', 'ডায়োড তৈরি', 'তরঙ্গ সঞ্চালন', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'সেমিকন্ডাক্টরের ব্যান্ড গ্যাপ কেমন?', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Electronics', '0 eV', 'মাঝারি', 'বেশি', 'অপর্যাপ্ত', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বিন্দু চার্জের চারপাশে বৈদ্যুতিক ক্ষেত্র কেমন হয়?', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Electrostatics', 'সমান্তরাল', 'বৃত্তাকার', 'রেডিয়াল', 'রৈখিক', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Capacitance নির্ভর করে...', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Electrostatics', 'ভোল্টেজ', 'চার্জ', 'প্লেটের ক্ষেত্রফল ও দূরত্ব', 'তাপমাত্রা', 'c', 'hard', NOW(), NOW()),
+
+-- 10 more questions
+(gen_random_uuid(), 'কারেন্ট প্রবাহ কিসে নির্ভর করে?', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Current Electricity', 'তাপমাত্রা', 'ভোল্টেজ ও রোধ', 'দূরত্ব', 'প্রবাহক', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ওহমের সূত্র অনুযায়ী R কিসের সমান?', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Electricity', 'V/I', 'I/V', 'VI', 'V²/I', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কন্ডাক্টরের তাপমাত্রা বাড়লে তার রোধ...', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Current Electricity', 'কমে', 'বাড়ে', 'অপরিবর্তিত', 'অনির্ধারিত', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'চৌম্বকক্ষেত্রে চলন্ত চার্জ কিসে অভিকর্ষ পায়?', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Magnetism', 'চৌম্বক বল', 'তড়িৎ বল', 'ইনডাকশন', 'প্রতিস্থাপন', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'লেন্জের সূত্রের প্রয়োগ কোথায়?', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Electromagnetic Induction', 'ইলেকট্রনিক্সে', 'ফারাডে রিংে', 'ডাইোডে', 'ট্রান্সফরমারে', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'রেডিও এক্টিভিটির একক কোনটি?', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Nuclear Physics', 'কিউরি', 'বেকারেল', 'জুল', 'ওয়াট', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'পজিট্রন কাকে বলে?', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Particle Physics', 'ইলেকট্রনের ঋণাত্মক সংস্করণ', 'ইলেকট্রনের ধনাত্মক সংস্করণ', 'প্রোটন', 'নিউট্রন', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ইলেকট্রনের নির্ভুল ভর কত?', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Atomic Structure', '9.1×10⁻³¹ kg', '1.6×10⁻¹⁹ C', '1.67×10⁻²⁷ kg', '0.1 kg', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'পোলারাইজেশন ঘটে কোন তড়িৎচুম্বকীয় তরঙ্গে?', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Waves & Optics', 'আবেশিত তরঙ্গে', 'আলোক তরঙ্গে', 'তাপ তরঙ্গে', 'রেডিও তরঙ্গে', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'অপটিক্যাল ফাইবারে আলো চলার নীতি কী?', 'Physics 2nd Paper', '11-12', 'Science', 'Physics', 'Optics', 'বিবরণ নীতি', 'পূর্ণ অভ্যন্তরীণ প্রতিফলন', 'প্রতিসরণ', 'প্রতিফলন', 'b', 'hard', NOW(), NOW());
+
+
+
+
+
+INSERT INTO questions (
+  question_id, content, subject, class_level, group_name, department, topic,
+  option_a, option_b, option_c, option_d, correct_option, difficulty, created_at, updated_at
+) VALUES
+-- Higher Math 1st Paper
+(gen_random_uuid(), 'যদি y = sin(x) হয়, তবে dy/dx এর মান কত?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Calculus', 'cos(x)', '-cos(x)', '-sin(x)', 'sec²(x)', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'একটি ত্রিভুজের বাহুর দৈর্ঘ্য 7, 24 এবং 25 হলে এটি কোন ধরনের ত্রিভুজ?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Geometry', 'সমদ্বিবাহু', 'সমকোণী', 'সমবাহু', 'বিকৃত', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'যদি f(x) = x² - 3x + 2 হয়, তবে f(2) এর মান কত?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Functions', '0', '2', '1', '-1', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '∫ x dx সমন্বয় করলে ফলাফল কী হবে?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Integration', 'x² + C', '½x² + C', 'ln(x) + C', 'x + C', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'যদি A = (2,3) এবং B = (5,7), তবে AB রৈখিক দূরত্ব কত?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Coordinate Geometry', '5', '4', '6', '√25', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'যদি tan(θ) = 1, তাহলে θ এর মান হবে কত?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Trigonometry', '0°', '45°', '90°', '60°', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'একটি গাণিতিক ধারা: 2, 5, 8, 11... এর 10ম পদ কী?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Sequences', '29', '30', '31', '32', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'যদি f(x) = 1/x হয়, তবে f’(x) কত?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Calculus', '-1/x²', 'x', '1/x²', '-x²', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'একটি সমবাহু ত্রিভুজের প্রতি বাহুর দৈর্ঘ্য 6 হলে ক্ষেত্রফল কত?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Geometry', '6√3', '9√3', '12√3', '18√3', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'যদি log₃(x) = 5, তবে x এর মান কত?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Logarithm', '125', '243', '81', '15', 'b', 'hard', NOW(), NOW()),
+
+-- Higher Math 2nd Paper
+(gen_random_uuid(), 'একটি নির্দিষ্ট সমীকরণ 2x + 3y = 6 হলে, x-অক্ষ ছেদ কোন বিন্দুতে?', 'Higher Math 2nd Paper', '11-12', 'Science', 'Math', 'Algebra', '(3,0)', '(0,2)', '(2,0)', '(0,3)', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'একটি ম্যাট্রিক্স A এর উল্টা ম্যাট্রিক্স তখনই বিদ্যমান যখন...', 'Higher Math 2nd Paper', '11-12', 'Science', 'Math', 'Matrix', 'A একটি স্কয়ার ম্যাট্রিক্স', 'A একটি সিঙ্গুলার ম্যাট্রিক্স', 'A এর ডিটারমিনেন্ট = 0', 'উপরের কোনটিই নয়', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'যদি A = [2 3; 1 4], তাহলে det(A) এর মান?', 'Higher Math 2nd Paper', '11-12', 'Science', 'Math', 'Determinant', '5', '11', '2', '8', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'একটি নির্দিষ্ট সমীকরণ x² + 6x + 9 = 0 এর মূল কত?', 'Higher Math 2nd Paper', '11-12', 'Science', 'Math', 'Quadratic Equation', '-3', '3', '-9', '0', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'একটি ভেক্টর (2i + 3j) এর মান কত?', 'Higher Math 2nd Paper', '11-12', 'Science', 'Math', 'Vector', '√13', '5', '13', '7', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'একটি ম্যাট্রিক্সের ডিটারমিনেন্ট যদি ০ হয় তবে ম্যাট্রিক্সটি?', 'Higher Math 2nd Paper', '11-12', 'Science', 'Math', 'Matrix', 'সিঙ্গুলার', 'নন-সিঙ্গুলার', 'ইনভার্সেবল', 'পরিচয় ম্যাট্রিক্স', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'যদি α এবং β দুইটি কোণ হয় এবং α + β = 90°, তবে sin(α) = ?', 'Higher Math 2nd Paper', '11-12', 'Science', 'Math', 'Trigonometry', 'cos(β)', 'tan(β)', 'sec(β)', 'cot(β)', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'একটি অসমতা: x² < 9 এর সমাধান সেট কী?', 'Higher Math 2nd Paper', '11-12', 'Science', 'Math', 'Inequality', '-3 < x < 3', 'x > 3', 'x < -3', 'x ≥ 3', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'একটি জটিল সংখ্যার রূপ 3 + 4i হলে এর মডুলাস কত?', 'Higher Math 2nd Paper', '11-12', 'Science', 'Math', 'Complex Number', '5', '7', '√13', '4', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'একটি নির্ণায়ক (det) ২x২ ম্যাট্রিক্সের জন্য কিভাবে নির্ণয় করা হয়?', 'Higher Math 2nd Paper', '11-12', 'Science', 'Math', 'Matrix', 'ad - bc', 'ab + cd', 'a² + d²', 'ac - bd', 'a', 'hard', NOW(), NOW());
+
+
+
+
+INSERT INTO questions (
+  question_id, content, subject, class_level, group_name, department, topic,
+  option_a, option_b, option_c, option_d, correct_option, difficulty, created_at, updated_at
+) VALUES
+
+-- Higher Math - Mixed 1st & 2nd Paper
+(gen_random_uuid(), 'যদি y = ln(x), তবে dy/dx এর মান কত?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Calculus', '1/x', 'x', 'ln(x)', 'x²', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'cos²x + sin²x এর মান কত?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Trigonometry', '1', '0', '2', 'x', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '∫ (2x + 1) dx এর সমাধান কত?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Integration', 'x² + x + C', '2x² + C', '2x² + x + C', 'x² + 2x + C', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'যদি a = 2i - j এবং b = i + 3j হয়, তবে a·b এর মান?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Vector', '2', '5', '-1', '1', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'যদি f(x) = x³, তবে f``(x) এর মান কত?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Calculus', '3x²', '6x', 'x²', '3x', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'tan A = √3 হলে A এর মান কত হতে পারে?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Trigonometry', '30°', '45°', '60°', '90°', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'যদি x = a cos(θ), y = a sin(θ), তবে x² + y² = ?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Coordinate Geometry', 'a²', 'x²', 'y²', '1', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'একটি সমান্তর ধারা: 5, 9, 13,... এর 20তম পদ কত?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Sequences', '81', '77', '85', '89', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'যদি A একটি পরিচয় ম্যাট্রিক্স হয়, তবে A² = ?', 'Higher Math 2nd Paper', '11-12', 'Science', 'Math', 'Matrix', 'A', '0', 'I', '2A', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'x² - 2x + 1 = 0 এর মূল কত?', 'Higher Math 2nd Paper', '11-12', 'Science', 'Math', 'Algebra', '1', '2', '0', '-1', 'a', 'hard', NOW(), NOW()),
+
+(gen_random_uuid(), 'যদি A = [1 2; 3 4], তবে det(A) কত?', 'Higher Math 2nd Paper', '11-12', 'Science', 'Math', 'Matrix', '-2', '10', '5', '1', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'i² এর মান কত?', 'Higher Math 2nd Paper', '11-12', 'Science', 'Math', 'Complex Number', '-1', '1', '0', 'i', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'একটি রেখার ঢাল m = tan(θ)। θ = 45° হলে ঢাল কত?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Coordinate Geometry', '1', '√3', '0', '2', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'একটি বৃত্তের সমীকরণ x² + y² = 25 এর ব্যাসার্ধ কত?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Geometry', '5', '25', '10', '√25', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'যদি sin²x = ¾, তবে cos²x এর মান কত?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Trigonometry', '¼', '½', '⅓', '1', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'একটি জটিল সংখ্যা 3 - 4i হলে এর cojugate কত?', 'Higher Math 2nd Paper', '11-12', 'Science', 'Math', 'Complex Number', '3 + 4i', '4 - 3i', '-3 - 4i', '3 - 4i', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'যদি A = [2 1; 3 2], তবে A এর উল্টা ম্যাট্রিক্সের ডিটারমিনেন্ট কত?', 'Higher Math 2nd Paper', '11-12', 'Science', 'Math', 'Matrix', '1', '2', '4', '-1', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'একটি জটিল সংখ্যা √3 + i এর মডুলাস কত?', 'Higher Math 2nd Paper', '11-12', 'Science', 'Math', 'Complex Number', '2', '√2', '2√2', '4', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'একটি বর্গ ম্যাট্রিক্সের পরিচয় ম্যাট্রিক্সে কোন উপাদান থাকে?', 'Higher Math 2nd Paper', '11-12', 'Science', 'Math', 'Matrix', 'সকল প্রধান কর্ণে 1', 'সকল উপাদানে 0', 'উপরের দুইটি', '1 ও -1', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'y = e^x এর ডেরিভেটিভ কত?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Calculus', 'e^x', 'x', '1', 'e', 'a', 'hard', NOW(), NOW()),
+
+-- 10 more for completion
+(gen_random_uuid(), 'y = cos(x) হলে, dy/dx = ?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Calculus', '-sin(x)', 'cos(x)', 'sec²(x)', '-cos(x)', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '∫ x² dx এর মান?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Integration', '⅓x³ + C', 'x² + C', '½x² + C', 'x³ + C', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'x² - 4 = 0 এর সমাধান কী?', 'Higher Math 2nd Paper', '11-12', 'Science', 'Math', 'Algebra', '±2', '±4', '2', '-2', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'tan(0°) = ?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Trigonometry', '0', '1', '∞', 'Undefined', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'যদি a² + b² = c² হয়, তবে এটি কোন ত্রিভুজ নির্দেশ করে?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Geometry', 'সমকোণী', 'সমবাহু', 'বিকৃত', 'সমদ্বিবাহু', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'একটি নির্দিষ্ট বিন্দু থেকে কেন্দ্রিক বৃত্তের সমীকরণ কী?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Coordinate Geometry', '(x-a)² + (y-b)² = r²', '(x+a)² + (y+b)² = r', 'x² + y² = r²', 'x² + y² = r', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'একটি ধারা 3, 6, 12, 24, ... হলে এটি কোন ধরনের ধারা?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Sequences', 'গুণোত্তর', 'পদান্তর', 'সমান্তর', 'চক্রাকার', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'যদি det(A) = 0, তবে A এর উল্টা ম্যাট্রিক্স কি থাকবে?', 'Higher Math 2nd Paper', '11-12', 'Science', 'Math', 'Matrix', 'না', 'হ্যাঁ', 'কখনো কখনো', 'নির্ভর করে', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ln(e) এর মান কত?', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Logarithm', '1', 'e', '0', 'ln(1)', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'একটি রেখার ঢাল এবং কণ্ঠস্থ বিন্দু জানা থাকলে সমীকরণ হয়—', 'Higher Math 1st Paper', '11-12', 'Science', 'Math', 'Coordinate Geometry', 'y - y₁ = m(x - x₁)', 'y = mx', 'x - x₁ = y - y₁', 'y = x + c', 'a', 'hard', NOW(), NOW());
+
+
+
+INSERT INTO questions (
+  question_id, content, subject, class_level, group_name, department, topic,
+  option_a, option_b, option_c, option_d, correct_option, difficulty, created_at, updated_at
+) VALUES
+(gen_random_uuid(), 'কোন যৌগটি জৈব যৌগ নয়?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'জৈব রসায়ন', 'ইথানল', 'অ্যাসিটোন', 'মিথেন', 'কার্বন ডাই অক্সাইড', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'নিচের কোনটি একটি হাইড্রোকার্বন?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'জৈব রসায়ন', 'HCl', 'C₂H₆', 'NaOH', 'CO₂', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন যৌগে কভ্যালেন্ট বন্ধন বিদ্যমান?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'রাসায়নিক বন্ধন', 'NaCl', 'H₂O', 'KBr', 'MgO', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বয়ল-এর সূত্র অনুযায়ী, গ্যাসের কোন দুটি পরিমাণ অপরিবর্তিত থাকে?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'গ্যাসের ধর্ম', 'আয়তন ও চাপ', 'চাপ ও তাপমাত্রা', 'তাপমাত্রা ও আয়তন', 'চাপ ও ভর', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'pH স্কেলের মাধ্যমে কোন বৈশিষ্ট্য নির্ণয় করা যায়?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'অম্ল-ক্ষারক', 'জারণ', 'আয়নিকতা', 'অম্লত্ব', 'pKa', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'সাবলিমেশন ঘটে কোন পদার্থে?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'পদার্থের অবস্থা', 'নেফথলিন', 'জল', 'সালফিউরিক অ্যাসিড', 'সোডিয়াম ক্লোরাইড', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন মৌলটির পারমাণবিক ভর সবচেয়ে কম?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'পারমাণবিক গঠন', 'হাইড্রোজেন', 'হিলিয়াম', 'লিথিয়াম', 'কার্বন', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'নিচের কোনটি একটি রাসায়নিক পরিবর্তন?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'রাসায়নিক পরিবর্তন', 'বরফ গলানো', 'কাগজ পোড়ানো', 'জল ফুটানো', 'নুন গলানো', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'মোল সূত্রে ব্যবহৃত পরিমাণ কোনটি?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'মোল ধারণা', 'mL', 'gram', 'L', 'mol', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'একটি বাফার দ্রবণ কীভাবে কাজ করে?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'অম্ল-ক্ষারক', 'pH বাড়ায়', 'pH কমায়', 'pH নির্ধারণ করে', 'pH পরিবর্তন প্রতিরোধ করে', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'হাইড্রোকার্বনের প্রধান উৎস কী?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'জৈব রসায়ন', 'পেট্রোলিয়াম', 'গ্যাসোলিন', 'অ্যালকোহল', 'কার্বন ডাই অক্সাইড', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন যৌগটি একটি এসিড?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'অম্ল-ক্ষারক', 'NaOH', 'HCl', 'KOH', 'NH₄OH', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন যৌগটি একটি বেস?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'অম্ল-ক্ষারক', 'NaOH', 'HCl', 'CH₃COOH', 'H₂SO₄', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'অক্সিডেশন সংখ্যা কাকে বোঝায়?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'জারণ-অবচয়', 'আণবিক ভর', 'আয়ন সংখ্যা', 'বন্ধন সংখ্যা', 'ইলেকট্রন লাভ বা ক্ষয় সংখ্যা', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Na + Cl₂ → NaCl প্রতিক্রিয়াটিতে Na কী কাজ করে?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'জারণ-অবচয়', 'অক্সিডাইজিং এজেন্ট', 'রিডিউসিং এজেন্ট', 'দ্রাবক', 'অণু', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'পরমাণুর নিউক্লিয়াসে কি থাকে?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'পারমাণবিক গঠন', 'ইলেকট্রন', 'প্রোটন ও নিউট্রন', 'নিউট্রন ও ইলেকট্রন', 'প্রোটন ও ইলেকট্রন', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'আণবিক ভর প্রকাশের একক কী?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'মোল ধারণা', 'amu', 'mol', 'g', 'kg', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'অরবিটাল বলতে কী বোঝায়?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'ইলেকট্রন বিন্যাস', 'ইলেকট্রনের শক্তিস্তর', 'ইলেকট্রনের গতি', 'ইলেকট্রনের সম্ভাব্য উপস্থিতি অঞ্চল', 'প্রোটনের অবস্থান', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'pH ৭ হলে দ্রবণটি কেমন হবে?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'অম্ল-ক্ষারক', 'অম্লীয়', 'ক্ষারীয়', 'নিরপেক্ষ', 'ক্ষারীয় এবং অম্লীয় উভয়', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'CH₄ এর IUPAC নাম কী?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'জৈব রসায়ন', 'মিথেন', 'ইথেন', 'প্রোপেন', 'বিউটেন', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'CCl₄ অণুটি কেমন ধরনের যৌগ?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'জৈব রসায়ন', 'ধ্রুব যৌগ', 'অধ্রুব যৌগ', 'আয়নিক যৌগ', 'অ্যাসিডিক যৌগ', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'লিথিয়াম কোন গ্রুপে অবস্থিত?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'আবর্ত সারণি', 'দ্বিতীয় গ্রুপ', 'তৃতীয় গ্রুপ', 'প্রথম গ্রুপ', 'নবম গ্রুপ', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'NaCl গঠনে ইলেকট্রন স্থানান্তর কোন পরমাণুর দিকে হয়?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'রাসায়নিক বন্ধন', 'Cl', 'Na', 'O', 'H', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন যৌগে পানির উপস্থিতি শনাক্ত করা যায়?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'বিশ্লেষণ', 'CuSO₄', 'NaOH', 'HCl', 'AgNO₃', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'H₂ + Cl₂ → 2HCl প্রতিক্রিয়াটি কোন ধরণের?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'রাসায়নিক বিক্রিয়া', 'বিক্রিয়া', 'বিয়োজন', 'বিনিময়', 'যোগ', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'NaOH দ্রবণে কোন রং প্রদর্শন করে?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'অম্ল-ক্ষারক', 'নীল', 'লাল', 'সবুজ', 'হলুদ', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'একটি আদর্শ গ্যাসের জন্য PV=nRT সূত্রে T কী নির্দেশ করে?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'গ্যাসের ধর্ম', 'চাপ', 'আয়তন', 'তাপমাত্রা', 'গ্যাস ধ্রুবক', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Na + H₂O → NaOH + ? প্রতিক্রিয়ায় প্রশ্নবোধক স্থানে কী থাকবে?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'জারণ', 'O₂', 'H₂', 'Cl₂', 'CO₂', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'CO₂ গ্যাস জলে দ্রবীভূত হলে কী তৈরি হয়?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'অম্ল-ক্ষারক', 'H₂CO₃', 'H₂SO₄', 'NaHCO₃', 'CaCO₃', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন যৌগটি গ্লুকোজ?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'জৈব রসায়ন', 'C₆H₁₂O₆', 'C₂H₆O', 'CH₄', 'C₃H₈', 'a', 'hard', NOW(), NOW());
+
+
+
+
+
+INSERT INTO questions (
+  question_id, content, subject, class_level, group_name, department, topic,
+  option_a, option_b, option_c, option_d, correct_option, difficulty, created_at, updated_at
+) VALUES
+(gen_random_uuid(), 'আদর্শ গ্যাস সমীকরণে R এর একক কী?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'গ্যাসের ধর্ম', 'J/mol·K', 'atm·L/mol·K', 'kPa·m³/mol·K', 'mol/K', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন যৌগটি প্রাথমিক অ্যালকোহল?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'জৈব রসায়ন', 'ইথানল', 'আইসোপ্রোপানল', 'টারশিয়ারি বুটানল', 'মিথাইল প্রোপানল', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'অ্যাসিটিক অ্যাসিড একটি—', 'Chemistry', '11-12', 'Science', 'Chemistry', 'অম্ল-ক্ষারক', 'শক্ত বেস', 'দ্বিমূলক অম্ল', 'দুর্বল অম্ল', 'শক্ত অম্ল', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'NaOH + HCl → NaCl + H₂O প্রতিক্রিয়াটি কোন ধরণের?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'অম্ল-ক্ষারক', 'বিয়োজন', 'নিরপেক্ষীকরণ', 'অক্সিডেশন', 'বিনিময়', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'একটি কক্ষতাপমাত্রায় গ্যাসের গতি নির্ভর করে—', 'Chemistry', '11-12', 'Science', 'Chemistry', 'গ্যাসের ধর্ম', 'চাপের উপর', 'আয়তনের উপর', 'তাপমাত্রার উপর', 'ঘনত্বের উপর', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'অ্যামিনো অ্যাসিড হলো—', 'Chemistry', '11-12', 'Science', 'Chemistry', 'জৈব রসায়ন', 'শুধু অ্যাসিড', 'শুধু বেস', 'উভয়ধর্মী যৌগ', 'শুধু হাইড্রোকার্বন', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Na₂CO₃ + 2HCl → ? + H₂O + CO₂', 'Chemistry', '11-12', 'Science', 'Chemistry', 'অম্ল-ক্ষারক', 'NaCl', 'NaOH', 'Na₂SO₄', 'NaNO₃', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Na-এর ইলেকট্রন বিন্যাস কী?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'পারমাণবিক গঠন', '2,8', '2,8,1', '2,8,2', '2,8,8', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '১ মোল গ্যাস আদর্শ অবস্থায় কত লিটার আয়তন ধারণ করে?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'গ্যাসের ধর্ম', '22.4 L', '18.0 L', '20.0 L', '25.2 L', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন বিক্রিয়ায় তাপ শোষিত হয়?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'তাপ রসায়ন', 'বিস্ফোরণ', 'জ্বলন', 'গলন', 'জারণ', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'জারণ সংখ্যা শূন্য থাকে কোন মৌলে?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'জারণ-অবচয়', 'Na⁺', 'O²⁻', 'H₂O', 'Cl₂', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'যে যৌগে শুধুমাত্র C ও H থাকে, তাকে বলে—', 'Chemistry', '11-12', 'Science', 'Chemistry', 'জৈব রসায়ন', 'হ্যালোকার্বন', 'হাইড্রোকার্বন', 'অ্যালকোহল', 'কার্বনিল যৌগ', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Na + O₂ → Na₂O প্রতিক্রিয়ায় Na কীভাবে কাজ করে?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'জারণ-অবচয়', 'জারিত হয়', 'অবচয়িত হয়', 'দ্রাবক হয়', 'নিরপেক্ষ থাকে', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'pKa এর মান যত কম, অম্লটি তত—', 'Chemistry', '11-12', 'Science', 'Chemistry', 'অম্ল-ক্ষারক', 'দুর্বল', 'মাঝারি', 'শক্তিশালী', 'নিষ্ক্রিয়', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'NaCl একটি—', 'Chemistry', '11-12', 'Science', 'Chemistry', 'রাসায়নিক বন্ধন', 'আয়নিক যৌগ', 'কভ্যালেন্ট যৌগ', 'ধাতব যৌগ', 'জৈব যৌগ', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন যৌগে হাইড্রোজেন বন্ড থাকে?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'আন্তঃআণবিক বল', 'CH₄', 'NH₃', 'CO₂', 'NaCl', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ব্রোমিন কক্ষতাপমাত্রায় কী অবস্থায় থাকে?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'পদার্থের অবস্থা', 'গ্যাস', 'তরল', 'কঠিন', 'প্লাজমা', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ফলমূল পচে যাওয়া কোন ধরণের পরিবর্তন?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'রাসায়নিক পরিবর্তন', 'শারীরিক', 'রাসায়নিক', 'উভয়', 'কোনোটিই না', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'C₂H₅OH + O₂ → CO₂ + ? প্রতিক্রিয়ায় প্রশ্নবোধকে পূরণ করুন।', 'Chemistry', '11-12', 'Science', 'Chemistry', 'জৈব রসায়ন', 'H₂O', 'C₂H₄', 'NaOH', 'CO', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'পারমাণবিক সংখ্যা কোন কণা দিয়ে নির্ধারিত হয়?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'পারমাণবিক গঠন', 'নিউট্রন', 'ইলেকট্রন', 'প্রোটন', 'ফোটন', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'হিমাংশের নিচে কোন পদার্থ তরল থাকে?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'পদার্থের অবস্থা', 'জল', 'অ্যালকোহল', 'মিথেন', 'কার্বন ডাই অক্সাইড', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'HCl দ্রবণে pH কেমন হবে?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'অম্ল-ক্ষারক', 'কম', 'বেশি', 'নিরপেক্ষ', 'পরিবর্তনহীন', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'অ্যাসিটোন কোন শ্রেণীর যৌগ?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'জৈব রসায়ন', 'কেটোন', 'অ্যালকোহল', 'এসিড', 'ইস্টার', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'একটি মোল NaOH দ্রবণে কত আয়ন থাকে?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'আয়ন ও বৈদ্যুতিক পরিবাহিতা', '1', '2', '3', '4', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোনটি সুগন্ধি যৌগ?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'জৈব রসায়ন', 'বেনজিন', 'ইথানল', 'NaCl', 'প্রোপান', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'হাইড্রোজেনের পারমাণবিক ভর কত?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'পারমাণবিক গঠন', '1', '2', '0.5', '4', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'একটি যৌগে হাইড্রোজেন ও অক্সিজেন আছে, এটি কী হতে পারে?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'জৈব রসায়ন', 'অ্যালকোহল', 'হাইড্রোকার্বন', 'অ্যাসিড', 'হ্যালাইড', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বিজারণ বিক্রিয়া কোথায় দেখা যায়?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'জারণ-অবচয়', 'ধাতুর ক্ষয়', 'পানি ফুটানো', 'বাষ্পীভবন', 'গলন', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Na + Cl → NaCl গঠনে Na কোন ধরণের বন্ধন গঠন করে?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'রাসায়নিক বন্ধন', 'কভ্যালেন্ট', 'আয়নিক', 'ধাতব', 'হাইড্রোজেন', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'একটি বাফার দ্রবণের pH কেন অপরিবর্তিত থাকে?', 'Chemistry', '11-12', 'Science', 'Chemistry', 'অম্ল-ক্ষারক', 'তাপ শোষণে', 'বেস নিরপেক্ষ করে', 'অতিরিক্ত H⁺ বা OH⁻ গ্রহণ করে', 'জারণ প্রতিক্রিয়ায়', 'c', 'hard', NOW(), NOW());
+
+
+
+INSERT INTO questions (
+  question_id, content, subject, class_level, group_name, department, topic,
+  option_a, option_b, option_c, option_d, correct_option, difficulty, created_at, updated_at
+) VALUES
+(gen_random_uuid(), 'মানবদেহে রক্ত জমাট বাঁধার জন্য কোন উপাদানটি প্রয়োজন?', 'Biology', '11-12', 'Science', 'Biology', 'রক্ত সংবহন', 'ফাইব্রিন', 'প্লাজমা', 'হিমোগ্লোবিন', 'গ্লুকোজ', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ডিএনএ গঠনে কোন নিউক্লিওটাইড থাকে না?', 'Biology', '11-12', 'Science', 'Biology', 'জিনতত্ত্ব', 'অ্যাডেনিন', 'গুয়ানিন', 'ইউরাসিল', 'থায়ামিন', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'মানবদেহে ইউরিয়া কোথায় উৎপন্ন হয়?', 'Biology', '11-12', 'Science', 'Biology', 'রেচন প্রক্রিয়া', 'লিভারে', 'কিডনিতে', 'রক্তে', 'মূত্রাশয়ে', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'মানব দেহে ইনসুলিন হরমোন কোন গ্রন্থি থেকে নিঃসৃত হয়?', 'Biology', '11-12', 'Science', 'Biology', 'হরমোন', 'থাইরয়েড', 'অ্যাড্রিনাল', 'প্যানক্রিয়াস', 'পিটুইটারি', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন টিস্যুতে কোষ বিভাজন হয়?', 'Biology', '11-12', 'Science', 'Biology', 'বৃদ্ধি ও বিবর্তন', 'পারেনকাইমা', 'জাইলেম', 'মেরিস্টেম', 'ফ্লোয়েম', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ডারউইনের প্রাকৃতিক নির্বাচনের তত্ত্ব কোন বইতে প্রকাশিত হয়?', 'Biology', '11-12', 'Science', 'Biology', 'বিবর্তন', 'The Descent of Man', 'On the Origin of Species', 'Principia', 'Species Plantarum', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'মাইটোকন্ড্রিয়াকে কোষের পাওয়ার হাউস বলা হয় কেন?', 'Biology', '11-12', 'Science', 'Biology', 'কোষ অঙ্গানু', 'জল সংরক্ষণের জন্য', 'ATP উৎপন্নের জন্য', 'DNA থাকার জন্য', 'তাপ সঞ্চয়ের জন্য', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'রক্তে অক্সিজেন পরিবহণে কোনটি প্রধান ভূমিকা রাখে?', 'Biology', '11-12', 'Science', 'Biology', 'রক্ত সংবহন', 'প্লাজমা', 'হিমোগ্লোবিন', 'লিম্ফ', 'এলবিউ', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন হরমোন নারীদের ডিম্বাণু নিঃসরণে সহায়তা করে?', 'Biology', '11-12', 'Science', 'Biology', 'প্রজনন', 'FSH', 'LH', 'এস্ট্রোজেন', 'প্রজেস্টেরন', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'জীবাণুবিদ্যা শব্দটি প্রথম কে ব্যবহার করেন?', 'Biology', '11-12', 'Science', 'Biology', 'অণুজীব', 'লুই পাস্তুর', 'এন্টনি ভ্যান লিউয়েনহুক', 'রবার্ট হুক', 'কচ', 'a', 'hard', NOW(), NOW()),
+-- 10 above, 50 below
+(gen_random_uuid(), 'একটি নিউক্লিওটাইড গঠিত হয় কতটি উপাদান দিয়ে?', 'Biology', '11-12', 'Science', 'Biology', 'জিনতত্ত্ব', '২টি', '৩টি', '৪টি', '৫টি', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন প্রাণীতে হৃৎপিণ্ডে এক কক্ষ থাকে?', 'Biology', '11-12', 'Science', 'Biology', 'রক্ত সংবহন', 'ব্যাঙ', 'সাপ', 'মাছ', 'মানুষ', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'জীবাণু ধ্বংসে কোন কোষ কাজ করে?', 'Biology', '11-12', 'Science', 'Biology', 'রক্ত সংবহন', 'রক্ত কণিকা', 'সাদা রক্ত কণিকা', 'লাল রক্ত কণিকা', 'রক্ত প্লেটলেট', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'জিন কি?', 'Biology', '11-12', 'Science', 'Biology', 'জিনতত্ত্ব', 'DNA এর অংশ', 'RNA এর অংশ', 'প্রোটিন', 'ক্লোরোফিল', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'পিতৃত্ব নির্ধারণে কোন প্রযুক্তি ব্যবহৃত হয়?', 'Biology', '11-12', 'Science', 'Biology', 'জিনতত্ত্ব', 'PCR', 'DNA ফিঙ্গারপ্রিন্টিং', 'ELISA', 'Hybridization', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ভ্যাকসিন কার্যকর হয় কিভাবে?', 'Biology', '11-12', 'Science', 'Biology', 'রোগ প্রতিরোধ', 'অ্যান্টিবডি তৈরি করে', 'কোষ হত্যা করে', 'প্রোটিন বাড়িয়ে', 'বিষ নষ্ট করে', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'জীবাশ্ম বিজ্ঞানে অধিক ব্যবহৃত পদ্ধতি কোনটি?', 'Biology', '11-12', 'Science', 'Biology', 'বিবর্তন', 'কার্বন ডেটিং', 'PCR', 'CT Scan', 'Spectrometry', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'সাইটোপ্লাজম মূলত কোন পদার্থ দিয়ে গঠিত?', 'Biology', '11-12', 'Science', 'Biology', 'কোষ', 'জল', 'প্রোটিন', 'চর্বি', 'লিপিড', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন অঙ্গাণু আলো শোষণ করে?', 'Biology', '11-12', 'Science', 'Biology', 'কোষ অঙ্গানু', 'মাইটোকন্ড্রিয়া', 'ক্লোরোপ্লাস্ট', 'গলগি বডি', 'লাইসোজোম', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বায়োইনফরমেটিক্স এর উদ্দেশ্য কী?', 'Biology', '11-12', 'Science', 'Biology', 'জিনতত্ত্ব', 'জীব বিজ্ঞান শেখা', 'ডেটা বিশ্লেষণ', 'জিন অনুবাদ', 'প্রোটিন উৎপাদন', 'b', 'hard', NOW(), NOW()),
+-- 20 done, more below
+(gen_random_uuid(), 'কোন রেচন অঙ্গ সবচেয়ে গুরুত্বপূর্ণ?', 'Biology', '11-12', 'Science', 'Biology', 'রেচন', 'লিভার', 'কিডনি', 'মূত্রনালী', 'স্কিন', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'গর্ভধারণ প্রতিরোধে ব্যবহৃত হরমোন কোনটি?', 'Biology', '11-12', 'Science', 'Biology', 'প্রজনন', 'FSH', 'এস্ট্রোজেন', 'প্রজেস্টেরন', 'থাইরক্সিন', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'RNA গঠনে কোনটি থাকে না?', 'Biology', '11-12', 'Science', 'Biology', 'জিনতত্ত্ব', 'রাইবোজ', 'গুয়ানিন', 'থাইমিন', 'ফসফেট', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'শ্বসনের মাধ্যমে কোষে তৈরি শক্তি কী নামে পরিচিত?', 'Biology', '11-12', 'Science', 'Biology', 'শ্বসন', 'NADH', 'ATP', 'RNA', 'ADP', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'মানুষের শরীরে কোনটি অন্তঃস্রাব গ্রন্থি নয়?', 'Biology', '11-12', 'Science', 'Biology', 'হরমোন', 'থাইরয়েড', 'অগ্ন্যাশয়', 'রক্ত', 'অ্যাড্রিনাল', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'মাল্টিপল অ্যালিলিজম কোন বৈশিষ্ট্য বোঝায়?', 'Biology', '11-12', 'Science', 'Biology', 'জিনতত্ত্ব', 'একাধিক জিন', 'একাধিক অ্যালিল', 'একাধিক প্রোটিন', 'একাধিক নিউক্লিওটাইড', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'গ্লাইকোজেন কোথায় সংরক্ষিত থাকে?', 'Biology', '11-12', 'Science', 'Biology', 'পুষ্টি', 'কিডনি', 'লিভার', 'রক্ত', 'পেট', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'রক্তচাপ নিয়ন্ত্রণ করে কোনটি?', 'Biology', '11-12', 'Science', 'Biology', 'সংবহন', 'নিউরন', 'বুকস্ফীতি', 'ভ্যাসোপ্রেসিন', 'এনজাইম', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'গবেষণাগারে ভাইরাস বৃদ্ধির জন্য কোনটি ব্যবহার করা হয়?', 'Biology', '11-12', 'Science', 'Biology', 'অণুজীব', 'সাধারণ মিডিয়া', 'জীবন্ত কোষ', 'পানি', 'বায়ু', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বংশগতি নির্ধারণে কোন কৌশল ব্যবহৃত হয়?', 'Biology', '11-12', 'Science', 'Biology', 'জিনতত্ত্ব', 'প্যুনেট স্কয়ার', 'ট্রান্সক্রিপশন', 'অনুবাদ', 'প্রোটিন সংশ্লেষ', 'a', 'hard', NOW(), NOW());
+
+
+
+-- English 1st Paper - 30 Hard MCQs
+INSERT INTO questions (
+  question_id, content, subject, class_level, group_name, department, topic,
+  option_a, option_b, option_c, option_d, correct_option, difficulty, created_at, updated_at
+) VALUES
+(gen_random_uuid(), 'Choose the correct synonym of "Abundant".', 'English 1st Paper', '11-12', 'Science', 'English', 'Vocabulary', 'Scarce', 'Plentiful', 'Tiny', 'Rare', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Identify the error in the sentence: "He don’t like apples."', 'English 1st Paper', '11-12', 'Science', 'English', 'Grammar', 'He', 'don’t', 'like', 'apples', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Select the correct passive voice form: "The teacher explains the lesson."', 'English 1st Paper', '11-12', 'Science', 'English', 'Grammar', 'The lesson is explained by the teacher', 'The lesson was explained by the teacher', 'The lesson explained by the teacher', 'The teacher was explained the lesson', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Identify the correct form of the verb in: "Neither of them _____ ready."', 'English 1st Paper', '11-12', 'Science', 'English', 'Grammar', 'are', 'is', 'were', 'have', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Choose the correct meaning of the idiom: "Break the ice".', 'English 1st Paper', '11-12', 'Science', 'English', 'Idioms', 'To freeze water', 'To start a conversation', 'To break something', 'To relax completely', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Pick the antonym of "Transient".', 'English 1st Paper', '11-12', 'Science', 'English', 'Vocabulary', 'Permanent', 'Temporary', 'Fleeting', 'Short-lived', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Identify the correct preposition: "He is good ___ playing chess."', 'English 1st Paper', '11-12', 'Science', 'English', 'Grammar', 'at', 'in', 'on', 'for', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Select the correctly punctuated sentence.', 'English 1st Paper', '11-12', 'Science', 'English', 'Grammar', 'She said “Hello.”', 'She said, “Hello.”', 'She said “Hello”,', 'She said “Hello”.', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Choose the correct conditional sentence: "If I ____ you, I would apologize."', 'English 1st Paper', '11-12', 'Science', 'English', 'Grammar', 'am', 'were', 'was', 'be', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Find the correct reported speech: "She said, ‘I am coming.’"', 'English 1st Paper', '11-12', 'Science', 'English', 'Grammar', 'She said she was coming.', 'She said she is coming.', 'She said she had come.', 'She said she will come.', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Identify the figure of speech in: "The world is a stage."', 'English 1st Paper', '11-12', 'Science', 'English', 'Literature', 'Simile', 'Metaphor', 'Personification', 'Hyperbole', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Select the correct synonym of "Eloquent".', 'English 1st Paper', '11-12', 'Science', 'English', 'Vocabulary', 'Talkative', 'Silent', 'Fluent', 'Clumsy', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Identify the tense: "They had been working for two hours."', 'English 1st Paper', '11-12', 'Science', 'English', 'Grammar', 'Past Perfect', 'Present Perfect', 'Past Perfect Continuous', 'Present Continuous', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Choose the correct article: "I saw ___ eagle flying."', 'English 1st Paper', '11-12', 'Science', 'English', 'Grammar', 'a', 'an', 'the', 'no article', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Find the error: "Each of the students have a book."', 'English 1st Paper', '11-12', 'Science', 'English', 'Grammar', 'Each', 'of the students', 'have', 'a book', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Identify the mood: "If I were you, I would leave now."', 'English 1st Paper', '11-12', 'Science', 'English', 'Grammar', 'Indicative', 'Imperative', 'Subjunctive', 'Interrogative', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Select the correct form: "She is the _____ student in the class."', 'English 1st Paper', '11-12', 'Science', 'English', 'Grammar', 'more intelligent', 'most intelligent', 'intelligent', 'intelligenter', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Choose the correct passive: "They will finish the work tomorrow."', 'English 1st Paper', '11-12', 'Science', 'English', 'Grammar', 'The work will be finished tomorrow.', 'The work will finish tomorrow.', 'The work is finished tomorrow.', 'The work was finished tomorrow.', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Pick the correct conjunction: "She was tired ___ she continued working."', 'English 1st Paper', '11-12', 'Science', 'English', 'Grammar', 'but', 'and', 'so', 'or', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Find the correct plural form of "Crisis".', 'English 1st Paper', '11-12', 'Science', 'English', 'Vocabulary', 'Crisises', 'Crises', 'Crisiseses', 'Crisis', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Choose the correct homophone: "They saw a ____ on the shore."', 'English 1st Paper', '11-12', 'Science', 'English', 'Vocabulary', 'Knight', 'Night', 'Nite', 'Nigh', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Identify the part of speech of "Quickly" in the sentence: "She ran quickly."', 'English 1st Paper', '11-12', 'Science', 'English', 'Grammar', 'Adjective', 'Adverb', 'Verb', 'Noun', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Select the correct spelling:', 'English 1st Paper', '11-12', 'Science', 'English', 'Vocabulary', 'Accomodate', 'Acommodate', 'Accommodate', 'Acommoddate', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Choose the correct phrase: "He is good ____ playing football."', 'English 1st Paper', '11-12', 'Science', 'English', 'Grammar', 'at', 'in', 'on', 'for', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Identify the correct indirect question: "Where is he?"', 'English 1st Paper', '11-12', 'Science', 'English', 'Grammar', 'Can you tell me where he is?', 'Where is he?', 'Do you know where is he?', 'Where he is?', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Find the antonym of "Benevolent".', 'English 1st Paper', '11-12', 'Science', 'English', 'Vocabulary', 'Kind', 'Cruel', 'Helpful', 'Generous', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Select the correct sentence:', 'English 1st Paper', '11-12', 'Science', 'English', 'Grammar', 'He did not went there.', 'He does not go there.', 'He did not go there.', 'He don’t go there.', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Choose the correct form of verb: "They ____ already left."', 'English 1st Paper', '11-12', 'Science', 'English', 'Grammar', 'has', 'have', 'had', 'having', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Identify the literary device: "The wind whispered through the trees."', 'English 1st Paper', '11-12', 'Science', 'English', 'Literature', 'Onomatopoeia', 'Personification', 'Metaphor', 'Simile', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Pick the correct meaning of the idiom: "A blessing in disguise".', 'English 1st Paper', '11-12', 'Science', 'English', 'Idioms', 'A bad thing that turns good', 'A visible blessing', 'A hidden curse', 'An unlucky event', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Choose the correct antonym of "Vague".', 'English 1st Paper', '11-12', 'Science', 'English', 'Vocabulary', 'Clear', 'Uncertain', 'Faint', 'Dim', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Select the correct sentence:', 'English 1st Paper', '11-12', 'Science', 'English', 'Grammar', 'He is taller than me.', 'He is taller then me.', 'He is tallest than me.', 'He taller than me.', 'a', 'hard', NOW(), NOW());
+
+-- English 2nd Paper - 30 Hard MCQs
+INSERT INTO questions (
+  question_id, content, subject, class_level, group_name, department, topic,
+  option_a, option_b, option_c, option_d, correct_option, difficulty, created_at, updated_at
+) VALUES
+(gen_random_uuid(), 'Identify the main theme of the poem "Ode to Autumn".', 'English 2nd Paper', '11-12', 'Science', 'English', 'Literature', 'Spring and rebirth', 'Death and sorrow', 'Change and maturity', 'Summer and heat', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'What is the correct interpretation of the phrase "To kill two birds with one stone"?', 'English 2nd Paper', '11-12', 'Science', 'English', 'Idioms', 'To fail at both tasks', 'To accomplish two things at once', 'To hunt birds', 'To waste time', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Select the correct explanation of the metaphor in "Time is a thief".', 'English 2nd Paper', '11-12', 'Science', 'English', 'Literature', 'Time steals moments of our life', 'Time is expensive', 'Time is a person', 'Time is slow', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Identify the rhyme scheme of the poem "Stopping by Woods on a Snowy Evening".', 'English 2nd Paper', '11-12', 'Science', 'English', 'Literature', 'AABA', 'ABAB', 'ABBA', 'AAAA', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Find the correct meaning of the idiom: "Bite the bullet".', 'English 2nd Paper', '11-12', 'Science', 'English', 'Idioms', 'To avoid pain', 'To endure a painful experience', 'To bite something', 'To talk loudly', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Choose the correct poetic device: "The moon danced on the lake."', 'English 2nd Paper', '11-12', 'Science', 'English', 'Literature', 'Simile', 'Personification', 'Alliteration', 'Onomatopoeia', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Identify the meaning of "Alliteration".', 'English 2nd Paper', '11-12', 'Science', 'English', 'Literature', 'Repetition of consonant sounds', 'Use of similes', 'Exaggeration', 'Rhyming words', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Find the correct theme of "The Road Not Taken".', 'English 2nd Paper', '11-12', 'Science', 'English', 'Literature', 'Choices and consequences', 'Love and hate', 'War and peace', 'Nature and seasons', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Select the correct meaning of "Metaphor".', 'English 2nd Paper', '11-12', 'Science', 'English', 'Literature', 'Direct comparison', 'Indirect comparison', 'Exaggeration', 'Personification', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Choose the correct figure of speech: "She sells seashells by the seashore."', 'English 2nd Paper', '11-12', 'Science', 'English', 'Literature', 'Alliteration', 'Assonance', 'Onomatopoeia', 'Simile', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Identify the meaning of "Oxymoron".', 'English 2nd Paper', '11-12', 'Science', 'English', 'Literature', 'Opposite words combined', 'Exaggeration', 'Repetition', 'Simile', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Find the correct synonym of "Melancholy".', 'English 2nd Paper', '11-12', 'Science', 'English', 'Vocabulary', 'Happy', 'Sad', 'Angry', 'Excited', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Choose the correct meaning of the phrase: "Hit the sack".', 'English 2nd Paper', '11-12', 'Science', 'English', 'Idioms', 'To go to bed', 'To fight', 'To hit something', 'To fail', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Identify the rhyme scheme of a Shakespearean sonnet.', 'English 2nd Paper', '11-12', 'Science', 'English', 'Literature', 'ABABCDCDEFEFGG', 'AABBCCDDEEFFGG', 'AAAABBBBCCCCDD', 'ABABABABABABAB', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Select the correct meaning of the word "Epiphany".', 'English 2nd Paper', '11-12', 'Science', 'English', 'Vocabulary', 'A sudden realization', 'A religious festival', 'A type of poem', 'A musical instrument', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Identify the correct usage of "Whose".', 'English 2nd Paper', '11-12', 'Science', 'English', 'Grammar', 'Possessive pronoun', 'Interrogative pronoun', 'Both a and b', 'Neither a nor b', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Choose the correct sentence:', 'English 2nd Paper', '11-12', 'Science', 'English', 'Grammar', 'I have less money.', 'I have fewer money.', 'I have little money.', 'I have a little money.', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Find the antonym of "Diligent".', 'English 2nd Paper', '11-12', 'Science', 'English', 'Vocabulary', 'Lazy', 'Hardworking', 'Quick', 'Bright', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Select the correct literary device: "The calm lake was a mirror."', 'English 2nd Paper', '11-12', 'Science', 'English', 'Literature', 'Metaphor', 'Simile', 'Personification', 'Hyperbole', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Identify the correct use of "Than" and "Then".', 'English 2nd Paper', '11-12', 'Science', 'English', 'Grammar', '"Than" for comparison, "Then" for time', '"Than" for time, "Then" for comparison', 'Both mean the same', 'Neither is correct', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Choose the correct plural form: "Analysis".', 'English 2nd Paper', '11-12', 'Science', 'English', 'Vocabulary', 'Analysises', 'Analysis', 'Analyses', 'Analys', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Find the correct meaning of "Cacophony".', 'English 2nd Paper', '11-12', 'Science', 'English', 'Vocabulary', 'Harsh discordant sound', 'Beautiful music', 'Soft whisper', 'Silent noise', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Identify the correct use of "Lie" and "Lay".', 'English 2nd Paper', '11-12', 'Science', 'English', 'Grammar', '"Lie" means to recline, "Lay" means to place', 'Both mean the same', '"Lay" means to recline, "Lie" means to place', 'Neither is correct', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Select the correct sentence:', 'English 2nd Paper', '11-12', 'Science', 'English', 'Grammar', 'She has went home.', 'She has gone home.', 'She has gone to home.', 'She has went to home.', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Choose the correct meaning of "Onomatopoeia".', 'English 2nd Paper', '11-12', 'Science', 'English', 'Literature', 'Words that imitate sounds', 'Exaggeration', 'Repetition of words', 'Rhyming words', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Identify the theme of the poem "The Road Not Taken".', 'English 2nd Paper', '11-12', 'Science', 'English', 'Literature', 'Choices and consequences', 'Love and loss', 'Nature', 'War', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Find the correct meaning of "Euphemism".', 'English 2nd Paper', '11-12', 'Science', 'English', 'Vocabulary', 'Polite expression', 'Harsh insult', 'Compliment', 'Metaphor', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Select the correct interpretation of "Hyperbole".', 'English 2nd Paper', '11-12', 'Science', 'English', 'Literature', 'Exaggeration', 'Understatement', 'Simile', 'Personification', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Choose the correct idiom: "Barking up the wrong tree".', 'English 2nd Paper', '11-12', 'Science', 'English', 'Idioms', 'Accusing the wrong person', 'Talking to a dog', 'Ignoring advice', 'Running away', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'Identify the correct usage of "Affect" and "Effect".', 'English 2nd Paper', '11-12', 'Science', 'English', 'Grammar', '"Affect" is a verb, "Effect" is a noun', 'Both are nouns', 'Both are verbs', 'Neither is correct', 'a', 'hard', NOW(), NOW());
+
+
+
+
+
+-- Bangla 1st Paper - 30 Hard MCQs
+INSERT INTO questions (
+  question_id, content, subject, class_level, group_name, department, topic,
+  option_a, option_b, option_c, option_d, correct_option, difficulty, created_at, updated_at
+) VALUES
+(gen_random_uuid(), 'বাংলা ব্যাকরণে “সমাস” বলতে কী বোঝায়?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'ব্যাকরণ', 'দুটি শব্দের সংযুক্তি', 'একটি শব্দের অর্থ', 'শব্দের উচ্চারণ', 'ব্যাকরণের নিয়ম', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“অতীত কাল” এর সঠিক ব্যবহার কোনটি?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'ব্যাকরণ', 'যে কাজ ইতিমধ্যে সম্পন্ন হয়েছে', 'বর্তমান কাজ', 'ভবিষ্যতের কাজ', 'চলমান কাজ', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'নিচের কোন শব্দটি “অনুপ্রাস”?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'অমর অবতরণ অক্ষয়', 'সূর্য চাঁদ তারা', 'নদী পাহাড় বন', 'বৃষ্টি বন্যা বর্ষা', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা কবিতায় “দ্বন্দ্ব” কী?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'প্রতিদ্বন্দ্বিতা', 'বিরোধপূর্ণ শব্দের সংমিশ্রণ', 'প্রেমের প্রকাশ', 'সৌন্দর্যের বর্ণনা', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“সমাস বিভাজন” কীভাবে করা হয়?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'ব্যাকরণ', 'একটি শব্দকে ছোট ছোট অংশে ভাগ করে', 'শব্দের অর্থ ব্যাখ্যা করা', 'শব্দের উচ্চারণ পরিবর্তন', 'শব্দের বানান ঠিক করা', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“কাব্যশৈলী” বলতে কী বোঝায়?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'কবিতার ভাষার ধরন ও রীতি', 'গল্পের বিষয়বস্তু', 'নাটকের গঠন', 'নাটকের ভাষা', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“উপমা” কি ধরনের অলঙ্কার?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'তুলনা', 'অতিশয়োক্তি', 'ব্যক্তিত্ববর্ননা', 'অনুকরণ', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা বাক্যে “সমাস” সবচেয়ে বেশি ব্যবহৃত কোন ধরনের?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'ব্যাকরণ', 'দ্বন্দ্ব সমাস', 'তৎপুরুষ সমাস', 'অব্যয়ীभाव সমাস', 'দ্বিগু সমাস', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“ব্যাকরণ” এর সঠিক সংজ্ঞা কোনটি?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'ব্যাকরণ', 'শব্দের গঠন ও রীতি', 'গল্পের ধরণ', 'কবিতার রচনা', 'নাটকের ধারা', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“শব্দতত্ত্ব” বলতে কী বোঝায়?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'ব্যাকরণ', 'শব্দের উৎপত্তি ও শ্রেণিবিভাগ', 'শব্দের বানান', 'শব্দের উচ্চারণ', 'শব্দের ব্যবহার', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“ধ্বনি পরিবর্তন” এর সঠিক উদাহরণ কোনটি?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'ব্যাকরণ', 'মাথা → মাথি', 'বই → বই', 'কাজ → কাজ', 'পানি → পানি', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'নিচের কোনটি “অব্যয়”?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'ব্যাকরণ', 'তুমি', 'সে', 'ও', 'যদি', 'd', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“উপসর্গ” বলতে কী বোঝায়?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'ব্যাকরণ', 'শব্দের শুরুতে যোগ করা অংশ', 'শব্দের শেষে যোগ করা অংশ', 'শব্দের মাঝখানে যোগ করা অংশ', 'শব্দের বাইরে অংশ', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“প্রতিশব্দ” এর অর্থ কী?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'ব্যাকরণ', 'একই অর্থের বিভিন্ন শব্দ', 'বিরুদ্ধ অর্থের শব্দ', 'অপসৃয় শব্দ', 'অভিধান শব্দ', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“অন্ত্যপ্রসর্গ” কোনটি?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'ব্যাকরণ', 'শব্দের শেষে যোগ করা অংশ', 'শব্দের শুরুতে যোগ করা অংশ', 'শব্দের মাঝে যোগ করা অংশ', 'শব্দের বাইরে অংশ', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'নিচের কোনটি “সন্ধি”?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'ব্যাকরণ', 'দুটি শব্দের মিলিত রূপ', 'শব্দের বানান', 'শব্দের অর্থ', 'শব্দের উচ্চারণ', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“সন্ধি বিভাজন” কীভাবে করা হয়?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'ব্যাকরণ', 'শব্দ ভেঙে মূল শব্দগুলো আলাদা করা', 'শব্দের বানান ঠিক করা', 'শব্দের উচ্চারণ পরিবর্তন', 'শব্দের অর্থ বিশ্লেষণ', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা গদ্যের “আবেদন” বলতে কী বোঝায়?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'লেখকের মনের ভাব প্রকাশ', 'গল্পের চরিত্র', 'কাব্যের ধরন', 'নাটকের শৈলী', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“নাটক” শাখার প্রধান বৈশিষ্ট্য কী?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'মঞ্চে অভিনয়যোগ্য রচনা', 'কবিতা', 'গল্প', 'উপন্যাস', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“অনুপ্রাস” কোন ধরনের অলঙ্কার?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'সমান ধ্বনির পুনরাবৃত্তি', 'অতিশয়োক্তি', 'ব্যক্তিত্ববর্ননা', 'উপমা', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“ব্যঞ্জনবর্ণ” এর সংখ্যা কত?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'ব্যাকরণ', '৩৬', '৩০', '৩৩', '৪০', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা ভাষার প্রথম প্রবন্ধ রচয়িতা কে?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'রবীন্দ্রনাথ ঠাকুর', 'মহম্মদ মোহসীন', 'দীনবন্ধু মিত্র', 'কাজী নজরুল ইসলাম', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“শ্রীকান্ত” কোন সাহিত্যকৃত রচনা?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'উপন্যাস', 'কবিতা', 'গল্প', 'নাটক', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা ভাষার কোন শব্দটি “দ্বন্দ্ব সমাস”?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'ব্যাকরণ', 'রাত্রি-দিন', 'দূর্যোগ', 'পৌষ-মাঘ', 'সদস্য', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“তৎপুরুষ সমাস” কী?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'ব্যাকরণ', 'সমাসের একটি প্রকার যেখানে পূর্বপদ কার্যকর হয়', 'সমাসের একটি প্রকার যেখানে শেষ পদ প্রধান হয়', 'সমাসের একটি প্রকার যেখানে দুটি পদ সমান', 'সমাসের একটি প্রকার যেখানে অব্যয় পদ থাকে', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা ভাষায় “বিশেষণ” শব্দের অর্থ কী?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'ব্যাকরণ', 'বিশেষ্য বা ক্রিয়া বিশেষণ', 'ক্রিয়া', 'সর্বনাম', 'বিশেষ্য', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“অনুপ্রাস” এর আরেক নাম কী?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'রূপক', 'প্রতিশব্দ', 'সমান ধ্বনি', 'অত্যুক্তি', 'c', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা সাহিত্য কি ধরণের সাহিত্য?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'প্রাচীন ও আধুনিক উভয়', 'শুধুমাত্র আধুনিক', 'শুধুমাত্র প্রাচীন', 'বিদেশী সাহিত্য', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা সাহিত্যের সর্বপ্রথম নাটক কোনটি?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'দূর্গা', 'সকী', 'রক্তকরবী', 'শ্রীকান্ত', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা ব্যাকরণে “ক্রিয়া বিশেষণ” কী?', 'Bangla 1st Paper', '11-12', 'Science', 'Bangla', 'ব্যাকরণ', 'ক্রিয়াকে বিশেষণ করে এমন শব্দ', 'বিশেষ্যকে বিশেষণ করে এমন শব্দ', 'বিশেষণের বিশেষণ', 'নামবাচক শব্দ', 'a', 'hard', NOW(), NOW());
+
+-- Bangla 2nd Paper - 30 Hard MCQs
+INSERT INTO questions (
+  question_id, content, subject, class_level, group_name, department, topic,
+  option_a, option_b, option_c, option_d, correct_option, difficulty, created_at, updated_at
+) VALUES
+(gen_random_uuid(), 'বাংলা সাহিত্যে “রূপক” কী?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'একটি অলঙ্কার যা সরাসরি তুলনা করে না', 'তুলনা করা', 'অতিশয়োক্তি', 'ব্যক্তিত্ববর্ননা', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'নিচের কোনটি “ব্যক্তিত্ববর্ননা”?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'বৃষ্টির কণা নাচছে', 'সূর্য হাসছে', 'গাছ দাঁড়িয়ে আছে', 'পাখি উড়ছে', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা সাহিত্যে “অতিশয়োক্তি” কী?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'কিছু বড় বা বেশি বলা', 'কিছু ছোট বলা', 'কিছু ভুল বলা', 'সত্য বলা', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“চরিত্রায়ন” এর অর্থ কী?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'চরিত্রের বৈশিষ্ট্য প্রকাশ', 'গল্পের বিষয়', 'প্রতিবেশী', 'লেখকের জীবন', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“নাটকের কাঠামো” কোনটি?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'দৃশ্য ও আবেশ', 'গল্পের শুরু', 'কবিতার ছন্দ', 'উপন্যাসের চরিত্র', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“অনুকরণ” কোন অলঙ্কারের ধরন?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'প্রকৃতির সাদৃশ্য', 'তুলনা', 'অতিশয়োক্তি', 'ব্যক্তিত্ববর্ননা', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“গদ্য” এর সঠিক সংজ্ঞা কী?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'ছন্দবদ্ধ নয় এমন লেখা', 'কবিতা', 'গল্প', 'নাটক', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“কাব্য” ও “গদ্য” এর পার্থক্য কী?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'কাব্য ছন্দবদ্ধ, গদ্য নয়', 'কাব্য গদ্য, গদ্য ছন্দবদ্ধ', 'উভয়ই ছন্দবদ্ধ', 'কোন পার্থক্য নেই', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা সাহিত্যে “উপন্যাস” কী?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'দীর্ঘগল্প', 'ছোট গল্প', 'কবিতা', 'নাটক', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“ছন্দ” কী?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'কবিতার মাপ ও তাল', 'গল্পের বিষয়', 'নাটকের চরিত্র', 'গদ্যের ধরন', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“আলংকারিক ভাষা” কী?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'অলঙ্কার ব্যবহৃত ভাষা', 'সাধারণ ভাষা', 'গদ্যের ভাষা', 'নাটকের ভাষা', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“ব্যঙ্গ” কী?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'রসিকতা ও তির্যকতা', 'ভয়', 'ভালবাসা', 'ভালোবাসা', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা সাহিত্যে “স্বরবর্ণ” কতটি?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'ব্যাকরণ', '১১', '৮', '৯', '১০', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা কবিতায় “পদ্য” বলতে কী বোঝায়?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'ছন্দবদ্ধ কবিতা', 'গল্প', 'উপন্যাস', 'নাটক', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“প্রতিমা” অলঙ্কারের অর্থ কী?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'কোনো বস্তুর সাদৃশ্য প্রকাশ', 'তুলনা', 'অতিশয়োক্তি', 'ব্যক্তিত্ববর্ননা', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“উপমা” ও “রূপক” এর পার্থক্য কী?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'উপমা সরাসরি তুলনা, রূপক গোপন তুলনা', 'উভয়ই গোপন তুলনা', 'উভয়ই সরাসরি তুলনা', 'কোন পার্থক্য নেই', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“অতিশয়োক্তি” কী ধরনের অলঙ্কার?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'কিছু অতিরঞ্জিত বলা', 'সত্য বলা', 'ভয় প্রকাশ', 'সাহায্য করা', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“রচনা” বলতে কী বোঝায়?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'লেখার কাজ', 'গানের ধরণ', 'কবিতার নাম', 'নাটকের অংশ', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা সাহিত্যে “রবীন্দ্রনাথ ঠাকুর” কোন ধরণের লেখক?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'কবিতা ও গান রচনা', 'গল্পকার', 'নাট্যকার', 'উপন্যাসিক', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“আবৃত্তি” কী?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'কবিতার পাঠ', 'গল্প লেখা', 'নাটক পরিচালনা', 'উপন্যাস লেখা', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা গদ্যে “প্রবন্ধ” কী?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'নিবন্ধ', 'গল্প', 'কবিতা', 'নাটক', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“আধুনিক বাংলা সাহিত্য” কবে শুরু হয়?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', '১৮৬১ সালে', '১৭৫৭ সালে', '১৯৪৭ সালে', '১৯৭১ সালে', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা ভাষার জাতীয় কবি কে?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'রবীন্দ্রনাথ ঠাকুর', 'কাজী নজরুল ইসলাম', 'জীবনানন্দ দাশ', 'জসীম উদ্দীন', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“ছড়া” কী?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'হাস্যরসাত্মক কবিতা', 'গল্প', 'নাটক', 'উপন্যাস', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“বাক্যাংশ” কী?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'ব্যাকরণ', 'বাক্যের অংশ', 'শব্দ', 'অলঙ্কার', 'কবিতা', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“প্রধান বিষয়ে” কিসের আলোচনা হয়?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'ব্যাকরণ', 'মূল ভাব', 'অলঙ্কার', 'ছন্দ', 'গদ্য', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“কাব্যশৈলী” বলতে কী বোঝায়?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'কবিতার ভাষার ধরন ও রীতি', 'গল্পের বিষয়', 'উপন্যাসের ধরণ', 'নাটকের চরিত্র', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“প্রতীক” কী?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'কোনো বিষয়ের প্রতিফলন', 'সত্য', 'ভুল', 'অভিনয়', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা ভাষার কয়টি স্বরবর্ণ আছে?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'ব্যাকরণ', '১১', '৯', '৮', '১০', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), '“লক্ষণ” কী?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'ব্যাকরণ', 'কোনো শব্দ বা বাক্যের বিশেষতা', 'গল্পের অংশ', 'কবিতার নাম', 'নাটকের ধরন', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বাংলা সাহিত্যে “নজরুল” কোন ধরনের লেখক?', 'Bangla 2nd Paper', '11-12', 'Science', 'Bangla', 'সাহিত্য', 'কবিতা ও গীতিকার', 'গল্পকার', 'নাট্যকার', 'উপন্যাসিক', 'a', 'hard', NOW(), NOW());
+
+
+
+
+-- ICT 11-12 Hard MCQs - 40 Questions
+INSERT INTO questions (
+  question_id, content, subject, class_level, group_name, department, topic,
+  option_a, option_b, option_c, option_d, correct_option, difficulty, created_at, updated_at
+) VALUES
+(gen_random_uuid(), 'কম্পিউটারের মেমোরি কোন ধরনের?', 'ICT', '11-12', 'Science', 'ICT', 'Computer Basics', 'ভলেটাইল', 'নন-ভলেটাইল', 'প্রসেসর', 'ইনপুট ডিভাইস', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ওয়েব ব্রাউজারের কাজ কী?', 'ICT', '11-12', 'Science', 'ICT', 'Internet', 'ওয়েব পেজ প্রদর্শন', 'ওয়েব পেজ তৈরি', 'ওয়েব সার্ভার হোস্টিং', 'ওয়েব ডেটা স্টোর', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কম্পিউটার নেটওয়ার্কে IP ঠিকানা ব্যবহারের উদ্দেশ্য কী?', 'ICT', '11-12', 'Science', 'ICT', 'Networking', 'পরিচয় নির্ধারণ', 'ডেটা সংরক্ষণ', 'ডেটা এনক্রিপশন', 'ইন্টারনেট স্পিড বাড়ানো', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ক্লাউড কম্পিউটিং কী?', 'ICT', '11-12', 'Science', 'ICT', 'Cloud Computing', 'ইন্টারনেটে ডেটা ও সেবা প্রদান', 'লোকাল ডিভাইসে সফটওয়্যার ইনস্টলেশন', 'কম্পিউটার হার্ডওয়্যার', 'ডেটা এনক্রিপশন', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ফায়ারওয়ালের প্রধান কাজ কী?', 'ICT', '11-12', 'Science', 'ICT', 'Security', 'নেটওয়ার্ক সুরক্ষা', 'ডেটা ব্যাকআপ', 'ইন্টারনেট স্পিড বৃদ্ধি', 'ওয়েব পেজ তৈরি', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কম্পিউটারে ডেটা স্টোর করার মৌলিক একক কী?', 'ICT', '11-12', 'Science', 'ICT', 'Data Storage', 'বাইট', 'বিট', 'কিলোবাইট', 'মেগাবাইট', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'অপারেটিং সিস্টেমের কাজ কী?', 'ICT', '11-12', 'Science', 'ICT', 'OS', 'হার্ডওয়্যার ও সফটওয়্যারের মধ্যে সেতুবন্ধন', 'ইন্টারনেট ব্রাউজ করা', 'ডকুমেন্ট লেখা', 'কম্পিউটার অন করা', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ডেটাবেস ম্যানেজমেন্ট সিস্টেম (DBMS) কী?', 'ICT', '11-12', 'Science', 'ICT', 'Databases', 'ডেটা সংগঠিত ও পরিচালনা করা', 'ডেটা এনক্রিপশন', 'ওয়েব হোস্টিং', 'সফটওয়্যার ডেভেলপমেন্ট', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'HTML-এর পূর্ণরূপ কী?', 'ICT', '11-12', 'Science', 'ICT', 'Web Development', 'HyperText Markup Language', 'Hyper Transfer Markup Language', 'HighText Machine Language', 'Hyperlinking Text Marking Language', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'CSS-এর কাজ কী?', 'ICT', '11-12', 'Science', 'ICT', 'Web Design', 'ওয়েব পেজের ডিজাইন ও লেআউট নির্ধারণ', 'ওয়েব পেজের কন্টেন্ট লেখা', 'ডেটা সংরক্ষণ', 'সার্ভার পরিচালনা', 'a', 'hard', NOW(), NOW()),
+
+(gen_random_uuid(), 'কম্পিউটার ভাইরাসের কী প্রভাব থাকে?', 'ICT', '11-12', 'Science', 'ICT', 'Security', 'কম্পিউটার ক্ষতি করা', 'ডেটা স্টোর করা', 'হার্ডওয়্যার উন্নত করা', 'ডেটা এনক্রিপশন', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ইন্টারনেটে তথ্য আদান-প্রদান করার প্রোটোকল কী?', 'ICT', '11-12', 'Science', 'ICT', 'Internet', 'TCP/IP', 'HTTP', 'FTP', 'SMTP', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'সোশ্যাল ইঞ্জিনিয়ারিং কী?', 'ICT', '11-12', 'Science', 'ICT', 'Security', 'মানুষের মাধ্যমে তথ্য চুরি', 'কম্পিউটার ভাইরাস', 'ওয়েবসাইট হ্যাকিং', 'ডেটা ব্যাকআপ', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোডিং ভাষা কোনটি?', 'ICT', '11-12', 'Science', 'ICT', 'Programming', 'জাভাস্ক্রিপ্ট', 'HTML', 'CSS', 'SQL', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ফায়ারফক্স এবং গুগল ক্রোম কী ধরনের সফটওয়্যার?', 'ICT', '11-12', 'Science', 'ICT', 'Software', 'ওয়েব ব্রাউজার', 'অপারেটিং সিস্টেম', 'অ্যান্টিভাইরাস', 'ডাটাবেস', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'DNS কী কাজ করে?', 'ICT', '11-12', 'Science', 'ICT', 'Networking', 'ডোমেইন নামকে IP ঠিকানায় রূপান্তর', 'ডেটা এনক্রিপশন', 'ওয়েব পেজ হোস্টিং', 'ডেটা স্টোর', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোনটি কম্পিউটারের হার্ডওয়্যার?', 'ICT', '11-12', 'Science', 'ICT', 'Hardware', 'CPU', 'অপারেটিং সিস্টেম', 'ওয়েব ব্রাউজার', 'ডাটাবেস সফটওয়্যার', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'সফটওয়্যার আপডেট করার প্রধান কারণ কী?', 'ICT', '11-12', 'Science', 'ICT', 'Software', 'বাগ সংশোধন এবং নিরাপত্তা বৃদ্ধি', 'নতুন হার্ডওয়্যার যোগ করা', 'ডেটা ব্যাকআপ', 'ওয়েব পেজ তৈরি', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কী-বোর্ডের “Ctrl + C” কী কাজ করে?', 'ICT', '11-12', 'Science', 'ICT', 'Shortcut Keys', 'কপি', 'কাট', 'পেস্ট', 'আন্ডু', 'a', 'hard', NOW(), NOW()),
+
+(gen_random_uuid(), 'সোশ্যাল মিডিয়া প্ল্যাটফর্মের নিরাপত্তা ঝুঁকি কী?', 'ICT', '11-12', 'Science', 'ICT', 'Security', 'ব্যক্তিগত তথ্য চুরি', 'কম্পিউটার আপগ্রেড', 'ওয়েবসাইট তৈরি', 'ডেটা স্টোরেজ', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ক্লাউড স্টোরেজের উদাহরণ কোনটি?', 'ICT', '11-12', 'Science', 'ICT', 'Cloud Computing', 'Google Drive', 'হার্ড ডিস্ক', 'পেন ড্রাইভ', 'DVD', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ই-মেইল প্রোটোকল কোনটি?', 'ICT', '11-12', 'Science', 'ICT', 'Internet', 'SMTP', 'FTP', 'HTTP', 'POP3', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ডেটাবেসে তথ্য সংগঠনের একক কী?', 'ICT', '11-12', 'Science', 'ICT', 'Databases', 'রেকর্ড', 'টেবিল', 'ফিল্ড', 'ডাটাবেস', 'b', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোডিং ভাষা "Python" কোন ধরনের?', 'ICT', '11-12', 'Science', 'ICT', 'Programming', 'উচ্চ স্তরের ভাষা', 'নিম্ন স্তরের ভাষা', 'মেশিন ভাষা', 'অ্যাসেম্বলি ভাষা', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ওয়েবসাইটের ইউআরএল কী নির্দেশ করে?', 'ICT', '11-12', 'Science', 'ICT', 'Internet', 'ওয়েবসাইটের ঠিকানা', 'ইউজারের নাম', 'সার্ভারের নাম', 'প্রোটোকল', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'IP অ্যাড্রেসের পূর্ণরূপ কী?', 'ICT', '11-12', 'Science', 'ICT', 'Networking', 'Internet Protocol Address', 'Internal Protocol Address', 'Internet Private Address', 'Internal Private Address', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কম্পিউটারে RAM-এর কাজ কী?', 'ICT', '11-12', 'Science', 'ICT', 'Computer Basics', 'অস্থায়ী তথ্য সংরক্ষণ', 'স্থায়ী তথ্য সংরক্ষণ', 'প্রসেসর', 'ডিস্ক স্টোরেজ', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'অপারেটিং সিস্টেম কোনটি?', 'ICT', '11-12', 'Science', 'ICT', 'Software', 'Windows', 'Microsoft Word', 'Google Chrome', 'Adobe Photoshop', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন প্রোটোকল ওয়েব পেজ লোড করার জন্য ব্যবহৃত হয়?', 'ICT', '11-12', 'Science', 'ICT', 'Internet', 'HTTP', 'FTP', 'SMTP', 'TCP', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'বিগ ডেটা কী বোঝায়?', 'ICT', '11-12', 'Science', 'ICT', 'Data', 'বৃহৎ ও জটিল ডেটাসেট', 'কম্পিউটার হার্ডওয়্যার', 'ছোট ডেটাসেট', 'ডেটা স্টোরেজ', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'সাইবার সিকিউরিটি কী?', 'ICT', '11-12', 'Science', 'ICT', 'Security', 'অনলাইন তথ্য সুরক্ষা', 'কম্পিউটার হার্ডওয়্যার', 'সফটওয়্যার আপডেট', 'ওয়েব পেজ ডিজাইন', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ডেটা এনক্রিপশন কী জন্য ব্যবহৃত হয়?', 'ICT', '11-12', 'Science', 'ICT', 'Security', 'তথ্য সুরক্ষা', 'ডেটা সংরক্ষণ', 'ওয়েব পেজ তৈরি', 'কম্পিউটার হার্ডওয়্যার', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কম্পিউটার ভাইরাসের বিরুদ্ধে কী ব্যবহার করা হয়?', 'ICT', '11-12', 'Science', 'ICT', 'Security', 'অ্যান্টিভাইরাস সফটওয়্যার', 'ওয়েব ব্রাউজার', 'ডেটাবেস', 'সার্ভার', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কম্পিউটারে ডেটা কপি করার জন্য কোন কীবোর্ড শর্টকাট?', 'ICT', '11-12', 'Science', 'ICT', 'Shortcut Keys', 'Ctrl + C', 'Ctrl + V', 'Ctrl + X', 'Ctrl + Z', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোন ফাইল এক্সটেনশন ওয়ার্ড ডকুমেন্ট নির্দেশ করে?', 'ICT', '11-12', 'Science', 'ICT', 'File Types', '.docx', '.pdf', '.xlsx', '.pptx', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'কোড লেখার জন্য কোন সফটওয়্যার ব্যবহৃত হয়?', 'ICT', '11-12', 'Science', 'ICT', 'Programming', 'আইডিই (IDE)', 'ওয়েব ব্রাউজার', 'অপারেটিং সিস্টেম', 'ডেটাবেস', 'a', 'hard', NOW(), NOW()),
+(gen_random_uuid(), 'ওয়াই-ফাই এর পূর্ণরূপ কী?', 'ICT', '11-12', 'Science', 'ICT', 'Networking', 'Wireless Fidelity', 'Wide Fidelity', 'Wireless Fiber', 'Wide Fiber', 'a', 'hard', NOW(), NOW());
